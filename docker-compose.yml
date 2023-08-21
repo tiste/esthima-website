@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+    web:
+        container_name: web-${NAME_PROJECT}
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 80:80
+            - 8080:8080
+        volumes:
+            - ./src:/var/www/html/
+            - ~/.ssh:/home/docker/.ssh
+        environment:
+            VIRTUAL_HOST: local.${NAME_PROJECT}.com
+            VIRTUAL_PORT: 80
+            PHP_EXTENSION_GD: 1
+            PHP_EXTENSION_INTL: 1
+            PHP_EXTENSION_IMAGICK: 1
+            APACHE_EXTENSION_HEADERS: 1
+

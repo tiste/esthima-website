@@ -1,0 +1,94 @@
+body:not(.elementor-editor-active) {
+
+	/* DEBUG : RED LINE AS HELPER FOR ALIGNMENT  */
+	&.logged-in {
+		&:active:before,
+		&:active:after {
+			content: "";
+			display: block;
+			pointer-events: none;
+			top: 0;
+			position: fixed;
+			z-index: 10000000;
+			height: 100vh;
+			/*animation: debug-line 3s infinite;*/
+		}
+
+		&:active:before {
+			width: 1px;
+			background: red;
+			left: 50%;
+			right: auto;
+			border: 0; 
+		}
+		&:active:after {
+			width: auto;
+			max-width: 1420px;
+			margin: 0 auto;
+			background: transparent;
+			border-left: 1px solid red;
+			border-right: 1px solid red;
+			left: 20px;
+			right: 20px;
+			color: red;
+			font-weight: bold;
+		}
+
+		@media screen and (min-width: 411px) {
+			&:active:after {
+				left: 30px;
+				right: 30px;
+			}
+		}
+
+		@media screen and (min-width: 768px) {
+			&:active:after {
+				left: 4vw;
+				right: 4vw; 
+			}
+		}
+
+	}
+}
+
+@keyframes debug-line
+{
+  0%
+  {
+    width: 1px;
+    background: red;
+    left: 50%;
+    right: auto;
+    border: 0;
+  }
+  19%
+  {
+    width: 1px;
+    background: red;
+    left: 50%;
+    right: auto;
+    border: 0;
+  }
+  20%
+  {
+  	width: auto;
+    max-width: 1140px;
+    margin: 0 auto;
+    background: transparent;
+    border-left: 1px solid red;
+	  border-right: 1px solid red;
+    left: 4vw;
+    right: 4vw;
+  }
+  100%
+  {
+    width: auto;
+    max-width: 1140px;
+    margin: 0 auto;
+    background: transparent;
+    border-left: 1px solid red;
+	  border-right: 1px solid red;
+    left: 4vw;
+    right: 4vw;
+  }
+}

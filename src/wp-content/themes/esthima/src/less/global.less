@@ -1,0 +1,129 @@
+/*-------------------------------------------*\
+	BASICS
+\*-------------------------------------------*/
+
+/**
+ * body
+ *
+ */
+html,
+body {
+	&.no-scroll {
+		overflow: hidden;
+	}
+	/*
+	max-width: 1920px;
+	margin-left: auto;
+	margin-right: auto;
+	*/
+}
+body {
+	//font-family: @main-font;
+	//font-family: "Montserrat";
+	//font-family: "Open Sans";
+	//font-family: "Roboto";
+	font-family: @main-font;
+	font-size: @base-font-size;
+	color: black;
+	line-height: 1.4;
+	cursor: default;
+	-webkit-text-size-adjust: none;
+	&::after {
+		content: 'mobile';
+		display: none;
+	}
+}
+@media screen and (min-width: 768px) {
+	body {
+		//font-size: @base-font-size-tablet;
+		&::after {
+			content: 'tablet';
+		}
+	}
+}
+@media screen and (min-width: 1025px) {
+	body {
+		&::after {
+			content: 'desktop';
+		}
+	}
+}
+@media screen and (min-width: 1281px) {
+	body {
+		//font-size: @base-font-size-desktop;
+		/*line-height: 1.5;*/
+	}
+}
+
+/**
+ * selection
+ *
+ */
+::selection {
+	color: #FFFFFF;
+	background-color: @black;
+}
+
+
+/**
+ * paragraph
+ *
+ */
+p + p,
+p + blockquote,
+blockquote + p,
+blockquote + blockquote {
+	margin: 1.3em 0;
+}
+
+
+/**
+ * screen-reader-text
+ *
+ */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+
+/*-------------------------------------------*\
+	GLOBAL
+\*-------------------------------------------*/
+
+
+/**
+ * wrap
+ *
+ */
+.wrap,
+.grid {
+	margin: 0 auto;
+	padding: 0 20px;
+	width: 100%;
+
+	@media screen and (min-width: 411px) {
+		padding: 0 30px;
+	}
+	@media screen and (min-width: 768px) {
+		padding: 0 4vw;
+		max-width: calc(1420px + 8vw);
+
+		&--sm {
+			max-width: ~'calc(1080px + 8vw)';
+		}
+
+		&--lg {
+			max-width: ~'calc(1650px + 8vw)';
+		}
+
+	}
+}
