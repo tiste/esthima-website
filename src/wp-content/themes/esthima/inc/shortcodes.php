@@ -9,7 +9,6 @@ function mon_partial($atts) {
 add_shortcode('mon_partial', 'mon_partial');
 
 
-
 function template_partial($atts) {
 	extract(shortcode_atts(array(
 		'dir' => 'partials',

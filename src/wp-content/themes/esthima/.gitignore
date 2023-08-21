@@ -16,12 +16,15 @@ dist
 bundles
 manifest.json
 manifest-*.json
+node_modules
 
 #this directory (top-level/root)
 /style.css
+/style.min.css
 /style.css.map
 /editor-style.css
 /editor-style.css.map
+/js
 
 #specific directories
 /fonts/icons.eot

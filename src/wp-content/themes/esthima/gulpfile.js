@@ -1,13 +1,29 @@
-// Requis
-const gulp = require('gulp');
-const browserSync = require('browser-sync').create();
-const watch = require('gulp-watch');
-const plugins = require('gulp-load-plugins')(); // tous les plugins de package.json commençants par "gulp-"
+"use strict";
+
+// Load plugins
+const autoprefixer = require("autoprefixer");
+const browsersync = require("browser-sync").create();
+// const cp = require("child_process");
+const cssnano = require("cssnano");
+const del = require("del");
+const eslint = require("gulp-eslint");
+const gulp = require("gulp");
+// const imagemin = require("gulp-imagemin");
+// const newer = require("gulp-newer");
+const plumber = require("gulp-plumber");
+const postcss = require("gulp-postcss");
+const rename = require("gulp-rename");
+const less = require("gulp-less");
+const webpack = require("webpack");
+const webpackconfig = require("./webpack.config.js");
+const webpackstream = require("webpack-stream");
+const sourcemaps = require('gulp-sourcemaps');
+const mqpacker = require('@hail2u/css-mqpacker');
 
 
-// Tâche "browser-sync"
-gulp.task('browser-sync', function() {
-	browserSync.init({
+// BrowserSync
+function browserSync(done) {
+    browsersync.init({
 		proxy: {
 			target: 'localhost'
 		},
@@ -20,52 +36,119 @@ gulp.task('browser-sync', function() {
 		notify: false,
 		open: 'local'
 	});
-});
+  done();
+}
+
+// BrowserSync Reload
+function browserSyncReload(done) {
+  browsersync.reload();
+  done();
+}
+
+// Clean assets
+function clean() {
+  return del(["./js/"]);
+}
+
+// Optimize Images
+// function images() {
+//   return gulp
+//     .src("./src/images/**/*")
+//     .pipe(newer("./images"))
+//     .pipe(
+//       imagemin([
+//         imagemin.gifsicle({ interlaced: true }),
+//         imagemin.jpegtran({ progressive: true }),
+//         imagemin.optipng({ optimizationLevel: 5 }),
+//         imagemin.svgo({
+//           plugins: [
+//             {
+//               removeViewBox: false,
+//               collapseGroups: true
+//             }
+//           ]
+//         })
+//       ])
+//     )
+//     .pipe(gulp.dest("./images"));
+// }
 
 
-// Tâche "css" = LESS + postcss (source -> destination)
-gulp.task('css', function() {
-	return gulp.src(['./src/less/style.less', './src/less/editor-style.less'])
-		.pipe(plugins.plumber())
-		.pipe(plugins.sourcemaps.init())
-		.pipe(plugins.less())
-		.pipe(plugins.postcss())
-		.pipe(plugins.sourcemaps.write('.'))
-		.pipe(gulp.dest('./'));
-});
+// CSS task
+function css() {
+  return gulp
+    .src(['./src/less/style.less', './src/less/editor-style.less'], {allowEmpty:true})
+	.pipe(plumber())
+	.pipe(sourcemaps.init())
+    .pipe(less({
+      outputStyle: "expanded"
+    }))
+	.pipe(postcss([autoprefixer(), mqpacker({
+			sort: true
+		})]))
+	.pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest("./"))
+    .pipe(browsersync.stream());
+}
 
-// Tâche "minify" = minification CSS (source -> destination)
-gulp.task('minify', function() {
-	return gulp.src(['./*.css', '!./*.min.css'])
-		.pipe(plugins.postcss([require('cssnano')]))
-		.pipe(gulp.dest('./'));
-});
+// minify task
+function cssprod() {
+  return gulp
+    .src(['./src/less/style.less', './src/less/editor-style.less'], {allowEmpty:true})
+	.pipe(plumber())
+    .pipe(less({
+      outputStyle: "expanded"
+    }))
+	.pipe(postcss([autoprefixer(), mqpacker({sort: true}), cssnano()]))
+    .pipe(gulp.dest("./"))
+}
+
+// Lint scripts
+function scriptsLint() {
+  return gulp
+    .src(["./src/js/**/*"])
+    .pipe(plumber())
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+}
+
+// Transpile, concatenate and minify scripts
+function scripts() {
+  return (
+    gulp
+      .src(["./src/js/**/*"])
+      .pipe(plumber())
+      .pipe(webpackstream(webpackconfig, webpack))
+      // folder only, filename is specified in webpack config
+      .pipe(gulp.dest("./js/"))
+      .pipe(browsersync.stream())
+  );
+}
 
 
-// Tâche "dev"
-gulp.task('dev', plugins.sequence(['css'], 'browser-sync'));
+// Watch files
+function watchFiles() {
+  gulp.watch("./src/less/**/*", gulp.series(css, browserSyncReload));
+  gulp.watch("./src/js/**/*", gulp.series(scripts));
+//   gulp.watch(
+//     [
+//       "./fichier/**/*"
+//     ],
+//   );
+  // gulp.watch("./src/images/**/*", images);
+}
 
-// Tâche "prod" = dev + minify
-gulp.task('prod', plugins.sequence(['css'], 'minify'));
+// define complex tasks
+const js = gulp.series(scripts);
+const build = gulp.series(gulp.parallel(cssprod, js));
+const watch = gulp.parallel(css, js, watchFiles, browserSync);
 
-// Tâche par défaut
-gulp.task('default', ['dev'], function() {
-	watch([
-		'./src/less/**/*.css',
-		'./src/less/**/*.less',
-		'./src/less/*.less'
-	],
-	function() {
-		gulp.start.apply(gulp, ['css']);
-	});
-
-	watch([
-		'./*',
-		'./**/*',
-		'!./src',
-		'!./src/*'
-	],
-	function() {
-		browserSync.reload();
-	});
-});
+// export tasks
+// exports.images = images;
+exports.clean = clean;
+exports.css = css;
+exports.js = js;
+exports.build = build;
+exports.watch = watch;
+exports.default = watch;

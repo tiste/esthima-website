@@ -1,8 +1,4 @@
-/**
- * BREAKPOINT (for-size)
- * 
- * deprecated
- */
+// BREAKPOINT
 .for-size(@size, @rules) {
 	& when (@size = only-mobile) {
 		@media screen and (max-width: (@min-tablet-width - 1)) { @rules(); }
@@ -27,17 +23,7 @@
 	}
 }
 
-
-/**
- * FLEXBOX (flex)
- * 
- * @mixin .flex(@wrap: nowrap, @justify: flex-start, @align-items: stretch, @align-content: stretch, @direction: row)
- * @param {mixed} @wrap Taille
- * @param {mixed} @justify Règle
- * @param {mixed} @align-items Règle2
- * @param {mixed} @align-content Règle2
- * @param {mixed} @direction Règle2
- */
+// FLEXBOX
 .flex(@wrap: nowrap, @justify: flex-start, @align-items: stretch, @align-content: stretch, @direction: row) {
 	display: flex;
 	flex-wrap: @wrap;
@@ -53,33 +39,22 @@
 	}
 }
 
-
-/**
- * FLUID TYPOGRAPHY (fluid-type)
- * Défini une typo fluide entre 2 breakpoints à partir d'une taille de font minimum et maximum.
- * 
- * @mixin .fluid-type(@min_width, @max_width, @min-font-size, @max-font-size)
- * @param {int} @min_width Taille d'écran de départ
- * @param {int} @max_width Taille d'écran d'arrivée
- * @param {int} @min-font-size Taille du texte pour la taille d'écran de départ
- * @param {int} @max-font-size Taille du texte pour la taille d'écran d'arrivée
- */
+// FLUID TYPOGRAPHY
 .fluid-type(@min_width, @max_width, @min-font-size, @max-font-size) {
+
 	@media screen and (min-width: unit(@min_width,px)) and (max-width: unit(@max_width,px)){
 		font-size: calc(unit(@min-font-size,px) + (@max-font-size - @min-font-size) * ((100vw - unit(@min_width,px)) / (@max_width - @min_width)));
 	}
+
 	@media screen and (min-width: unit(@max_width,px)){
 		font-size: unit(@max-font-size,px);
 	}
 }
 
-
-/**
- * STRETCHED LINK (stretched-link)
- * Permet de rendre tout un bloc cliquable grâce au pseudo-élément `::after` de l'élément `<a>` enfant.
- */
+// STRETCHED LINK
 .stretched-link {
 	position: relative;
+
 	a[href] {
 		&::before {
 			content: '';
@@ -93,11 +68,7 @@
 	}
 }
 
-
-/**
- * ASPECT RATIO (fixed-ratio)
- * Permet de définir le ratio d'un conteneur et indique à ses déscendants direct de recouvrir tout le bloc.
- */
+// CONTAINER WITH FIXED RATIO
 .fixed-ratio(...) {
 	position: relative;
 
@@ -132,76 +103,6 @@
 }
 .fixed-ratio(@width, @height) {
 	&::before {
-		padding-top: unit((unit(@height)*100)/unit(@width), %);
+		padding-top: unit(((unit(@height)*100)/unit(@width)), %);
 	}
 }
-
-
-/**
- * VIEWPORT SIZE (vw-size)
- * Permet de calculer une taille en VW à partir d'une taille en PX
- */
-.vw-size(@prop, @size, @refSize) {
-	@{prop}: unit(( @size * 100 ) / @refSize, vw);
-}
-
-
-/**
- * GRID (grid)
- */
-/* resource : https://css-tricks.com/an-auto-filling-css-grid-with-max-columns/ */
-.grid(@max-cols, @min-item-width, @column-gap, @row-gap) {
-
-	/**
-	* User input values.
-	*/
-	--grid-layout-gap: @column-gap;
-	--grid-row-gap: @row-gap;
-	--grid-column-count: @max-cols;
-	--grid-item--min-width: @min-item-width;
-
-	/**
-	* Calculated values.
-	*/
-	--gap-count: calc(var(--grid-column-count) - 1);
-	--total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
-	--grid-item--max-width: calc((100% - var(--total-gap-width)) / var(--grid-column-count));
-
-	/**
-	* Applied properties
-	*/
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(~"max(var(--grid-item--min-width), var(--grid-item--max-width))", 1fr));
-	column-gap: var(--grid-layout-gap);
-	row-gap: var(--grid-row-gap);
-}
-
-
-/**
- * FLEXGRID (flexgrid)
- */
-.flexgrid(@cols, @min-item-width, @column-gap, @row-gap) {
-	.flex(@wrap: wrap);
-	margin-left: -(@column-gap / 2);
-	margin-right: -(@column-gap / 2);
-	/* width: 100%; */
-	> * {
-		width: calc( unit((100/@cols), %) - @column-gap);
-		margin: (@row-gap / 2) (@column-gap / 2);
-	}
-}
-
-
-/**
- * ASPECT-RATIO (aspect-ratio)
- */
-.aspect-ratio(@width, @height) {
-	aspect-ratio: @width / @height;
-	> * {
-		display: block;
-		width: 100% !important;
-		height: 100% !important;
-		object-fit: cover;	
-	}
-}
-

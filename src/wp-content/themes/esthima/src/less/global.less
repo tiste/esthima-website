@@ -8,52 +8,34 @@
  */
 html,
 body {
-	&.no-scroll {
-		overflow: hidden;
-	}
-	/*
 	max-width: 1920px;
 	margin-left: auto;
 	margin-right: auto;
-	*/
 }
 body {
-	//font-family: @main-font;
-	//font-family: "Montserrat";
-	//font-family: "Open Sans";
-	//font-family: "Roboto";
 	font-family: @main-font;
 	font-size: @base-font-size;
-	color: black;
-	line-height: 1.4;
+	color: #151515;
+	line-height: 1.6;
 	cursor: default;
 	-webkit-text-size-adjust: none;
-	&::after {
-		content: 'mobile';
-		display: none;
+	&.no-scroll {
+		overflow: hidden;
+		padding-right: 17px;
 	}
 }
 @media screen and (min-width: 768px) {
 	body {
-		//font-size: @base-font-size-tablet;
-		&::after {
-			content: 'tablet';
-		}
-	}
-}
-@media screen and (min-width: 1025px) {
-	body {
-		&::after {
-			content: 'desktop';
-		}
+		font-size: @base-font-size-tablet;
 	}
 }
 @media screen and (min-width: 1281px) {
 	body {
-		//font-size: @base-font-size-desktop;
-		/*line-height: 1.5;*/
+		font-size: @base-font-size-desktop;
+		line-height: 1.8;
 	}
 }
+
 
 /**
  * selection
@@ -94,7 +76,6 @@ blockquote + blockquote {
 	word-wrap: normal !important;
 }
 
-
 /*-------------------------------------------*\
 	GLOBAL
 \*-------------------------------------------*/
@@ -105,7 +86,8 @@ blockquote + blockquote {
  *
  */
 .wrap,
-.grid {
+.grid,
+.container {
 	margin: 0 auto;
 	padding: 0 20px;
 	width: 100%;
@@ -115,7 +97,7 @@ blockquote + blockquote {
 	}
 	@media screen and (min-width: 768px) {
 		padding: 0 4vw;
-		max-width: calc(1420px + 8vw);
+		max-width: ~'calc(1410px + 8vw)';
 
 		&--sm {
 			max-width: ~'calc(1080px + 8vw)';
@@ -125,5 +107,14 @@ blockquote + blockquote {
 			max-width: ~'calc(1650px + 8vw)';
 		}
 
+	}
+}
+
+
+.single-section {
+	padding-top: 40px;
+	&:not(:first-child) {
+		margin-top: 40px;
+		border-top: 1px solid #E4E4E4;
 	}
 }

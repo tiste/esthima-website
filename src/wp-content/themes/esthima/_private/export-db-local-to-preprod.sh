@@ -1,0 +1,1 @@
+./wp-cli.phar search-replace '(http|https)://localhost' 'https://scenes-connectees-preprod.krealid.com' --regex --export=database-preprod.sql

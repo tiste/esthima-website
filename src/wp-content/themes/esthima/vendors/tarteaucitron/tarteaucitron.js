@@ -1557,9 +1557,7 @@ var tarteaucitron = {
 
         if (!navigator) { return 'en'; }
 
-        //console.log(document.documentElement.lang);
-
-        var lang = document.documentElement.lang || navigator.language || navigator.browserLanguage ||
+        var lang = navigator.language || navigator.browserLanguage ||
                 navigator.systemLanguage || navigator.userLang || null,
             userLanguage = lang ? lang.substr(0, 2) : null;
 

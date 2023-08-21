@@ -1,0 +1,7 @@
+<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly
+
+
+// ACF : add option page
+if (function_exists('acf_add_options_page')) {
+	acf_add_options_page();
+}

@@ -9,15 +9,6 @@ function k_load_static_include_template() {
     /*register_widget(
 		new k_widget("[ID DU WIDGET]", "[NOM DU WIDGET]", "[NOM DU TEMPLATE .PHP DANS LE DOSSIER /PARTIALS DU THEME]", "[MESSAGE AFFICHÉ DANS L'ADMIN DU WIDGET]")
     );*/
-
-    register_widget(
-		new k_widget(
-			"nos_bureaux_widget", 
-			"Keyman - Nos bureaux", 
-			"nos-bureaux", 
-			"Les bureaux sont automatiquement affichés.<br>Pour les modifier, accéder au menu <br><a target='_blank' href='/wp-admin/admin.php?page=acf-options'>Options / Nos bureaux</a><br> dans l'admin Wordpress")
-    );
-
     
 }
 add_action( 'widgets_init', 'k_load_static_include_template' );
