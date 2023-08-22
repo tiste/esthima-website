@@ -15,5 +15,12 @@
 <body <?php body_class(); ?>>
 	
 	<header class="header <?php if (is_front_page()) : ?>header-transparent <?php endif;?>">
-		
+		<div class="header__top">
+			<a href="<?php echo home_url('/'); ?>">
+				<img src="<?php //echo get_field(''); ?>" alt="">
+			</a>
+		</div>
+		<div class="header__pink">
+
+		</div>
 	</header>
