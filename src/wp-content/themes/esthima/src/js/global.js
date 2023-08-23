@@ -31,6 +31,37 @@ function getCookie(cName) {
 
 (function (window, $) {
 
+	/* menu - ouvre menu */
+	$(document).on('click', '.header__pink__item-menu', function(){
+		$('.header__menu').css('transform', 'translateX(0)');
+	})
+	/* /menu - ouvre menu */
+	/* menu - ferme menu */
+	$(document).on('click', '.header__menu__close', function(){
+		$('.header__menu').css('transform', 'translateX(-100%)');
+	})
+	/* /menu - ferme menu */
+
+	/* menu - ouvre/ferme sous-menu */
+	$(document).on('click', '.header__menu__main > ul > li.menu-item-has-children > a', function(e){
+		e.preventDefault();
+		if($(this).parents('li.menu-item-has-children').hasClass('menu-item-has-children-open')){
+			$(this).parents('li.menu-item-has-children').find('ul.sub-menu').css({
+				'height': '0',
+				'padding': '0 0 0 50px'
+			})
+			$(this).parents('li.menu-item-has-children').removeClass('menu-item-has-children-open');
+		}else{
+			let newHeight = $(this).parents('li.menu-item-has-children').find('ul.sub-menu').prop('scrollHeight') + 23;
+			$(this).parents('li.menu-item-has-children').find('ul.sub-menu').css({
+				'height': newHeight+'px',
+				'padding': '23px 0 0 50px'
+			})
+			$(this).parents('li.menu-item-has-children').addClass('menu-item-has-children-open');
+		}
+	})
+	/* /menu - ouvre/ferme sous-menu */
+
 	$(document).ready(function(){
 
 	});
