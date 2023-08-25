@@ -174,13 +174,15 @@
 				$btnShop = get_field('shop_link');
 				if(!is_null($btnShop) && !empty($btnShop) && is_array($btnShop)) :
 			?>
-			<a href="<?php echo $btnShop['title']; ?>" target="<?php echo $btnShop['target']; ?>" class="hp__shop__btn"><?php echo $btnShop['title']; ?></a>
+			<a href="<?php echo $btnShop['title']; ?>" target="<?php echo $btnShop['target']; ?>" class="hp__shop__btn btn btn--arrow"><?php echo $btnShop['title']; ?></a>
 			<?php endif; ?>
 		</div>
 	</div>
 		
 	<div class="hp__guides">
-		<h2><?php echo get_field('tips_title'); ?></h2>
+		<div class="containerCustom2">
+			<h2><?php echo get_field('tips_title'); ?></h2>
+		</div>
 		<?php
 			$guides = get_field('tips_blocks');
 			if(!is_null($guides) && !empty($guides) && is_array($guides)) :
@@ -190,28 +192,45 @@
 				<div class="hp__guides__item__img">
 					<img src="<?php echo $g['image']; ?>" alt="<?php echo $g['title']; ?>">
 				</div>
-				<div class="hp__guides__item__title">
-					<?php echo $g['title']; ?>
+				<?php if($key==0) : ?>
+				<div class="containerCustom2">
+					<div class="hp__guides__item__texts">
+						<div class="hp__guides__item__title">
+							<?php echo $g['title']; ?>
+						</div>
+						<div class="hp__guides__item__text">
+							<?php echo $g['text']; ?>
+						</div>
+					</div>
 				</div>
-				<div class="hp__guides__item__text">
-					<?php echo $g['text']; ?>
-				</div>
+				<?php else : ?>
+					<div class="hp__guides__item__texts">
+						<div class="hp__guides__item__title">
+							<?php echo $g['title']; ?>
+						</div>
+						<div class="hp__guides__item__text">
+							<?php echo $g['text']; ?>
+						</div>
+					</div>
+				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
 		<?php endif; ?>
 	</div>
 
-	<div class="hp__reviews">
-		<div class="skeepers_carousel_container" data-slides-count="4"></div><script async charset="utf-8" src="//widgets.rr.skeepers.io/carousel/234e7099-e96e-9c14-3963-2f6cb14903c5/a689b41b-194f-4f19-b764-d84f8a5d4898.js"></script>
+	<div class="containerCustom2">
+		<div class="hp__reviews">
+			<div class="skeepers_carousel_container" data-slides-count="4"></div><script async charset="utf-8" src="//widgets.rr.skeepers.io/carousel/234e7099-e96e-9c14-3963-2f6cb14903c5/a689b41b-194f-4f19-b764-d84f8a5d4898.js"></script>
+		</div>
+		<div class="hp__content">
+			<?php if ( have_posts() ) : ?>
+				<?php while ( have_posts() ) : the_post(); ?>
+					<?php the_content() ?>
+				<?php endwhile; ?>
+			<?php endif; ?>
+		</div>
 	</div>
 
-	<div>
-		<?php if ( have_posts() ) : ?>
-			<?php while ( have_posts() ) : the_post(); ?>
-				<?php the_content() ?>
-			<?php endwhile; ?>
-		<?php endif; ?>
-	</div>
 
 </main>
 

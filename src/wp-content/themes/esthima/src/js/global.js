@@ -116,6 +116,18 @@ function getCookie(cName) {
 		}
 		/* /hp - ajout avis tetiere */
 
+		/* hp - taille min bloc guides */
+		if($('.hp__guides__item-2').length && $('.hp__guides__item-3').length){
+			let minHeightGuides = $('.hp__guides__item-2').outerHeight() + $('.hp__guides__item-3').outerHeight() + 94;
+			let topGuide3 = $('.hp__guides__item-2').outerHeight() + 94;
+			$('.hp__guides').css('min-height', minHeightGuides+'px');
+			$('.hp__guides__item-3').css('top', topGuide3+'px');
+		}else if($('.hp__guides__item-2').length){
+			let minHeightGuides = 0;
+			$('.hp__guides').css('min-height', minHeightGuides+'px');
+		}
+		/* /hp - taille min bloc guides */
+
 		/* taille espaceur header */
 		if($('.heightHeader').length){
 			$('.heightHeader').css('height', $('header.header').outerHeight()+'px');

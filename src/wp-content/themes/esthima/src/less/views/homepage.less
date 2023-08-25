@@ -470,5 +470,86 @@
                 }
             }
         }
+        &__btn{
+            margin: 60px auto 0;
+        }
+    }
+    &__guides{
+        display: block;
+        position: relative;
+        margin: 0 auto 165px;
+        h2{
+            max-width: 1380px;
+            margin: 0 auto 74px;
+            color: @text;
+            font-size: 68px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1;
+            span{
+                color: @main;
+                display: block;
+            }
+        }
+        &__item{
+            display: block;
+            &-1{
+                position: relative;
+                .hp__guides__item__img{
+                    width: 53%;
+                    .fixed-ratio(1.39918256);
+                }
+                .hp__guides__item__texts{
+                    max-width: 1380px;
+                    margin: 0 auto;
+                }
+                .hp__guides__item__title,
+                .hp__guides__item__text{
+                    max-width: 677px;
+                }
+            }
+            &-2,
+            &-3{
+                position: absolute;
+                top: 0;
+                left: 61.71875%;
+                max-width: 37%;
+                .hp__guides__item__img,
+                .hp__guides__item__title,
+                .hp__guides__item__text{
+                    width: 100%;
+                }
+            }
+            &-2{
+                width: 350px;
+            }
+            &-3{
+                width: 540px;
+            }
+            &__img{
+                display: block;
+                margin: 0 0 30px;
+            }
+            &__title{
+                margin: 0 0 30px;
+                color: @text;
+                font-size: 28px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+            &__text{
+                color: @text;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1.6;
+            }
+        }
+    }
+    &__reviews,
+    &__content{
+        max-width: 1380px;
+        margin: 0 auto 200px;
     }
 }
