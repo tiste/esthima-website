@@ -41,7 +41,7 @@ npmprod: ## npm run prod
 
 .PHONY: sshdb
 sshdb: ## tunnel ssh db
-	docker exec -it  web-$(NAME_PROJECT) /bin/bash -c "ssh ${SSH_USER}@${SSH_HOST} -p ${SSH_PORT} -N -L 3306:127.0.0.1:3306"
+	docker exec -it  web-$(NAME_PROJECT) /bin/bash -c "sudo apt-get update && sudo apt-get install autossh && autossh -M 0 -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' -N -L 3306:127.0.0.1:3306 -p ${SSH_PORT} ${SSH_USER}@${SSH_HOST}"
 
 .PHONY: db
 db: ## Install database

@@ -14,7 +14,7 @@
 
 <body <?php body_class(); ?>>
 	
-	<header class="header <?php if (is_front_page()) : ?>header-transparent <?php endif;?>">
+	<header class="header <?php if (is_front_page()) : ?>header-transparent header-transparent-active <?php endif;?>">
 		<div class="header__top containerCustom">
 			<a href="<?php echo home_url('/'); ?>" class="header__top__logo">
 				<img src="<?php echo get_field('header_logo', 'option'); ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" class="header__top__logo__img header__top__logo__img-normal">
@@ -56,3 +56,7 @@
 			<?php endif; ?>
 		</div>
 	</header>
+
+	<?php if (!is_front_page()) : ?>
+	<div class="heightHeader"></div>
+	<?php endif; ?>

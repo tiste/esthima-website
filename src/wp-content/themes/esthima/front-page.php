@@ -3,97 +3,110 @@
 ?>
 
 <main class="main">
-	
-	<?php //if ( have_posts() ) : ?>
-		<?php //while ( have_posts() ) : the_post(); ?>
-			<?php //the_content() ?>
-		<?php //endwhile; ?>
-	<?php //endif; ?>
 
 	<div class="hp__tet" style="--bg-img: url('<?php echo str_replace("'", "\'", get_field('tet_background')) ?>')">
-		<h1><?php echo get_field('tet_title'); ?></h1>
-		<div class="hp__tet__text">
-			<?php echo get_field('tet_text'); ?>
-		</div>
-		<?php
-			$tetBtns = get_field('tet_btns');
-			if(!is_null($tetBtns) && !empty($tetBtns) && is_array($tetBtns)) :
-		?>
-		<div class="hp__tet__btns">
-			<?php foreach($tetBtns as $btn) : ?>
-				<a href="<?php echo $btn['link']['url']; ?>" target="<?php echo $btn['link']['target']; ?>"><?php echo $btn['link']['title']; ?></a>
-			<?php endforeach; ?>
+		<?php if(!is_null(get_field('tet_bgvid')) && !empty(get_field('tet_bgvid'))) : ?>
+		<div class="hp__tet__video">
+			<video autoplay mute loop>
+				<source src="<?php echo get_field('tet_bgvid'); ?>" />
+			</video>
 		</div>
 		<?php endif; ?>
+		<div class="hp__tet__container">
+			<div class="hp__tet__reviews"></div>
+			<h1><?php echo get_field('tet_title'); ?></h1>
+			<div class="hp__tet__text">
+				<?php echo get_field('tet_text'); ?>
+			</div>
+			<?php
+				$tetBtns = get_field('tet_btns');
+				if(!is_null($tetBtns) && !empty($tetBtns) && is_array($tetBtns)) :
+			?>
+			<div class="hp__tet__btns">
+				<?php foreach($tetBtns as $btn) : ?>
+					<a href="<?php echo $btn['link']['url']; ?>" target="<?php echo $btn['link']['target']; ?>" class="btn btn--arrow"><?php echo $btn['link']['title']; ?></a>
+				<?php endforeach; ?>
+			</div>
+			<?php endif; ?>
+		</div>
 	</div>
 
 	<div class="hp__services">
 		<div class="lightBG">
-			<?php
-				$services = get_field('services_services');
-				if(!is_null($services) && !empty($services) && is_array($services)) :
-			?>
-			<div class="hp__services__serv">
-				<?php foreach($services as $s) : ?>
-					<div class="hp__services__serv__item">
-						<div class="hp__services__serv__item__picto">
-							<img src="<?php echo $s['picto']; ?>" alt="<?php echo $s['text']; ?>">
+			<div class="containerCustom2">
+				<?php
+					$services = get_field('services_services');
+					if(!is_null($services) && !empty($services) && is_array($services)) :
+				?>
+				<div class="hp__services__serv">
+					<?php foreach($services as $s) : ?>
+						<div class="hp__services__serv__item">
+							<div class="hp__services__serv__item__picto">
+								<img src="<?php echo $s['picto']; ?>" alt="<?php echo $s['text']; ?>">
+							</div>
+							<div class="hp__services__serv__item__text">
+								<?php echo $s['text']; ?>
+							</div>
 						</div>
-						<div class="hp__services__serv__item__text">
-							<?php echo $s['text']; ?>
-						</div>
-					</div>
-				<?php endforeach; ?>
+					<?php endforeach; ?>
+				</div>
+				<?php endif; ?>
+				<h2><?php echo get_field('services_title'); ?></h2>
 			</div>
-			<?php endif; ?>
-			<h2><?php echo get_field('services_title'); ?></h2>
 		</div>
 		<?php
 			$servicesVignettes = get_field('services_vignettes');
 			if(!is_null($servicesVignettes) && !empty($servicesVignettes) && is_array($servicesVignettes)) :
 		?>
-		<div class="hp__services__vignettes">
-			<?php foreach($servicesVignettes as $sv) : ?>
-				<div class="hp__services__vignettes__item" style="--bg-img: url('<?php echo str_replace("'", "\'", $sv['image']); ?>')">
-					<div class="hp__services__vignettes__item__text">
-						Pour <span><?php echo $sv['link']['title']; ?></span>
+		<div class="containerCustom2">
+			<div class="hp__services__vignettes">
+				<?php foreach($servicesVignettes as $sv) : ?>
+					<div class="hp__services__vignettes__item" style="--bg-img: url('<?php echo str_replace("'", "\'", $sv['image']); ?>')">
+						<div class="hp__services__vignettes__item__text">
+							Pour <span><?php echo $sv['link']['title']; ?></span>
+						</div>
+						<img src="<?php echo get_template_directory_uri(); ?>/images/arrow-big.svg" class="hp__services__vignettes__item__arrow">
+						<a href="<?php echo $sv['link']['url']; ?>" target="<?php echo $sv['link']['target']; ?>"></a>
 					</div>
-					<a href="<?php echo $sv['link']['url']; ?>" target="<?php echo $sv['link']['target']; ?>"></a>
-				</div>
-			<?php endforeach; ?>
+				<?php endforeach; ?>
+			</div>
 		</div>
 		<?php endif; ?>
 	</div>
 
 	<div class="hp__conf">
-		<div class="hp__conf__top">
-			<h2><?php echo get_field('conf_title'); ?></h2>
-			<div class="hp__conf__top__text">
-				<?php echo get_field('conf_text'); ?>
-			</div>
-		</div>
-		<?php
-			$confSteps = get_field('conf_parcours');
-			if(!is_null($confSteps) && !empty($confSteps) && is_array($confSteps)) :
-		?>
-		<div class="hp__conf__steps">
-			<?php foreach($confSteps as $key => $cs) : ?>
-				<div class="hp__conf__steps__item">
-					<div class="hp__conf__steps__item__img">
-						<img src="<?php echo $cs['picto'] ?>" alt="Étape <?php echo $key+1; ?> - <?php echo $cs['text'] ?>">
-					</div>
-					<div class="hp__conf__steps__item__text">
-						<div class="hp__conf__steps__item__text__title">Étape <?php echo $key+1; ?></div>
-						<div class="hp__conf__steps__item__text__text"><?php echo $cs['text'] ?></div>
-					</div>
+		<div class="containerCustom2">
+			<div class="hp__conf__top">
+				<h2><?php echo get_field('conf_title'); ?></h2>
+				<div class="hp__conf__top__text">
+					<?php echo get_field('conf_text'); ?>
 				</div>
-			<?php endforeach; ?>
+			</div>
+			<?php
+				$confSteps = get_field('conf_parcours');
+				if(!is_null($confSteps) && !empty($confSteps) && is_array($confSteps)) :
+			?>
+			<div class="hp__conf__steps">
+				<?php foreach($confSteps as $key => $cs) : ?>
+					<div class="hp__conf__steps__item">
+						<div class="hp__conf__steps__item__img">
+							<img src="<?php echo $cs['picto'] ?>" alt="Étape <?php echo $key+1; ?> - <?php echo $cs['text'] ?>">
+						</div>
+						<div class="hp__conf__steps__item__text">
+							<div class="hp__conf__steps__item__text__title">Étape <?php echo $key+1; ?></div>
+							<div class="hp__conf__steps__item__text__text"><?php echo $cs['text'] ?></div>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+			<?php endif; ?>
 		</div>
-		<?php endif; ?>
 	</div>
 
 	<div class="hp__urgence">
-		<?php get_template_part('template-parts/urgence-deces'); ?>
+		<div class="containerCustom2">
+			<?php get_template_part('template-parts/urgence-deces'); ?>
+		</div>
 	</div>
 
 	<div class="hp__imgblock" style="--bg-img: url('<?php echo str_replace("'", "\'", get_field('imgblock_img')); ?>')">
@@ -108,7 +121,7 @@
 			?>
 			<div class="hp__imgblock__block__btns">
 				<?php foreach($imgBtns as $btn) : ?>
-					<a href="<?php echo $btn['link']['url']; ?>" target="<?php echo $btn['link']['target']; ?>"><?php echo $btn['link']['title']; ?></a>
+					<a href="<?php echo $btn['link']['url']; ?>" target="<?php echo $btn['link']['target']; ?>" class="btn btn--arrow btn--arrow--white"><?php echo $btn['link']['title']; ?></a>
 				<?php endforeach; ?>
 			</div>
 			<?php endif; ?>
@@ -125,8 +138,81 @@
 			<?php endif; ?>
 		</div>
 	</div>
+
+	<div class="hp__shop">
+		<div class="containerCustom2">
+			<h3><?php echo get_field('shop_surtitle'); ?></h3>
+			<h2><?php echo get_field('shop_title'); ?></h2>
+			<div class="hp__shop__text">
+				<?php echo get_field('shop_text'); ?>
+			</div>
+			<?php
+				$cats = get_field('shop_products');
+				if(!is_null($cats) && !empty($cats) && is_array($cats)) :
+			?>
+			<div class="hp__shop__cats">
+				<?php foreach($cats as $c) : $product = wc_get_product($c); ?>
+					<div class="hp__shop__cats__item">
+						<div class="hp__shop__cats__item__img">
+							<img src="<?php echo wp_get_attachment_image_src(get_post_thumbnail_id($c), 'single-post-thumbnail')[0]; ?>" alt="<?php echo $product->get_name(); ?>">
+						</div>
+						<div class="hp__shop__cats__item__cat">
+							<?php echo get_the_terms($c, 'product_cat')[0]->name; ?>
+						</div>
+						<div class="hp__shop__cats__item__name">
+							<?php echo $product->get_name(); ?>
+						</div>
+						<div class="hp__shop__cats__item__minprice">
+							à partir de <?php echo $product->get_price(); ?>€
+						</div>
+						<a href="<?php echo $product->get_permalink(); ?>"></a>
+					</div>
+				<?php endforeach; ?>
+			</div>
+			<?php endif; ?>
+			<?php
+				$btnShop = get_field('shop_link');
+				if(!is_null($btnShop) && !empty($btnShop) && is_array($btnShop)) :
+			?>
+			<a href="<?php echo $btnShop['title']; ?>" target="<?php echo $btnShop['target']; ?>" class="hp__shop__btn"><?php echo $btnShop['title']; ?></a>
+			<?php endif; ?>
+		</div>
+	</div>
 		
-	<div class="skeepers_carousel_container" data-slides-count="4"></div><script async charset="utf-8" src="//widgets.rr.skeepers.io/carousel/234e7099-e96e-9c14-3963-2f6cb14903c5/a689b41b-194f-4f19-b764-d84f8a5d4898.js"></script>
+	<div class="hp__guides">
+		<h2><?php echo get_field('tips_title'); ?></h2>
+		<?php
+			$guides = get_field('tips_blocks');
+			if(!is_null($guides) && !empty($guides) && is_array($guides)) :
+		?>
+		<?php foreach($guides as $key => $g) : ?>
+			<div class="hp__guides__item hp__guides__item-<?php echo $key+1; ?>">
+				<div class="hp__guides__item__img">
+					<img src="<?php echo $g['image']; ?>" alt="<?php echo $g['title']; ?>">
+				</div>
+				<div class="hp__guides__item__title">
+					<?php echo $g['title']; ?>
+				</div>
+				<div class="hp__guides__item__text">
+					<?php echo $g['text']; ?>
+				</div>
+			</div>
+		<?php endforeach; ?>
+		<?php endif; ?>
+	</div>
+
+	<div class="hp__reviews">
+		<div class="skeepers_carousel_container" data-slides-count="4"></div><script async charset="utf-8" src="//widgets.rr.skeepers.io/carousel/234e7099-e96e-9c14-3963-2f6cb14903c5/a689b41b-194f-4f19-b764-d84f8a5d4898.js"></script>
+	</div>
+
+	<div>
+		<?php if ( have_posts() ) : ?>
+			<?php while ( have_posts() ) : the_post(); ?>
+				<?php the_content() ?>
+			<?php endwhile; ?>
+		<?php endif; ?>
+	</div>
+
 </main>
 
 <?php get_footer(); ?>

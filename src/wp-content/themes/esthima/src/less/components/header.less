@@ -1,5 +1,12 @@
 .header{
-    &-transparent{
+    width: 100%;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 9;
+    &-transparent-active{
+        .header__top{
+            background-color: transparent;
+        }
         .header__top__logo__img-normal{
             opacity: 0;
         }
@@ -28,6 +35,8 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        background-color: @white;
+        transition: 0.3s;
         &__logo{
             position: relative;
             &__img{

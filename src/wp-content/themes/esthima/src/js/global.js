@@ -29,7 +29,7 @@ function getCookie(cName) {
 }
 
 
-(function (window, $) {
+;(function (window, $) {
 
 	/* menu - ouvre menu */
 	$(document).on('click', '.header__pink__item-menu', function(){
@@ -64,10 +64,64 @@ function getCookie(cName) {
 
 	$(document).ready(function(){
 
+		var currentScrollPos = 0;
+		var ticking = false;
+		var lastScrollTop = 0;
+		window.addEventListener('scroll', function(e) {
+			currentScrollPos = window.scrollY;
+			if (!ticking){
+				window.requestAnimationFrame(function(){
+					/* header - toggle transparence si besoin */
+					console.log('scroll', currentScrollPos)
+					if(currentScrollPos > 50 && $('.header-transparent').length){
+						console.log('remove')
+						$('.header-transparent').removeClass('header-transparent-active');
+					}else if($('.header-transparent').length){
+						console.log('add')
+						$('.header-transparent').addClass('header-transparent-active');
+					}
+					/* /header - toggle transparence si besoin */
+					ticking = false;
+				});
+			}
+			ticking = true;
+		});
+		/* /scroll */
+
 	});
 
 	$( window ).load(function() {
-		
+
+		/* hp - autoplay video tet (nécéssite une action de l'utilisateur sur la page) */
+		if($('.hp__tet__video').length){
+			window.addEventListener("click", () => {
+				$('.hp__tet__video video')[0].play()
+			}, { once: true });
+		}
+		/* /hp - autoplay video tet */
+
+		/* hp - ajout avis tetiere */
+		if($('.hp__tet__reviews').length && $('.hp__reviews .rating__value').length){
+			let linkToReviews = $('a.rating__details-link').attr('href');
+			let htmlReviews = `
+				<div class="skeepers_carousel_container">
+					`+$('#nr-average-stars').html()+`
+				</div>
+				<div class="hp__tet__reviews__note">
+					`+$('#nr-average').html()+`<span>/5</span>
+				</div>
+				<a href="`+linkToReviews+`" target="_blank" class="hp__tet__reviews__number">`+$('#nr-total-reviews').html()+` avis</a>
+			`;
+			$('.hp__tet__reviews').html(htmlReviews);
+		}
+		/* /hp - ajout avis tetiere */
+
+		/* taille espaceur header */
+		if($('.heightHeader').length){
+			$('.heightHeader').css('height', $('header.header').outerHeight()+'px');
+		}
+		/* /taille espaceur header */
+
 	});
 	
 })(window, jQuery);
