@@ -1,0 +1,4 @@
+2023-08-24T09:23:24+00:00 CRITICAL syntax error, unexpected token "[", expecting variable or "{" or "$" dans /var/www/html/wp-content/themes/esthima/front-page.php à la ligne 143
+
+2023-08-24T12:40:07+00:00 CRITICAL syntax error, unexpected token "->", expecting identifier or variable or "{" or "$" dans /var/www/html/wp-content/themes/esthima/front-page.php à la ligne 155
+

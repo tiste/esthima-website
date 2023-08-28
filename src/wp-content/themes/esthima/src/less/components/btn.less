@@ -1,0 +1,39 @@
+.btn{
+    display: block;
+    width: fit-content;
+    &--arrow{
+        padding: 18px 18px 18px 32px;
+        border-radius: 100px;
+        background-color: @main;
+        color: @white;
+        font-family: @main-font;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        &:hover{
+            &::after{
+                margin-left: 26px;
+            }
+        }
+        &::after{
+            content: "";
+            display: inline-block;
+            margin-left: 12px;
+            width: 20px; height: 20px;
+            background-image: url('images/arrow-right-white.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            vertical-align: middle;
+            transition: 0.3s;
+        }
+        &--white{
+            background-color: @white;
+            color: @main;
+            &::after{
+                background-image: url('images/arrow-right-pink.svg');
+            }
+        }
+    }
+}

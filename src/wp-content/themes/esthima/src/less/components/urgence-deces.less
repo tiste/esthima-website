@@ -1,0 +1,89 @@
+.urgence-deces{
+    display: block;
+    max-width: 1380px;
+    margin: auto;
+    padding: 30px 80px;
+    background-color: #E0EAE5;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    &__titles{
+        width: 42.62%;
+        h2{
+            color: @text;
+            font-size: 68px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+        h3{
+            color: @main;
+            font-size: 48px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+    }
+    &__blocks{
+        width: 50.82%;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: flex-end;
+        gap: 20px;
+        &__item{
+            background-color: @white;
+            border-radius: 8px;
+            padding: 42px 20px 20px;
+            width: 300px;
+            min-height: 250px;
+            &__picto{
+                display: block;
+                width: 58px;
+                margin: 0 auto 16px;
+            }
+            h4{
+                margin: 0 auto 6px;
+                color: @text;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                letter-spacing: 1.4px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+            &__text{
+                margin: 0 auto 17px;
+                color: @text;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-align: center;
+            }
+            &__link{
+                width: 100%;
+            }
+            .phone-number{
+                .phone-number__pill__number{
+                    font-size: 20px;
+                    border: solid 1px #D4D4D4;
+                    border-right: none;
+                }
+                .phone-number__pill__text{
+                    font-size: 10px;
+                }
+                .phone-number__text{
+                    color: @text;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

@@ -2,7 +2,60 @@
 
 	<?php /* FOOTER */ ?>
 	<footer class="footer">
-		
+		<div class="containerCustom2">
+			<div class="footer__top">
+				<div class="footer__top__left">
+					<div class="footer__top__left__title">
+						<?php echo get_field('footer_news_title', 'option'); ?>
+					</div>
+					<div class="footer__top__left__text">
+						<?php echo get_field('footer_news_text', 'option'); ?>
+					</div>
+					<div class="footer__top__left__form">
+						<div>
+							<input type="email" placeholder="Votre adresse email">
+							<input type="submit">
+						</div>
+						<div class="footer__top__left__form__check">
+							<input type="checkbox" id="newsletterconsent" name="newsletterconsent">
+							<label for="newsletterconsent">J’accepte de m’inscrire à la newsletter et je reconnais avoir pris connaissance de la politique de confidentialité d’Esthima.</label>
+						</div>
+					</div>
+					<div class="footer__top__left__flex">
+						<div class="footer__top__left__flex__item footer__top__left__flex__item-1">
+							<?php
+								$rs = get_field('global_social', 'option');
+								if(!is_null($rs) && !empty($rs) && is_array($rs)) :
+							?>
+							<div class="footer__top__left__title">
+								Suivez-nous
+							</div>
+							<div class="footer__top__left__social">
+								<?php foreach($rs as $s) : ?>
+									<a href="<?php echo $s['link']; ?>" target="_blank" class="footer__top__left__social__link footer__top__left__social__link-<?php echo $s['reseau']; ?>"></a>
+								<?php endforeach; ?>
+							</div>
+							<?php endif; ?>
+						</div>
+						<div class="footer__top__left__flex__item footer__top__left__flex__item-2">
+							<?php get_template_part('template-parts/phone-number'); ?>
+						</div>
+					</div>
+				</div>
+				<div class="footer__top__right">
+					<?php wp_nav_menu(['menu'=>'Footer - main', 'container_class'=>'footer__top__right__menu footer__top__right__menu-1']); ?>
+					<?php wp_nav_menu(['menu'=>'Footer - second', 'container_class'=>'footer__top__right__menu footer__top__right__menu-2']); ?>
+				</div>
+			</div>
+		</div>
+		<div class="footer__bottom">
+			<div class="containerCustom2">
+				<div class="footer__bottom__container">
+					<?php wp_nav_menu(['menu'=>'Footer - bottom', 'container_class'=>'footer__bottom__menu']); ?>
+					<div class="footer__bottom__copyrights"><?php echo get_field('footer_copyrights', 'option'); ?></div>
+				</div>
+			</div>
+		</div>
 	</footer>
 
 	<?php wp_footer(); ?>
