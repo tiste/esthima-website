@@ -3,14 +3,16 @@
 	get_header();
 ?>
 
-<main class="main">
+<main class="main main-content">
 
 	<div class="wrap">
 		<?php if ( have_posts() ) : ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php the_content() ?>
+				<div class="the-content">
+					<?php the_content() ?>
+				</div>
 				
 			<?php endwhile; ?>
 
