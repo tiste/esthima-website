@@ -134,6 +134,13 @@ function getCookie(cName) {
 		}
 		/* /taille espaceur header */
 
+		/* guides - taille bloc de couleur */
+		if($('.guide__tet .lightBG').length){
+			let heightLightBG = $('.guide__tet__breadcrumbs').outerHeight() + $('.guide__tet__flex__texts').outerHeight() + 90;
+			$('.guide__tet .lightBG').css('height', heightLightBG+'px');
+		}
+		/* /guides - taille bloc de couleur */
+
 	});
 	
 })(window, jQuery);
