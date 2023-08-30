@@ -1,0 +1,202 @@
+<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly 
+?>
+<?php get_header(); ?>
+
+<main class="main main-content">
+
+<?php
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$argsSticky = array(
+    'post_type' => 'guide',
+    'posts_per_page' => 1,
+    'meta_key' => 'sticky',
+    'meta_value' => '1',
+    'compare' => '!=',
+	'tax_query' => array(
+		'relation' => 'AND',
+		array(
+			'taxonomy' => 'guide_cat',
+			'field' => 'term_id',
+			'terms' => get_queried_object()->term_id,
+			'include_children' => false,
+			'operator' => 'AND'
+			)
+	)
+);
+$querySticky = get_posts($argsSticky);
+if(empty($querySticky)){
+    $argsSticky = array(
+        'post_type' => 'guide',
+        'posts_per_page' => 1,
+		'tax_query' => array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'guide_cat',
+				'field' => 'term_id',
+				'terms' => get_queried_object()->term_id,
+				'include_children' => false,
+				'operator' => 'AND'
+				)
+		)
+    );
+    $querySticky = get_posts($argsSticky);
+}
+$argsRegular = array(
+    'post_type' => 'guide',
+    'posts_per_page' => 8,
+    'post__not_in' => array($querySticky[0]->ID),
+    'paged' => $paged,
+	'tax_query' => array(
+		'relation' => 'AND',
+		array(
+			'taxonomy' => 'guide_cat',
+			'field' => 'term_id',
+			'terms' => get_queried_object()->term_id,
+			'include_children' => false,
+			'operator' => 'AND'
+			)
+	)
+);
+$queryRegular = new WP_Query($argsRegular);
+?>
+
+    <div class="guides__tet">
+        <div class="lightBG"></div>
+        <div class="guides__tet__breadcrumbs">
+            <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
+        </div>
+        <div class="guides__tet__texts">
+            <h1><?php echo get_queried_object()->name; ?></h1>
+            <h2><?php echo get_field('tet_subtitle'); ?></h2>
+        </div>
+        <div class="guides__tet__sticky" style="--bg-img: url('<?php echo str_replace("'", "\'", get_the_post_thumbnail_url($querySticky[0]->ID)); ?>')">
+            <div class="guides__tet__sticky__cat">
+                <?php
+                    $mainCat = yoast_get_primary_term_id( 'guide_cat', $querySticky[0]->ID );
+                    if($mainCat){
+                        echo get_term($mainCat)->name;
+                    }else{
+                        echo get_the_term_list($querySticky[0]->ID, 'guide_cat', '', ', ', '');
+                    }
+                ?>
+            </div>
+            <div class="guides__tet__sticky__title">
+                <?php echo get_the_title($querySticky[0]->ID); ?>
+            </div>
+            <a href="<?php echo get_the_permalink($querySticky[0]->ID); ?>" class="btn btn--arrow">Lire l'article</a>
+        </div>
+    </div>
+
+	<?php
+		$parent = get_queried_object()->parent;
+		$cats = get_terms( array(
+			'taxonomy' => 'guide_cat',
+			'hide_empty' => false,
+			'hierarchical' => true,
+			'parent' => 0
+		) );
+		if($parent==0){
+			$catsChild = get_terms( array(
+				'taxonomy' => 'guide_cat',
+				'hide_empty' => false,
+				'hierarchical' => true,
+				'parent' => get_queried_object()->term_id
+			) );
+		}else{
+			$catsChild = get_terms( array(
+				'taxonomy' => 'guide_cat',
+				'hide_empty' => false,
+				'hierarchical' => true,
+				'parent' => $parent
+			) );
+		}
+	?>
+    <div class="guides__cats guides__cats-parent">
+        <a href="<?php echo home_url('/'); ?>conseils-actualites/">Tous les articles</a>
+        <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
+            <?php foreach($cats as $c) : ?>
+                <a href="<?php echo get_term_link($c); ?>" <?php echo ($c->term_id==get_queried_object()->term_id || $c->term_id==$parent) ? 'class="active"' : ''; ?>><?php echo $c->name; ?></a>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+	<div class="guides__cats guides__cats-child">
+        <?php if(!is_null($catsChild) && !empty($catsChild) && is_array($catsChild)) : ?>
+            <?php foreach($catsChild as $c) : ?>
+                <a href="<?php echo get_term_link($c); ?>" <?php echo ($c->term_id==get_queried_object()->term_id) ? 'class="active"' : ''; ?>><?php echo $c->name; ?></a>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+
+    <div class="guides__posts">
+        <?php if ( $queryRegular->have_posts() ) : $i = 0; $j = 1; ?>
+            <?php while ( $queryRegular->have_posts() ) : $queryRegular->the_post(); ?>
+                <div class="guides__posts__item <?php echo ($i==0 || $i==5 || $i==6) ? 'guides__posts__item-big guides__posts__item-'.$i : 'guides__posts__item-'.$i; ?>" data-page="<?php echo $j; ?>">
+                    <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php echo get_the_title(); ?>" class="guides__posts__item__img">
+                    <div class="guides__posts__item__texts">
+                        <div class="guides__posts__item__cat">
+                            <?php
+                                $mainCat = yoast_get_primary_term_id( 'guide_cat', get_the_ID() );
+                                if($mainCat){
+                                    echo get_term($mainCat)->name;
+                                }else{
+                                    echo get_the_term_list(get_the_ID(), 'guide_cat', '', ', ', '');
+                                }
+                            ?>
+                        </div>
+                        <div class="guides__posts__item__title">
+                            <?php echo get_the_title(); ?>
+                        </div>
+                        <a href="<?php echo get_the_permalink(); ?>" class="btn <?php echo ($i==0 || $i==5 || $i==6) ? 'btn--arrow' : 'btn--underline'; ?>">Lire l'article</a>
+                    </div>
+                </div>
+                <?php if( ($queryRegular->current_post + 1) == ($queryRegular->post_count) ) : ?>
+                <div class="guides__posts__newsletter guides__posts__newsletter-<?php echo $i; ?>">
+                    <h3>Restez informés en vous inscrivant à notre newsletter !</h3>
+                    <div class="guides__posts__newsletter__form">
+						<div>
+							<input type="email" placeholder="Votre adresse email">
+							<input type="submit">
+						</div>
+						<div class="guides__posts__newsletter__form__check">
+							<input type="checkbox" id="newsletterconsent" name="newsletterconsent">
+							<label for="newsletterconsent">J’accepte de m’inscrire à la newsletter et je reconnais avoir pris connaissance de la politique de confidentialité d’Esthima.</label>
+						</div>
+					</div>
+                </div>
+                <?php endif; ?>
+                <?php $i++; if($i>7){$i=0; $j++;} ?>
+            <?php endwhile; ?>
+        <?php else : ?>
+            <div class="guides__posts__nothing">
+                Désolé, aucun article ne correspond à votre recherche.
+            </div>
+        <?php endif; ?>    
+    </div>
+
+    <?php if ( $queryRegular->have_posts() ) : ?>
+        <div class="guides__pagination">
+            <?php
+            echo paginate_links(array(
+                // 'format' => '?page=%#%',
+                'total'     => $queryRegular->max_num_pages,
+                'current'   => $paged,
+                'prev_text' => '&laquo; Previous',
+                'next_text' => 'Next &raquo;',
+                'mid_size'           => 2,
+            ));
+            ?>
+        </div>
+    <?php endif; wp_reset_postdata(); ?>
+
+    <div class="guides__thecontent">
+        <?php if ( have_posts() ) : ?>
+            <?php while ( have_posts() ) : the_post(); ?>
+                <?php the_content(); ?>
+            <?php endwhile; ?>
+        <?php endif; ?>
+    </div>
+
+</main>
+
+
+<?php get_footer(); ?>

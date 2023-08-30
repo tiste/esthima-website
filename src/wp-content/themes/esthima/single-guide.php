@@ -34,7 +34,7 @@
     </div>
 
     <div class="guide__body">
-        <a href="#" class="guide__body__back">Voir les autres articles</a>
+        <a href="<?php echo home_url('/'); ?>conseils-actualites/" class="guide__body__back">Voir les autres articles</a>
         <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
         <div class="guide__body__content">
             <?php the_content(); ?>
@@ -61,12 +61,9 @@
                     </a>
                 </div>
             </div>
-            <?php if(function_exists('the_ratings')) : ?>
             <div class="guide__body__sharerate__rate">
-                <h3>Cet article vous a été utile ?</h3>
-                <?php the_ratings(); ?>
+                <?php echo do_shortcode('[was_this_article_helpful]'); ?>
             </div>
-            <?php endif; ?>
         </div>
         <hr>
         <?php endwhile; endif; ?>
@@ -74,49 +71,77 @@
         <?php if(!is_null($faq) && !empty($faq) && is_array($faq)) : ?>
         <div class="guide__body__faq">
             <h2>Vos questions / <span>Nos réponses</span></h2>
-            
+            <ul class="list-faq">
+                <?php foreach($faq as $f) : ?>
+                    <li>
+                        <div>
+                            <?php echo get_the_title($f); ?>
+                        </div>
+                        <div>
+                            <div>
+                                <?php
+                                    $myFAQ = get_post($f);
+                                    echo apply_filters('the_content',$myFAQ->post_content);
+                                ?>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
         <?php endif; ?>
         <?php $isShowEvent = get_field('global_event_show', 'option'); ?>
         <?php if($isShowEvent) : ?>
         <div class="guide__body__event">
-            <img src="<?php echo get_field('global_event_img', 'option'); ?>" alt="<?php echo get_field('global_event_title', 'option'); ?>" class="guide__body__event__img">
-            <div class="guide__body__event__texts">
-                <h4><?php echo get_field('global_event_surtitle', 'option'); ?></h4>
-                <h3><?php echo get_field('global_event_title', 'option'); ?></h3>
-                <div class="guide__body__event__texts__date">
-                    <?php
-                        $dateDebutEvent = get_field('global_event_start', 'option');
-                        $dateFinEvent = get_field('global_event_end', 'option');
-                        $dateDebutEventArray = explode(' ', $dateDebutEvent);
-                        $dateFinEventArray = explode(' ', $dateFinEvent);
-                    ?>
-                    du <?php echo $dateDebutEventArray[0]; echo ($dateDebutEventArray[1]!=$dateFinEventArray[1]) ? ' '.$dateDebutEventArray[1] : ''; echo ($dateDebutEventArray[2]!=$dateFinEventArray[2]) ? ' '.$dateDebutEventArray[2] : ''; ?> au <?php echo $dateFinEvent; ?>
-                </div>
-                <div class="guide__body__event__texts__text">
-                    <?php echo get_field('global_event_text', 'option'); ?>
+            <div class="guide__body__event__flex">
+                <img src="<?php echo get_field('global_event_img', 'option'); ?>" alt="<?php echo get_field('global_event_title', 'option'); ?>" class="guide__body__event__img">
+                <div class="guide__body__event__texts">
+                    <h4><?php echo get_field('global_event_surtitle', 'option'); ?></h4>
+                    <h3><?php echo get_field('global_event_title', 'option'); ?></h3>
+                    <div class="guide__body__event__texts__date">
+                        <?php
+                            $dateDebutEvent = get_field('global_event_start', 'option');
+                            $dateFinEvent = get_field('global_event_end', 'option');
+                            $dateDebutEventArray = explode(' ', $dateDebutEvent);
+                            $dateFinEventArray = explode(' ', $dateFinEvent);
+                        ?>
+                        du <?php echo $dateDebutEventArray[0]; echo ($dateDebutEventArray[1]!=$dateFinEventArray[1]) ? ' '.$dateDebutEventArray[1] : ''; echo ($dateDebutEventArray[2]!=$dateFinEventArray[2]) ? ' '.$dateDebutEventArray[2] : ''; ?> au <?php echo $dateFinEvent; ?>
+                    </div>
+                    <div class="guide__body__event__texts__text">
+                        <?php echo get_field('global_event_text', 'option'); ?>
+                    </div>
                 </div>
             </div>
         </div>
         <?php endif; ?>
     </div>
 
-    <div class="guide__more">
-        <?php
-            $morePosts = get_field('articles_associes');
-            $nbPostsMore = 2;
-            if(!is_null($morePosts) && !empty($morePosts) && is_array($morePosts)){
-                $nbPostsMore = 2 - count($morePosts);
+    <?php
+        $morePosts = get_field('articles_associes');
+        $nbPostsMore = 2;
+        if(!is_null($morePosts) && !empty($morePosts) && is_array($morePosts)){
+            $nbPostsMore = 2 - count($morePosts);
+        }
+        if($nbPostsMore<0){
+            $nbPostsMore = 0;
+        }
+        $termsMorePosts = get_the_terms( get_the_ID(), 'guide_cat' );
+        $termsMorePostsArray = array();
+        foreach($termsMorePosts as $t){
+            $termsMorePostsArray[] = $t->slug;
+        }
+        $postsNotIn = array(get_the_ID());
+        if(!is_null($morePosts) && !empty($morePosts) && is_array($morePosts)){
+            foreach($morePosts as $mp){
+                $postsNotIn[] = $mp;
             }
-            if($nbPostsMore<0){
-                $nbPostsMore = 0;
-            }
-            $termsMorePosts = get_the_term_list(get_the_ID(), 'guide_cat', '', ',', '');
-            $termsMorePostsArray = explode(',', $termsMorePosts);
+        }
+        if($nbPostsMore>0){
             $argsMorePosts = array(
                 'post_type' => 'guide',
                 'posts_per_page' => $nbPostsMore,
-                'ignore_sticky_posts' => false,
+                'ignore_sticky_posts' => true,
+                'post__not_in' => $postsNotIn,
                 'tax_query' => array(
                     'relation' => 'AND',
                     array(
@@ -125,14 +150,16 @@
                         'terms' => $termsMorePostsArray,
                         'include_children' => false,
                         'operator' => 'AND'
-                      )
+                        )
                 )
             );
             $queryMorePosts = new WP_Query($argsMorePosts);
-        ?>
-        <?php if((!is_null($morePosts) && !empty($morePosts) && is_array($morePosts)) || $queryMorePosts->have_posts()) : ?>
-            <h2>Cela peut vous intéresser</h2>
-        <?php endif; ?>
+        }
+    ?>
+    <?php if((!is_null($morePosts) && !empty($morePosts) && is_array($morePosts)) || $queryMorePosts->have_posts()) : ?>
+    <div class="guide__more">
+        <h2>Cela peut vous intéresser</h2>
+        <div class="guide__more__flex">
         <?php if(!is_null($morePosts) && !empty($morePosts) && is_array($morePosts)) : ?>
             <?php foreach($morePosts as $mp) : ?>
                 <div class="guide__more__post" style="--bg-img: url('<?php echo str_replace("'", "\'", get_the_post_thumbnail_url($mp)); ?>');">
@@ -153,7 +180,7 @@
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
-        <?php if ( $queryMorePosts->have_posts() ) : while ( $queryMorePosts->have_posts() ) : $queryMorePosts->the_post(); ?>
+        <?php if($nbPostsMore>0) : if ( $queryMorePosts->have_posts() ) : while ( $queryMorePosts->have_posts() ) : $queryMorePosts->the_post(); ?>
             <div class="guide__more__post" style="--bg-img: url('<?php echo str_replace("'", "\'", get_the_post_thumbnail_url()); ?>');">
                 <div class="guide__more__post__cat">
                     <?php
@@ -170,8 +197,10 @@
                 </div>
                 <a href="<?php echo get_the_permalink(); ?>" class="btn btn--arrow">Lire l'article</a>
             </div>
-        <?php endwhile; endif; wp_reset_postdata(); ?>
+        <?php endwhile; endif; wp_reset_postdata(); endif; ?>
+        </div>
     </div>
+    <?php endif; ?>
 
 </main>
 

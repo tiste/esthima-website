@@ -72,12 +72,9 @@ function getCookie(cName) {
 			if (!ticking){
 				window.requestAnimationFrame(function(){
 					/* header - toggle transparence si besoin */
-					console.log('scroll', currentScrollPos)
 					if(currentScrollPos > 50 && $('.header-transparent').length){
-						console.log('remove')
 						$('.header-transparent').removeClass('header-transparent-active');
 					}else if($('.header-transparent').length){
-						console.log('add')
 						$('.header-transparent').addClass('header-transparent-active');
 					}
 					/* /header - toggle transparence si besoin */
@@ -91,6 +88,8 @@ function getCookie(cName) {
 	});
 
 	$( window ).load(function() {
+
+		var currentPageConseils = 1;
 
 		/* hp - autoplay video tet (nécéssite une action de l'utilisateur sur la page) */
 		if($('.hp__tet__video').length){
@@ -140,6 +139,78 @@ function getCookie(cName) {
 			$('.guide__tet .lightBG').css('height', heightLightBG+'px');
 		}
 		/* /guides - taille bloc de couleur */
+
+		var currentPageConseils = 1;
+		/* archive guides - pagination precedent */
+		$(document).on('click', '#pagination-prev:not(.inactive)', function(){
+			if(currentPageConseils>1){
+				currentPageConseils--;
+				showGuides();
+			}
+		})
+		/* /archive guides - pagination precedent */
+		/* archive guides - pagination suivant */
+		$(document).on('click', '#pagination-next:not(.inactive)', function(){
+			if($('div[data-page="'+(currentPageConseils+1)+'"]').length){
+				currentPageConseils++;
+				showGuides();
+			}
+		})
+		/* /archive guides - pagination suivant */
+		/* archive guides - pagination nombre */
+		$(document).on('click', '.guides__pagination div:not(.active)', function(){
+			currentPageConseils = Number($(this).data('page'));
+			showGuides();
+		})
+		/* /archive guides - pagination nombre */
+		/* archive guides - change page */
+		function showGuides(){
+			$('.guides__posts__item:not([data-page="'+currentPageConseils+'"])').css({
+				'display': 'none',
+				'transform': 'scale(0)'
+			});
+			$('.guides__posts__item[data-page="'+currentPageConseils+'"]').css({
+				'display': 'flex',
+				'transform': 'scale(1)'
+			});
+			if($('.guides__posts__item-7[data-page="'+currentPageConseils+'"]').length){
+				$('.guides__posts__newsletter').css('grid-area', '6 / 2 / 7 / 3');
+			}else if($('.guides__posts__item-6[data-page="'+currentPageConseils+'"]').length){
+				$('.guides__posts__newsletter').css('grid-area', '5 / 2 / 6 / 3');
+			}else if($('.guides__posts__item-5[data-page="'+currentPageConseils+'"]').length){
+				$('.guides__posts__newsletter').css('grid-area', '5 / 1 / 6 / 2');
+			}else if($('.guides__posts__item-4[data-page="'+currentPageConseils+'"]').length){
+				$('.guides__posts__newsletter').css('grid-area', '3 / 2 / 4 / 3');
+			}else if($('.guides__posts__item-3[data-page="'+currentPageConseils+'"]').length){
+				$('.guides__posts__newsletter').css('grid-area', '3 / 2 / 4 / 3');
+			}else if($('.guides__posts__item-2[data-page="'+currentPageConseils+'"]').length){
+				$('.guides__posts__newsletter').css('grid-area', '3 / 1 / 4 / 2');
+			}else if($('.guides__posts__item-1[data-page="'+currentPageConseils+'"]').length){
+				$('.guides__posts__newsletter').css('grid-area', '2 / 2 / 3 / 3');
+			}else if($('.guides__posts__item-0[data-page="'+currentPageConseils+'"]').length){
+				$('.guides__posts__newsletter').css('grid-area', '1 / 2 / 2 / 3');
+			}
+			$('.guides__pagination div').removeClass('active');
+			$('.guides__pagination div[data-page="'+currentPageConseils+'"]').addClass('active');
+			if(currentPageConseils>1){
+				$('#pagination-prev').removeClass('inactive');
+			}else{
+				$('#pagination-prev').addClass('inactive');
+			}
+			if($('div[data-page="'+(currentPageConseils+1)+'"]').length){
+				$('#pagination-next').removeClass('inactive');
+			}else{
+				$('#pagination-next').addClass('inactive');
+			}
+		}
+		/* /archive guides - change page */
+
+		/* archive guides - taille bloc de couleur */
+		if($('.guides__tet .lightBG').length){
+			let heightLightBG = $('.guides__tet__breadcrumbs').outerHeight() + $('.guides__tet__texts').outerHeight() + 180;
+			$('.guides__tet .lightBG').css('height', heightLightBG+'px');
+		}
+		/* /archive guides - taille bloc de couleur */
 
 	});
 	

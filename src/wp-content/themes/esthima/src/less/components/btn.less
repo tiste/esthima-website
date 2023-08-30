@@ -36,4 +36,29 @@
             }
         }
     }
+    &--underline{
+        color: @main;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-decoration-line: underline;
+        &:hover{
+            &::after{
+                margin-left: 18px;
+            }
+        }
+        &::after{
+            content: "";
+            display: inline-block;
+            margin-left: 10px;
+            width: 13px; height: 13px;
+            background-image: url('images/arrow-pink.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            vertical-align: middle;
+            transition: 0.3s;
+        }
+    }
 }
