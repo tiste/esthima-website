@@ -47,3 +47,25 @@ function smyles_output_select2_admin_bar_fix() {
 	<?php
 }
 
+
+
+/* Change the Width of the Gutenberg Editor */
+/* https://www.megademic.com/how-to-change-the-width-of-the-gutenberg-editor/ */
+
+// Gutenberg Editor Styles
+function megademic_gutenberg_editor_styles() {
+    echo '
+        <style>
+            /* Main column width */
+            .wp-block { max-width: 720px; }
+ 
+            /* Width of "wide" blocks */
+            .wp-block[data-align="wide"] { max-width: 1080px; }
+ 
+            /* Width of "full-width" blocks */
+            .wp-block[data-align="full"] { max-width: none; }    
+        </style>
+    ';
+}
+//add_action( 'admin_head', 'megademic_gutenberg_editor_styles' );
+
