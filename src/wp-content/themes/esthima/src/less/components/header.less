@@ -34,7 +34,7 @@
         }
     }
     &__top{
-        padding-top: 20px; padding-bottom: 20px;
+        padding-top: 16px; padding-bottom: 16px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -54,17 +54,21 @@
             position: relative;
             &__img{
                 display: block;
-                width: 180px;
+                width: 32.5vw;
+                max-width: 118px;
                 transition: 0.3s;
                 opacity: 1;
                 @media (min-width: 768px){
                     width: 120px;
+                    max-width: 120px;
                 }
                 @media (min-width: 1440px){
                     width: 144px;
+                    max-width: 144px;
                 }
                 @media (min-width: 1680px){
                     width: 180px;
+                    max-width: 180px;
                 }
                 &-alt{
                     position: absolute;
@@ -74,9 +78,10 @@
             }
         }
         &__search{
-            position: relative;
-            margin: 0 15px 0 auto;
+            display: none;
             @media (min-width: 768px){
+                display: block;
+                position: relative;
                 margin: 0 10px 0 auto;
             }
             @media (min-width: 1440px){
@@ -163,12 +168,16 @@
         }
     }
     &__pink{
-        display: block;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-evenly;
         position: fixed;
         z-index: 8;
-        width: 120px;
-        height: calc(100vh - 60px);
-        left: 30px; top: 30px;
+        width: calc(100% - 20px);
+        height: 60px;
+        left: 10px; bottom: 12px;
         background-color: @main;
         border-radius: 16px;
         overflow: hidden scroll;
@@ -178,9 +187,11 @@
             display: none;
         }
         @media (min-width: 768px){
+            flex-direction: column;
+            justify-content: flex-start;
             width: 80px;
             height: calc(100vh - 40px);
-            left: 20px; top: 20px;
+            left: 20px; top: 20px; bottom: auto;
         }
         @media (min-width: 1440px){
             width: 96px;
@@ -193,16 +204,16 @@
             left: 30px; top: 30px;
         }
         &__item{
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            width: 100%; height: 120px;
-            padding: 10px;
+            gap: 5px;
+            padding: 5px;
             color: @white;
             font-family: @main-font;
-            font-size: 11px;
+            font-size: 8px;
             font-style: normal;
             font-weight: 600;
             line-height: 1;
@@ -228,14 +239,16 @@
                 padding: 10px;
             }
             &:not(:last-child){
-                border-bottom: solid 1px @pinkborder;
+                @media (min-width: 768px){
+                    border-bottom: solid 1px @pinkborder;
+                }
             }
             &:hover{
                 cursor: pointer;
             }
             &__picto{
                 display: block;
-                width: 36px;
+                width: 18px;
                 @media (min-width: 768px){
                     width: 24px;
                 }
@@ -252,12 +265,12 @@
         display: block;
         position: fixed;
         z-index: 9;
-        width: 620px;
+        width: 100%;
         height: 100vh;
         top: 0;
         left: 0;
         background-color: @main;
-        padding: 95px 100px;
+        padding: 50px 30px;
         overflow: hidden scroll;
         transition: 0.5s;
         transform: translateX(-100%);
@@ -267,22 +280,25 @@
             display: none;
         }
         @media (min-width: 768px){
-            width: 24px;
+            width: 413px;
+            padding: 63px 67px;
         }
         @media (min-width: 1440px){
-            width: 29px;
+            width: 496px;
+            padding: 76px 80px;
         }
         @media (min-width: 1680px){
-            width: 36px;
+            width: 620px;
+            padding: 95px 100px;
         }
         &__close{
             display: block;
             position: fixed;
-            width: 30px;
-            top: 20px; left: 20px;
+            width: 20px;
+            top: 20px; right: 20px;
             @media (min-width: 768px){
                 width: 20px;
-                top: 13px; left: 13px;
+                top: 13px; left: 13px; right: auto;
             }
             @media (min-width: 1440px){
                 width: 24px;
@@ -297,7 +313,7 @@
             }
         }
         &__main{
-            padding: 0 0 60px;
+            padding: 0 0 40px;
             @media (min-width: 768px){
                 padding: 0 0 40px;
             }
@@ -310,7 +326,7 @@
             > ul{
                 display: flex;
                 flex-direction: column;
-                gap: 60px;
+                gap: 30px;
                 @media (min-width: 768px){
                     gap: 40px;
                 }
@@ -324,7 +340,7 @@
                     > a{
                         color: @white;
                         font-family: @main-font;
-                        font-size: 38px;
+                        font-size: 24px;
                         font-style: normal;
                         font-weight: 600;
                         line-height: 1;
@@ -340,7 +356,7 @@
                         }
                     }
                     > ul{
-                        padding: 0 0 0 50px;
+                        padding: 0 0 0 30px;
                         display: flex;
                         flex-direction: column;
                         gap: 15px;
@@ -360,7 +376,7 @@
                             gap: 15px;
                         }
                         &.hasPadding{
-                            padding: 23px 0 0 50px;
+                            padding: 20px 0 0 30px;
                             @media (min-width: 768px){
                                 padding: 15px 0 0 33px;
                             }
@@ -374,7 +390,7 @@
                         li{
                             color: @white;
                             font-family: @main-font;
-                            font-size: 28px;
+                            font-size: 18px;
                             font-style: normal;
                             font-weight: 600;
                             line-height: 1;
@@ -394,7 +410,7 @@
             }
         }
         &__second{
-            padding: 60px 0 60px;
+            padding: 40px 0 40px;
             border-top: solid 1px @pinkborder;
             border-bottom: solid 1px @pinkborder;
             @media (min-width: 768px){
@@ -409,7 +425,7 @@
             > ul{
                 display: flex;
                 flex-direction: column;
-                gap: 40px;
+                gap: 30px;
                 @media (min-width: 768px){
                     gap: 27px;
                 }
@@ -439,7 +455,7 @@
             }
         }
         &__social{
-            padding: 60px 0 0;
+            padding: 40px 0 0;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
