@@ -46,16 +46,16 @@ function getCookie(cName) {
 	$(document).on('click', '.header__menu__main > ul > li.menu-item-has-children > a', function(e){
 		e.preventDefault();
 		if($(this).parents('li.menu-item-has-children').hasClass('menu-item-has-children-open')){
+			$(this).parents('li.menu-item-has-children').find('ul.sub-menu').removeClass('hasPadding');
 			$(this).parents('li.menu-item-has-children').find('ul.sub-menu').css({
-				'height': '0',
-				'padding': '0 0 0 50px'
+				'height': '0'
 			})
 			$(this).parents('li.menu-item-has-children').removeClass('menu-item-has-children-open');
 		}else{
 			let newHeight = $(this).parents('li.menu-item-has-children').find('ul.sub-menu').prop('scrollHeight') + 23;
+			$(this).parents('li.menu-item-has-children').find('ul.sub-menu').addClass('hasPadding');
 			$(this).parents('li.menu-item-has-children').find('ul.sub-menu').css({
-				'height': newHeight+'px',
-				'padding': '23px 0 0 50px'
+				'height': newHeight+'px'
 			})
 			$(this).parents('li.menu-item-has-children').addClass('menu-item-has-children-open');
 		}
@@ -139,71 +139,6 @@ function getCookie(cName) {
 			$('.guide__tet .lightBG').css('height', heightLightBG+'px');
 		}
 		/* /guides - taille bloc de couleur */
-
-		var currentPageConseils = 1;
-		/* archive guides - pagination precedent */
-		$(document).on('click', '#pagination-prev:not(.inactive)', function(){
-			if(currentPageConseils>1){
-				currentPageConseils--;
-				showGuides();
-			}
-		})
-		/* /archive guides - pagination precedent */
-		/* archive guides - pagination suivant */
-		$(document).on('click', '#pagination-next:not(.inactive)', function(){
-			if($('div[data-page="'+(currentPageConseils+1)+'"]').length){
-				currentPageConseils++;
-				showGuides();
-			}
-		})
-		/* /archive guides - pagination suivant */
-		/* archive guides - pagination nombre */
-		$(document).on('click', '.guides__pagination div:not(.active)', function(){
-			currentPageConseils = Number($(this).data('page'));
-			showGuides();
-		})
-		/* /archive guides - pagination nombre */
-		/* archive guides - change page */
-		function showGuides(){
-			$('.guides__posts__item:not([data-page="'+currentPageConseils+'"])').css({
-				'display': 'none',
-				'transform': 'scale(0)'
-			});
-			$('.guides__posts__item[data-page="'+currentPageConseils+'"]').css({
-				'display': 'flex',
-				'transform': 'scale(1)'
-			});
-			if($('.guides__posts__item-7[data-page="'+currentPageConseils+'"]').length){
-				$('.guides__posts__newsletter').css('grid-area', '6 / 2 / 7 / 3');
-			}else if($('.guides__posts__item-6[data-page="'+currentPageConseils+'"]').length){
-				$('.guides__posts__newsletter').css('grid-area', '5 / 2 / 6 / 3');
-			}else if($('.guides__posts__item-5[data-page="'+currentPageConseils+'"]').length){
-				$('.guides__posts__newsletter').css('grid-area', '5 / 1 / 6 / 2');
-			}else if($('.guides__posts__item-4[data-page="'+currentPageConseils+'"]').length){
-				$('.guides__posts__newsletter').css('grid-area', '3 / 2 / 4 / 3');
-			}else if($('.guides__posts__item-3[data-page="'+currentPageConseils+'"]').length){
-				$('.guides__posts__newsletter').css('grid-area', '3 / 2 / 4 / 3');
-			}else if($('.guides__posts__item-2[data-page="'+currentPageConseils+'"]').length){
-				$('.guides__posts__newsletter').css('grid-area', '3 / 1 / 4 / 2');
-			}else if($('.guides__posts__item-1[data-page="'+currentPageConseils+'"]').length){
-				$('.guides__posts__newsletter').css('grid-area', '2 / 2 / 3 / 3');
-			}else if($('.guides__posts__item-0[data-page="'+currentPageConseils+'"]').length){
-				$('.guides__posts__newsletter').css('grid-area', '1 / 2 / 2 / 3');
-			}
-			$('.guides__pagination div').removeClass('active');
-			$('.guides__pagination div[data-page="'+currentPageConseils+'"]').addClass('active');
-			if(currentPageConseils>1){
-				$('#pagination-prev').removeClass('inactive');
-			}else{
-				$('#pagination-prev').addClass('inactive');
-			}
-			if($('div[data-page="'+(currentPageConseils+1)+'"]').length){
-				$('#pagination-next').removeClass('inactive');
-			}else{
-				$('#pagination-next').addClass('inactive');
-			}
-		}
-		/* /archive guides - change page */
 
 		/* archive guides - taille bloc de couleur */
 		if($('.guides__tet .lightBG').length){
