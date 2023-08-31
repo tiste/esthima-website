@@ -38,11 +38,12 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-end;
         background-color: @white;
         transition: 0.3s;
         @media (min-width: 768px){
             padding-top: 13px; padding-bottom: 13px;
+            align-items: center;
         }
         @media (min-width: 1440px){
             padding-top: 16px; padding-bottom: 16px;
@@ -152,15 +153,57 @@
             }
         }
         &__phone{
+            .phone-number__pill{
+                margin: 0 auto 0;
+                @media (min-width: 768px){
+                    margin: 0 auto 5px;
+                }
+            }
             .phone-number__pill__number{
                 border: solid 1px #D4D4D4;
                 border-right: none;
+                font-size: 15.949px;
+                padding: 0 9px;
+                line-height: 26px;
+                @media (min-width: 768px){
+                    padding: 0 11px;
+                    font-size: 17px;
+                    line-height: 26px;
+                }
+                @media (min-width: 1440px){
+                    padding: 0 13px;
+                    font-size: 20px;
+                    line-height: 31px;
+                }
+                @media (min-width: 1680px){
+                    padding: 0 16px;
+                    font-size: 25.917px;
+                    line-height: 39px;
+                }
             }
             .phone-number__pill__text{
                 border: solid 1px #78B51C;
+                font-size: 7.361px;
+                padding: 0 6px;
+                @media (min-width: 768px){
+                    padding: 0 6px;
+                    font-size: 8px;
+                }
+                @media (min-width: 1440px){
+                    padding: 0 8px;
+                    font-size: 9px;
+                }
+                @media (min-width: 1680px){
+                    padding: 0 10px;
+                    font-size: 11.962px;
+                }
             }
             .phone-number__text{
+                display: none;
                 color: @text;
+                @media (min-width: 768px){
+                    display: block;
+                }
                 br{
                     display: none;
                 }
