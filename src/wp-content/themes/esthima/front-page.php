@@ -110,6 +110,7 @@
 	</div>
 
 	<div class="hp__imgblock" style="--bg-img: url('<?php echo str_replace("'", "\'", get_field('imgblock_img')); ?>')">
+		<img src="<?php echo str_replace('"', '\"', get_field('imgblock_img')); ?>" alt="<?php echo str_replace('"', '\"', get_field('imgblock_title')); ?>" class="hp__imgblock__prezimg">
 		<div class="hp__imgblock__block">
 			<h2><?php echo get_field('imgblock_title'); ?></h2>
 			<div class="hp__imgblock__block__text">
@@ -179,14 +180,14 @@
 		</div>
 	</div>
 		
+	<?php
+		$guides = get_field('tips_blocks');
+		if(!is_null($guides) && !empty($guides) && is_array($guides)) :
+	?>
 	<div class="hp__guides">
 		<div class="containerCustom2">
 			<h2><?php echo get_field('tips_title'); ?></h2>
 		</div>
-		<?php
-			$guides = get_field('tips_blocks');
-			if(!is_null($guides) && !empty($guides) && is_array($guides)) :
-		?>
 		<?php foreach($guides as $key => $g) : ?>
 			<div class="hp__guides__item hp__guides__item-<?php echo $key+1; ?>">
 				<div class="hp__guides__item__img">
@@ -215,8 +216,9 @@
 				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
-		<?php endif; ?>
+		<a href="<?php echo home_url('/'); ?>conseils-actualites/" class="btn btn--arrow">Tous nos guides & conseils</a>
 	</div>
+	<?php endif; ?>
 
 	<div class="containerCustom2">
 		<div class="hp__reviews">
