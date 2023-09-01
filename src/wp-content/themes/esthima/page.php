@@ -5,7 +5,7 @@
 
 <main class="main main-content">
 
-	<div class="wrap">
+	<div class="wrap wrap--lg">
 		<?php if ( have_posts() ) : ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>

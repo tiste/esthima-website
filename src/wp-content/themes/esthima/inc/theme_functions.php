@@ -57,15 +57,15 @@ function megademic_gutenberg_editor_styles() {
     echo '
         <style>
             /* Main column width */
-            .wp-block { max-width: 720px; }
+            .wp-block { max-width: 1100px; }
  
             /* Width of "wide" blocks */
-            .wp-block[data-align="wide"] { max-width: 1080px; }
+            .wp-block[data-align="wide"] { max-width: 1280px; }
  
             /* Width of "full-width" blocks */
             .wp-block[data-align="full"] { max-width: none; }    
         </style>
     ';
 }
-//add_action( 'admin_head', 'megademic_gutenberg_editor_styles' );
+add_action( 'admin_head', 'megademic_gutenberg_editor_styles' );
 
