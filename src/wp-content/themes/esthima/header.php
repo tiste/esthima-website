@@ -4,6 +4,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<?php /* SWIPER - CSS (here because autoptimize is loaded before the title tag) */ ?>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+
 	<title><?php wp_title(''); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 	<meta name="format-detection" content="telephone=no">
@@ -42,6 +46,9 @@
 		</div>
 		<div class="header__menu">
 			<img src="<?php echo get_template_directory_uri(); ?>/images/close.svg" alt="Fermer" class="header__menu__close">
+			<div class="header__menu__search">
+				<?php get_search_form(); ?>
+			</div>
 			<?php wp_nav_menu(['menu'=>'Header - main', 'container_class'=>'header__menu__main']); ?>
 			<?php wp_nav_menu(['menu'=>'Header - second', 'container_class'=>'header__menu__second']); ?>
 			<?php
