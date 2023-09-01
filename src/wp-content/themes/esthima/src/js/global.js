@@ -89,16 +89,6 @@ function getCookie(cName) {
 
 	$( window ).load(function() {
 
-		var currentPageConseils = 1;
-
-		/* hp - autoplay video tet (nécéssite une action de l'utilisateur sur la page) */
-		if($('.hp__tet__video').length){
-			window.addEventListener("click", () => {
-				$('.hp__tet__video video')[0].play()
-			}, { once: true });
-		}
-		/* /hp - autoplay video tet */
-
 		/* hp - ajout avis tetiere */
 		if($('.hp__tet__reviews').length && $('.hp__reviews .rating__value').length){
 			let linkToReviews = $('a.rating__details-link').attr('href');

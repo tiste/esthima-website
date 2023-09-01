@@ -7,7 +7,7 @@
 	<div class="hp__tet" style="--bg-img: url('<?php echo str_replace("'", "\'", get_field('tet_background')) ?>')">
 		<?php if(!is_null(get_field('tet_bgvid')) && !empty(get_field('tet_bgvid'))) : ?>
 		<div class="hp__tet__video">
-			<video autoplay mute loop>
+			<video autoplay muted loop>
 				<source src="<?php echo get_field('tet_bgvid'); ?>" />
 			</video>
 		</div>
