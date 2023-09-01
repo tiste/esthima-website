@@ -6,11 +6,14 @@
 @media screen and (min-width: 1023px) {
     .pricing-table {
         display: flex;
+        justify-content: center;
         gap: 6%;
     }
 }
 
 .pricing-plan {
+    flex: 1;
+    max-width: 400px;
     border-radius: 20px;
     background: #FFF;
     padding: 3%;
@@ -23,6 +26,7 @@
 .pricing-plan:hover {
     transform: translateY(-16px);
     background: rgb(254, 248, 244);
+    background-color: #F9DBD7;
 }
 
 .pricing-plan > *:not(:first-child) {
@@ -83,14 +87,14 @@
 
 
 .pricing-plan__features {
-
+    line-height: 1.3;
+    text-align: center;
 }
 .pricing-plan__features ul li {
     margin: 14px 0;
-    line-height: 1.3;
     font-weight: 600;
+    text-align: left;
 }
-
 
 
 .pricing-plan__button {
@@ -104,3 +108,31 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+
+
+/* pricing table modifiers */
+
+@media screen and (min-width: 1023px) {
+    .pricing-table.pricing-table--services {
+        gap: 1.8%;
+    }
+}
+
+.pricing-table.pricing-table--services .pricing-plan {
+    box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.10);
+}
+.pricing-table.pricing-table--services .pricing-plan__button .btn {
+    box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.10);
+
+    transition: .4s;
+    opacity: 0;
+    transform: translateY(-18px);
+    
+}
+.pricing-table.pricing-table--services .pricing-plan:hover .pricing-plan__button .btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+

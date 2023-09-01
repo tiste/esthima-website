@@ -13,6 +13,7 @@ add_theme_support( 'custom-logo' );
 
 //add_theme_support( 'wp-block-styles' );
 add_theme_support( 'custom-line-height' );
+//add_editor_style( 'style-custom.css' );
 
 
 // remove some things
