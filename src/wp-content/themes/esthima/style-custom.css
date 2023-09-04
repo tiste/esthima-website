@@ -253,12 +253,27 @@
 
 
 .gk-bloc-services-incineration {
-
+    padding: 8.8% 5% 4%;
+    background: url(images/bg-flower-watermark.svg) no-repeat left center;
 }
 
 .gk-bloc-services-incineration .wp-block-group__inner-container {
-    
+    max-width: 1240px;
+    margin: 0 auto;
 }
 
 
 
+.gk-columns-deroulement {
+
+}
+@media screen and (min-width: 782px) {
+    
+    .gk-columns-deroulement > .wp-block-column:nth-child(1) {
+        flex: 0 0 50%;
+    }
+    .gk-columns-deroulement > .wp-block-column:nth-child(2) {
+        max-width: 520px;
+        margin: auto;
+    }
+}
