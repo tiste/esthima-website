@@ -1,0 +1,276 @@
+.storeloc{
+    &__tet{
+        padding: 30px 0 115px;
+        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%), var(--bg-img);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        &__breadcrumbs{
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 0 65px 235px;
+            @media (min-width: 768px){
+                padding: 0 0 43px 157px;
+            }
+            @media (min-width: 1440px){
+                padding: 0 0 52px 188px;
+            }
+            @media (min-width: 1680px){
+                padding: 0 0 65px 235px;
+            }
+            span, a{
+                color: @white;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                @media (min-width: 768px){
+                    font-size: 12px;
+                }
+                @media (min-width: 1440px){
+                    font-size: 12px;
+                }
+                @media (min-width: 1680px){
+                    font-size: 14px;
+                }
+            }
+            span.breadcrumb_last{
+                font-weight: 600;
+            }
+        }
+        h2{
+            margin: 0 auto 20px;
+            max-width: 960px;
+            color: @white;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.6;
+            letter-spacing: 0.1em;
+            text-align: center;
+        }
+        h1{
+            margin: 0 auto 45px;
+            max-width: 960px;
+            color: @white;
+            font-size: 88px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1;
+            text-align: center;
+        }
+        &__text{
+            margin: 0 auto 45px;
+            max-width: 960px;
+            color: @white;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1.6;
+            text-align: center;
+        }
+        &__form{
+            position: relative;
+            margin: 0 auto;
+            max-width: 556px;
+            input[type="text"]{
+                display: block;
+                width: 100%;
+                appearance: none;
+                height: 60px; line-height: 60px;
+                border: none;
+                border-radius: 100px;
+                padding: 0 165px 0 33px;
+                color: @text;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+            }
+            .btn{
+                position: absolute;
+                top: 2px; right: 2px;
+                height: 56px; line-height: 56px;
+                padding: 0 18px 0 32px;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    &__map{
+        width: 98%;
+        max-width: 1380px;
+        margin: 80px auto 130px;
+        .wpsl-search{
+            height: 0;
+            margin-bottom: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #wpsl-wrap{
+            #wpsl-result-list,
+            #wpsl-gmap{
+                width: calc(50% - 10px);
+            }
+            #wpsl-stores, #wpsl-direction-details, #wpsl-gmap{
+                height: 680px !important;
+            }
+            #wpsl-stores{
+                padding: 0 12px 0 0;
+                &::-webkit-scrollbar-track{
+                    background-color: #F5F5F5;
+                    border-radius: 25px;
+                }
+                &::-webkit-scrollbar{
+                    width: 8px; 
+                }
+                &::-webkit-scrollbar-thumb{
+                    background-color: @main; 
+                    border-radius: 25px;
+                }
+                .storeloc__map__store{
+                    padding: 20px 0;
+                    border: none;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    align-items: center;
+                    justify-content: space-between;
+                    &:first-child{
+                        padding: 0 0 20px;
+                    }
+                    &:not(:last-child){
+                        border-bottom: solid 1px #D4D4D4;
+                    }
+                    &__img{
+                        position: relative;
+                        width: 260px;
+                        img{
+                            display: block;
+                            position: relative;
+                            z-index: 1;
+                            width: 100% !important; height: 230px !important;
+                            object-fit: cover;
+                            &.wpsl-store-thumb{
+                                float: none;
+                                border-radius: 0;
+                                margin: 0 0 0 0;
+                                position: absolute;
+                                z-index: 2;
+                                top: 0; left: 0;
+                            }
+                        }
+                    }
+                    &__infos{
+                        position: relative;
+                        width: calc(100% - 305px);
+                        &::before{
+                            content: "";
+                            display: block;
+                            position: absolute;
+                            width: 16px; height: 20px;
+                            top: 4px; left: -24px;
+                            background-image: url('images/marker-light.svg');
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                        }
+                        &__surtitle{
+                            color: @main;
+                            font-family: @main-font;
+                            font-size: 20px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 1.3;
+                        }
+                        &__title{
+                            margin: 0 0 13px;
+                            color: @main;
+                            font-family: @main-font;
+                            font-size: 26px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 1.3;
+                            text-transform: uppercase;
+                        }
+                        &__adresse{
+                            color: @text;
+                            font-family: @main-font;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 1.3;
+                        }
+                        &__btns{
+                            margin: 13px 0 18px;
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            gap: 6px;
+                            align-items: center;
+                            justify-content: flex-start;
+                            a{
+                                display: block;
+                                width: fit-content;
+                                padding: 12px 18px;
+                                background-color: @main;
+                                border-radius: 100px;
+                                color: @white;
+                                font-family: @main-font;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 700;
+                                line-height: normal;
+                                &::before{
+                                    content: "";
+                                    display: inline-block;
+                                    width: 16px; height: 16px;
+                                    margin-right: 10px;
+                                    vertical-align: middle;
+                                    background-position: center;
+                                    background-repeat: no-repeat;
+                                    background-size: contain;
+                                }
+                            }
+                            &__rdv{
+                                &::before{
+                                    background-image: url('images/calendar-white.svg');
+                                }
+                            }
+                            &__call{
+                                &::before{
+                                    background-image: url('images/phone-white.svg');
+                                }
+                            }
+                        }
+                        &__link{
+                            color: @main;
+                            font-family: @main-font;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                            text-decoration-line: underline;
+                            &::after{
+                                content: "";
+                                display: inline-block;
+                                width: 13px; height: 13px;
+                                margin-left: 10px;
+                                vertical-align: middle;
+                                background-image: url('images/arrow-pink.svg');
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                background-size: contain;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__content{
+        width: 98%;
+        max-width: 1100px;
+        margin: 0 auto 200px;
+    }
+}
