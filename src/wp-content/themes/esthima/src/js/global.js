@@ -198,6 +198,22 @@ function getCookie(cName) {
 		}
 		/* /archive guides - taille bloc de couleur */
 
+		/* store locator - recherche */
+		if($('.storeloc__tet__form input[type="text"]').length && $('#wpsl-search-input').length){
+			$('.storeloc__tet__form input[type="text"]').on('input', function(e){
+				$('#wpsl-search-input').val($('.storeloc__tet__form input[type="text"]').val());
+			})
+			$('.storeloc__tet__form input[type="text"]').on('keyup', function (e) {
+				if (e.key === 'Enter' || e.keyCode === 13) {
+					$('#wpsl-search-btn').click();
+				}
+			});
+			$('.storeloc__tet__form .btn').on('click', function () {
+				$('#wpsl-search-btn').click();
+			});
+		}
+		/* /store locator - recherche */
+
 	});
 	
 })(window, jQuery);

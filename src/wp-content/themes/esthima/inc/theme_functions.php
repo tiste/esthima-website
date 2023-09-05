@@ -69,3 +69,106 @@ function megademic_gutenberg_editor_styles() {
 }
 add_action( 'admin_head', 'megademic_gutenberg_editor_styles' );
 
+/* wpsl - markers custom */
+define( 'WPSL_MARKER_URI', dirname( get_bloginfo( 'stylesheet_url') ) . '/wpsl-markers/' );
+add_filter( 'wpsl_admin_marker_dir', 'custom_admin_marker_dir' );
+function custom_admin_marker_dir() {
+    $admin_marker_dir = get_stylesheet_directory() . '/wpsl-markers/';
+    return $admin_marker_dir;
+}
+
+/* wpsl - taille picto liste */
+add_filter( 'wpsl_thumb_size', 'custom_thumb_size' );
+function custom_thumb_size() {
+    $size = array( 230, 260 );   
+    return $size;
+}
+
+
+/* wpsl - recup category */
+add_filter( 'wpsl_store_meta', 'custom_store_meta', 10, 2 );
+function custom_store_meta( $store_meta, $store_id ) {
+	$terms = get_the_terms( $store_id, 'wpsl_store_category' );
+	$store_meta['terms'] = '';
+	if ( $terms ) {
+		if ( ! is_wp_error( $terms ) ) {
+			if ( count( $terms ) > 1 ) {
+				$location_terms = array();
+				foreach ( $terms as $term ) {
+					$location_terms[] = $term->name;
+				}
+				$store_meta['terms'] = implode( ', ', $location_terms );
+			} else {
+				$store_meta['terms'] = $terms[0]->name;
+			}
+		}
+	}
+	return $store_meta;
+}
+
+/* wpsl - custom fields */
+// add_filter( 'wpsl_meta_box_fields', 'custom_meta_box_fields' );
+// function custom_meta_box_fields( $meta_fields ) {
+//     $meta_fields[__( 'Additional Information', 'wpsl' )] = array(
+//         'phone' => array(
+//             'label' => __( 'Tel', 'wpsl' )
+//         ),
+//         'phone2' => array(
+//             'label' => __( 'Tel 2', 'wpsl' )
+//         ),
+//         'fax' => array(
+//             'label' => __( 'Fax', 'wpsl' )
+//         ),
+//         'email' => array(
+//             'label' => __( 'Email', 'wpsl' )
+//         ),
+//         'url' => array(
+//             'label' => __( 'Url', 'wpsl' )
+//         ),
+//         'agenceboutique' => array(
+//             'label' => __( 'Agence / Boutique', 'wpsl' )
+//         ),
+//         'horairessimples' => array(
+//             'label' => __( 'Horaires simplifiés', 'wpsl' )
+//         ),
+//         'storetitle' => array(
+//             'label' => __( "Nom de l'agence", 'wpsl' )
+//         )
+//     );
+//     return $meta_fields;
+// }
+
+/* wpsl - custom template list */
+add_filter( 'wpsl_listing_template', 'custom_listing_template' );
+function custom_listing_template() {
+
+    global $wpsl, $wpsl_settings;
+    
+    $listing_template = '<li data-store-id="<%= id %>" class="storeloc__map__store">' . "\r\n";
+
+	$listing_template .= "\t\t" . '<div class="storeloc__map__store__img">' . "\r\n";
+    $listing_template .= "\t\t\t\t" . '<%= thumb %>' . "\r\n";
+    $listing_template .= "\t\t\t\t" . '<img src="'.get_template_directory_uri().'/images/default-store.jpg">' . "\r\n";
+	$listing_template .= "\t\t" . "</div>" . "\r\n";
+
+	$listing_template .= "\t\t" . '<div class="storeloc__map__store__infos">' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<% if ( terms ) { %>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__surtitle"><%= terms %> de</div>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<% } %>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__title"><%= store %></div>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address %></div>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address2 %></div>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse">'.wpsl_address_format_placeholders().'</div>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__btns">' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<a href="#" class="storeloc__map__store__infos__btns__rdv">Prendre rendez-vous</a>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<% if ( phone ) { %>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<a href="tel:<%= phone %>" class="storeloc__map__store__infos__btns__call">Nous appeler</a>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<% } %>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '</div>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<a href="<%= permalink %>" class="storeloc__map__store__infos__link">Voir la fiche</a>' . "\r\n";
+	$listing_template .= "\t\t" . "</div>" . "\r\n";
+    
+    $listing_template .= '</li>';
+
+    return $listing_template;
+}

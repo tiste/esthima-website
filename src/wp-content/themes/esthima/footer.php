@@ -2,8 +2,27 @@
 
 	<?php /* FOOTER */ ?>
 	<footer class="footer">
+		<?php $footerReassurance = get_field('footer_reassurance', 'option'); ?>
+		<?php if(!is_front_page() && !is_null($footerReassurance) && !empty($footerReassurance) && is_array($footerReassurance)) : ?>
+			<div class="footer__pink__container">
+				<div class="containerCustom2">
+					<div class="footer__pink">
+						<?php foreach($footerReassurance as $r) : ?>
+							<div class="footer__pink__item">
+								<div class="footer__pink__item__picto">
+									<img src="<?php echo str_replace('"', '\"', $r['picto']); ?>" alt="<?php echo str_replace('"', '\"', $r['text']); ?>">
+								</div>
+								<div class="footer__pink__item__text">
+									<?php echo str_replace('"', '\"', $r['text']); ?>
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				</div>
+			</div>
+		<?php endif; ?>
 		<div class="containerCustom2">
-			<div class="footer__top">
+			<div class="footer__top <?php echo (is_front_page()) ? 'footer__top-hp' : ''; ?>">
 				<div class="footer__top__left">
 					<div class="footer__top__left__title">
 						<?php echo get_field('footer_news_title', 'option'); ?>

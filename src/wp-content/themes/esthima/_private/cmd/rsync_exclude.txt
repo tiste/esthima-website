@@ -4,7 +4,6 @@ node_modules*
 _private*
 addon/global/js*
 addon/less*
-/plugins/*
 /plugins/kreaGutenBlocks/node_modules*
 /plugins/kreaGutenBlocks/_private*
 /plugins/kreaGutenBlocks/webpack.config.js
