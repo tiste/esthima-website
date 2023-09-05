@@ -135,6 +135,18 @@
 
 
 
+.the-content .yoast-breadcrumbs {
+    padding: 20px;
+    line-height: 1.2;
+}
+@media screen and (min-width: 992px) {
+    .the-content .yoast-breadcrumbs {
+        padding: 2.4%;
+    }
+}
+
+
+
 /* custom-classes.less (gutenberg) */
 
 @media screen and (max-width: 781px) {
