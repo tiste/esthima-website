@@ -1,0 +1,42 @@
+.store{
+    &__tet{
+        padding: 30px 0 120px;
+        background-image: linear-gradient(79deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.00) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%), var(--bg-img);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        &__breadcrumbs{
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 0 30px 20px;
+            @media (min-width: 768px){
+                padding: 0 0 43px 157px;
+            }
+            @media (min-width: 1440px){
+                padding: 0 0 52px 188px;
+            }
+            @media (min-width: 1680px){
+                padding: 0 0 65px 235px;
+            }
+            span, a{
+                color: @white;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                @media (min-width: 768px){
+                    font-size: 12px;
+                }
+                @media (min-width: 1440px){
+                    font-size: 12px;
+                }
+                @media (min-width: 1680px){
+                    font-size: 14px;
+                }
+            }
+            span.breadcrumb_last{
+                font-weight: 600;
+            }
+        }
+    }
+}
