@@ -214,6 +214,19 @@ function getCookie(cName) {
 		}
 		/* /store locator - recherche */
 
+		/* agence - slider */
+		if($('.store__gallery__slider').length){
+			const swiperHPShop = new Swiper('.store__gallery__slider', {
+				spaceBetween: 20,
+				slidesPerView: 1.42,
+				navigation: {
+					nextEl: '.store__gallery__slider__next',
+					prevEl: '.store__gallery__slider__prev',
+				}
+			});
+		}
+		/* /agence - slider */
+
 	});
 	
 })(window, jQuery);

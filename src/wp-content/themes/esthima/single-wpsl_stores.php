@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <div class="store__infos">
+    <div class="store__infos lightBG">
         <div class="main-content">
             <div class="store__infos__container">
                 <div class="store__infos__infos">
@@ -48,12 +48,12 @@
                     </div>
                     <h2>Infos pratiques</h2>
                     <div class="store__infos__infos__flex">
-                        <div class="store__infos__infos__flex__item store__infos__infos__flex__address">
+                        <div class="store__infos__infos__flex__item store__infos__infos__flex__item-address">
                             <span><?php echo get_post_meta(get_the_ID(), 'wpsl_address', true); ?></span>
                             <span><?php echo get_post_meta(get_the_ID(), 'wpsl_address2', true); ?></span>
                             <span><?php echo get_post_meta(get_the_ID(), 'wpsl_zip', true); ?> <?php echo get_post_meta(get_the_ID(), 'wpsl_city', true); ?></span>
                         </div>
-                        <div class="store__infos__infos__flex__item store__infos__infos__flex__hours">
+                        <div class="store__infos__infos__flex__item store__infos__infos__flex__item-hours">
                             <?php
                                 $hours = get_post_meta(get_the_ID(), 'wpsl_hours', true);
                                 $horaires = array();
@@ -102,7 +102,7 @@
                             </span>
                             <?php endif; endforeach; ?>
                             <?php if(!empty(get_field('store_closed'))) : ?>
-                            <span>Fermeture exceptionnelle :</span>
+                            <span class="closed-except">Fermeture exceptionnelle :</span>
                             <span><?php echo get_field('store_closed'); ?></span>
                             <?php endif; ?>
                         </div>
@@ -123,14 +123,19 @@
     
     <?php $gallery = get_field('store_gallery'); ?>
     <?php if(!is_null($gallery) && !empty($gallery) && is_array($gallery)) : ?>
-    <div class="store__gallery">
-        <div class="main-content">
+    <div class="main-content">
+        <div class="store__gallery">
+            <h2>Découvrez <?php echo ($typeStr[0]=="A" || $typeStr[0]=="E" || $typeStr[0]=="I" || $typeStr[0]=="O" || $typeStr[0]=="U" || $typeStr[0]=="Y" || $typeStr[0]=="a" || $typeStr[0]=="e" || $typeStr[0]=="i" || $typeStr[0]=="o" || $typeStr[0]=="u" || $typeStr[0]=="y") ? "l'" : 'le '; echo $typeStr; ?> de <?php echo get_the_title(); ?></h2>
             <div class="store__gallery__slider swiper">
                 <div class="swiper-wrapper">
                     <?php foreach($gallery as $g) : ?>
-                        <img src="<?php echo $g['image']; ?>" class="swiper-slide">
+                        <div class="swiper-slide">
+                            <img src="<?php echo $g['image']; ?>">
+                        </div>
                     <?php endforeach; ?>
                 </div>
+                <div class="store__gallery__slider__prev swiper-button-prev"></div>
+                <div class="store__gallery__slider__next swiper-button-next"></div>
             </div>
         </div>
     </div>
@@ -172,7 +177,7 @@
 
         <?php $linkLeft = get_field('agence_left_link', 'option'); $linkRight = get_field('agence_right_link', 'option'); ?>
         <div class="store__blocks">
-            <div class="store__blocks__item">
+            <div class="store__blocks__item lightBG">
                 <h3><?php echo get_field('agence_left_surtitle', 'option'); ?></h3>
                 <h2><?php echo get_field('agence_left_title', 'option'); ?></h2>
                 <div class="store__blocks__item__text">
@@ -183,7 +188,7 @@
                 <a href="<?php echo $linkLeft['url']; ?>" target="<?php echo $linkLeft['target']; ?>" class="btn btn--arrow"><?php echo $linkLeft['title']; ?></a>
                 <?php endif; ?>
             </div>
-            <div class="store__blocks__item">
+            <div class="store__blocks__item lightBG">
                 <img src="<?php echo str_replace('"', '\"', get_field('agence_right_img', 'option')); ?>" alt="<?php echo str_replace('"', '\"', get_field('agence_right_title', 'option')); ?>" class="store__blocks__item__logo">
                 <h2><?php echo get_field('agence_right_title', 'option'); ?></h2>
                 <div class="store__blocks__item__text">
