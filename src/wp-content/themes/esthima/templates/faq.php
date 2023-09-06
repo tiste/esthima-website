@@ -18,33 +18,8 @@ get_header();
                 <div class="page-faq__content">
                     <?php the_content() ?>
                 </div>
-                
 
-                <?php if( have_rows('questions_reponses') ): ?>
-
-                    <div class="search-faq">
-                        <input type="text" placeholder="Ex : Modes de paiement" />
-                        <button>Rechercher</button>
-                    </div>
-                    <ul class="list-faq">
-                        <?php while( have_rows('questions_reponses') ): the_row(); 
-                            $question = get_sub_field('question');
-                            $reponse = get_sub_field('reponse');
-                            ?>
-                            <li>
-                                <div>
-                                    <?php echo $question; ?>
-                                </div>
-                                <div>
-                                    <div>
-                                        <?php echo $reponse; ?>
-                                    </div>
-                                </div>
-                            </li>
-                        <?php endwhile; ?>
-                    </ul>
-
-                <?php endif; ?>
+                <?php echo do_shortcode("[partial name='list-faq']"); ?>
                 
             <?php endwhile; ?>
 
