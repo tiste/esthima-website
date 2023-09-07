@@ -200,7 +200,7 @@ function getCookie(cName) {
 
 		/* store locator - recherche */
 		if($('.storeloc__tet__form input[type="text"]').length && $('#wpsl-search-input').length){
-			$('.storeloc__tet__form input[type="text"]').on('input', function(e){
+			$('.storeloc__tet__form input[type="text"]').on('input', function(){
 				$('#wpsl-search-input').val($('.storeloc__tet__form input[type="text"]').val());
 			})
 			$('.storeloc__tet__form input[type="text"]').on('keyup', function (e) {
@@ -264,6 +264,23 @@ function getCookie(cName) {
 			}
 		}
 		/* /agence - ouvert/fermé */
+
+		/* agence - contact - positionnement labels */
+		$('.has-label input').on('input', function(){
+			if($(this).val()==null || $(this).val()==''){
+				$(this).parents('.has-label').removeClass('has-label-written')
+			}else{
+				$(this).parents('.has-label').addClass('has-label-written')
+			}
+		})
+		/* /agence - contact - positionnement labels */
+
+		/* agence - contact - drapeau tel */
+		$(document).on('change', '.store__infos__contact .phone-country select', function(){
+			$(this).attr('class', 'large gfield_select');
+			$(this).addClass('pays-'+$(this).val());
+		})
+		/* /agence - contact - drapeau tel */
 
 	});
 	
