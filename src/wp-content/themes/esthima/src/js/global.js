@@ -227,6 +227,44 @@ function getCookie(cName) {
 		}
 		/* /agence - slider */
 
+		/* agence - ouvert/fermé */
+		if($('.store__tet__status').length && window.todayDate && window.arrayDaysMap && window.arrayHours){
+			var hoursToday = window.arrayHours[window.arrayDaysMap[window.todayDate.getDay()]];
+			console.log(hoursToday)
+			if(hoursToday.length<=0){
+				$('.store__tet__status').addClass('store__tet__status-closed');
+			}else{
+				let isOpen = false;
+				hoursToday.forEach((child) => {
+					let heureArray = child.split(',');
+					let debut = heureArray[0];
+					let fin = heureArray[1];
+					let heureDebut = Number(debut.split(':')[0]);
+					let minuteDebut = Number(debut.split(':')[1]);
+					let heureFin = Number(fin.split(':')[0]);
+					let minuteFin = Number(fin.split(':')[1]);
+					if(
+						(
+							heureDebut<window.todayDate.getHours() || 
+							(heureDebut==window.todayDate.getHours() && minuteDebut<window.todayDate.getMinutes())
+						) &&
+						(
+							window.todayDate.getHours()<heureFin ||
+							(window.todayDate.getHours()==heureFin && window.todayDate.getMinutes()<minuteFin)
+						)
+					){
+						isOpen = true;
+					}
+				});
+				if(isOpen){
+					$('.store__tet__status').addClass('store__tet__status-open');
+				}else{
+					$('.store__tet__status').addClass('store__tet__status-closed');
+				}
+			}
+		}
+		/* /agence - ouvert/fermé */
+
 	});
 	
 })(window, jQuery);

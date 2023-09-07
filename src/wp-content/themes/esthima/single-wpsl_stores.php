@@ -206,10 +206,18 @@
 <script>
     <?php 
         date_default_timezone_set('Europe/Paris');
-        $currentDateTime = date('Y-m-d', time());
+        $currentDateTime = date('Y-m-d H:i:s', time());
         // $currentDateTime = date('w d/m/Y H:i:s', time());
         // var_dump($currentDateTime);
+        // json_encode($hours)
     ?>
+    window.todayDate = new Date('<?php echo $currentDateTime; ?>');
+    window.arrayDaysMap = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    window.arrayHours = <?php echo json_encode($hours); ?>;
+    console.log(window.todayDate);
+    console.log(window.arrayHours);
+
+
 </script>
 
 <?php get_footer(); ?>

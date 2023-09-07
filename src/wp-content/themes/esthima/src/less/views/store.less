@@ -44,7 +44,46 @@
             }
         }
         &__status{
-
+            width: fit-content;
+            padding: 0 15px;
+            border-radius: 100px;
+            &::before{
+                display: inline-block;
+                vertical-align: middle;
+                width: 7px; height: 7px;
+                border: solid 1px @white;
+                border-radius: 100%;
+                margin-right: 8px;
+            }
+            &::after{
+                display: inline-block;
+                color: @white;
+                font-family: @main-font;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 1;
+            }
+            &-open{
+                background-color: #99C935;
+                &::before{
+                    content: "";
+                    background-color: @white;
+                }
+                &::after{
+                    content: "Ouvert";
+                }
+            }
+            &-closed{
+                background-color: #EC3D3D;
+                &::before{
+                    content: "";
+                    background-color: #EC3D3D;
+                }
+                &::after{
+                    content: "Fermé";
+                }
+            }
         }
         h1{
             margin: 0 0 20px;
