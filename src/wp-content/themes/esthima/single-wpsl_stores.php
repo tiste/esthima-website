@@ -111,7 +111,11 @@
                         <?php echo do_shortcode( '[wpsl_map height="336" zoom="15"]' ); ?>
                     </div>
                 </div>
+                <div class="store__infos__contact-cta">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/email-contact.svg" alt="Contact">
+                </div>
                 <div class="store__infos__contact">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/close-pink.svg" alt="Fermer" class="store__infos__contact__close">
                     <?php
                         $contactEmail = get_post_meta(get_the_ID(), 'wpsl_email', true);
                         echo do_shortcode('[gravityform id="1" title="true" description="false" ajax="true" field_values="sendemail='.$contactEmail.'"]');

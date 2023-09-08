@@ -218,10 +218,15 @@ function getCookie(cName) {
 		if($('.store__gallery__slider').length){
 			const swiperHPShop = new Swiper('.store__gallery__slider', {
 				spaceBetween: 20,
-				slidesPerView: 1.42,
+				slidesPerView: 1,
 				navigation: {
 					nextEl: '.store__gallery__slider__next',
 					prevEl: '.store__gallery__slider__prev',
+				},
+				breakpoints: {
+					788: {
+						slidesPerView: 1.42,
+					}
 				}
 			});
 		}
@@ -274,6 +279,15 @@ function getCookie(cName) {
 			}
 		})
 		/* /agence - contact - positionnement labels */
+
+		/* agence - contact - ouverture/fermeture mobile */
+		$(document).on('click', '.store__infos__contact-cta', function(){
+			$('.store__infos__contact').addClass('store__infos__contact-open');
+		})
+		$(document).on('click', '.store__infos__contact__close', function(){
+			$('.store__infos__contact').removeClass('store__infos__contact-open');
+		})
+		/* /agence - contact - ouverture/fermeture mobile */
 
 		/* agence - contact - drapeau tel */
 		$(document).on('change', '.store__infos__contact .phone-country select', function(){
