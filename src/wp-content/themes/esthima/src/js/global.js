@@ -183,6 +183,46 @@ function getCookie(cName) {
 			}
 		}
 		/* /hp - sliders mobile */
+		
+		/* boutique - sliders mobile */
+		if($('.shop__blocks__item__texts__products').length && window.innerWidth<768){
+			$('.shop__blocks__item__texts__products').each(function(){
+				$(this).addClass('swiper');
+				$(this).find('.shop__blocks__item__texts__products__prod').each(function(){
+					$(this).addClass('swiper-slide');
+				})
+				let newHPShopHTML = '<div class="swiper-wrapper">' + $(this).html() + '</div><div class="shop__blocks__item__texts__products__prev swiper-button-prev"></div><div class="shop__blocks__item__texts__products__next swiper-button-next"></div>';
+				$(this).html(newHPShopHTML);
+				new Swiper(this, {
+					spaceBetween: 11,
+					slidesPerView: 'auto',
+					navigation: {
+						nextEl: '.shop__blocks__item__texts__products__next',
+						prevEl: '.shop__blocks__item__texts__products__prev',
+					}
+				});
+			})
+		}
+		if($('.shop__solo__products').length && window.innerWidth<768){
+			$('.shop__solo__products').each(function(){
+				$(this).addClass('swiper');
+				$(this).find('.shop__solo__products__item').each(function(){
+					$(this).addClass('swiper-slide');
+				})
+				let newHPShopHTML = '<div class="swiper-wrapper">' + $(this).html() + '</div><div class="shop__solo__products__prev swiper-button-prev"></div><div class="shop__solo__products__next swiper-button-next"></div>';
+				$(this).html(newHPShopHTML);
+				new Swiper(this, {
+					spaceBetween: 11,
+					slidesPerView: 'auto',
+					navigation: {
+						nextEl: '.shop__solo__products__next',
+						prevEl: '.shop__solo__products__prev',
+					}
+				});
+			})
+		}
+		/* /boutique - sliders mobile */
+		
 
 		/* guides - taille bloc de couleur */
 		if($('.guide__tet .lightBG').length){
