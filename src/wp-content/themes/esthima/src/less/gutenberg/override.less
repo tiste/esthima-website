@@ -1,0 +1,112 @@
+/* override.less (gutenberg) */
+
+.the-content .wp-block-heading {
+    line-height: 1.2;
+}
+
+.the-content .wp-block-heading:not(:first-child),
+.the-content .wp-block-buttons:not(:first-child),
+.the-content p:not(:first-child) {
+    margin-top: 1.3em;
+    margin-top: 24px; /* adjustment */
+}
+
+.the-content h1.wp-block-heading {
+    font-size: 38px;
+    line-height: 1;
+}
+@media screen and (min-width: 768px) {
+    .the-content h1.wp-block-heading {
+        font-size: calc(40px + (68 - 40) * ((100vw - 768px) / (1920 - 768)));
+    }
+}
+
+.the-content h2.wp-block-heading {
+    font-size: 28px;
+}
+@media screen and (min-width: 768px) {
+    .the-content h2.wp-block-heading {
+        font-size: calc(32px + (48 - 32) * ((100vw - 768px) / (1920 - 768)));
+    }
+}
+
+.the-content h3.wp-block-heading {
+    font-size: 24px;
+}
+@media screen and (min-width: 768px) {
+    .the-content h3.wp-block-heading {
+        font-size: calc(24px + (38 - 24) * ((100vw - 768px) / (1920 - 768)));
+    }
+}
+
+.the-content h4.wp-block-heading {
+    font-size: 20px;
+}
+@media screen and (min-width: 768px) {
+    .the-content h4.wp-block-heading {
+        font-size: calc(20px + (28 - 20) * ((100vw - 768px) / (1920 - 768)));
+    }
+}
+
+/* force override default button bg color, but can be overwrited by gutenberg options parameters */
+.wp-block-button__link {
+    background-color: #D43B68;
+    font-weight: 700;
+}
+
+
+
+.the-content .yoast-breadcrumbs {
+    padding: 20px;
+    line-height: 1.2;
+}
+@media screen and (min-width: 992px) {
+    .the-content .yoast-breadcrumbs {
+        padding: 2.4%;
+    }
+}
+
+
+
+/* TRY : override default titles, links, lists, strong */
+
+.the-content {
+
+    //line-height all elements
+    line-height: 1.5; /* MAYBE NOT ? */
+
+
+    //titles
+    h1, h2, h3, h4, h5, h6 {
+        color: #D43B68;
+    }
+
+    //links
+    a {
+        color: #D43B68;
+        text-decoration: none;
+        border-bottom: 1px solid #D43B68;
+        &:hover {
+            color: inherit;
+            border-color: inherit;
+        }
+    }
+
+    //lists
+    ul {
+        margin-left: 1em;
+        li {
+            margin-bottom: 0.45em;
+            &::before {
+                content: '\2022';
+                margin-right: 0.25em;
+            }
+        }
+
+        &:not(:first-child) {
+            margin-top: 1.3em;
+            margin-top: 24px; /* adjustment */
+        }
+    }
+
+}

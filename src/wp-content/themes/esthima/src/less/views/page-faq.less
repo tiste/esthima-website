@@ -1,0 +1,40 @@
+/* page-faq.less (views) */
+.page-faq {
+    background-color: #F8F0E8;
+    min-height: 100vh;
+}
+
+
+.page-faq__content h1 {
+    font-size: 32px;
+    line-height: 1.2;
+}
+@media screen and (min-width: 768px) {
+    .page-faq__content h1 {
+        font-size: calc(40px + (68 - 40) * ((100vw - 768px) / (1920 - 768)));
+    } 
+}
+
+
+.page-faq__content p {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+}
+@media screen and (min-width: 768px) {
+    .page-faq__content p {
+        font-size: 28px;
+    } 
+}
+
+
+.page-faq .search-faq {
+    margin-top: 2em;
+}
+.search-faq {
+    text-align: center;
+}
+
+.page-faq .list-faq {
+    margin-top: 2em;
+}

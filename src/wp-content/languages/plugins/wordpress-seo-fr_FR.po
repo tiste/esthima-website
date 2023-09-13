@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-08-22 15:01:16+0000\n"
+"PO-Revision-Date: 2023-09-05 11:20:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -760,7 +760,7 @@ msgstr "Redirections regex"
 msgid "Crawl settings"
 msgstr "Exploration"
 
-#: src/integrations/admin/first-time-configuration-integration.php:126
+#: src/integrations/admin/first-time-configuration-integration.php:125
 msgid "First-time configuration"
 msgstr "Configuration initiale"
 
@@ -1105,7 +1105,7 @@ msgstr "Entraînements"
 
 #: admin/views/class-yoast-integration-toggles.php:81
 msgid "Improve the quality of your site search! Automatically helps your users find your cornerstone and most important content in your internal search results. It also removes noindexed posts & pages from your site’s search results."
-msgstr "Améliorez la qualité de la recherche sur votre site ! Cela aide automatiquement vos visiteurs à trouver vos contenus les plus importants dans les résultats de recherche interne. Cela retire également des publications désindexées de vos résultats de recheche."
+msgstr "Améliorez la qualité de la recherche sur votre site ! Cela aide automatiquement vos visiteurs à trouver vos contenus piliers et les plus importants dans les résultats de recherche interne. Cela retire également des publications désindexées de vos résultats de recherche."
 
 #. translators: %s: Algolia.
 #: admin/views/class-yoast-integration-toggles.php:83
@@ -1932,8 +1932,8 @@ msgstr "Google a mis fin à son API d’erreurs d’exploration. Par conséquent
 msgid "You have previously set your site to represent a person. We’ve improved our functionality around Schema and the Knowledge Graph, so you should go in and %1$scomplete those settings%2$s."
 msgstr "Vous avez précédemment réglé votre site en tant que représentant d’une personne. Nous avons amélioré les fonctionnalités de données structurées (Schema et Knowledge Graph), donc nous vous invitons à %1$s compléter ces réglages%2$s."
 
-#: src/integrations/admin/first-time-configuration-integration.php:511
-#: src/integrations/admin/first-time-configuration-integration.php:524
+#: src/integrations/admin/first-time-configuration-integration.php:476
+#: src/integrations/admin/first-time-configuration-integration.php:489
 #: js/dist/new-settings.js:292
 msgid "Organization"
 msgstr "Entité"
@@ -2625,14 +2625,6 @@ msgstr "L’analyse de lisibilité propose des suggestions pour améliorer la st
 msgid "Discover why readability is important for SEO."
 msgstr "Découvrez pourquoi la lisibilité est importante pour le SEO."
 
-#: admin/views/class-yoast-feature-toggles.php:102
-msgid "The cornerstone content feature lets you to mark and filter cornerstone content on your website."
-msgstr "La fonctionnalité des contenus Cornerstone vous permets de distinguer et filtrer les contenus les plus importants de votre site."
-
-#: admin/views/class-yoast-feature-toggles.php:103
-msgid "Find out how cornerstone content can help you improve your site structure."
-msgstr "Découvrez comment les contenus Cornerstone peuvent améliorer votre structure de site."
-
 #: admin/views/class-yoast-feature-toggles.php:111
 msgid "Find out how the text link counter can enhance your SEO."
 msgstr "Découvrez comment le compteur de liens peut améliorer votre SEO."
@@ -2658,6 +2650,14 @@ msgstr "Découvrez comment %s fonctionne."
 #: js/dist/externals/analysisReport.js:35
 msgid "Good results"
 msgstr "Déjà optimisé"
+
+#: admin/views/class-yoast-feature-toggles.php:103
+msgid "Find out how cornerstone content can help you improve your site structure."
+msgstr "Découvrez comment les contenus piliers peuvent améliorer votre structure de site."
+
+#: admin/views/class-yoast-feature-toggles.php:102
+msgid "The cornerstone content feature lets you to mark and filter cornerstone content on your website."
+msgstr "La fonctionnalité des contenus piliers vous permets de distinguer et filtrer les contenus les plus importants de votre site."
 
 #. Author URI of the plugin
 msgid "https://yoa.st/1uk"
@@ -2761,16 +2761,16 @@ msgstr "Ancien assistant de configuration"
 msgid "(Opens in a new browser tab)"
 msgstr "(S’ouvre dans un nouvel onglet)"
 
-#. translators: %1$s expands to the posttype label, %2$s expands anchor to blog
-#. post about cornerstone content, %3$s expands to </a>
-#: admin/filters/class-cornerstone-filter.php:104
-msgid "Mark the most important %1$s as 'cornerstone content' to improve your site structure. %2$sLearn more about cornerstone content%3$s."
-msgstr "Marquez les contenus les plus importants des %1$s comme « contenus Cornerstone » pour améliorer la structure de votre site. %2$sEn savoir plus sur les contenus Cornerstone (en anglais)%3$s."
-
 #. translators: %s expands to the extension title
 #: admin/views/licenses.php:199 admin/views/licenses.php:309
 msgid "Manage your %s subscription on MyYoast"
 msgstr "Gérez votre abonnement à %s sur MyYoast"
+
+#. translators: %1$s expands to the posttype label, %2$s expands anchor to blog
+#. post about cornerstone content, %3$s expands to </a>
+#: admin/filters/class-cornerstone-filter.php:104
+msgid "Mark the most important %1$s as 'cornerstone content' to improve your site structure. %2$sLearn more about cornerstone content%3$s."
+msgstr "Marquez les contenus les plus importants des %1$s comme « contenus piliers » pour améliorer la structure de votre site. %2$sEn savoir plus sur les contenus piliers (en anglais)%3$s."
 
 #: admin/statistics/class-statistics-service.php:77
 msgid "Hey, your SEO is doing pretty well! Check out the stats:"
@@ -2850,7 +2850,7 @@ msgstr "Score de lisibilité"
 #: js/dist/externals-components.js:16 js/dist/new-settings.js:28
 #: js/dist/new-settings.js:288
 msgid "Cornerstone content"
-msgstr "Contenu Cornestone"
+msgstr "Contenu pilier"
 
 #: admin/class-yoast-form.php:141 admin/class-yoast-form.php:146
 #: js/dist/first-time-configuration.js:4 js/dist/new-settings.js:15
@@ -3784,7 +3784,7 @@ msgstr "Nouvelle URL"
 msgid "URL"
 msgstr "URL"
 
-#: src/integrations/admin/first-time-configuration-integration.php:516
+#: src/integrations/admin/first-time-configuration-integration.php:481
 #: js/dist/new-settings.js:292
 msgid "Person"
 msgstr "Personne"
