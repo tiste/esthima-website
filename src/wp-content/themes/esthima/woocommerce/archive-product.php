@@ -26,24 +26,38 @@ get_header( 'shop' );
  * @hooked woocommerce_breadcrumb - 20
  * @hooked WC_Structured_Data::generate_website_data() - 30
  */
-do_action( 'woocommerce_before_main_content' );
 
 ?>
-<header class="woocommerce-products-header">
-	<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-		<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
-	<?php endif; ?>
+<div class="cats main-content">
+	<div class="shop__cats">
+        <?php wp_list_categories( array('taxonomy' => 'product_cat', 'title_li'  => '') ); ?>
+    </div>
 
 	<?php
-	/**
-	 * Hook: woocommerce_archive_description.
-	 *
-	 * @hooked woocommerce_taxonomy_archive_description - 10
-	 * @hooked woocommerce_product_archive_description - 10
-	 */
-	do_action( 'woocommerce_archive_description' );
+		global $wp_query;
+		global $paged;
+		$cat = $wp_query->get_queried_object();
+		$thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+		$image = wp_get_attachment_url( $thumbnail_id );
 	?>
-</header>
+	<?php do_action( 'woocommerce_before_main_content' ); ?>
+	<div class="woocommerce-products-header" style="--bg-img: url('<?php echo str_replace("'", "\'", $image); ?>');">
+		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
+			<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
+		<?php endif; ?>
+	
+		<?php
+		/**
+		 * Hook: woocommerce_archive_description.
+		 *
+		 * @hooked woocommerce_taxonomy_archive_description - 10
+		 * @hooked woocommerce_product_archive_description - 10
+		 */
+		do_action( 'woocommerce_archive_description' );
+		?>
+	</div>
+
+	<?php echo do_shortcode('[yith_wcan_filters slug="default-preset"]'); ?>
 
 <?php
 if ( woocommerce_product_loop() ) {
@@ -101,6 +115,36 @@ do_action( 'woocommerce_after_main_content' );
  *
  * @hooked woocommerce_get_sidebar - 10
  */
-do_action( 'woocommerce_sidebar' );
+//do_action( 'woocommerce_sidebar' );
+?>
 
+<?php if($paged<2) : ?>
+	<div class="cats__bottom">
+		<h3><?php echo get_field('bottom_title', $cat); ?></h3>
+		<div><?php echo get_field('bottom_text', $cat); ?></div>
+	</div>
+<?php endif; ?>
+
+	<div class="shop__bottom">
+        <?php $vignettes = get_field('footer_shop_vignettes', 'option'); ?>
+        <?php if(!is_null($vignettes) && !empty($vignettes) && is_array($vignettes)) : ?>
+            <div class="shop__bottom__flex">
+                <?php foreach($vignettes as $v) : ?>
+                    <div class="shop__bottom__flex__item">
+                        <div class="shop__bottom__flex__item__picto">
+                            <img src="<?php echo str_replace('"', '\"', $v['picto']); ?>" alt="<?php echo str_replace('"', '\"', $v['text']); ?>">
+                        </div>
+                        <div class="shop__bottom__flex__item__text">
+                            <?php echo $v['text']; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+        <h2><?php echo get_field('footer_shop_title', 'option'); ?></h2>
+        <?php get_template_part('template-parts/phone-number'); ?>
+    </div>
+</div>
+
+<?php
 get_footer( 'shop' );

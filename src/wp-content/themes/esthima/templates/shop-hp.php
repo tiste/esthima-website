@@ -71,7 +71,7 @@ get_header();
     </div>
 
     <div class="shop__bottom">
-        <?php $vignettes = get_field('bottom_vignettes'); ?>
+        <?php $vignettes = get_field('footer_shop_vignettes', 'option'); ?>
         <?php if(!is_null($vignettes) && !empty($vignettes) && is_array($vignettes)) : ?>
             <div class="shop__bottom__flex">
                 <?php foreach($vignettes as $v) : ?>
@@ -86,7 +86,7 @@ get_header();
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-        <h2><?php echo get_field('bottom_title'); ?></h2>
+        <h2><?php echo get_field('footer_shop_title', 'option'); ?></h2>
         <?php get_template_part('template-parts/phone-number'); ?>
     </div>
 
