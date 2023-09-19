@@ -8,10 +8,6 @@ get_header();
 
 <main class="main main-content">
 
-    <div class="shop__cats">
-        <?php wp_list_categories( array('taxonomy' => 'product_cat', 'title_li'  => '') ); ?>
-    </div>
-
     <?php $cats = get_field('cats_blocks'); ?>
     <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
     <div class="shop__blocks">
@@ -32,7 +28,7 @@ get_header();
                                         <?php echo $product->get_image(); ?>
                                     </div>
                                     <div class="shop__blocks__item__texts__products__prod__name"><?php echo $product->get_name(); ?></div>
-                                    <div class="shop__blocks__item__texts__products__prod__price">Dès <?php echo $product->get_price_html(); ?></div>
+                                    <div class="shop__blocks__item__texts__products__prod__price"><?php echo $product->get_price_html(); ?></div>
                                     <a href="<?php echo get_the_permalink($p); ?>"></a>
                                 </div>
                             <?php endforeach; ?>
@@ -60,7 +56,7 @@ get_header();
                             <?php echo $product->get_image(); ?>
                         </div>
                         <div class="shop__solo__products__item__name"><?php echo $product->get_name(); ?></div>
-                        <div class="shop__solo__products__item__price">Dès <?php echo $product->get_price_html(); ?></div>
+                        <div class="shop__solo__products__item__price"><?php echo $product->get_price_html(); ?></div>
                         <a href="<?php echo get_the_permalink($p); ?>"></a>
                     </div>
                 <?php endforeach; ?>
@@ -69,26 +65,6 @@ get_header();
         <a href="<?php echo get_term_link(get_field('solo_cat')); ?>" class="btn btn--arrow"><?php echo get_field('solo_ctatext') ?></a>
     </div>
 
-    <div class="shop__bottom">
-        <?php $vignettes = get_field('footer_shop_vignettes', 'option'); ?>
-        <?php if(!is_null($vignettes) && !empty($vignettes) && is_array($vignettes)) : ?>
-            <div class="shop__bottom__flex">
-                <?php foreach($vignettes as $v) : ?>
-                    <div class="shop__bottom__flex__item">
-                        <div class="shop__bottom__flex__item__picto">
-                            <img src="<?php echo str_replace('"', '\"', $v['picto']); ?>" alt="<?php echo str_replace('"', '\"', $v['text']); ?>">
-                        </div>
-                        <div class="shop__bottom__flex__item__text">
-                            <?php echo $v['text']; ?>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
-        <h2><?php echo get_field('footer_shop_title', 'option'); ?></h2>
-        <?php get_template_part('template-parts/phone-number'); ?>
-    </div>
-
 </main>
 
-<?php get_footer(); ?>
+<?php get_footer('shop'); ?>

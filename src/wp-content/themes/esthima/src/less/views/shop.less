@@ -275,18 +275,34 @@
                         &__price{
                             color: @main;
                             font-family: @main-font;
-                            font-size: 16px;
+                            font-size: 0;
                             font-style: normal;
                             font-weight: 600;
                             line-height: normal;
-                            @media (min-width: 768px){
-                                font-size: 12px;
-                            }
-                            @media (min-width: 1440px){
-                                font-size: 13px;
-                            }
-                            @media (min-width: 1680px){
+                            &::before{
+                                content: "Dès ";
                                 font-size: 16px;
+                                @media (min-width: 768px){
+                                    font-size: 12px;
+                                }
+                                @media (min-width: 1440px){
+                                    font-size: 13px;
+                                }
+                                @media (min-width: 1680px){
+                                    font-size: 16px;
+                                }
+                            }
+                            .amount:first-child{
+                                font-size: 16px;
+                                @media (min-width: 768px){
+                                    font-size: 12px;
+                                }
+                                @media (min-width: 1440px){
+                                    font-size: 13px;
+                                }
+                                @media (min-width: 1680px){
+                                    font-size: 16px;
+                                }
                             }
                         }
                     }
@@ -469,18 +485,34 @@
                 &__price{
                     color: @main;
                     font-family: @main-font;
-                    font-size: 16px;
+                    font-size: 0;
                     font-style: normal;
                     font-weight: 600;
                     line-height: normal;
-                    @media (min-width: 768px){
-                        font-size: 12px;
-                    }
-                    @media (min-width: 1440px){
-                        font-size: 13px;
-                    }
-                    @media (min-width: 1680px){
+                    &::before{
+                        content: "Dès ";
                         font-size: 16px;
+                        @media (min-width: 768px){
+                            font-size: 12px;
+                        }
+                        @media (min-width: 1440px){
+                            font-size: 13px;
+                        }
+                        @media (min-width: 1680px){
+                            font-size: 16px;
+                        }
+                    }
+                    .amount:first-child{
+                        font-size: 16px;
+                        @media (min-width: 768px){
+                            font-size: 12px;
+                        }
+                        @media (min-width: 1440px){
+                            font-size: 13px;
+                        }
+                        @media (min-width: 1680px){
+                            font-size: 16px;
+                        }
                     }
                 }
             }

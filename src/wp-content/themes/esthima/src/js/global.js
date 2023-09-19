@@ -222,7 +222,26 @@ function getCookie(cName) {
 			})
 		}
 		/* /boutique - sliders mobile */
-		
+
+		/* categorie - titre en 2 parties */
+		if($('.cats .woocommerce-products-header h1').length){
+			$('.cats .woocommerce-products-header h1').each(function(){
+				let htmlTitle = $(this).html();
+				let i = htmlTitle.indexOf(' ');
+				let splits = [htmlTitle.slice(0,i), htmlTitle.slice(i+1)];
+				if(splits.length>1){
+					$(this).html(splits[0] + '<span>' + splits[1] + '</span>')
+				}
+			})
+		}
+		/* /categorie - titre en 2 parties */
+		/* categorie - add wrap to img in loop */
+		if($('.cats ul.products li.product.product .attachment-woocommerce_thumbnail').length){
+			$('.cats ul.products li.product.product .attachment-woocommerce_thumbnail').each(function(){
+				$(this).wrap('<div class="product__img"></div>')
+			})
+		}
+		/* /categorie - add wrap to img in loop */
 
 		/* guides - taille bloc de couleur */
 		if($('.guide__tet .lightBG').length){

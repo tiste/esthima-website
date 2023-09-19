@@ -29,10 +29,6 @@ get_header( 'shop' );
 
 ?>
 <div class="cats main-content">
-	<div class="shop__cats">
-        <?php wp_list_categories( array('taxonomy' => 'product_cat', 'title_li'  => '') ); ?>
-    </div>
-
 	<?php
 		global $wp_query;
 		global $paged;
@@ -57,7 +53,9 @@ get_header( 'shop' );
 		?>
 	</div>
 
-	<?php echo do_shortcode('[yith_wcan_filters slug="default-preset"]'); ?>
+	<div class="cats__filters">
+		<?php echo do_shortcode('[yith_wcan_filters slug="default-preset"]'); ?>
+	</div>
 
 <?php
 if ( woocommerce_product_loop() ) {
@@ -125,25 +123,6 @@ do_action( 'woocommerce_after_main_content' );
 	</div>
 <?php endif; ?>
 
-	<div class="shop__bottom">
-        <?php $vignettes = get_field('footer_shop_vignettes', 'option'); ?>
-        <?php if(!is_null($vignettes) && !empty($vignettes) && is_array($vignettes)) : ?>
-            <div class="shop__bottom__flex">
-                <?php foreach($vignettes as $v) : ?>
-                    <div class="shop__bottom__flex__item">
-                        <div class="shop__bottom__flex__item__picto">
-                            <img src="<?php echo str_replace('"', '\"', $v['picto']); ?>" alt="<?php echo str_replace('"', '\"', $v['text']); ?>">
-                        </div>
-                        <div class="shop__bottom__flex__item__text">
-                            <?php echo $v['text']; ?>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
-        <h2><?php echo get_field('footer_shop_title', 'option'); ?></h2>
-        <?php get_template_part('template-parts/phone-number'); ?>
-    </div>
 </div>
 
 <?php
