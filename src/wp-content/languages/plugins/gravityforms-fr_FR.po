@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the RocketGenius - Gravity Forms package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-04-27 12:28:36+0000\n"
+"PO-Revision-Date: 2023-09-18 07:06:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,19 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.3\n"
 "Language: fr\n"
 "Project-Id-Version: RocketGenius - Gravity Forms\n"
+
+#: form_display.php:2491
+msgid "The text entered contains invalid characters."
+msgstr "Le texte saisi contient des caractères invalides."
+
+#. translators: 1: Add-on title
+#: includes/addon/class-gf-addon.php:6118
+msgid "Some features of the %1$s Add-on are not available on this version of Gravity Forms. Please update to the latest version for full compatibility."
+msgstr "Certaines fonctionnalités du module %1$s ne sont pas disponibles dans cette version de Gravity Forms. Veuillez mettre à jour vers la dernière version pour une parfaite compatibilité."
+
+#: includes/addon/class-gf-addon.php:5546
+msgid "Some features of the add-on are not available on the current version of Gravity Forms. Please update to the latest Gravity Forms version for full compatibility."
+msgstr "Certaines fonctionnalités du module ne sont pas disponibles dans la version actuelle de Gravity Forms. Veuillez mettre à jour vers la dernière version de Gravity Forms pour une parfaite compatibilité."
 
 #: settings.php:933
 msgid "Get your reCAPTCHA Keys."
