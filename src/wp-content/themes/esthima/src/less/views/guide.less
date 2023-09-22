@@ -22,8 +22,7 @@
         }
         &__breadcrumbs{
             margin: 0 auto;
-            width: 98%;
-            max-width: 1600px;
+            width: 100%;
             padding: 30px 0 25px;
             @media (min-width: 768px){
                 width: 98%;
@@ -59,14 +58,10 @@
             }
         }
         &__flex{
-            width: 98%;
-            max-width: 1380px;
-            margin: 0 auto 65px;
+            width: 100%;
+            margin: 0 auto 30px;
             display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: space-between;
-            align-items: flex-start;
+            flex-direction: column;
             @media (min-width: 768px){
                 width: 98%;
                 max-width: 920px;
@@ -85,7 +80,7 @@
                 margin: 0 auto 65px;
             }
             &__img{
-                width: 49.28%;
+                width: 100%;
                 .fixed-ratio(1.07936508);
                 @media (min-width: 768px){
                     width: 49.28%;
@@ -93,7 +88,7 @@
                 }
             }
             &__texts{
-                width: 40.58%;
+                width: 100%;
                 padding-top: 20px;
                 @media (min-width: 768px){
                     width: 40.58%;
@@ -108,7 +103,7 @@
                 &__cat{
                     margin: 0 0 14px;
                     color: @text;
-                    font-size: 16px;
+                    font-size: 12px;
                     font-style: normal;
                     font-weight: 600;
                     line-height: 1.6;
@@ -129,7 +124,7 @@
                 h1{
                     margin: 0 0 14px;
                     color: @main;
-                    font-size: 48px;
+                    font-size: 28px;
                     font-style: normal;
                     font-weight: 600;
                     line-height: 1.1;
@@ -148,7 +143,7 @@
                 }
                 &__excerpt{
                     color: @text;
-                    font-size: 20px;
+                    font-size: 16px;
                     font-style: normal;
                     font-weight: 400;
                     line-height: 1.665;
@@ -166,8 +161,7 @@
         }
     }
     &__body{
-        width: 98%;
-        max-width: 1100px;
+        width: 100%;
         margin: 0 auto 0;
         @media (min-width: 768px){
             width: 98%;
@@ -199,7 +193,7 @@
         &__back{
             display: block;
             width: 100%;
-            margin: 0 auto 70px;
+            margin: 0 auto 20px;
             color: @text;
             font-size: 14px;
             font-style: normal;
@@ -238,7 +232,7 @@
             width: 100%;
             margin: 0 auto 0;
             color: @text;
-            font-size: 18px;
+            font-size: 16px;
             font-style: normal;
             font-weight: 400;
             line-height: 1.6;
@@ -252,7 +246,7 @@
                 font-size: 18px;
             }
             > * + *{
-                margin-top: 30px;
+                margin-top: 20px;
                 @media (min-width: 768px){
                     margin-top: 20px;
                 }
@@ -264,7 +258,7 @@
                 }
             }
             .wp-block-column > * + *{
-                margin-top: 30px;
+                margin-top: 20px;
                 @media (min-width: 768px){
                     margin-top: 20px;
                 }
@@ -277,7 +271,7 @@
             }
             h2{
                 color: @main;
-                font-size: 38px;
+                font-size: 24px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: 1.2;
@@ -293,7 +287,7 @@
             }
             h3, h4, h5{
                 color: @main;
-                font-size: 20px;
+                font-size: 18px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: 1.6;
@@ -317,8 +311,11 @@
                         color: @main;
                         font-weight: bold;
                         display: block;
-                        width: 1em;
+                        width: 4em;
                         margin-left: 0.5em;
+                        @media (min-width: 768px){
+                            width: 1em;
+                        }
                     }
                 }
             }
@@ -425,12 +422,14 @@
             margin: 0 auto 0;
             display: flex;
             flex-direction: column;
+            gap: 30px;
             @media (min-width: 768px){
                 margin: 0 auto 0;
                 flex-direction: row;
                 flex-wrap: nowrap;
                 align-items: flex-start;
                 justify-content: space-between;
+                gap: 10px;
             }
             h3{
                 margin: 0 0 14px;
@@ -454,7 +453,7 @@
                 }
             }
             &__share{
-                max-width: calc(100% - 270px);
+                width: 100%;
                 @media (min-width: 768px){
                     max-width: calc(100% - 180px);
                 }
@@ -598,7 +597,7 @@
             }
         }
         &__faq{
-            margin: 140px auto 140px;
+            margin: 40px auto 40px;
             @media (min-width: 768px){
                 margin: 93px auto 93px;
             }
@@ -609,9 +608,9 @@
                 margin: 140px auto 140px;
             }
             h2{
-                margin: 0 auto 70px;
+                margin: 0 auto 20px;
                 color: @text;
-                font-size: 68px;
+                font-size: 38px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: 1;
@@ -630,12 +629,16 @@
                 }
                 span{
                     color: @main;
+                    display: block;
+                    @media (min-width: 768px){
+                        display: inline;
+                    }
                 }
             }
         }
         &__event{
-            margin: 140px auto 140px;
-            padding: 44px 90px 44px 44px;
+            margin: 40px auto 40px;
+            padding: 0 0 30px 0;
             background-color: @lightbg;
             @media (min-width: 768px){
                 margin: 93px auto 93px;
@@ -651,7 +654,7 @@
             }
             &__flex{
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
                 flex-wrap: nowrap;
                 align-items: center;
                 justify-content: space-between;
@@ -664,18 +667,20 @@
             }
             &__img{
                 display: block;
-                width: 57.97%;
+                width: 100%;
                 @media (min-width: 768px){
                     width: 57.97%;
                 }
             }
             &__texts{
-                width: 36.23%;
+                width: 100%;
+                padding: 20px 20px 0;
                 @media (min-width: 768px){
                     width: 36.23%;
+                    padding: 0 0 0;
                 }
                 h4{
-                    margin: 0 0 18px;
+                    margin: 0 0 15px;
                     color: @main;
                     font-size: 14px;
                     font-style: normal;
@@ -697,9 +702,9 @@
                     }
                 }
                 h3{
-                    margin: 0 0 18px;
+                    margin: 0 0 15px;
                     color: @main;
-                    font-size: 38px;
+                    font-size: 28px;
                     font-style: normal;
                     font-weight: 600;
                     line-height: 1.2;
@@ -717,9 +722,9 @@
                     }
                 }
                 &__date{
-                    margin: 0 0 18px;
+                    margin: 0 0 15px;
                     color: @text;
-                    font-size: 24px;
+                    font-size: 20px;
                     font-style: normal;
                     font-weight: 700;
                     line-height: 1.055;
@@ -738,7 +743,7 @@
                 }
                 &__text{
                     color: @text;
-                    font-size: 18px;
+                    font-size: 16px;
                     font-style: normal;
                     font-weight: 400;
                     line-height: 1.6;
@@ -756,9 +761,8 @@
         }
     }
     &__more{
-        width: 98%;
-        max-width: 1380px;
-        margin: 0 auto 200px;
+        width: 100%;
+        margin: 0 auto 50px;
         @media (min-width: 768px){
             width: 98%;
             max-width: 920px;
@@ -773,9 +777,9 @@
             margin: 0 auto 200px;
         }
         h2{
-            margin: 0 auto 74px;
+            margin: 0 auto 20px;
             color: @main;
-            font-size: 48px;
+            font-size: 28px;
             font-style: normal;
             font-weight: 600;
             line-height: 1.1;
@@ -795,15 +799,14 @@
         }
         &__flex{
             display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            align-items: stretch;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 20px;
             @media (min-width: 768px){
                 flex-direction: row;
                 flex-wrap: nowrap;
                 align-items: stretch;
                 justify-content: space-between;
+                gap: 0;
             }
         }
         &__post{
@@ -811,9 +814,8 @@
             position: relative;
             flex-direction: column;
             justify-content: flex-end;
-            width: calc(50% - 10px);
-            min-height: 680px;
-            padding: 40px 60px 40px 40px;
+            width: 100%;
+            padding: 30px 20px 30px 20px;
             background-image: linear-gradient(360deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.00) 100%), var(--bg-img);
             background-position: center;
             background-repeat: no-repeat;
@@ -839,14 +841,38 @@
                 font-weight: 600;
                 line-height: 1.6;
                 text-transform: uppercase;
+                @media (min-width: 768px){
+                    margin: 0 0 13px;
+                    font-size: 12px;
+                }
+                @media (min-width: 1440px){
+                    margin: 0 0 16px;
+                    font-size: 13px;
+                }
+                @media (min-width: 1680px){
+                    margin: 0 0 20px;
+                    font-size: 16px;
+                }
             }
             &__title{
                 margin: 0 0 20px;
                 color: @white;
-                font-size: 43px;
+                font-size: 28px;
                 font-style: normal;
                 font-weight: 700;
                 line-height: 1.33;
+                @media (min-width: 768px){
+                    margin: 0 0 13px;
+                    font-size: 29px;
+                }
+                @media (min-width: 1440px){
+                    margin: 0 0 16px;
+                    font-size: 34px;
+                }
+                @media (min-width: 1680px){
+                    margin: 0 0 20px;
+                    font-size: 43px;
+                }
             }
             .btn--arrow{
                 &::before{
