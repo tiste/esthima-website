@@ -165,7 +165,7 @@ function custom_listing_template() {
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address2 %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse">'.wpsl_address_format_placeholders().'</div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__btns">' . "\r\n";
-	$listing_template .= "\t\t\t\t\t\t" . '<a href="#" class="storeloc__map__store__infos__btns__rdv">Prendre rendez-vous</a>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<a href="'.home_url('/').'prise-de-rendez-vous/" class="storeloc__map__store__infos__btns__rdv">Prendre rendez-vous</a>' . "\r\n";
 	$listing_template .= "\t\t\t\t\t\t" . '<% if ( phone ) { %>' . "\r\n";
 	$listing_template .= "\t\t\t\t\t\t" . '<a href="tel:<%= phone %>" class="storeloc__map__store__infos__btns__call">Nous appeler</a>' . "\r\n";
 	$listing_template .= "\t\t\t\t\t\t" . '<% } %>' . "\r\n";
