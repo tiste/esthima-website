@@ -5,6 +5,7 @@
 <main class="main main-content">
 
 <?php
+$parent = get_queried_object()->parent;
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $argsSticky = array(
     'post_type' => 'guide',
@@ -66,7 +67,12 @@ $queryRegular = new WP_Query($argsRegular);
             <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
         </div>
         <div class="guides__tet__texts">
-            <h1><?php echo get_queried_object()->name; ?></h1>
+            <h1>
+                <?php if($parent!=0) : ?>
+                    <span><?php echo get_term($parent)->name; ?></span>
+                <?php endif; ?>
+                <?php echo get_queried_object()->name; ?>
+            </h1>
             <h2><?php echo get_field('tet_subtitle'); ?></h2>
         </div>
         <div class="guides__tet__sticky" style="--bg-img: url('<?php echo str_replace("'", "\'", get_the_post_thumbnail_url($querySticky[0]->ID)); ?>')">
@@ -88,7 +94,6 @@ $queryRegular = new WP_Query($argsRegular);
     </div>
 
 	<?php
-		$parent = get_queried_object()->parent;
 		$cats = get_terms( array(
 			'taxonomy' => 'guide_cat',
 			'hide_empty' => false,
@@ -127,10 +132,21 @@ $queryRegular = new WP_Query($argsRegular);
         <?php endif; ?>
     </div>
 
+    <?php $currentURL = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
+
+    <select class="guides__cats-mob">
+        <option value="<?php echo str_replace('"', '\"', home_url('/')); ?>conseils-actualites/">Tous les articles</option>
+        <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
+            <?php foreach($cats as $c) : ?>
+                <option value="<?php echo str_replace('"', '\"', get_term_link($c)); ?>" <?php echo ($currentURL==get_term_link($c)) ? 'selected' : ''; ?>><?php echo $c->name; ?></option>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </select>
+
     <div class="guides__posts">
-        <?php if ( $queryRegular->have_posts() ) : $i = 0; $j = 1; ?>
+        <?php if ( $queryRegular->have_posts() ) : $i = 0; ?>
             <?php while ( $queryRegular->have_posts() ) : $queryRegular->the_post(); ?>
-                <div class="guides__posts__item <?php echo ($i==0 || $i==5 || $i==6) ? 'guides__posts__item-big guides__posts__item-'.$i : 'guides__posts__item-'.$i; ?>" data-page="<?php echo $j; ?>">
+                <div class="guides__posts__item <?php echo ($i==0 || $i==5 || $i==6) ? 'guides__posts__item-big guides__posts__item-'.$i : 'guides__posts__item-'.$i; ?>">
                     <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php echo get_the_title(); ?>" class="guides__posts__item__img">
                     <div class="guides__posts__item__texts">
                         <div class="guides__posts__item__cat">
@@ -146,7 +162,7 @@ $queryRegular = new WP_Query($argsRegular);
                         <div class="guides__posts__item__title">
                             <?php echo get_the_title(); ?>
                         </div>
-                        <a href="<?php echo get_the_permalink(); ?>" class="btn <?php echo ($i==0 || $i==5 || $i==6) ? 'btn--arrow' : 'btn--underline'; ?>">Lire l'article</a>
+                        <a href="<?php echo get_the_permalink(); ?>" class="btn">Lire l'article</a>
                     </div>
                 </div>
                 <?php if( ($queryRegular->current_post + 1) == ($queryRegular->post_count) ) : ?>
@@ -164,8 +180,8 @@ $queryRegular = new WP_Query($argsRegular);
 					</div>
                 </div>
                 <?php endif; ?>
-                <?php $i++; if($i>7){$i=0; $j++;} ?>
-            <?php endwhile; ?>
+                <?php $i++; ?>
+            <?php endwhile; wp_reset_postdata(); ?>
         <?php else : ?>
             <div class="guides__posts__nothing">
                 Désolé, aucun article ne correspond à votre recherche.
@@ -186,15 +202,7 @@ $queryRegular = new WP_Query($argsRegular);
             ));
             ?>
         </div>
-    <?php endif; wp_reset_postdata(); ?>
-
-    <div class="guides__thecontent">
-        <?php if ( have_posts() ) : ?>
-            <?php while ( have_posts() ) : the_post(); ?>
-                <?php the_content(); ?>
-            <?php endwhile; ?>
-        <?php endif; ?>
-    </div>
+    <?php endif; ?>
 
 </main>
 

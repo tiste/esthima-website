@@ -3,7 +3,7 @@
 /*
 * Template Name: Shop HP
 */
-get_header();
+get_header('shop');
 ?>
 
 <main class="main main-content">

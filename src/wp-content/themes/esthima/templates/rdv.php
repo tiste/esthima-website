@@ -1,0 +1,17 @@
+<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly 
+
+/*
+* Template Name: RDV
+*/
+get_header();
+?>
+
+<main class="main main-content">
+    <div class="rdv__body">
+        <div id="oabp-widget" domain="booking.vetstoria.com" data-sites='W3sibmFtZSI6IkFHRU5DRSBERSBEyUNJTkVTLUNIQVJQSUVVICg2OSkiLCJoYXNoIjoiNjI4MjVlNmJlZDU4NCJ9LHsibmFtZSI6IkFHRU5DRSBGVU7JUkFJUkUgREUgVklOQ0VOTkVTICg5NCkiLCJoYXNoIjoiNjFjMDI4MjI4Mjg4NiJ9LHsibmFtZSI6IkFHRU5DRSBGVU7JUkFJUkUgU0VDTElOICg1OSkiLCJoYXNoIjoiNjJjZDUwZWEwNGJlYSJ9LHsibmFtZSI6IkNSyU1BVE9SSVVNIEJFQVVWT0lTIEVOIENBTUJSRVNJUyAoNTkpIiwiaGFzaCI6IjYyY2Q0ZTg3ZTZhMzUifSx7Im5hbWUiOiJDUslNQVRPUklVTSBEJiMzOTtFVEFNUEVTICg5MSkiLCJoYXNoIjoiNjE1MTZmODNjZGFjOCJ9LHsibmFtZSI6IkNSyU1BVE9SSVVNIERFIENBU1RFTFNBUlJBU0lOICg4MikiLCJoYXNoIjoiNjI0NmFmOWY4MTQwMSJ9LHsibmFtZSI6IkNSyU1BVE9SSVVNIERFIENIwlRFQVUgR0FJTExBUkQgKDAxKSIsImhhc2giOiI2MjgyNWM0YmFhMWM5In0sIHsibmFtZSI6IkNSyU1BVE9SSVVNIERFIENIRVZJR05ZLVNBSU5ULVNBVVZFVVIgKDIxKSIsImhhc2giOiI2MmY2M2NiZDIyNzk5In0seyJuYW1lIjoiQ1LJTUFUT1JJVU0gREUgRkFVTFFVRU1PTlQgKDU3KSIsImhhc2giOiI2MmY2M2FhYWNlZWIwIn0seyJuYW1lIjoiQ1LJTUFUT1JJVU0gREUgRkFZLUFVWC1MT0dFUyAoNDUpIiwiaGFzaCI6IjYzYmMwYWRkNjJjZTYifSx7Im5hbWUiOiJDUslNQVRPUklVTSBERSBHQVJEQU5ORSAoMTMpIiwiaGFzaCI6IjYzNjkwNzE1ODU3MDIifSx7Im5hbWUiOiJDUslNQVRPUklVTSBERSBHVUVSQU5ERSAoNDQpIiwiaGFzaCI6IjYzNzIwZDg1Mzk5ZTUifSx7Im5hbWUiOiJDUslNQVRPUklVTSBERSBMJiMzOTtIRVJNRU5BVUxUICg4NSkiLCJoYXNoIjoiNjI1MDBiZmNiNDQzZCJ9LHsibmFtZSI6IkNSyU1BVE9SSVVNIERFIEpPU1NFTElOICg1NikiLCJoYXNoIjoiNjM4NjM1NjYwZGQ4YSJ9LHsibmFtZSI6IkNSyU1BVE9SSVVNIERFIExFIFBFU0NIRVIgKDE5KSIsImhhc2giOiI2MjUwMGU2MDY3ODQ0In0seyJuYW1lIjoiQ1LJTUFUT1JJVU0gREUgTs5NRVMgKDMwKSIsImhhc2giOiI2MjA0Zjc2NGYxYWU5In0seyJuYW1lIjoiQ1LJTUFUT1JJVU0gREUgVNRURVMgKDc2KSIsImhhc2giOiI2MzNkN2ExYjYxOWQ2In0KLHsibmFtZSI6IkNSyU1BVE9SSVVNIERFIFZJTU9VVElFUlMgKDYxKSIsImhhc2giOiI2MjE1MWJlYmYxZTVjIn1d' title-message="Merci de sélectionner l’établissement de votre choix" description-message="Si aucun créneau horaire ne vous convient, vous pourrez revenir en arrière et en choisir un autre." redirect-on-complete="" offset="0" force-desktop-view="false" notify-on-completion="false" data-sites-encoded="true" theme-customisation="c23050,727070,c23050,ffffff,727070,727070,c23050,c23050,c23050,727070" layout="two-col"></div>
+        <script src="https://booking.vetstoria.com/js/oabp-widget-group-require.min.js"></script>
+    </div>
+</main>
+
+
+<?php get_footer(); ?>

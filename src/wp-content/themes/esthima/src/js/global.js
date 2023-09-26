@@ -316,6 +316,18 @@ function getCookie(cName) {
 		}
 		/* /guides - taille bloc de couleur */
 
+		/* guides - select cats mob */
+		$(document).on('change', '.guides__cats-mob', function(){
+			window.location.href = $(this).val();
+		})
+		/* /guides - select cats mob */
+
+		/* wishlist - couleur titre */
+		if($('.wishlist__body .wishlist-title h2').length){
+			$('.wishlist__body .wishlist-title h2').html('Ma liste de <span>souhaits</span>');
+		}
+		/* wishlist - couleur titre */
+
 		/* archive guides - taille bloc de couleur */
 		if($('.guides__tet .lightBG').length){
 			let heightLightBG = $('.guides__tet__breadcrumbs').outerHeight() + $('.guides__tet__texts').outerHeight() + 180;

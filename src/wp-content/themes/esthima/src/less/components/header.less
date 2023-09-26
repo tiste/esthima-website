@@ -51,6 +51,9 @@
         @media (min-width: 1680px){
             padding-top: 20px; padding-bottom: 20px;
         }
+        &-shop{
+            align-items: center;
+        }
         &__logo{
             position: relative;
             &__img{
@@ -78,18 +81,12 @@
                 }
             }
         }
-        &__search{
+        &__search,
+        &__search-shop{
             display: none;
             @media (min-width: 768px){
                 display: block;
                 position: relative;
-                margin: 0 10px 0 auto;
-            }
-            @media (min-width: 1440px){
-                margin: 0 12px 0 auto;
-            }
-            @media (min-width: 1680px){
-                margin: 0 15px 0 auto;
             }
             input[type="search"]{
                 box-sizing: border-box;
@@ -97,7 +94,6 @@
                 display: block;
                 position: relative;
                 z-index: 1;
-                width: 480px;
                 height: 52px; line-height: 52px;
                 padding: 0 20px 0 58px;
                 border: solid 1px #D4D4D4;
@@ -110,19 +106,16 @@
                 background: @white;
                 backdrop-filter: blur(10px);
                 @media (min-width: 768px){
-                    width: 320px;
                     height: 36px; line-height: 36px;
                     padding: 0 13px 0 39px;
                     font-size: 12px;
                 }
                 @media (min-width: 1440px){
-                    width: 384px;
                     height: 42px; line-height: 42px;
                     padding: 0 16px 0 46px;
                     font-size: 13px;
                 }
                 @media (min-width: 1680px){
-                    width: 480px;
                     height: 52px; line-height: 52px;
                     padding: 0 20px 0 58px;
                     font-size: 16px;
@@ -149,6 +142,50 @@
                 @media (min-width: 1680px){
                     width: 52px; height: 52px;
                     background-size: 20px;
+                }
+            }
+        }
+        &__search{
+            @media (min-width: 768px){
+                margin: 0 10px 0 auto;
+            }
+            @media (min-width: 1440px){
+                margin: 0 12px 0 auto;
+            }
+            @media (min-width: 1680px){
+                margin: 0 15px 0 auto;
+            }
+            input[type="search"]{
+                @media (min-width: 768px){
+                    width: 320px;
+                }
+                @media (min-width: 1440px){
+                    width: 384px;
+                }
+                @media (min-width: 1680px){
+                    width: 480px;
+                }
+            }
+        }
+        &__search-shop{
+            @media (min-width: 768px){
+                margin: 0 10px 0 67px;
+            }
+            @media (min-width: 1440px){
+                margin: 0 12px 0 80px;
+            }
+            @media (min-width: 1680px){
+                margin: 0 15px 0 100px;
+            }
+            input[type="search"]{
+                @media (min-width: 768px){
+                    width: 360px;
+                }
+                @media (min-width: 1440px){
+                    width: 432px;
+                }
+                @media (min-width: 1680px){
+                    width: 540px;
                 }
             }
         }
@@ -206,6 +243,104 @@
                 }
                 br{
                     display: none;
+                }
+            }
+        }
+        &__shop-parts{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 40px;
+            @media (min-width: 768px){
+                gap: 32px;
+            }
+            @media (min-width: 1440px){
+                gap: 38px;
+            }
+            @media (min-width: 1680px){
+                gap: 48px;
+            }
+            &__account,
+            &__cart{
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 0;
+                @media (min-width: 768px){
+                    gap: 9px;
+                }
+                @media (min-width: 1440px){
+                    gap: 11px;
+                }
+                @media (min-width: 1680px){
+                    gap: 14px;
+                }
+                &__picto{
+                    display: block;
+                    width: 20px;
+                    @media (min-width: 768px){
+                        width: 12px;
+                    }
+                    @media (min-width: 1440px){
+                        width: 14px;
+                    }
+                    @media (min-width: 1680px){
+                        width: 18px;
+                    }
+                }
+                &__text{
+                    color: @text;
+                    font-family: @main-font;
+                    font-size: 0;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 1;
+                    text-transform: uppercase;
+                    @media (min-width: 768px){
+                        font-size: 12px;
+                    }
+                    @media (min-width: 1440px){
+                        font-size: 12px;
+                    }
+                    @media (min-width: 1680px){
+                        font-size: 14px;
+                    }
+                    > span{
+                        display: block;
+                        color: @main;
+                        font-family: @main-font;
+                        font-size: 0;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 1;
+                        text-transform: none;
+                        @media (min-width: 768px){
+                            font-size: 12px;
+                        }
+                        @media (min-width: 1440px){
+                            font-size: 12px;
+                        }
+                        @media (min-width: 1680px){
+                            font-size: 14px;
+                        }
+                    }
+                }
+                a{
+                    display: block;
+                    position: absolute;
+                    top: 0; bottom: 0; left: 0; right: 0;
+                }
+            }
+            &__account{
+                &__text{
+                    > span{
+                        text-decoration: underline;
+                    }
                 }
             }
         }

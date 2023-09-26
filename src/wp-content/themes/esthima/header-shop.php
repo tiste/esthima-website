@@ -19,16 +19,33 @@
 <body <?php body_class(); ?>>
 	
 	<header class="header <?php if (is_front_page()) : ?>header-transparent header-transparent-active <?php endif;?>">
-		<div class="header__top containerCustom">
+		<div class="header__top header__top-shop containerCustom">
 			<a href="<?php echo home_url('/'); ?>" class="header__top__logo">
 				<img src="<?php echo get_field('header_logo', 'option'); ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" class="header__top__logo__img header__top__logo__img-normal">
 				<img src="<?php echo get_field('header_logo_transparent', 'option'); ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" class="header__top__logo__img header__top__logo__img-alt">
 			</a>
-			<div class="header__top__search">
+			<div class="header__top__search-shop">
 				<?php get_search_form(); ?>
 			</div>
-			<div class="header__top__phone">
-				<?php get_template_part('template-parts/phone-number'); ?>
+			<div class="header__top__shop-parts">
+				<div class="header__top__shop-parts__account">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/my-account.svg" class="header__top__shop-parts__account__picto">
+					<div class="header__top__shop-parts__account__text">
+						Mon compte
+						<?php if(!is_user_logged_in()) : ?>
+							<span>Connexion</span>
+						<?php endif; ?>
+					</div>
+					<a href="<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>"></a>
+				</div>
+				<div class="header__top__shop-parts__cart">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/cart.svg" class="header__top__shop-parts__cart__picto">
+					<div class="header__top__shop-parts__cart__text">
+						Mon panier
+						<span><?php global $woocommerce; echo $woocommerce->cart->get_cart_total(); ?></span>
+					</div>
+					<a href="<?php echo wc_get_cart_url(); ?>"></a>
+				</div>
 			</div>
 		</div>
 		<div class="header__pink">
