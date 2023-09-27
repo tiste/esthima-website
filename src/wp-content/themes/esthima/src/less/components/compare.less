@@ -1,0 +1,42 @@
+.yith_woocompare_colorbox{
+    #cboxTopLeft,
+    #cboxTopCenter,
+    #cboxTopRight,
+    #cboxMiddleLeft,
+    #cboxMiddleRight,
+    #cboxBottomLeft,
+    #cboxBottomCenter,
+    #cboxBottomRight{
+        background: @text;
+    }
+    #cboxTopLeft,
+    #cboxTopCenter,
+    #cboxTopRight{
+        height: 43px;
+    }
+    #cboxBottomLeft,
+    #cboxBottomCenter,
+    #cboxBottomRight{
+        height: 19px;
+    }
+    #cboxTopLeft{
+        border-radius: 16px 0 0 0;
+    }
+    #cboxTopRight{
+        border-radius: 0 16px 0 0;
+    }
+    #cboxBottomLeft{
+        border-radius: 0 0 0 16px;
+    }
+    #cboxBottomRight{
+        border-radius: 0 0 16px 0;
+    }
+    #cboxClose{
+        top: -33px;
+        background-color: @text;
+        background-image: url('images/close.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+}

@@ -127,8 +127,10 @@
         }
         $termsMorePosts = get_the_terms( get_the_ID(), 'guide_cat' );
         $termsMorePostsArray = array();
-        foreach($termsMorePosts as $t){
-            $termsMorePostsArray[] = $t->slug;
+        if(!is_null($termsMorePosts) && !empty($termsMorePosts) && is_array($termsMorePosts)){
+            foreach($termsMorePosts as $t){
+                $termsMorePostsArray[] = $t->slug;
+            }
         }
         $postsNotIn = array(get_the_ID());
         if(!is_null($morePosts) && !empty($morePosts) && is_array($morePosts)){
