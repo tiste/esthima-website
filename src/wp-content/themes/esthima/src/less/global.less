@@ -170,6 +170,12 @@ blockquote + blockquote {
 	@media (min-width: 1680px){
 		max-width: calc(100% - 150px);
 	}
+
+	&--alt {
+		@media (max-width: 767px){
+			max-width: none;
+		}
+	}
 }
 
 .lightBG{

@@ -3,7 +3,7 @@
 	get_header();
 ?>
 
-<main class="main main-content">
+<main class="main main-content main-content--alt">
 
 	<div class="wrap wrap--lg">
 		<?php if ( have_posts() ) : ?>
