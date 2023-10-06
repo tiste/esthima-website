@@ -12,7 +12,7 @@
             Ce service permet de <strong>se recueillir une dernière fois</strong> et d’être présent au moment de la crémation privée de votre animal <strong>puis de récupérer les cendres</strong>.
         </div>
         <div class="pricing-plan__button">
-            <a href="#" class="btn btn--arrow btn--arrow--white">Découvrir cette prestation</a>
+            <a href="<?php echo home_url('/'); ?>incineration-privee/" class="btn btn--arrow btn--arrow--white">Découvrir cette prestation</a>
         </div>
     </div>
 

@@ -307,6 +307,24 @@ function getCookie(cName) {
 				});
 			})
 		}
+		if($('.grid-souvenirs .products').length && window.innerWidth<768){
+			$('.grid-souvenirs .products').each(function(index){
+				$(this).addClass('swiper');
+				$(this).find('li.product').each(function(){
+					$(this).addClass('swiper-slide');
+				})
+				let newHPShopHTML = '<div class="swiper-wrapper">' + $(this).html() + '</div><div class="products-'+index+'__prev products__prev swiper-button-prev"></div><div class="products-'+index+'__next products__next swiper-button-next"></div>';
+				$(this).html(newHPShopHTML);
+				new Swiper(this, {
+					spaceBetween: 10,
+					slidesPerView: 'auto',
+					navigation: {
+						nextEl: '.products-'+index+'__next',
+						prevEl: '.products-'+index+'__prev',
+					}
+				});
+			})
+		}
 		/* /produit - sliders mobile */
 
 		/* guides - taille bloc de couleur */
