@@ -8,7 +8,7 @@ get_header();
 
 <main class="main main-content page-faq">
 
-    <div class="wrap wrap--lg">
+    <div class="page-faq__container">
 	
         <?php if ( have_posts() ) : ?>
 

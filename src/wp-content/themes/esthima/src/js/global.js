@@ -335,6 +335,64 @@ function getCookie(cName) {
 		}
 		/* /archive guides - taille bloc de couleur */
 
+		/* faq - ouvre faq */
+		$(document).on('click', '.list-faq__item-closed', function(){
+			$('.list-faq__item').addClass('list-faq__item-closed');
+			$('.list-faq__item').removeClass('list-faq__item-open');
+			$(this).addClass('list-faq__item-open');
+			$(this).removeClass('list-faq__item-closed');
+		})
+		/* /faq - ouvre faq */
+
+		/* faq - categories */
+		$(document).on('click', '.cats-faq__cat', function(){
+			if($(this).hasClass('cats-faq__cat-selected')){
+				$(this).removeClass('cats-faq__cat-selected');
+				$('.list-faq__item').removeClass('list-faq__item-hidden');
+			}else{
+				$('.cats-faq__cat').removeClass('cats-faq__cat-selected');
+				$(this).addClass('cats-faq__cat-selected');
+				var currentCat = $(this).data('slug');
+				$('.list-faq__item').each(function(){
+					if($(this).data('cats').includes('*'+currentCat+'*')){
+						$(this).removeClass('list-faq__item-hidden');
+					}else{
+						$(this).addClass('list-faq__item-hidden');
+					}
+				})
+			}
+			openFirstFAQ();
+		})
+		$(document).on('change', '.cats-faq-mob', function(){
+			if($(this).val()=='all'){
+				$('.list-faq__item').removeClass('list-faq__item-hidden');
+			}else{
+				var currentCat = $(this).val();
+				$('.list-faq__item').each(function(){
+					if($(this).data('cats').includes('*'+currentCat+'*')){
+						$(this).removeClass('list-faq__item-hidden');
+					}else{
+						$(this).addClass('list-faq__item-hidden');
+					}
+				})
+			}
+			openFirstFAQ();
+		})
+		function openFirstFAQ(){
+			var isFirstOpen = false;
+			$('.list-faq__item').each(function(){
+				if(isFirstOpen || $(this).hasClass('list-faq__item-hidden')){
+					$(this).removeClass('list-faq__item-open');
+					$(this).addClass('list-faq__item-closed');
+				}else{
+					isFirstOpen = true;
+					$(this).removeClass('list-faq__item-closed');
+					$(this).addClass('list-faq__item-open');
+				}
+			})
+		}
+		/* /faq - categories */
+
 		/* store locator - recherche */
 		if($('.storeloc__tet__form input[type="text"]').length && $('#wpsl-search-input').length){
 			$('.storeloc__tet__form input[type="text"]').on('input', function(){

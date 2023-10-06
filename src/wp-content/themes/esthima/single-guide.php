@@ -72,13 +72,13 @@
         <div class="guide__body__faq">
             <h2>Vos questions / <span>Nos réponses</span></h2>
             <ul class="list-faq">
-                <?php foreach($faq as $f) : ?>
-                    <li>
-                        <div>
+                <?php $currentFAQ = 0; foreach($faq as $f) : ?>
+                    <li class="list-faq__item <?php echo ($currentFAQ==0) ? 'list-faq__item-open' : 'list-faq__item-closed'; ?>">
+                        <div class="list-faq__item__question">
                             <?php echo get_the_title($f); ?>
                         </div>
-                        <div>
-                            <div>
+                        <div class="list-faq__item__answer">
+                            <div class="list-faq__item__answer__content">
                                 <?php
                                     $myFAQ = get_post($f);
                                     echo apply_filters('the_content',$myFAQ->post_content);
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     </li>
-                <?php endforeach; ?>
+                <?php $currentFAQ++; endforeach; ?>
             </ul>
         </div>
         <?php endif; ?>

@@ -81,14 +81,14 @@
 }
 
 /* lists */
-.the-content ul {
+.the-content ul:not(.list-faq) {
     margin-left: 10px;
 }
-.the-content ul > li {
+.the-content ul:not(.list-faq) > li {
     padding-left: 20px;
     position: relative;
 }
-.the-content ul > li::before {
+.the-content ul:not(.list-faq) > li::before {
     content: "";
     display: block;
     position: absolute;

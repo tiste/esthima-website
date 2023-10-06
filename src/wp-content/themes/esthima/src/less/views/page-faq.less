@@ -1,45 +1,91 @@
 /* page-faq.less (views) */
 .page-faq {
-    
+    &__container{
+        width: calc(100% + 40px);
+        margin: 0 -20px 50px;
+        @media (min-width: 768px){
+            width: 98%;
+            max-width: 1107px;
+            margin: 0 auto 133px;
+        }
+        @media (min-width: 1440px){
+            max-width: 1328px;
+            margin: 0 auto 160px;
+        }
+        @media (min-width: 1680px){
+            max-width: 1660px;
+            margin: 0 auto 200px;
+        }
+    }
+    &__bg {
+        background-color: @lightbg;
+        min-height: 100vh;
+        padding: 0 20px;
+        @media (min-width: 768px){
+            background-image: url('images/bg-flower-watermark-white.svg');
+            background-position: bottom right 33px;
+            background-repeat: no-repeat;
+            background-size: 23.96vw;
+            padding: 0 0;
+        }
+        @media (min-width: 1440px){
+            background-position: bottom right 40px;
+        }
+        @media (min-width: 1680px){
+            background-position: bottom right 50px;
+        }
+    }
+    &__content{
+        color: @text;
+        h1 {
+            margin-bottom: 20px;
+            font-size: 32px;
+            line-height: 1.2;
+            @media (min-width: 768px){
+                margin-bottom: 40px;
+                font-size: 45px;
+            }
+            @media (min-width: 1440px){
+                margin-bottom: 48px;
+                font-size: 54px;
+            }
+            @media (min-width: 1680px){
+                margin-bottom: 60px;
+                font-size: 68px;
+            }
+        }
+        p {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            @media (min-width: 768px){
+                font-size: 19px;
+            }
+            @media (min-width: 1440px){
+                font-size: 22px;
+            }
+            @media (min-width: 1680px){
+                font-size: 28px;
+            }
+        }
+    }
+    .search-faq {
+        margin-top: 2em;
+    }
+    .list-faq {
+        padding: 0 0 40px;
+        @media (min-width: 768px){
+            padding: 0 0 117px;
+        }
+        @media (min-width: 1440px){
+            padding: 0 0 140px;
+        }
+        @media (min-width: 1680px){
+            padding: 0 0 175px;
+        }
+    }
 }
 
-.page-faq__bg {
-    background-color: #F8F0E8;
-    min-height: 100vh;
-}
-
-
-.page-faq__content h1 {
-    font-size: 32px;
-    line-height: 1.2;
-}
-@media screen and (min-width: 768px) {
-    .page-faq__content h1 {
-        font-size: calc(40px + (68 - 40) * ((100vw - 768px) / (1920 - 768)));
-    } 
-}
-
-
-.page-faq__content p {
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-}
-@media screen and (min-width: 768px) {
-    .page-faq__content p {
-        font-size: 28px;
-    } 
-}
-
-
-.page-faq .search-faq {
-    margin-top: 2em;
-}
 .search-faq {
     text-align: center;
-}
-
-.page-faq .list-faq {
-    padding-top: 2em;
-    padding-bottom: 4em;
 }
