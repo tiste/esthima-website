@@ -1,0 +1,2 @@
+2023-10-06T13:20:55+00:00 CRITICAL Allowed memory size of 134217728 bytes exhausted (tried to allocate 65536 bytes) dans /var/www/html/wp-content/plugins/woocommerce/packages/woocommerce-blocks/src/BlockTypes/RelatedProducts.php à la ligne 69
+
