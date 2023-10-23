@@ -509,6 +509,22 @@ function getCookie(cName) {
 		})
 		/* /agence - contact - drapeau tel */
 
+		/* contact - contact - ouverture/fermeture mobile */
+		$(document).on('click', '.contact__tet__form-cta', function(){
+			$('.contact__tet__form').addClass('contact__tet__form-open');
+		})
+		$(document).on('click', '.contact__tet__form__close', function(){
+			$('.contact__tet__form').removeClass('contact__tet__form-open');
+		})
+		/* /contact - contact - ouverture/fermeture mobile */
+
+		/* contact - contact - drapeau tel */
+		$(document).on('change', '.contact__tet__form .phone-country select', function(){
+			$(this).attr('class', 'large gfield_select');
+			$(this).addClass('pays-'+$(this).val());
+		})
+		/* /contact - contact - drapeau tel */
+
 	});
 	
 })(window, jQuery);
