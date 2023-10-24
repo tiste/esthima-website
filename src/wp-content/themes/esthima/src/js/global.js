@@ -525,6 +525,25 @@ function getCookie(cName) {
 		})
 		/* /contact - contact - drapeau tel */
 
+		/* panier - plus/moins */
+		$(document).on('click', '.product-quantity__minus', function(){
+			let val = Number($(this).parent('.product-quantity').find('input[type=number]').val());
+			let min = Number($(this).parent('.product-quantity').find('input[type=number]').attr('min'));
+			if(val>min){
+				$(this).parent('.product-quantity').find('input[type=number]').val(val-1);
+				$(this).parent('.product-quantity').find('input[type=number]').change();
+			}
+		})
+		$(document).on('click', '.product-quantity__plus', function(){
+			let val = Number($(this).parent('.product-quantity').find('input[type=number]').val());
+			let max = $(this).parent('.product-quantity').find('input[type=number]').attr('max');
+			if(max=='' || val<Number(max)){
+				$(this).parent('.product-quantity').find('input[type=number]').val(val+1);
+				$(this).parent('.product-quantity').find('input[type=number]').change();
+			}
+		})
+		/* /panier - plus/moins */
+
 	});
 	
 })(window, jQuery);

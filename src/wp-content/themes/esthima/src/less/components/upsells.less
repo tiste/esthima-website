@@ -1,0 +1,264 @@
+.upsells{
+    margin: 0 auto 60px;
+    width: 100%;
+    @media (min-width: 768px){
+        margin: 0 auto 107px;
+        width: 98%;
+        max-width: 920px;
+    }
+    @media (min-width: 1440px){
+        margin: 0 auto 128px;
+        max-width: 1104px;
+    }
+    @media (min-width: 1680px){
+        margin: 0 auto 160px;
+        max-width: 1380px;
+    }
+    h2{
+        margin: 0 auto 30px;
+        color: @text;
+        font-family: @main-font;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1;
+        text-align: center;
+        @media (min-width: 768px){
+            margin: 0 auto 40px;
+            font-size: 45px;
+        }
+        @media (min-width: 1440px){
+            margin: 0 auto 48px;
+            font-size: 54px;
+        }
+        @media (min-width: 1680px){
+            margin: 0 auto 60px;
+            font-size: 68px;
+        }
+    }
+    .products{
+        &__prev,
+        &__next{
+            display: block;
+            width: 30px; height: 30px;
+            font-size: 0;
+            background-image: url('images/arrow-round-pink.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            &::after{
+                font-size: 0;
+            }
+        }
+        &__prev{
+            left: 0;
+            transform: rotate(180deg);
+        }
+        &__next{
+            right: 0;
+        }
+    }
+    ul.products{
+        @media (min-width: 768px){
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 13px;
+        }
+        @media (min-width: 1440px){
+            gap: 16px;
+        }
+        @media (min-width: 1680px){
+            gap: 20px;
+        }
+        &::before,
+        &::after{
+            content: none;
+        }
+        &.swiper{
+            overflow: visible;
+        }
+        li.product{
+            float: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            width: 260px !important;
+            @media (min-width: 768px){
+                width: calc((100% - 52px)/5) !important;
+            }
+            @media (min-width: 1440px){
+                width: calc((100% - 64px)/5) !important;
+            }
+            @media (min-width: 1680px){
+                width: calc((100% - 80px)/5) !important;
+            }
+            .add_to_cart_button{
+                display: none;
+            }
+            .attachment-woocommerce_thumbnail{
+                display: block;
+                margin: 0 auto 14px;
+                width: 100%; height: 230px; object-fit: cover;
+                mix-blend-mode: darken;
+                background-color: #F1F1F1;
+                @media (min-width: 768px){
+                    margin: 0 auto 9px;
+                    height: 153px;
+                }
+                @media (min-width: 1440px){
+                    margin: 0 auto 11px;
+                    height: 184px;
+                }
+                @media (min-width: 1680px){
+                    margin: 0 auto 14px;
+                    height: 230px;
+                }
+            }
+            .woocommerce-loop-product__title{
+                margin: 0 0 8px;
+                padding: 0;
+                color: @text;
+                font-family: @main-font;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                text-align: left;
+                @media (min-width: 768px){
+                    margin: 0 0 5px;
+                    font-size: 13px;
+                }
+                @media (min-width: 1440px){
+                    margin: 0 0 6px;
+                    font-size: 16px;
+                }
+                @media (min-width: 1680px){
+                    margin: 0 0 8px;
+                    font-size: 20px;
+                }
+            }
+            .woocommerce-loop-product__desc{
+                margin: 0 0 8px;
+                color: @text;
+                font-family: @main-font;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                @media (min-width: 768px){
+                    margin: 0 0 5px;
+                    font-size: 12px;
+                }
+                @media (min-width: 1440px){
+                    margin: 0 0 6px;
+                    font-size: 13px;
+                }
+                @media (min-width: 1680px){
+                    margin: 0 0 8px;
+                    font-size: 16px;
+                }
+            }
+            .price{
+                color: @main;
+                font-family: @main-font;
+                font-size: 0;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                &::before{
+                    content: "Dès ";
+                    font-size: 16px;
+                    @media (min-width: 768px){
+                        font-size: 12px;
+                    }
+                    @media (min-width: 1440px){
+                        font-size: 13px;
+                    }
+                    @media (min-width: 1680px){
+                        font-size: 16px;
+                    }
+                }
+                .amount:first-child{
+                    font-size: 16px;
+                    @media (min-width: 768px){
+                        font-size: 12px;
+                    }
+                    @media (min-width: 1440px){
+                        font-size: 13px;
+                    }
+                    @media (min-width: 1680px){
+                        font-size: 16px;
+                    }
+                }
+            }
+            .compare-button{
+                position: static;
+            }
+            .compare{
+                position: absolute;
+                display: block;
+                width: 35px; height: 35px;
+                top: 12px; right: 57px;
+                background-image: url('images/compare.svg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                margin: 0;
+                background-color: transparent;
+                padding: 0;
+                font-size: 0;
+                @media (min-width: 768px){
+                    width: 23px; height: 23px;
+                    top: 8px; right: 38px;
+                }
+                @media (min-width: 1440px){
+                    width: 28px; height: 28px;
+                    top: 10px; right: 46px;
+                }
+                @media (min-width: 1680px){
+                    width: 35px; height: 35px;
+                    top: 12px; right: 57px;
+                }
+                &.added{
+                    background-image: url('images/compare-added.svg');
+                }
+            }
+            .yith-wcwl-add-to-wishlist{
+                position: absolute;
+                display: block;
+                width: 35px; height: 35px;
+                top: 12px; right: 12px;
+                background-image: url('images/wishlist.svg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                margin: 0;
+                background-color: transparent;
+                padding: 0;
+                font-size: 0;
+                @media (min-width: 768px){
+                    width: 23px; height: 23px;
+                    top: 8px; right: 8px;
+                }
+                @media (min-width: 1440px){
+                    width: 28px; height: 28px;
+                    top: 10px; right: 10px;
+                }
+                @media (min-width: 1680px){
+                    width: 35px; height: 35px;
+                    top: 12px; right: 12px;
+                }
+                &.exists{
+                    background-image: url('images/wishlist-added.svg');
+                }
+                a{
+                    position: absolute; display: block;
+                    top: 0; bottom: 0; left: 0; right: 0;
+                }
+            }
+        }
+    }
+}
