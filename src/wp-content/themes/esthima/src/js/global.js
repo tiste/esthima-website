@@ -544,6 +544,31 @@ function getCookie(cName) {
 		})
 		/* /panier - plus/moins */
 
+		/* newsletter - couleur titre */
+		if($('.newsletter__container h1').length){
+			let textH1 = $('.newsletter__container h1').text();
+			let arrayText = textH1.split(' ');
+			let newH1 = '';
+			for(let i = 0; i<arrayText.length; i++){
+				if((i+1)==arrayText.length){
+					newH1 = newH1 + '<span>' + arrayText[i] + '</span>';
+				}else{
+					newH1 = newH1 + arrayText[i] + ' ';
+				}
+			}
+			$('.newsletter__container h1').html(newH1);
+		}
+		/* /newsletter - couleur titre */
+		/* newsletter - contact - positionnement labels */
+		$(document).on('input', '.formText input', function(){
+			if($(this).val()==null || $(this).val()==''){
+				$(this).parents('.formText').removeClass('formText-written')
+			}else{
+				$(this).parents('.formText').addClass('formText-written')
+			}
+		})
+		/* /newsletter - contact - positionnement labels */
+
 	});
 	
 })(window, jQuery);
