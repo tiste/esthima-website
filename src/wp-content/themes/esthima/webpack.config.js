@@ -26,7 +26,8 @@ const args = (argList => {
 const config = {
   entry:
   {
-    global: "./src/js/global.js"
+    global: "./src/js/global.js",
+    petsConfigurator: "./src/js/petsConfigurator/src/main.js"
   },
   mode: (args.env == 'production') ? "production" : "development",
   target: ["web", "es5"],

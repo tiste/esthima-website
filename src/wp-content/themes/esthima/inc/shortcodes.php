@@ -21,3 +21,10 @@ function template_partial($atts) {
 	}
 }
 add_shortcode('partial', 'template_partial');
+
+add_shortcode('pets-configurator', function($atts) {
+	wp_enqueue_script( 'petsConfigurator', get_stylesheet_directory_uri() . '/js/petsConfigurator.js', array(), false, true );
+	ob_start();
+	echo "<div id='petsConfigurator'></div>";
+	return ob_get_clean();
+});
