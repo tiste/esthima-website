@@ -427,6 +427,13 @@ function getCookie(cName) {
 		}
 		/* /store locator - recherche */
 
+		/* espace recrutement - afficher form */
+		$(document).on('click', '.jobs__self__btn', function(){
+			$('.jobs__self__btn').toggleClass('jobs__self__btn-open');
+			$('.jobs__self__form-container').toggleClass('jobs__self__form-container-open');
+		})
+		/* /espace recrutement - afficher form */
+
 		/* agence - slider */
 		if($('.store__gallery__slider').length){
 			const swiperHPShop = new Swiper('.store__gallery__slider', {
@@ -485,6 +492,13 @@ function getCookie(cName) {
 
 		/* agence - contact - positionnement labels */
 		$('.has-label input').on('input', function(){
+			if($(this).val()==null || $(this).val()==''){
+				$(this).parents('.has-label').removeClass('has-label-written')
+			}else{
+				$(this).parents('.has-label').addClass('has-label-written')
+			}
+		})
+		$('.has-label textarea').on('input', function(){
 			if($(this).val()==null || $(this).val()==''){
 				$(this).parents('.has-label').removeClass('has-label-written')
 			}else{
