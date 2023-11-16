@@ -33,6 +33,6 @@ stage:
     # Plugins
     - rsync -avutzcIP --info=progress2 -e 'ssh -p 2121' --include-from ${include_path} --exclude-from ${exclude_path} ${plugin_path} preprod-c1572d@nc1183.nexylan.net:~/htdocs/wp-content
     # Uploads
-    - rsync -avutzcIP --info=progress2 -e 'ssh -p 2121' --include-from ${include_path} --exclude-from ${exclude_path} ${upload_path} preprod-c1572d@nc1183.nexylan.net:~/htdocs/wp-content
+    #- rsync -avutzcIP --info=progress2 -e 'ssh -p 2121' --include-from ${include_path} --exclude-from ${exclude_path} ${upload_path} preprod-c1572d@nc1183.nexylan.net:~/htdocs/wp-content
     # Creation lien symbolique
     - ssh -tt preprod-c1572d@nc1183.nexylan.net -p 2121 "rm -d ~/htdocs/wp-content/themes/esthima && mv ~/releases/current_release ~/releases/${currentRelease} && mv ~/releases/tmp_release ~/releases/current_release && ln -snf ~/releases/current_release ~/htdocs/wp-content/themes/esthima && cd ~/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf"
