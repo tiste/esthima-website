@@ -21,7 +21,7 @@ get_header();
                 </div>
             </div>
         </div>
-        <img src="<?php echo str_replace('"', '\"', get_the_post_thumbnail_url()); ?>" alt="<?php echo str_replace('"', '\"', get_the_title()); ?>" class="presse__tet__img">
+        <img src="<?php echo str_replace('"', '\"', get_the_post_thumbnail_url()); ?>" alt="<?php echo str_replace('"', '\"', get_the_title()); ?>" class="jobs__tet__img">
     </div>
 
     <div class="jobs__jobs">
