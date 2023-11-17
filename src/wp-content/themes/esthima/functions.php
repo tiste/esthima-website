@@ -68,6 +68,25 @@ add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 // enqueue scripts
 function theme_enqueue_scripts() {
 	wp_enqueue_script( 'global', get_stylesheet_directory_uri() . '/js/global.js', array('jquery'), filemtime(  get_template_directory() . '/js/global.js' ), true );
+	wp_enqueue_script( 'trackingDataLayer', get_stylesheet_directory_uri() . '/js/trackingDataLayer.js', array('jquery'), filemtime(  get_template_directory() . '/js/trackingDataLayer.js' ), true );
+	wp_enqueue_script( 'trackingEvents', get_stylesheet_directory_uri() . '/js/trackingEvents.js', array('jquery'), filemtime(  get_template_directory() . '/js/trackingEvents.js' ), true );
+	wp_enqueue_script( 'tracking', get_stylesheet_directory_uri() . '/js/tracking.js', array('jquery', 'trackingDataLayer'), filemtime(  get_template_directory() . '/js/tracking.js' ), true );
+
+	$user_id = get_current_user_id();
+    if ($user_id > 0) {
+        $user_info = get_userdata($user_id);
+		
+        $user_data = array(
+            'id' => $user_id,
+            'name' => $user_info->display_name,
+            'email' => $user_info->user_email,
+            'email_hash' => wp_hash($user_info->user_email),
+        );
+    } else {
+        $user_data = array();
+    }
+
+    wp_localize_script('trackingDataLayer', 'wpUserData', $user_data);
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_scripts' );
 

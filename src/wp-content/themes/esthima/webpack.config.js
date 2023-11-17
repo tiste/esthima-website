@@ -26,7 +26,10 @@ const args = (argList => {
 const config = {
   entry:
   {
-    global: "./src/js/global.js"
+    global: "./src/js/global.js",
+    trackingEvents: "./src/js/trackingEvents.js",
+    trackingDataLayer: "./src/js/trackingDataLayer.js",
+    tracking: "./src/js/tracking.js"
   },
   mode: (args.env == 'production') ? "production" : "development",
   target: ["web", "es5"],
