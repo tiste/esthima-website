@@ -34,7 +34,7 @@ get_header('shop');
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <a href="<?php echo get_term_link($c['cat']); ?>" class="btn btn--arrow">Découvrir la collection</a>
+                    <a href="<?php echo get_term_link($c['cat']); ?>" class="btn btn--arrow"><?php echo $c['cta_text']; ?></a>
                 </div>
             </div>
         <?php endforeach; ?>
