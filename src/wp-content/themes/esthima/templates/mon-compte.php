@@ -17,7 +17,8 @@ get_header();
                     Mon compte
                 </div>
                 <div class="page-header__intro">
-                    Bonjour Marc,
+                    <?php $current_user = wp_get_current_user(); ?>
+                    Bonjour<?php echo !empty($current_user->user_firstname) ? ' '.$current_user->user_firstname : ''; ?>,
                 </div>
                 <div class="page-header__text">
                     À partir du tableau de bord de votre compte, vous pouvez visualiser vos commandes récentes, gérer vos adresses de livraison et de facturation ainsi que changer votre mot de passe et les détails de votre compte.

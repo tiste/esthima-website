@@ -184,11 +184,11 @@ add_filter( 'woocommerce_account_menu_items', 'modifyMenuAccount' );
 
 function modifyMenuAccount( $menu_links ){
 	return array(
-		//'dashboard' => __( 'Dashboard', 'goodact' ),
-        'edit-account' => __( 'Mon profil', 'goodact' ), //native WC endpoint "Modifier le compte"
-		'mes-devis' => __( 'Mes devis', 'goodact' ), //custom mon compte child page "Mes devis"
-        'orders' => __( 'Mes commandes', 'goodact' ), //native WC endpoint "Commandes"
-        'mes-favoris' => __( 'Mes favoris', 'goodact' ), //custom mon compte child page "Mes favoris"
-		'deconnexion' => __( 'Me déconnecter', 'goodact' ) //native WC endpoint "Déconnexion"
+		//'dashboard' => __( 'Dashboard', 'esthima' ),
+        'edit-account' => __( 'Mon profil', 'esthima' ), //native WC endpoint "Modifier le compte"
+		'mes-devis' => __( 'Mes devis', 'esthima' ), //custom mon compte child page "Mes devis"
+        'orders' => __( 'Mes commandes', 'esthima' ), //native WC endpoint "Commandes"
+        'mes-favoris' => __( 'Mes favoris', 'esthima' ), //custom mon compte child page "Mes favoris"
+		'deconnexion' => __( 'Me déconnecter', 'esthima' ) //native WC endpoint "Déconnexion"
 	);
 }
