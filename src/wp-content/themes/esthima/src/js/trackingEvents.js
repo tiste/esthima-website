@@ -7,6 +7,16 @@ export class TrackingEvents {
     init() {
         this.pageType = jQuery('title').text()
         this.bodyEl = jQuery('body')
+     
+        this.assocNameByURI = {
+            'Page Prestation': 'nos-prestations',
+            'Page Prestation - Incinération': 'incineration',
+            'Page Tarif': 'tarifs',
+            'Page Prise en charge':'comment-proceder',
+            'Page Urgence décés':'urgence-deces',
+            'Page Hommage':'temoignages',
+        }
+
         this.assocNameByClassBody = {
             'home':'Homepage',
             'page-template-mon-compte':'Compte',
@@ -19,17 +29,10 @@ export class TrackingEvents {
             'page-template-rdv':'Prise de RDV',
             // '':'Formulaire Contrat Obséques',
         }
-        this.assocNameByURI = {
-            'Page Prestation': 'nos-prestations',
-            'Page Prestation - Incinération': 'incineration',
-            'Page Tarif': 'tarifs',
-            'Page Prise en charge':'comment-proceder',
-            'Page Urgence décés':'urgence-deces',
-            'Page Hommage':'temoignages',
-        }
+      
 
         for (let [ka, va] of Object.entries(this.assocNameByURI)) {
-            if (window.location.href.indexOf(va)) {
+            if (window.location.href.indexOf(va) !== -1) {
                 this.pageType = ka
             }
         }
@@ -48,6 +51,11 @@ export class TrackingEvents {
         this.pushEventsVideo()
         this.pushEventsHomepage()
         this.pushEventsAccount()
+        this.pushEventsPageListe()
+        this.pushEventsPageProduit()
+        this.pushEventsPagePrestation()
+        this.pushEventsPageTarif()
+        this.pushEventsPagePriseEnCharge()
     }
 
     pushEventsNavigationHeader() {
@@ -179,12 +187,23 @@ export class TrackingEvents {
         jQuery('.hp__tet__btns a').last().on('click', (e) => {
             let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "")
             window.dataLayer.push({
-                'event': 'clickHpBlock',
+                'event': 'clickHpCta',
                 'eventCategory': this.pageType,
                 'eventAction': 'Clic CTA',
                 'eventLabel': eventLabel
             });
         })
+
+        // jQuery('.hp__tet__btns a').last().on('click', (e) => {
+        //     let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "")
+        //     window.dataLayer.push({
+        //         'event': 'clickHpBlock',
+        //         'eventCategory': this.pageType,
+        //         'eventAction': 'Clic CTA',
+        //         'eventLabel': eventLabel
+        //     });
+        // })
+        
     }
 
     pushEventsAccount() {
@@ -200,5 +219,163 @@ export class TrackingEvents {
         })
     }
 
+
+    pushEventsPageListe() {
+
+        // Clic sur les catégories de liste
+        jQuery('.yith-wcan-filter.filter-tax.checkbox-design').on('click', (e) => {
+            window.dataLayer.push({
+                'event': 'clickListCategory',
+                'eventCategory': this.pageType,
+                'eventAction': 'Catégorie',
+                'eventLabel': 'contenance'
+            });
+        })
+        
+        jQuery('.yith-wcan-filter.filter-tax.color-design').on('click', (e) => {
+            window.dataLayer.push({
+                'event': 'clickListCategory',
+                'eventCategory': this.pageType,
+                'eventAction': 'Catégorie',
+                'eventLabel': 'couleur'
+            });
+        })
+        
+        jQuery('.yith-wcan-filter.filter-price-slider').on('click', (e) => {
+            window.dataLayer.push({
+                'event': 'clickListCategory',
+                'eventCategory': this.pageType,
+                'eventAction': 'Catégorie',
+                'eventLabel': 'price'
+            });
+        })
+
+
+        // Clic Filtre
+        jQuery('.yith-wcan-filter.filter-tax.checkbox-design .filter-items input[type=checkbox]').on('change', (e) => {
+            let eventLabel = jQuery(e.currentTarget).val()
+            window.dataLayer.push({
+                'event': 'clickFilter',
+                'eventCategory': this.pageType,
+                'eventAction': 'Clic Filtre contenance',
+                'eventLabel': eventLabel
+            });
+        })
+        jQuery('.yith-wcan-filter.filter-tax.color-design .filter-items input[type=checkbox]').on('change', (e) => {
+            let eventLabel = jQuery(e.currentTarget).val()
+            window.dataLayer.push({
+                'event': 'clickFilter',
+                'eventCategory': this.pageType,
+                'eventAction': 'Clic Filtre couleur',
+                'eventLabel': eventLabel
+            });
+        })
+        jQuery('.yith-wcan-filter.filter-price-slider .price-slider-ui').on('change', (e) => {
+            let eventLabel = jQuery(e.currentTarget).val()
+            window.dataLayer.push({
+                'event': 'clickFilter',
+                'eventCategory': this.pageType,
+                'eventAction': 'Clic Filtre price',
+                'eventLabel': eventLabel
+            });
+        })
+
+
+        // Clic filtre menu
+        jQuery('.shop__cats .cat-item a').on('click', (e) => {
+            let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "")
+            window.dataLayer.push({
+                'event': 'clickFilter',
+                'eventCategory': this.pageType,
+                'eventAction': 'Clic Filtre',
+                'eventLabel': eventLabel
+            });
+        })
+
+        // Clic tri
+        jQuery('select[name=orderby]').on('change', (e) => {
+            let eventLabel = jQuery(e.currentTarget).val()
+            window.dataLayer.push({
+                'event': 'clickSort',
+                'eventCategory': this.pageType,
+                'eventAction': 'Trier par',
+                'eventLabel': eventLabel
+            });
+        })
+    }
+
+
+    pushEventsPageProduit() {
+        // Clic sur une caractéristique du produit
+        jQuery('table.variations select').on('change', (e) => {
+            let eventLabel = jQuery(e.currentTarget).val()
+            let id = jQuery(e.currentTarget).attr('id')
+            let eventAction = "Caractéristique - " + jQuery('label[for=' + id + ']').text().replace(/(\n|\t|\r)/gm, "")
+            window.dataLayer.push({
+                'event': 'clickProduitCarac',
+                'eventCategory': this.pageType,
+                'eventAction': eventAction,
+                'eventLabel': eventLabel
+            });
+        })
+      
+    }
+
+
+    pushEventsPagePrestation() {
+        // Clic sur une des prestations
+        jQuery('.pricing-table.pricing-table--services .pricing-plan').on('click', (e) => {
+            let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+            window.dataLayer.push({
+                'event': 'clickPrestationCta',
+                'eventCategory': this.pageType,
+                'eventAction': eventAction,
+                'eventLabel': ''
+            });
+        })
+
+        // Clic sur l'un des CTA
+        jQuery(".wp-block-button a:contains('Demander un devis')").on('click', (e) => {
+            window.dataLayer.push({
+                'event': 'clickPrestationCta',
+                'eventCategory': this.pageType,
+                'eventAction': 'Clic CTA',
+                'eventLabel': 'Demander un devis'
+            });
+        })
+    }
+
+    pushEventsPageTarif() {
+        // Clic sur l'un des CTA
+        jQuery(".pricing-table .pricing-plan").on('click', (e) => {
+            let btnDevisExist = jQuery(e.currentTarget).find("a:contains('Demander un devis')")
+            if (btnDevisExist.length > 0) {
+                let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickTarifDevis',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Demande devis',
+                    'eventLabel': eventAction
+                });
+            }
+        })
+    }
+
+    pushEventsPagePriseEnCharge() {
+
+        // Clic sur un CTA de la page Prise en charge
+        if (this.pageType == "Page Prise en charge") {
+            jQuery(".wp-block-button a:contains('Prendre rendez-vous')").on('click', (e) => {
+                window.dataLayer.push({
+                    'event': 'clickChargeCTA',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Prendre rendez-vous',
+                    'eventLabel': ''
+                });
+            })
+        }
+
+    }
+    
      
 }
