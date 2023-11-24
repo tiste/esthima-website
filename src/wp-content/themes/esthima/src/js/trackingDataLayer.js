@@ -2,6 +2,7 @@ export class TrackingDataLayer {
 
     constructor() {
         this.init()
+        this.push()
     }
 
     init() {

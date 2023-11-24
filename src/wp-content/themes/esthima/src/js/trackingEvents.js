@@ -2,6 +2,7 @@ export class TrackingEvents {
 
     constructor() {
         this.init()
+        this.listen()
     }
 
     init() {
