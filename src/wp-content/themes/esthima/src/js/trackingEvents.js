@@ -56,6 +56,12 @@ export class TrackingEvents {
         this.pushEventsPagePrestation()
         this.pushEventsPageTarif()
         this.pushEventsPagePriseEnCharge()
+        this.pushEventsPageUrgenceDeces()
+        this.pushEventsPageHommage()
+        this.pushEventsContact()
+        this.pushEventsStoreLocation()
+        this.pushEventsBoutique()
+        this.pushEventsEspacePress()
     }
 
     pushEventsNavigationHeader() {
@@ -323,26 +329,31 @@ export class TrackingEvents {
 
 
     pushEventsPagePrestation() {
-        // Clic sur une des prestations
-        jQuery('.pricing-table.pricing-table--services .pricing-plan').on('click', (e) => {
-            let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
-            window.dataLayer.push({
-                'event': 'clickPrestationCta',
-                'eventCategory': this.pageType,
-                'eventAction': eventAction,
-                'eventLabel': ''
-            });
-        })
 
-        // Clic sur l'un des CTA
-        jQuery(".wp-block-button a:contains('Demander un devis')").on('click', (e) => {
-            window.dataLayer.push({
-                'event': 'clickPrestationCta',
-                'eventCategory': this.pageType,
-                'eventAction': 'Clic CTA',
-                'eventLabel': 'Demander un devis'
-            });
-        })
+        if (this.pageType.indexOf('prestations') !== -1) {
+            // Clic sur une des prestations
+            jQuery('.pricing-table.pricing-table--services .pricing-plan').on('click', (e) => {
+                let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickPrestationCta',
+                    'eventCategory': this.pageType,
+                    'eventAction': eventAction,
+                    'eventLabel': ''
+                });
+            })
+
+            // Clic sur l'un des CTA
+            // jQuery(".wp-block-button a:contains('Demander un devis')").on('click', (e) => {
+            jQuery(".wp-block-button a").on('click', (e) => {
+                let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickPrestationCta',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic CTA',
+                    'eventLabel': eventLabel
+                });
+            })
+        }
     }
 
     pushEventsPageTarif() {
@@ -362,14 +373,15 @@ export class TrackingEvents {
     }
 
     pushEventsPagePriseEnCharge() {
-
         // Clic sur un CTA de la page Prise en charge
         if (this.pageType == "Page Prise en charge") {
-            jQuery(".wp-block-button a:contains('Prendre rendez-vous')").on('click', (e) => {
+            // jQuery(".wp-block-button a:contains('Prendre rendez-vous')").on('click', (e) => {
+            jQuery(".wp-block-button a").on('click', (e) => {
+                let eventAction = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
                 window.dataLayer.push({
                     'event': 'clickChargeCTA',
                     'eventCategory': this.pageType,
-                    'eventAction': 'Prendre rendez-vous',
+                    'eventAction': eventAction,
                     'eventLabel': ''
                 });
             })
@@ -377,5 +389,100 @@ export class TrackingEvents {
 
     }
     
+    pushEventsPageUrgenceDeces() {
+        // Clic sur un CTA de la page Prise en charge
+        if (this.pageType == "Page Urgence décés") {
+            // jQuery(".wp-block-button a:contains('être rappelé')").on('click', (e) => {
+            jQuery(".wp-block-button a").on('click', (e) => {
+                let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickUrgenceCta',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic CTA',
+                    'eventLabel': eventLabel
+                });
+            })
+        }
+    }
+
+
+    pushEventsPageHommage() {
+        // Clic sur un CTA de la page Hommage
+        if (this.pageType == "Page Hommage") {
+            jQuery(".wp-block-button a").on('click', (e) => {
+                let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickHommageCta',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic CTA',
+                    'eventLabel': eventLabel
+                });
+            })
+        }
+    }
+
+    pushEventsContact() {
+        // Clic envoyer
+        if (this.pageType == "Page contact") {
+            jQuery("form").on('submit', (e) => {
+                let eventLabel = jQuery('select[name=input_14] option:selected').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickSendContact',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Envoyer',
+                    'eventLabel': eventLabel
+                });
+            })
+        }
+    }
+
+
+    pushEventsStoreLocation() {
+
+        var refreshIdStoreLoc = setInterval(() => {
+            if (jQuery("#wpsl-stores .storeloc__map__store").length > 0) {
+                 // Clic cta Store loc
+                jQuery("#wpsl-stores .storeloc__map__store a").on('click', (e) => {
+                    let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                    let eventAction = jQuery(e.currentTarget).parents('.storeloc__map__store__infos').find('.storeloc__map__store__infos__title').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                    window.dataLayer.push({
+                        'event': 'clickCtaStoreLoc',
+                        'eventCategory': this.pageType,
+                        'eventAction': eventAction,
+                        'eventLabel': eventLabel
+                    });
+                })
+              clearInterval(refreshIdStoreLoc);
+            }
+          }, 2000);
+       
+    }
+
+    pushEventsBoutique() {
+        if (this.pageType == "Boutique") {
+            jQuery(".shop__blocks__item .btn").on('click', (e) => {
+                let eventAction = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                let eventLabel = jQuery(e.currentTarget).parents('.shop__blocks__item').find('.shop__blocks__item__texts h2').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickDecouvrirCollection',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic - ' + eventAction,
+                    'eventLabel': eventLabel
+                });
+            })
+        }
+    }
+
+    pushEventsEspacePress() {
+        jQuery(".presse__links .presse__links__item").on('click', (e) => {
+            let eventLabel = jQuery(e.currentTarget).find('.presse__links__item__text').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+            window.dataLayer.push({
+                'event': 'clickCtaPresse',
+                'eventCategory': this.pageType,
+                'eventAction': 'Clic CTA',
+                'eventLabel': eventLabel
+            });
+        })
+    }
      
 }
