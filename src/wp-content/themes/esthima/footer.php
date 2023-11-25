@@ -30,7 +30,7 @@
 					<div class="footer__top__left__text">
 						<?php echo get_field('footer_news_text', 'option'); ?>
 					</div>
-					<div class="footer__top__left__form">
+					<div class="footer__top__left__form newsletterForm">
 						<div>
 							<input type="email" placeholder="Votre adresse email">
 							<input type="submit">

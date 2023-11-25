@@ -27,7 +27,10 @@ const config = {
   entry:
   {
     global: "./src/js/global.js",
-    petsConfigurator: "./src/js/petsConfigurator/src/main.js"
+    petsConfigurator: "./src/js/petsConfigurator/src/main.js",
+    trackingEvents: "./src/js/trackingEvents.js",
+    trackingDataLayer: "./src/js/trackingDataLayer.js",
+    tracking: "./src/js/tracking.js"
   },
   mode: (args.env == 'production') ? "production" : "development",
   target: ["web", "es5"],
