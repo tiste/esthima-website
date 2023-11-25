@@ -1,7 +1,10 @@
+import { createRouter, createWebHashHistory } from "vue-router";
 import Home from './views/Home'
 import InfoAnimal from './views/InfoAnimal'
 
-const routes = [
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: [
     {
         path: '/',
         name: 'Home',
@@ -11,7 +14,8 @@ const routes = [
         path: '/informations-animal',
         name: 'InfoAnimal',
         component: InfoAnimal
-    },
-];
+    }
+  ],
+});
 
-export default routes;
+export default router;

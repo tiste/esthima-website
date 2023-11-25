@@ -21,21 +21,21 @@
 </template>
 
 <script>
-import { request } from "../helpers/request";
-import { mapFields } from "vuex-map-fields";
+import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
 
-export default {
+export default defineComponent({
   name: "Home",
-  data() {
-    return {};
-  },
-  methods: {
-	submit() {
-		this.$router.push({ name: 'InfoAnimal' })
-	}
-  },
-  computed: {},
-  mounted() {},
-  created() {},
-};
+  setup() {
+    const router = useRouter();
+
+    const submit = () => {
+      router.push({ name: 'InfoAnimal' });
+    };
+
+    return {
+      submit
+    };
+  }
+});
 </script>

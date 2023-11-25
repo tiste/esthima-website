@@ -40,7 +40,7 @@ const config = {
   module: {
     rules: [
       {
-        exclude: /node_modules|vue\/src|vue-router\//,
+        exclude: /node_modules/,
         test: /\.(js|jsx)$/i,
         use: {
           loader: 'babel-loader',
