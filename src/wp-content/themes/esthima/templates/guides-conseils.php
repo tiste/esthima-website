@@ -11,13 +11,14 @@ get_header();
 <main class="main main-content">
 
 <?php
+$pageTitle = get_field('tet_title');
+$pageSubtitle = get_field('tet_subtitle');
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $argsSticky = array(
     'post_type' => 'guide',
     'posts_per_page' => 1,
     'meta_key' => 'sticky',
-    'meta_value' => '1',
-    'compare' => '!='
+    'meta_value' => '1'
 );
 $querySticky = get_posts($argsSticky);
 if(empty($querySticky)){
@@ -42,8 +43,8 @@ $queryRegular = new WP_Query($argsRegular);
             <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
         </div>
         <div class="guides__tet__texts">
-            <h1><?php echo get_field('tet_title'); ?></h1>
-            <h2><?php echo get_field('tet_subtitle'); ?></h2>
+            <h1><?php echo $pageTitle; ?></h1>
+            <h2><?php echo $pageSubtitle; ?></h2>
         </div>
         <div class="guides__tet__sticky" style="--bg-img: url('<?php echo str_replace("'", "\'", get_the_post_thumbnail_url($querySticky[0]->ID)); ?>')">
             <div class="guides__tet__sticky__cat">

@@ -10,6 +10,9 @@
             <img src="<?php echo get_template_directory_uri(); ?>/images/phone.svg" alt="Téléphone" class="urgence-deces__blocks__item__picto">
             <h4>Par téléphone</h4>
             <?php echo get_template_part('template-parts/phone-number'); ?>
+            <a href="<?php echo home_url('/'); ?>urgence-deces/" class="urgence-deces__blocks__item__link btn btn--arrow">
+                Me rappeler
+            </a>
         </div>
         <div class="urgence-deces__blocks__item">
             <img src="<?php echo get_template_directory_uri(); ?>/images/email.svg" alt="Email" class="urgence-deces__blocks__item__picto">
@@ -17,7 +20,7 @@
             <div class="urgence-deces__blocks__item__text">
                 En utilisant notre formulaire de contact
             </div>
-            <a href="<?php echo get_permalink(get_field('global_contact')); ?>" class="urgence-deces__blocks__item__link btn btn--arrow">
+            <a href="<?php echo get_permalink(get_field('global_contact', 'option')); ?>" class="urgence-deces__blocks__item__link btn btn--arrow">
                 Formulaire de contact
             </a>
         </div>

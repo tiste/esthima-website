@@ -583,6 +583,23 @@ function getCookie(cName) {
 		})
 		/* /newsletter - contact - positionnement labels */
 
+		/* connexion/inscription - positionnement labels */
+		$('.inscription__login .gfield--type-text input').on('input', function(){
+			if($(this).val()==null || $(this).val()==''){
+				$(this).parents('.gfield--type-text').removeClass('label-written')
+			}else{
+				$(this).parents('.gfield--type-text').addClass('label-written')
+			}
+		})
+		$('.inscription__register .gform-grid-col input').on('input', function(){
+			if($(this).val()==null || $(this).val()==''){
+				$(this).parents('.gform-grid-col').removeClass('label-written')
+			}else{
+				$(this).parents('.gform-grid-col').addClass('label-written')
+			}
+		})
+		/* /connexion/inscription - positionnement labels */
+
 	});
 	
 })(window, jQuery);
