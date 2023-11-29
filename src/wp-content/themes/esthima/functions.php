@@ -97,3 +97,7 @@ require get_template_directory() . '/inc/theme_functions.php';
 require get_template_directory() . '/inc/widget_include_partial.php';
 
 /* SERVICE */
+require get_template_directory() . '/inc/kiamo.php';
+
+
+// $kiamo = new Kiamo();
