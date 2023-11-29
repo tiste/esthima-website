@@ -302,6 +302,8 @@
                 }
             }
             > .price{
+                display: block !important;
+                width: fit-content;
                 position: absolute;
                 left: 0; bottom: 75px;
                 color: @main;
@@ -792,6 +794,115 @@
                         }
                         td{
                             font-weight: 400;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.cwginstock-subscribe-form.cwginstock-subscribe-form{
+    .cwginstock-panel-primary{
+        margin-bottom: 0;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        .panel-heading{
+            background-color: transparent;
+            border-color: transparent;
+            padding: 0;
+            h4{
+                color: @main;
+                font-family: @main-font;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 1.1;
+                text-align: left !important;
+                @media (min-width: 768px){
+                    font-size: 13px;
+                }
+                @media (min-width: 1440px){
+                    font-size: 16px;
+                }
+                @media (min-width: 1680px){
+                    font-size: 20px;
+                }
+            }
+        }
+        .panel-body{
+            padding: 20px 0 0;
+            @media (min-width: 768px){
+                padding: 13px 0 0;
+            }
+            @media (min-width: 1440px){
+                padding: 16px 0 0;
+            }
+            @media (min-width: 1680px){
+                padding: 20px 0 0;
+            }
+            .row{
+                margin: 0 0 0 0;
+                .col-md-12{
+                    padding: 0 0;
+                    position: relative;
+                    .center-block{
+                        margin: 0 0 0;
+                        .cwgstock_email,
+                        .cwgstock_button{
+                            display: block;
+                            margin: 0 0 0;
+                        }
+                        .cwgstock_email{
+                            width: 100% !important; height: 60px; line-height: 60px;
+                            border: solid 1px #D4D4D4;
+                            border-radius: 100px;
+                            padding: 0 60px 0 28px;
+                            color: @text;
+                            font-family: @main-font;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            text-align: left !important;
+                            @media (min-width: 768px){
+                                height: 40px; line-height: 40px;
+                                padding: 0 40px 0 19px;
+                                font-size: 12px;
+                            }
+                            @media (min-width: 1440px){
+                                height: 48px; line-height: 48px;
+                                padding: 0 48px 0 22px;
+                                font-size: 13px;
+                            }
+                            @media (min-width: 1680px){
+                                height: 60px; line-height: 60px;
+                                padding: 0 60px 0 28px;
+                                font-size: 16px;
+                            }
+                        }
+                        .cwgstock_button{
+                            width: 48px; height: 48px;
+                            position: absolute;
+                            top: 50%; transform: translateY(-50%);
+                            right: 5px;
+                            font-size: 0;
+                            background-image: url('images/send.svg');
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                            @media (min-width: 768px){
+                                width: 32px; height: 32px;
+                                right: 3px;
+                            }
+                            @media (min-width: 1440px){
+                                width: 38px; height: 38px;
+                                right: 4px;
+                            }
+                            @media (min-width: 1680px){
+                                width: 48px; height: 48px;
+                                right: 5px;
+                            }
                         }
                     }
                 }
