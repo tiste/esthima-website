@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Home from './views/Home'
-import InfoAnimal from './views/InfoAnimal'
+
+const Home = () => import('./views/Home')
+const InfoAnimal = () => import('./views/InfoAnimal')
+const Cendres = () => import('./views/Cendres')
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -8,12 +10,29 @@ const router = createRouter({
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
+        meta: {
+          nextPath: 'InfoAnimal'
+        } 
     },
     {
         path: '/informations-animal',
         name: 'InfoAnimal',
-        component: InfoAnimal
+        component: InfoAnimal,
+        meta: {
+          backPath: 'Home',
+          nextPath: 'Cendres'
+        }
+    },
+    {
+        path: '/cendres',
+        name: 'Cendres',
+        component: Cendres,
+        meta: {
+          backPath: 'InfoAnimal',
+          nextPath: 'Cendres'
+        }
+
     }
   ],
 });

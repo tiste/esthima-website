@@ -35,7 +35,7 @@ const config = {
   mode: (args.env == 'production') ? "production" : "development",
   target: ["web", "es5"],
   resolve: {
-    extensions: ["*", ".js", ".vue"]
+    extensions: ["*", ".js", ".vue", ".ts", ".tsx"]
   },
   module: {
     rules: [
@@ -44,6 +44,13 @@ const config = {
         test: /\.(js|jsx)$/i,
         use: {
           loader: 'babel-loader',
+        }
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
         }
       },
       {

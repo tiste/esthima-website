@@ -1,41 +1,37 @@
 <template>
-  <div>
-	<form @submit="submit">
-		<img
-		src="/wp-content/themes/esthima/images/configurateur/configurateur-cadre-chien.png"
-		alt=""
-		/>
+	<div>
+		<img src="/wp-content/themes/esthima/images/configurateur/configurateur-cadre-chien.png" alt="" />
 		<h1>
-		Lorem ipsum dolor sit amet consectetur. Volutpat pellentesque interdum
-		dignissim.
+			Lorem ipsum dolor sit amet consectetur. Volutpat pellentesque interdum
+			dignissim.
 		</h1>
 		<p>
-		Lorem ipsum dolor sit amet consectetur. Commodo felis enim mus placerat
-		amet risus dapibus vestibulum in. Nunc et sed faucibus quam. Ornare
-		adipiscing sit sed viverra ornare morbi risus lectus ultricies. Diam a
-		laoreet magna a consectetur velit.
+			Lorem ipsum dolor sit amet consectetur. Commodo felis enim mus placerat
+			amet risus dapibus vestibulum in. Nunc et sed faucibus quam. Ornare
+			adipiscing sit sed viverra ornare morbi risus lectus ultricies. Diam a
+			laoreet magna a consectetur velit.
 		</p>
-		<button type="submit">Commencer</button>
-	</form>
-  </div>
+		<button @click.prevent="goNext">Commencer</button>
+	</div>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
+export default {
+	name: 'Home',
+	inheritAttrs: false,
+	customOptions: {}
+}
+</script>
 
-export default defineComponent({
-  name: "Home",
-  setup() {
-    const router = useRouter();
+<script setup>
+	import { useRoute, useRouter } from 'vue-router'
 
-    const submit = () => {
-      router.push({ name: 'InfoAnimal' });
-    };
+	const router = useRouter()
+	const route = useRoute()
 
-    return {
-      submit
-    };
-  }
-});
+	function goNext() {
+		if (route.meta.nextPath) {
+			router.push({ name: route.meta.nextPath })
+		}
+	}
 </script>
