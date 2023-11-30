@@ -33,8 +33,13 @@ export default {
 <script setup>
 	import { computed, ref } from 'vue'
 	import { useStore } from 'vuex'
+	import { useRouter } from 'vue-router'
+	import { useVuelidate } from '@vuelidate/core'
+	import { required } from '@vuelidate/validators'
 
 	const store = useStore()
+	
+	const router = useRouter()
 
 	const typeAnimal = computed({
 		get () {
@@ -53,5 +58,27 @@ export default {
 			store.commit('petsConfigurator/updateNameAnimal', value)
 		}
 	})
+
+	const rules = {
+		typeAnimal: { required },
+		nameAnimal: { required }
+	}
+
+	const v$ = useVuelidate(rules, {
+		typeAnimal,
+		nameAnimal
+	})
+
+	
+	router.beforeEach((to, from) => {
+		if (
+			from.name == 'InfoAnimal' &&
+			to.name == from.meta.nextPath
+		) {
+			alert('aaa')
+			return false
+		}
+	})
+
 
 </script>

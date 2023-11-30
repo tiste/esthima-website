@@ -9,7 +9,7 @@
 		"preinstall": "npx npm-force-resolutions"
 	},
 	"resolutions": {
-		"graceful-fs": "^4.2.9"
+		"graceful-fs": "^4.2.11"
 	},
 	"author": "krealid",
 	"license": "ISC",
@@ -45,13 +45,10 @@
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.4.4",
+		"@vuelidate/core": "^2.0.3",
+		"@vuelidate/validators": "^2.0.4",
 		"core-js": "^3.21.1",
-		"crypto-js": "^4.0.0",
-		"i": "^0.3.7",
-		"ion-rangeslider": "^2.3.1",
 		"js-cookie": "^2.2.1",
-		"lottie-web-vue": "^1.2.1",
-		"npm": "^10.2.4",
 		"vue": "^3.0.0",
 		"vue-router": "^4.0.0",
 		"vuex": "^4.0.0",
