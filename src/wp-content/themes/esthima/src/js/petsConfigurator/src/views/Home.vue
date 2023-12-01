@@ -1,17 +1,14 @@
 <template>
-	<div>
-		<img src="/wp-content/themes/esthima/images/configurateur/configurateur-cadre-chien.png" alt="" />
-		<h1>
-			Lorem ipsum dolor sit amet consectetur. Volutpat pellentesque interdum
-			dignissim.
-		</h1>
-		<p>
-			Lorem ipsum dolor sit amet consectetur. Commodo felis enim mus placerat
-			amet risus dapibus vestibulum in. Nunc et sed faucibus quam. Ornare
-			adipiscing sit sed viverra ornare morbi risus lectus ultricies. Diam a
-			laoreet magna a consectetur velit.
-		</p>
-		<button @click.prevent="goNext">Commencer</button>
+	<div class="petsconfigurator__home">
+		<div class="petsconfigurator__home__content">
+			<h1 class="petsconfigurator__h1 petsconfigurator-h-center">
+				Lorem ipsum dolor sit amet consectetur.
+			</h1>
+			<p class="petsconfigurator__p petsconfigurator-h-center">
+				Lorem ipsum dolor sit amet consectetur. Commodo felis enim mus placerat amet risus dapibus vestibulum in. Nunc et sed faucibus quam.
+			</p>
+			<button @click.prevent="goNext" class="btn btn--arrow petsconfigurator-h-center">Commencer</button>
+		</div>
 	</div>
 </template>
 
@@ -24,12 +21,26 @@ export default {
 </script>
 
 <script setup>
+	import { computed } from 'vue'
 	import { useRoute, useRouter } from 'vue-router'
+	import { useStore } from 'vuex'
 
 	const router = useRouter()
 	const route = useRoute()
+	const store = useStore()
+
+	
+	let transitionName = computed({
+		get () {
+			return store.state.petsConfigurator.transitionName
+		},
+		set (value) {
+			store.commit('petsConfigurator/updateTransitionName', value)
+		}
+	})
 
 	function goNext() {
+		transitionName.value = 'slide-left'
 		if (route.meta.nextPath) {
 			router.push({ name: route.meta.nextPath })
 		}

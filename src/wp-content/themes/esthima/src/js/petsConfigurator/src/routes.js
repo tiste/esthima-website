@@ -3,6 +3,11 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const Home = () => import('./views/Home')
 const InfoAnimal = () => import('./views/InfoAnimal')
 const Cendres = () => import('./views/Cendres')
+const Ceremonie = () => import('./views/Ceremonie')
+const Urne = () => import('./views/Urne')
+const Souvenir = () => import('./views/Souvenir')
+const Info = () => import('./views/Info')
+const Recap = () => import('./views/Recap')
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -30,10 +35,54 @@ const router = createRouter({
         component: Cendres,
         meta: {
           backPath: 'InfoAnimal',
-          nextPath: 'Cendres'
+          nextPath: 'Ceremonie'
         }
-
-    }
+    },
+    {
+        path: '/ceremonie',
+        name: 'Ceremonie',
+        component: Ceremonie,
+        meta: {
+          backPath: 'Cendres',
+          nextPath: 'Urne'
+        }
+    },
+    {
+        path: '/urne',
+        name: 'Urne',
+        component: Urne,
+        meta: {
+          backPath: 'Ceremonie',
+          nextPath: 'Souvenir'
+        }
+    },
+    {
+        path: '/geste-souvenir',
+        name: 'Souvenir',
+        component: Souvenir,
+        meta: {
+          backPath: 'Urne',
+          nextPath: 'Info'
+        }
+    },
+    {
+        path: '/informations',
+        name: 'Info',
+        component: Info,
+        meta: {
+          backPath: 'Souvenir',
+          nextPath: 'Recap'
+        }
+    },
+    {
+        path: '/recapitulatif',
+        name: 'Recap',
+        component: Recap,
+        meta: {
+          backPath: 'Info',
+          nextPath: ''
+        }
+    },
   ],
 });
 

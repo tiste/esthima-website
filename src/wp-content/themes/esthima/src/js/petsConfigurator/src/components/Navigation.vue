@@ -14,14 +14,27 @@ export default {
 </script>
 
 <script setup>
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
 import EventBus from '../EventBus';
-
+import { useStore } from 'vuex'
 
 const router = useRouter();
 const route = useRoute();
+const store = useStore()
+
+let transitionName = computed({
+	get () {
+		return store.state.petsConfigurator.transitionName
+	},
+	set (value) {
+		store.commit('petsConfigurator/updateTransitionName', value)
+	}
+})
+
 
 function goPrev() {
+	transitionName.value = 'slide-right'
 	if (route.meta.backPath) {
 		router.push({ name: route.meta.backPath })
 	} else {
@@ -30,6 +43,7 @@ function goPrev() {
 }
 
 async function goNext() {
+	transitionName.value = 'slide-left'
 	if (route.meta.nextPath) {
 		const results = await EventBus.emit('goNextStep');
 		const shouldProceed = !results.includes(false);

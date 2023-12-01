@@ -19,3 +19,27 @@
 .scale-slide-leave-to {
   transform: scale(0.8);
 }
+
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active{
+  transition: all .4s ease-in-out;
+}
+
+.slide-left-enter {
+  transform: translateX(100%);
+}
+
+.slide-left-leave-to {
+   transform: translateX(-100%);
+}
+
+.slide-right-enter {
+  transform: translateX(-100%);
+}
+
+.slide-right-leave-to {
+   transform: translateX(100%);
+}
+

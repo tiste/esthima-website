@@ -93,16 +93,4 @@ export default {
 		EventBus.off('goNextStep', validate);
 	})
 		
-	// router.beforeEach((to, from) => {
-	// 	if (
-	// 		from.name == 'InfoAnimal' &&
-	// 		to.name == from.meta.nextPath
-	// 	) {
-	// 		alert('aaa')
-	// 		console.log(this.v$.$validate())
-	// 		return false
-	// 	}
-	// })
-
-
 </script>
