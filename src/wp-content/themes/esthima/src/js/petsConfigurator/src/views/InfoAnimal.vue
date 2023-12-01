@@ -42,7 +42,7 @@ export default {
 	import { useStore } from 'vuex'
 	import { useRouter } from 'vue-router'
 	import { useVuelidate } from '@vuelidate/core'
-	import { required } from '@vuelidate/validators'
+	import { required, helpers } from '@vuelidate/validators'
 
 	const store = useStore()
 	
@@ -67,8 +67,12 @@ export default {
 	})
 
 	const rules = {
-		typeAnimal: { required },
-		nameAnimal: { required }
+		typeAnimal: {
+			required: helpers.withMessage('Veuillez choisir une option', required)
+		},
+		nameAnimal: { 
+			required: helpers.withMessage('Veuillez remplir ce champ', required)
+		}
 	}
 
 	const v$ = useVuelidate(rules, {
@@ -79,7 +83,6 @@ export default {
 
 	const validate = async () => {
 		const isFormCorrect = await v$.value.$validate();
-		console.log(isFormCorrect)
       	if (!isFormCorrect) return false;
 	}
 
