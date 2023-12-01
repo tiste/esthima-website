@@ -15,9 +15,15 @@
 				<label for="nac">Un NAC</label>
 			</li>
 		</ul>
+		<div class="input-errors" v-for="error of v$.typeAnimal.$errors" :key="error.$uid">
+			<div class="error-msg">{{ error.$message }}</div>
+  		</div>
 
 		Il s’appelle...
 		<input type="text" v-model="nameAnimal">
+		<div class="input-errors" v-for="error of v$.nameAnimal.$errors" :key="error.$uid">
+			<div class="error-msg">{{ error.$message }}</div>
+  		</div>
 
 	</div>
 </template>
@@ -31,7 +37,8 @@ export default {
 </script>
 
 <script setup>
-	import { computed, ref } from 'vue'
+	import { computed, onMounted, onUnmounted } from 'vue'
+	import EventBus from '../EventBus';
 	import { useStore } from 'vuex'
 	import { useRouter } from 'vue-router'
 	import { useVuelidate } from '@vuelidate/core'
@@ -69,16 +76,30 @@ export default {
 		nameAnimal
 	})
 
-	
-	router.beforeEach((to, from) => {
-		if (
-			from.name == 'InfoAnimal' &&
-			to.name == from.meta.nextPath
-		) {
-			alert('aaa')
-			return false
-		}
+
+	const validate = async () => {
+		const isFormCorrect = await v$.value.$validate();
+		console.log(isFormCorrect)
+      	if (!isFormCorrect) return false;
+	}
+
+	onMounted(() => {
+  		EventBus.on('goNextStep', validate);
 	})
+	onUnmounted(() => {
+		EventBus.off('goNextStep', validate);
+	})
+		
+	// router.beforeEach((to, from) => {
+	// 	if (
+	// 		from.name == 'InfoAnimal' &&
+	// 		to.name == from.meta.nextPath
+	// 	) {
+	// 		alert('aaa')
+	// 		console.log(this.v$.$validate())
+	// 		return false
+	// 	}
+	// })
 
 
 </script>

@@ -15,6 +15,8 @@ export default {
 
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
+import EventBus from '../EventBus';
+
 
 const router = useRouter();
 const route = useRoute();
@@ -26,9 +28,14 @@ function goPrev() {
 		router.back()
 	}
 }
-function goNext() {
+
+async function goNext() {
 	if (route.meta.nextPath) {
-		router.push({ name: route.meta.nextPath })
+		const results = await EventBus.emit('goNextStep');
+		const shouldProceed = !results.includes(false);
+		if (shouldProceed) {
+    		router.push({ name: route.meta.nextPath });
+  		}
 	}
 }
 

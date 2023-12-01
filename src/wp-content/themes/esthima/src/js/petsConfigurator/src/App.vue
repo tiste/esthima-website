@@ -2,7 +2,7 @@
   <section class="petsconfigurator">
     <router-view v-slot="{ Component }">
       <transition name="scale-slide">
-        <component :is="Component" />
+        <component :is="Component" ref="stepRef" />
       </transition>
       <Navigation v-show="route.name != 'Home'" />
     </router-view>
