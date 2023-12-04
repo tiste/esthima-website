@@ -5,7 +5,7 @@ Donate link: [https://codewoogeek.online/product-category/back-in-stock-notifier
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 5.0.1
+Stable tag: 5.1.0
 License: GPL-3.0+
 License URI: [https://www.gnu.org/licenses/gpl-3.0.txt](https://www.gnu.org/licenses/gpl-3.0.txt)
 
@@ -235,6 +235,16 @@ If your product is in stock and your subscribers didn't get emails, do the follo
 
 
 == Changelog ==
+Version 5.1.0 on 30th November 2023
+New: Show Subscribers Count for Product List Table option added in Troubleshoot Settings
+New: WooCommerce Composite Products Compatibility(From WooCommerce)
+Fix: In Log file email not masking properly when email contain .(dot)
+Fix: Instock Emails trigger in Ascending Order
+Tweak: Revoked display of subscribers count column in product list table(It can be enable it in Troubleshoot settings)
+Tweak: Code Enhanced
+Tweak: POT File Updated
+Tweak: Tested with WooCommerce 8.3.0
+
 Version 5.0.1 on 23rd October 2023
 Fix: Critical error occur on WooCommerce Subscriptions
 

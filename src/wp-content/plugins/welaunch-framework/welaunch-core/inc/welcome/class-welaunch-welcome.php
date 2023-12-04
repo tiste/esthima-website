@@ -59,14 +59,24 @@ if ( ! class_exists( 'weLaunch_Welcome', false ) ) {
 
 			if(isset($_POST['action']) && !empty($_POST['action']) && $_POST['action'] == 'welaunch_add_license') {
 				if(isset($_POST['license']) && !empty($_POST['license'])) {
+
 					$license = $_POST['license'];
 
-					$url = 'https://www.welaunch.io/updates/account/validate.php?license=' . $license;
+					$domain = parse_url( get_site_url() )['host'];
+					$adminEmail = sanitize_email( get_option( 'admin_email' ) );
+
+					$url = 'https://www.welaunch.io/updates/account/validate.php?license=' . $license . '&domain=' . $domain . '&email=' .  $adminEmail;
 
 					$ch = curl_init( $url );
 					curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 					curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 					$result = json_decode( curl_exec($ch) );
+
+					if (curl_errno($ch)) { 
+					   print curl_error($ch); 
+					   die();
+					} 
+					
 					curl_close($ch);
 					
 					if(empty($result)) {
@@ -111,6 +121,51 @@ if ( ! class_exists( 'weLaunch_Welcome', false ) ) {
 				}
 			}
 
+			if(isset($_POST['action']) && !empty($_POST['action']) && $_POST['action'] == 'welaunch_remove_license') {
+				if(isset($_POST['item']) && !empty($_POST['item']) && isset($_POST['license']) && !empty($_POST['license'])) {
+
+					$license = $_POST['license'];
+					$url = 'https://www.welaunch.io/updates/account/remove.php?license=' . $license;
+
+					$ch = curl_init( $url );
+					curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+					curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+					$result = json_decode( curl_exec($ch) );
+
+					if (curl_errno($ch)) { 
+					   print curl_error($ch); 
+					   die();
+					} 
+					
+					curl_close($ch);
+					
+					if(empty($result)) {
+						die('Could not remove license.');
+					}
+
+					if(!$result->status) {
+						wp_die($result->msg);
+					}
+					
+					if(is_multisite()) {
+
+						$existingLicenses = get_network_option(0, 'welaunch_licenses');
+						if(isset($existingLicenses[$_POST['item']])) {
+							unset($existingLicenses[$_POST['item']]);
+						}
+						update_network_option(0, 'welaunch_licenses', $existingLicenses);
+
+					} else {
+
+						$existingLicenses = get_option('welaunch_licenses');
+						if(isset($existingLicenses[$_POST['item']])) {
+							unset($existingLicenses[$_POST['item']]);
+						}
+						update_option('welaunch_licenses', $existingLicenses);
+					}
+				}
+			}
+
 			$this->welaunch_loaded = true;
 			add_action( 'admin_menu', array( $this, 'admin_menus' ) );
 
@@ -119,8 +174,6 @@ if ( ! class_exists( 'weLaunch_Welcome', false ) ) {
 				if ( 'welaunch-' === substr( sanitize_text_field( wp_unslash( $_GET['page'] ) ), 0, 9 ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 					$version               = explode( '.', weLaunch_Core::$version );
 					$this->display_version = $version[0] . '.' . $version[1];
-					add_filter( 'admin_footer_text', array( $this, 'change_wp_footer' ) );
-					add_action( 'admin_head', array( $this, 'admin_head' ) );
 				}
 			}
 		}
@@ -134,14 +187,6 @@ if ( ! class_exists( 'weLaunch_Welcome', false ) ) {
 				exit();
 			}
 		}
-
-		/**
-		 * Change Footer.
-		 */
-		public function change_wp_footer() {
-			echo esc_html__( 'If you like', 'welaunch-framework' ) . ' <strong>weLaunch</strong> ' . esc_html__( 'please leave us a', 'welaunch-framework' ) . ' <a href="https://wordpress.org/support/view/plugin-reviews/welaunch-framework?filter=5#postform" target="_blank" class="welaunch-rating-link" data-rated="Thanks :)">&#9733;&#9733;&#9733;&#9733;&#9733;</a> ' . esc_html__( 'rating. A huge thank you in advance!', 'welaunch-framework' );
-		}
-
 
 
 		/**
@@ -165,66 +210,6 @@ if ( ! class_exists( 'weLaunch_Welcome', false ) ) {
 
 			// phpcs:ignore WordPress.NamingConventions.ValidHookName
 			do_action( 'welaunch/pro/welcome/admin/menu', $page, $this );
-		}
-
-		/**
-		 * Hide Individual Dashboard Pages
-		 *
-		 * @access public
-		 * @since  1.4
-		 * @return void
-		 */
-		public function admin_head() {
-			?>
-
-			<script
-				id="welaunch-qtip-js"
-				src='<?php echo esc_url( weLaunch_Core::$url ); ?>assets/js/vendor/qtip/qtip.js'>
-			</script>
-
-			<script
-				id="welaunch-welcome-admin-js"
-				src='<?php echo esc_url( weLaunch_Core::$url ); ?>inc/welcome/js/welaunch-welcome-admin.js'>
-			</script>
-
-			<link
-				rel='stylesheet' id='welaunch-qtip-css' <?php // phpcs:ignore WordPress.WP.EnqueuedResources ?>
-				href='<?php echo esc_url( weLaunch_Core::$url ); ?>assets/css/vendor/qtip.css'
-				type='text/css' media='all'/>
-
-			<link
-				rel='stylesheet' id='elusive-icons' <?php // phpcs:ignore WordPress.WP.EnqueuedResources ?>
-				href='<?php echo esc_url( weLaunch_Core::$url ); ?>assets/css/vendor/elusive-icons.css'
-				type='text/css' media='all'/>
-
-			<link
-				rel='stylesheet' id='welaunch-welcome-css' <?php // phpcs:ignore WordPress.WP.EnqueuedResources ?>
-				href='<?php echo esc_url( weLaunch_Core::$url ); ?>inc/welcome/css/welaunch-welcome.css'
-				type='text/css' media='all'/>
-
-			<style type="text/css">
-				.welaunch-badge:before {
-				<?php echo is_rtl() ? 'right' : 'left'; ?>: 0;
-				}
-
-				.about-wrap .welaunch-badge {
-				<?php echo is_rtl() ? 'left' : 'right'; ?>: 0;
-				}
-
-				.about-wrap .feature-rest div {
-					padding- <?php echo is_rtl() ? 'left' : 'right'; ?>: 100px;
-				}
-
-				.about-wrap .feature-rest div.last-feature {
-					padding- <?php echo is_rtl() ? 'right' : 'left'; ?>: 100px;
-					padding- <?php echo is_rtl() ? 'left' : 'right'; ?>: 0;
-				}
-
-				.about-wrap .feature-rest div.icon:before {
-					margin: <?php echo is_rtl() ? '0 -100px 0 0' : '0 0 0 -100px'; ?>;
-				}
-			</style>
-			<?php
 		}
 
 		/**

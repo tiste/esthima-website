@@ -699,29 +699,36 @@ if ( ! class_exists( 'CWG_Instock_Post_Type' ) ) {
 		}
 
 		public function add_subscribers_count_column( $columns ) {
-			$date_columns = $columns['date'];
-			unset( $columns['date'] );
-			$columns['total_subscribers'] = __( 'Subscribers Count', 'back-in-stock-notifier-for-woocommerce' );
-			$columns['date'] = $date_columns;
+			$options = get_option( 'cwginstocksettings' );
+			$columns = is_array( $columns ) ? $columns : array();
+			if ( isset( $options['show_subscribers_count_column'] ) && 1 == $options['show_subscribers_count_column'] ) {
+				$date_columns = isset( $columns['date'] ) ? $columns['date'] : array();
+				unset( $columns['date'] );
+				$columns['total_subscribers'] = __( 'Subscribers Count', 'back-in-stock-notifier-for-woocommerce' );
+				$columns['date'] = $date_columns;
+			}
 			return $columns;
 		}
 
 		public function show_subscribers_count( $columns, $post_id ) {
-			if ( 'total_subscribers' == $columns ) {
-				$edit_list = admin_url( 'edit.php?post_type=cwginstocknotifier&cwg_filter_by_products[0]=' . $post_id . '&post_status=cwg_subscribed&filter_action=Filter' );
-				$query_arg = esc_url_raw( $edit_list );
-				$api = new CWG_Instock_API();
-				$subscribers_count = intval( $api->get_subscribers_count( $post_id, 'cwg_subscribed' ) );
-				$get_data = intval( get_post_meta( $post_id, 'cwg_total_subscribers', true ) );
-				if ( $get_data != $subscribers_count ) {
-					update_post_meta( $post_id, 'cwg_total_subscribers', $subscribers_count );
-				} else {
-					add_post_meta( $post_id, 'cwg_total_subscribers', $subscribers_count, true );
-				}
-				if ( $subscribers_count > 0 ) {
-					echo wp_kses_post( "<a href='$query_arg'> $subscribers_count </a>" );
-				} else {
-					echo intval( $subscribers_count );
+			$options = get_option( 'cwginstocksettings' );
+			if ( isset( $options['show_subscribers_count_column'] ) && 1 == $options['show_subscribers_count_column'] ) {
+				if ( 'total_subscribers' == $columns ) {
+					$edit_list = admin_url( 'edit.php?post_type=cwginstocknotifier&cwg_filter_by_products[0]=' . $post_id . '&post_status=cwg_subscribed&filter_action=Filter' );
+					$query_arg = esc_url_raw( $edit_list );
+					$api = new CWG_Instock_API();
+					$subscribers_count = intval( $api->get_subscribers_count( $post_id, 'cwg_subscribed' ) );
+					$get_data = intval( get_post_meta( $post_id, 'cwg_total_subscribers', true ) );
+					if ( $get_data != $subscribers_count ) {
+						update_post_meta( $post_id, 'cwg_total_subscribers', $subscribers_count );
+					} else {
+						add_post_meta( $post_id, 'cwg_total_subscribers', $subscribers_count, true );
+					}
+					if ( $subscribers_count > 0 ) {
+						echo wp_kses_post( "<a href='$query_arg'> $subscribers_count </a>" );
+					} else {
+						echo intval( $subscribers_count );
+					}
 				}
 			}
 		}
@@ -812,6 +819,5 @@ add_action( 'load-edit.php', function () {
 			</div>
 			<?php
 		} );
-
 	}
 } );

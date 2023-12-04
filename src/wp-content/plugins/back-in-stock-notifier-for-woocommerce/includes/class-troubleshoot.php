@@ -22,6 +22,7 @@ if ( ! class_exists( 'CWG_Instock_Troubleshoot' ) ) {
 			add_settings_field( 'cwg_instock_trigger_mail_any_variation', __( 'Trigger mail to variable product subscribers when any other variation of that product is back in stock', 'back-in-stock-notifier-for-woocommerce' ), array( $this, 'trigger_any_variation_variable_backinstock' ), 'cwginstocknotifier_settings', 'cwginstock_section_troubleshoot' );
 			add_settings_field( 'cwg_instock_override_form_from_theme', __( 'Force load Template from Plugin - This option ignores the template override from theme', 'back-in-stock-notifier-for-woocommerce' ), array( $this, 'load_template_from_plugin' ), 'cwginstocknotifier_settings', 'cwginstock_section_troubleshoot' );
 			add_settings_field( 'cwg_instock_enable_cache_buster', __( 'Enable Cache Buster', 'back-in-stock-notifier-for-woocommerce' ), array( $this, 'cache_buster' ), 'cwginstocknotifier_settings', 'cwginstock_section_troubleshoot' );
+			add_settings_field( 'cwg_instock_show_subscribers_count_column', __( 'Show Subscribers Count', 'back-in-stock-notifier-for-woocommerce' ), array( $this, 'show_subscribers_count_column' ), 'cwginstocknotifier_settings', 'cwginstock_section_troubleshoot' );
 		}
 
 		public function troubleshoot_settings_heading() {
@@ -109,6 +110,17 @@ if ( ! class_exists( 'CWG_Instock_Troubleshoot' ) ) {
 			<input type='checkbox' name='cwginstocksettings[cache_buster]' <?php isset( $options['cache_buster'] ) ? checked( $options['cache_buster'], 1 ) : ''; ?> value="1" />
 			<p><i>
 					<?php esc_html_e( 'Select this option to add a cache buster to the "add-to-cart" link in the in-stock email', 'back-in-stock-notifier-for-woocommerce' ); ?>
+				</i></p>
+			<?php
+		}
+
+		public function show_subscribers_count_column() {
+			$options = get_option( 'cwginstocksettings' );
+			?>
+			<input type='checkbox' name='cwginstocksettings[show_subscribers_count_column]' <?php isset( $options['show_subscribers_count_column'] ) ? checked( $options['show_subscribers_count_column'], 1 ) : ''; ?>
+				value="1" />
+			<p><i>
+					<?php esc_html_e( 'Select this option to show "Subscribers Count" column in product list table (Admin Dashboard>Products) ', 'back-in-stock-notifier-for-woocommerce' ); ?>
 				</i></p>
 			<?php
 		}

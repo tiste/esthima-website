@@ -9,7 +9,7 @@ var gtoken = '';
 var popup_notifier = {
     init: function () {
         jQuery(document).on('click', '.cwg_popup_submit', function () {
-            jQuery.blockUI({message: null});
+            jQuery.blockUI({ message: null });
             var current = jQuery(this);
             var product_id = current.attr('data-product_id');
             var variation_id = current.attr('data-variation_id');
@@ -34,7 +34,7 @@ var popup_notifier = {
     popup_generate_v3_response: function (currentel) {
         if (recaptcha_enabled == '1' && is_v3_recaptcha == 'yes') {
             grecaptcha.ready(function () {
-                grecaptcha.execute(recaptcha_site_key, {action: 'popup_form'}).then(function (token) {
+                grecaptcha.execute(recaptcha_site_key, { action: 'popup_form' }).then(function (token) {
                     console.log(token);
 
                     var current = jQuery(currentel);
@@ -47,7 +47,7 @@ var popup_notifier = {
                         action: 'cwg_trigger_popup_ajax',
                         product_id: product_id,
                         variation_id: variation_id,
-                        quantity:quantity,
+                        quantity: quantity,
                         security: token
                     };
                     popup_notifier.perform_ajax(data);

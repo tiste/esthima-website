@@ -152,21 +152,6 @@ if ( ! class_exists( 'weLaunch_Functions_Ex', false ) ) {
 		}
 
 		/**
-		 * Action to add generator tag to page HEAD.
-		 */
-		public static function generator() {
-			add_action( 'wp_head', array( 'weLaunch_Functions_Ex', 'meta_tag' ) );
-		}
-
-
-		/**
-		 * Callback for wp_head hook to add meta tag.
-		 */
-		public static function meta_tag() {
-			echo '<meta name="framework" content="weLaunch ' . esc_html( weLaunch_Core::$version ) . '" />';
-		}
-
-		/**
 		 * Run URL through a ssl check.
 		 *
 		 * @param     string $url URL to check.

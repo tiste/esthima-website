@@ -28,6 +28,7 @@ if ( ! class_exists( 'CWG_Instock_API' ) ) {
 				'fields' => 'ids',
 				'posts_per_page' => -1,
 				'post_status' => 'cwg_subscribed',
+				'order' => 'ASC',
 			);
 			$meta_query = array(
 				'relation' => $relation,
@@ -423,6 +424,8 @@ if ( ! class_exists( 'CWG_Instock_API' ) ) {
 			$meta_value = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT pm.meta_value FROM {$wpdb->postmeta} pm LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE pm.meta_key = %s AND p.post_status = %s AND p.post_type = %s", $key, $status, $type ) );
 			return $meta_value;
 		}
+
+
 
 		public function sanitize_text_field( $value ) {
 			return sanitize_text_field( $value );

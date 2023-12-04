@@ -46,30 +46,38 @@ if ( ! class_exists( 'CWG_Instock_Premium_Extensions' ) ) {
 
 
 
-<h1>Add-ons for Back In Stock Notifier</h1>
-<p>
-We have created a few add-ons below that enhance the core product with extended functionality.
+				<h1>Add-ons for Back In Stock Notifier</h1>
+				<p>
+					We have created a few add-ons below that enhance the core product with extended functionality.
 				</p>
 
-<h3>Additional Advantages of our Add-ons:</h3>
+				<h3>Additional Advantages of our Add-ons:</h3>
 
-<p>- <strong>Effortless Integration</strong>: Seamlessly integrate these add-ons into your existing system with ease.</p>
+				<p>- <strong>Effortless Integration</strong>: Seamlessly integrate these add-ons into your existing system with
+					ease.</p>
 
-<p>- <strong>Enhanced Features</strong>: Enjoy a range of additional features and functionalities that elevate the performance of the core product.</p>
+				<p>- <strong>Enhanced Features</strong>: Enjoy a range of additional features and functionalities that elevate the
+					performance of the core product.</p>
 
-<p>- <strong>Dedicated Assistance</strong>: Access our dedicated support team for any queries or assistance you might need.</p>
+				<p>- <strong>Dedicated Assistance</strong>: Access our dedicated support team for any queries or assistance you
+					might need.</p>
 
-<p>- <strong>Regular Updates</strong>: Stay up-to-date with regular updates that keep your add-ons in sync with the latest industry trends.</p>
+				<p>- <strong>Regular Updates</strong>: Stay up-to-date with regular updates that keep your add-ons in sync with the
+					latest industry trends.</p>
 
-<p>- <strong>Cost-Effective</strong>: These add-ons are available for an exclusive limited-time price of just $10.00 each, providing incredible value.</p>
+				<p>- <strong>Cost-Effective</strong>: These add-ons are available for an exclusive limited-time price of just $10.00
+					each, providing incredible value.</p>
 
-<p>- <strong>Unmatched Convenience</strong>: Say goodbye to recurring payments with our one-time fee structure.</p>
+				<p>- <strong>Unmatched Convenience</strong>: Say goodbye to recurring payments with our one-time fee structure.</p>
 
-<p>- <strong>Satisfaction Guaranteed</strong>: We are confident in the quality and performance of our add-ons, so your satisfaction is guaranteed.</p>
+				<p>- <strong>Satisfaction Guaranteed</strong>: We are confident in the quality and performance of our add-ons, so
+					your satisfaction is guaranteed.</p>
 
-<p>- <strong>Flexible Options</strong>: Choose individual add-ons or opt for our bundle to tailor your experience to your exact needs.</p>
+				<p>- <strong>Flexible Options</strong>: Choose individual add-ons or opt for our bundle to tailor your experience to
+					your exact needs.</p>
 
-<p>- <strong>Expand Your Potential</strong>: With unlimited site usage and enhanced functionality, these add-ons empower you to achieve more with your Back In Stock Notifier.</p>
+				<p>- <strong>Expand Your Potential</strong>: With unlimited site usage and enhanced functionality, these add-ons
+					empower you to achieve more with your Back In Stock Notifier.</p>
 
 				<?php
 				$i = 1;

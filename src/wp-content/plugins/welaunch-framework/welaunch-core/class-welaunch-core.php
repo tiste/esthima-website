@@ -198,8 +198,6 @@ if ( ! class_exists( 'weLaunch_Core', false ) ) {
 
 			self::$dir = trailingslashit( wp_normalize_path( dirname( realpath( __FILE__ ) ) ) );
 
-			weLaunch_Functions_Ex::generator();
-
 			$plugin_info = weLaunch_Functions_Ex::is_inside_plugin( __FILE__ );
 
 			self::$installed = class_exists( 'weLaunch_Framework_Plugin' ) ? 'plugin' : 'in_plugin';

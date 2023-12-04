@@ -9,7 +9,7 @@
  * Description:     Framework for weLaunch Plugins (this is a fork of Redux Plugin)
  * Author:          weLaunch.io
  * Author URI:      https://welaunch.io
- * Version:         1.0.2
+ * Version:         1.0.19
  * Text Domain:     welaunch-framework
  * License:         GPLv3 or later
  * License URI:     http://www.gnu.org/licenses/gpl-3.0.txt
@@ -30,7 +30,7 @@ if ( ! defined( 'WELAUNCH_PLUGIN_FILE' ) ) {
 
 require __DIR__ . '/vendor/autoload.php';
 
-global $weLaunchLicenses;
+global $weLaunchLicenses, $weLaunchPlugins;
 if(is_multisite()) {
 	$weLaunchLicenses = get_network_option(0, 'welaunch_licenses');
 } else {
@@ -42,12 +42,13 @@ $weLaunchPlugins = array(
 	'welaunch-framework',
 	'woocommerce-pdf-catalog',
 	'woocommerce-delivery',
+	'wordpress-store-locator',
 	'wordpress-gdpr',
 	'woocommerce-pdf-catalog',
 	'woocommerce-store-locator',
 	'woocommerce-single-variations',
 	'woocommerce-reward-points',
-	'woocommerce-product-catalog-mode',
+	'woocommerce-catalog-mode',
 	'wordpress-multilingual-multisite',
 	'woocommerce-plugin-bundle',
 	'woocommerce-print-products',
@@ -55,12 +56,14 @@ $weLaunchPlugins = array(
 	'wordpress-country-selector',
 	'woocommerce-my-account',
 	'wordpress-print-posts',
+	'woocommerce-packing-slips',
 	'woocommerce-ultimate-pdf-invoices',
 	'woocommerce-variations-table',
 	'woocommerce-group-attributes',
 	'woocommerce-gallery-images',
 	'woocommerce-advanced-categories',
 	'woocommerce-attribute-images',
+	'woocommerce-ultimate-pricing',
 	'woocommerce-ultimate-tabs',
 	'woocommerce-better-compare',
 	'wordpress-multisite-sync',
@@ -72,49 +75,73 @@ $weLaunchPlugins = array(
 	'woocommerce-multisite-duplicate',
 	'woocommerce-cart-pdf',
 	'woocommerce-bought-together',
+	'woocommerce-shop-look',
+	'woocommerce-dark-pattern',
 	'woocommerce-wishlist',
 	'vc-restaurant-menu',
 	'woocommerce-quick-order',
 	'woocommerce-quick-view',
 	'wordpress-pdf-catalog',
 	'vc-personalization',
+
+	'woocommerce-product-retailers',
+	'woocommerce-multi-inventory',
+	'woocommerce-bottle-deposit',
+	'woocommerce-quote-negotiation',
+
+	'wordpress-form-wizard',
+	'woocommerce-lense-configurator',
 );
 
 if ( ! function_exists( 'get_plugins' ) ) {
     require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
-$weLaunchUpdater = array();
-$weLaunchAllPlugins = get_plugins();
-foreach($weLaunchAllPlugins as $weLaunchAllPluginSlug => $weLaunchAllPluginInfo) {
+if(class_exists('Puc_v4_Factory')) {
 
-	$weLaunchAllPluginSlug =  explode('/', $weLaunchAllPluginSlug)[0];
-	$welaunchPlugin = array_search($weLaunchAllPluginSlug, $weLaunchPlugins, true);
-	if($welaunchPlugin !== false) {
+	$weLaunchUpdater = array();
+	$weLaunchAllPlugins = get_plugins();
+	foreach($weLaunchAllPlugins as $weLaunchAllPluginSlug => $weLaunchAllPluginInfo) {
 
-		$welaunchPlugin = $weLaunchPlugins[$welaunchPlugin];
-        $weLaunchFilePath = trailingslashit(WP_PLUGIN_DIR) . $welaunchPlugin . '/' . $welaunchPlugin . '.php';
+		$weLaunchAllPluginSlug =  explode('/', $weLaunchAllPluginSlug)[0];
+		$welaunchPlugin = array_search($weLaunchAllPluginSlug, $weLaunchPlugins, true);
+		if($welaunchPlugin !== false) {
 
-        $license = '';
+			$welaunchPlugin = $weLaunchPlugins[$welaunchPlugin];
+	        $weLaunchFilePath = trailingslashit(WP_PLUGIN_DIR) . $welaunchPlugin . '/' . $welaunchPlugin . '.php';
 
-	    if ( isset($weLaunchLicenses[$welaunchPlugin]) && !empty($weLaunchLicenses[$welaunchPlugin]) ) {
-	        $license = $weLaunchLicenses[$welaunchPlugin];
+	        $license = '';
+	        $pluginLicense = $welaunchPlugin;
+	        if($welaunchPlugin == "woocommerce-catalog-mode") {
+	        	$pluginLicense = 'woocommerce-product-catalog-mode';
+	        }
+
+		    if ( isset($weLaunchLicenses[$pluginLicense]) && !empty($weLaunchLicenses[$pluginLicense]) ) {
+		        $license = $weLaunchLicenses[$pluginLicense];
+		    }
+		
+		    if ( substr($welaunchPlugin, 0, 11) === 'woocommerce' && isset($weLaunchLicenses['woocommerce-plugin-bundle']) && !empty($weLaunchLicenses['woocommerce-plugin-bundle']) ) {
+		        $license = $weLaunchLicenses['woocommerce-plugin-bundle'];
+		    }
+
+		    if ( isset($weLaunchLicenses['agency-bundle']) && !empty($weLaunchLicenses['agency-bundle']) ) {
+		    	$license = $weLaunchLicenses['agency-bundle'];
+	    	}
+
+		    if(empty($license) && $welaunchPlugin !== "welaunch-framework") {
+		    	continue;
+		    }
+			
+			$domain = parse_url( get_site_url() )['host'];
+
+
+	        $weLaunchUpdater[] = Puc_v4_Factory::buildUpdateChecker(
+	            'https://www.welaunch.io/updates/account/?plugin=' . $welaunchPlugin . '&license=' . $license . '&domain=' . $domain,
+	            $weLaunchFilePath,
+	            $welaunchPlugin
+	        );
 	    }
-	
-	    if ( substr($welaunchPlugin, 0, 11) === 'woocommerce' && isset($weLaunchLicenses['woocommerce-plugin-bundle']) && !empty($weLaunchLicenses['woocommerce-plugin-bundle']) ) {
-	        $license = $weLaunchLicenses['woocommerce-plugin-bundle'];
-	    }
-
-	    if(empty($license) && $welaunchPlugin !== "welaunch-framework") {
-	    	continue;
-	    }
-
-        $weLaunchUpdater[] = Puc_v4_Factory::buildUpdateChecker(
-            'https://www.welaunch.io/updates/account/?plugin=' . $welaunchPlugin . '&license=' . $license,
-            $weLaunchFilePath,
-            $welaunchPlugin
-        );
-    }
+	}
 }
 
 // Require the main plugin class.
@@ -127,3 +154,22 @@ register_deactivation_hook( __FILE__, array( 'weLaunch_Framework_Plugin', 'deact
 // Get plugin instance.
 weLaunch_Framework_Plugin::instance();
 
+add_action( 'before_woocommerce_init', function() {
+
+
+
+    if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+
+    	global $weLaunchPlugins;
+
+    	foreach($weLaunchPlugins as $weLaunchPlugin) {
+
+    		if(!is_plugin_active($weLaunchPlugin . '/' . $weLaunchPlugin . '.php')) {
+    			continue;
+    		}
+
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $weLaunchPlugin, true );
+		}
+
+    }
+} );

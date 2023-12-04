@@ -44,14 +44,14 @@ if ( ! class_exists( 'CWG_REST_API_Instock_Notifier' ) ) {
 
 		public function create_subscriber( WP_REST_Request $request ) {
 			/*
-					  * SAMPLE JSON REQUEST
-					  * {
-					  * "subscriber_name" : "subscriber name",
-					   "email" : "xxxxxxx@gmail.com",
-					   "product_id": "valid product id",
-					   "variation_id" : "valid variation id",
-					   "status" : "valid registered status",
-					   } */
+							   * SAMPLE JSON REQUEST
+							   * {
+							   * "subscriber_name" : "subscriber name",
+								"email" : "xxxxxxx@gmail.com",
+								"product_id": "valid product id",
+								"variation_id" : "valid variation id",
+								"status" : "valid registered status",
+								} */
 
 			$body = $request->get_body();
 			$body_decode_json = json_decode( $body, true );
@@ -184,15 +184,15 @@ if ( ! class_exists( 'CWG_REST_API_Instock_Notifier' ) ) {
 
 		public function update_subscriber( WP_REST_Request $request ) {
 			/*
-					  * SAMPLE JSON REQUEST
-					  * {
-					  * "ID": "",
-					   "subscriber_name" : "subscriber name",
-					   "email" : "xxxxxxx@gmail.com",
-					   "product_id": "valid product id",
-					   "variation_id" : "valid variation id",
-					   "status" : "valid registered status",
-					   } */
+							   * SAMPLE JSON REQUEST
+							   * {
+							   * "ID": "",
+								"subscriber_name" : "subscriber name",
+								"email" : "xxxxxxx@gmail.com",
+								"product_id": "valid product id",
+								"variation_id" : "valid variation id",
+								"status" : "valid registered status",
+								} */
 			$body = $request->get_body();
 			$body_decode_json = json_decode( $body, true );
 
@@ -271,14 +271,14 @@ if ( ! class_exists( 'CWG_REST_API_Instock_Notifier' ) ) {
 
 		public function list_subscriber( WP_REST_Request $request ) {
 			/*
-					  * SAMPLE JSON REQUEST
-					   {
-					   "p_ids" : array('170','124'),
-					   "variation_ids" : array('111','1244'),
-					   "include": "true/false",
-					   "status" : array('cwg_subscribed','cwg_unsubscribed'),
-					   }
-					  */
+							   * SAMPLE JSON REQUEST
+								{
+								"p_ids" : array('170','124'),
+								"variation_ids" : array('111','1244'),
+								"include": "true/false",
+								"status" : array('cwg_subscribed','cwg_unsubscribed'),
+								}
+							   */
 			$body = $request->get_body();
 			$body_decode_json = json_decode( $body, true );
 			$status = isset( $body_decode_json['status'] ) ? $body_decode_json['status'] : 'any';

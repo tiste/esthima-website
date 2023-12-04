@@ -13,6 +13,7 @@ if ( ! class_exists( 'CWG_Instock_Notifier_Product' ) ) {
 			add_action( 'woocommerce_subscription_add_to_cart', array( $this, 'display_in_simple_product' ), 31 );
 			add_action( 'woocommerce_bundle_add_to_cart', array( $this, 'display_in_simple_product' ), 31 );
 			add_action( 'woocommerce_woosb_add_to_cart', array( $this, 'display_in_simple_product' ), 31 );
+			add_action( 'woocommerce_composite_add_to_cart', array( $this, 'display_in_simple_product' ), 31 );
 			add_action( 'woocommerce_after_variations_form', array( $this, 'display_in_no_variation_product' ) );
 			//add_action('woocommerce_grouped_add_to_cart', array($this, 'display_in_simple_product'), 32);
 			add_filter( 'woocommerce_available_variation', array( $this, 'display_in_variation' ), 999, 3 );

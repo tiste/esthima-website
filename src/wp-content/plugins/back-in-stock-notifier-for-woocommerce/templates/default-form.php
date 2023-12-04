@@ -51,13 +51,13 @@
 							<?php $additional_class_name = isset( $get_option['btn_class'] ) && '' != $get_option['btn_class'] ? str_replace( ',', ' ', $get_option['btn_class'] ) : ''; ?>
 							<input type="submit" name="cwgstock_submit"
 								class="cwgstock_button <?php esc_html_e( $additional_class_name ); ?>" <?php
-								  /**
-								   * Submit Attribute
-								   * 
-								   * @since 1.0.0
-								   */
-								  echo do_shortcode( apply_filters( 'cwgstock_submit_attr', '', $product_id, $variation_id ) );
-								  ?>
+									/**
+									 * Submit Attribute
+									 * 
+									 * @since 1.0.0
+									 */
+									echo do_shortcode( apply_filters( 'cwgstock_submit_attr', '', $product_id, $variation_id ) );
+									?>
 								value="<?php esc_html_e( $instock_api->sanitize_text_field( $button_label ) ); ?>" />
 						</div>
 						<div class="cwgstock_output"></div>

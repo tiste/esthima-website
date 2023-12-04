@@ -50,13 +50,31 @@ if ( ! class_exists( 'weLaunch_Enqueue', false ) ) {
 		 * @param     object $parent weLaunchFramework pointer.
 		 */
 		public function __construct( $parent ) {
-			parent::__construct( $parent );
+			global $test;
 
-			// Enqueue the admin page CSS and JS.
-			if ( isset( $_GET['page'] ) && $_GET['page'] === $parent->args['page_slug'] ) { // phpcs:ignore WordPress.Security.NonceVerification
-				add_action( 'admin_enqueue_scripts', array( $this, 'init' ), 1 );
+			if(isset($_GET['page']) && 
+				(
+					$_GET['page'] == "RosadiLuca" || 
+					$_GET['page'] == "global-options"  || 
+					$_GET['page'] == "liquid-theme-options"  || 
+					$_GET['page'] == "calendarista-appointments"  || 
+					$_GET['page'] == "fluent_forms"  || 
+					$_GET['page'] == "fluentcrm-admin"  || 
+					$_GET['page'] == "et_divi_options"  || 
+					$_GET['page'] == "fluent_forms_all_entries"  || 
+					$_GET['page'] == "fluent_forms_settings"  || 
+					$_GET['page'] == "fluent_forms_transfer"  || 
+					$_GET['page'] == "fluent_forms_smtp"  || 
+					$_GET['page'] == "fluent_forms_add_ons"  || 
+					$_GET['page'] == "fluent_forms_docs"  || 
+					$_GET['page'] == "fluent_forms_docs"
+				) ) {
+				return;
 			}
 
+			parent::__construct( $parent );
+			add_action( 'admin_enqueue_scripts', array( $this, 'init' ), 1 );
+	
 			add_action( 'wp_enqueue_scripts', array( $this, 'frontend_init' ), 10 );
 
 			// phpcs:ignore WordPress.NamingConventions.ValidHookName
@@ -92,7 +110,7 @@ if ( ! class_exists( 'weLaunch_Enqueue', false ) ) {
 			weLaunch_CDN::$parent       = $core;
 
 			$this->min = weLaunch_Functions::is_min();
-
+			
 			$this->timestamp = weLaunch_Core::$version;
 			if ( $core->args['dev_mode'] ) {
 				$this->timestamp .= '.' . time();
@@ -103,17 +121,20 @@ if ( ! class_exists( 'weLaunch_Enqueue', false ) ) {
 
 			add_thickbox();
 
-			$this->enqueue_fields( $core );
+			if (isset( $_GET['page'] ) && $_GET['page'] === $core->args['page_slug'] ){
 
-			add_filter( "welaunch/{$core->args['opt_name']}/localize", array( 'weLaunch_Helpers', 'localize' ) );
+				$this->enqueue_fields( $core );
+				
+				add_filter( "welaunch/{$core->args['opt_name']}/localize", array( 'weLaunch_Helpers', 'localize' ) );
 
-			$this->set_localized_data( $core );
+				$this->set_localized_data( $core );
 
-			/**
-			 * Action 'welaunch/page/{opt_name}/enqueue'
-			 */
-			// phpcs:ignore WordPress.NamingConventions.ValidHookName
-			do_action( "welaunch/page/{$core->args['opt_name']}/enqueue" );
+				/**
+				 * Action 'welaunch/page/{opt_name}/enqueue'
+				 */
+				// phpcs:ignore WordPress.NamingConventions.ValidHookName
+				do_action( "welaunch/page/{$core->args['opt_name']}/enqueue" );
+			}
 		}
 
 		/**
@@ -335,23 +356,27 @@ if ( ! class_exists( 'weLaunch_Enqueue', false ) ) {
 			// *****************************************************************
 			// weLaunch JS
 			// *****************************************************************
-			wp_register_script(
-				'welaunch-js',
-				weLaunch_Core::$url . 'assets/js/welaunch' . $this->min . '.js',
-				array( 'jquery', 'welaunch-vendor' ),
-				$this->timestamp,
-				true
-			);
+			$core = $this->core();
+			if (isset( $_GET['page'] ) && $_GET['page'] === $core->args['page_slug'] ){
 
-			if ( $core->args['async_typography'] ) {
-				wp_enqueue_script(
-					'webfontloader',
-					// phpcs:ignore Generic.Strings.UnnecessaryStringConcat
-					'//' . 'ajax' . '.googleapis' . '.com/ajax/libs/webfont/1.6.26/webfont.js',
+				wp_register_script(
+					'welaunch-js',
+					weLaunch_Core::$url . 'assets/js/welaunch' . $this->min . '.js',
 					array( 'jquery', 'welaunch-vendor' ),
-					'1.6.26',
+					$this->timestamp,
 					true
 				);
+
+				if ( $core->args['async_typography'] ) {
+					wp_enqueue_script(
+						'webfontloader',
+						// phpcs:ignore Generic.Strings.UnnecessaryStringConcat
+						'//' . 'ajax' . '.googleapis' . '.com/ajax/libs/webfont/1.6.26/webfont.js',
+						array( 'jquery', 'welaunch-vendor' ),
+						'1.6.26',
+						true
+					);
+				}
 			}
 		}
 

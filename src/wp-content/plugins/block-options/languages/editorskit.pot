@@ -2,20 +2,20 @@
 # This file is distributed under the same license as the EditorsKit plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: EditorsKit 1.34.9\n"
+"Project-Id-Version: EditorsKit 1.40.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/block-options\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-09T12:47:20+00:00\n"
+"POT-Creation-Date: 2023-09-30T07:17:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: block-options\n"
 
 #. Plugin Name of the plugin
-#: includes/class-editorskit-user-feedback.php:338
+#: includes/class-editorskit-user-feedback.php:328
 #: includes/class-editorskit-welcome.php:151
 msgid "EditorsKit"
 msgstr ""
@@ -34,6 +34,10 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "https://www.munirkamal.com/"
+msgstr ""
+
+#: includes/addons/styles-manager/gutenberghub-styles-manager.php:114
+msgid "Untitled Style"
 msgstr ""
 
 #: includes/class-editorskit-features-manager.php:92
@@ -250,86 +254,86 @@ msgstr ""
 msgid "Show Support"
 msgstr ""
 
-#: includes/class-editorskit-post-meta.php:109
+#: includes/class-editorskit-post-meta.php:104
 msgid "API key and token from shareablock.com"
 msgstr ""
 
 #. translators: Number of years
-#: includes/class-editorskit-user-feedback.php:99
+#: includes/class-editorskit-user-feedback.php:95
 msgid "%s years"
 msgstr ""
 
-#: includes/class-editorskit-user-feedback.php:101
+#: includes/class-editorskit-user-feedback.php:97
 msgid "a year"
 msgstr ""
 
 #. translators: Number of weeks
-#: includes/class-editorskit-user-feedback.php:108
+#: includes/class-editorskit-user-feedback.php:104
 msgid "%s weeks"
 msgstr ""
 
-#: includes/class-editorskit-user-feedback.php:110
+#: includes/class-editorskit-user-feedback.php:106
 msgid "a week"
 msgstr ""
 
 #. translators: Number of days
-#: includes/class-editorskit-user-feedback.php:117
+#: includes/class-editorskit-user-feedback.php:113
 msgid "%s days"
 msgstr ""
 
-#: includes/class-editorskit-user-feedback.php:119
+#: includes/class-editorskit-user-feedback.php:115
 msgid "a day"
 msgstr ""
 
 #. translators: Number of hours
-#: includes/class-editorskit-user-feedback.php:126
+#: includes/class-editorskit-user-feedback.php:122
 msgid "%s hours"
 msgstr ""
 
-#: includes/class-editorskit-user-feedback.php:128
+#: includes/class-editorskit-user-feedback.php:124
 msgid "an hour"
 msgstr ""
 
 #. translators: Number of minutes
-#: includes/class-editorskit-user-feedback.php:135
+#: includes/class-editorskit-user-feedback.php:131
 msgid "%s minutes"
 msgstr ""
 
-#: includes/class-editorskit-user-feedback.php:137
+#: includes/class-editorskit-user-feedback.php:133
 msgid "a minute"
 msgstr ""
 
 #. translators: Number of seconds
-#: includes/class-editorskit-user-feedback.php:144
+#: includes/class-editorskit-user-feedback.php:140
 msgid "%s seconds"
 msgstr ""
 
-#: includes/class-editorskit-user-feedback.php:146
+#: includes/class-editorskit-user-feedback.php:142
 msgid "a second"
 msgstr ""
 
 #. translators: 1. Name
-#: includes/class-editorskit-user-feedback.php:296
+#: includes/class-editorskit-user-feedback.php:288
 msgid "%s WordPress Plugin"
 msgstr ""
 
 #. translators: 1. Name
-#: includes/class-editorskit-user-feedback.php:300
+#: includes/class-editorskit-user-feedback.php:292
 msgid "Are you enjoying %s Plugin?"
 msgstr ""
 
 #. translators: 1. Name, 2. Time
-#: includes/class-editorskit-user-feedback.php:303
+#: includes/class-editorskit-user-feedback.php:295
 msgid "You have been using %1$s for %2$s now. Mind leaving a review to let us know know what you think? We'd really appreciate it!"
 msgstr ""
 
-#: includes/class-editorskit-user-feedback.php:307
+#: includes/class-editorskit-user-feedback.php:299
 #: includes/notices/class-editorskit-support-notice.php:53
-#: src/admin/index.js:129
+#: src/admin/index.js:256
 msgid "Leave a Review"
 msgstr ""
 
-#: includes/class-editorskit-user-feedback.php:308
+#: includes/class-editorskit-user-feedback.php:300
 msgid "No thanks / I already have"
 msgstr ""
 
@@ -338,7 +342,7 @@ msgid "Getting started with EditorsKit"
 msgstr ""
 
 #. translators: %s: EditorsKit settings page link
-#: includes/class-editorskit-welcome.php:187
+#: includes/class-editorskit-welcome.php:191
 msgid "Thank you for installing and activating EditorsKit Plugin. Please go to %1$sSettings > EditorsKit%2$s to get started."
 msgstr ""
 
@@ -507,39 +511,59 @@ msgstr ""
 msgid "Blocks Manager"
 msgstr ""
 
-#: src/admin/index.js:55
+#: src/admin/index.js:43
+msgid "Template Library"
+msgstr ""
+
+#: src/admin/index.js:48
+msgid "Styles Manager"
+msgstr ""
+
+#: src/admin/index.js:67
 msgid "EditorsKit provides set of tools to extend the way you are building content on WordPress Gutenberg block editor. Designed and integrated to help users easily navigate; and control each block the way it should be."
 msgstr ""
 
-#: src/admin/index.js:58
+#: src/admin/index.js:75
 msgid "EditorsKit video preview"
 msgstr ""
 
-#: src/admin/index.js:63
+#: src/admin/index.js:89
 msgid "If you have any questions or suggestion, let us know through %1$sTwitter%4$s or our %2$sFacebook community %4$s. Also, %3$ssubscribe to our newsletter%4$s if you want to stay up to date with what's new and upcoming at EditorsKit."
 msgstr ""
 
-#: src/admin/index.js:83
+#: src/admin/index.js:111
 msgid "All features are active by default but you have complete control over each one of them. Disable any features do not want to use and re-enable them anytime on this page or under the \"EditorsKit Settings\" on Gutenberg editor. Just uncheck the box and it will automatically be saved."
 msgstr ""
 
-#: src/admin/index.js:93
+#: src/admin/index.js:139
 msgid "Manage each individual blocks! You can enable or disable any blocks you want and it will be reflected on Gutenberg block manager settings. Just uncheck the box and it will automatically be saved."
 msgstr ""
 
-#: src/admin/index.js:109
+#: src/admin/index.js:164
+msgid "Here you can enable/disable the integrated GutenbergHub's template library."
+msgstr ""
+
+#: src/admin/index.js:176
+msgid "Here you can enable/disable the integrated GutenbergHub's styles manager."
+msgstr ""
+
+#: src/admin/index.js:185
+msgid "How Style Manager Works"
+msgstr ""
+
+#: src/admin/index.js:210
 msgid "Settings → EditorsKit"
 msgstr ""
 
-#: src/admin/index.js:110
+#: src/admin/index.js:213
 msgid "Getting Started with"
 msgstr ""
 
-#: src/admin/index.js:111
+#: src/admin/index.js:218
 msgid "Congratulations! You've just unlocked more Gutenberg block editor tools for easier editing and better workflow. Check more information about the plugin below and please make sure to navigate through \"Tutorials and Docs\" tab to learn more on how to use each available features."
 msgstr ""
 
-#: src/admin/index.js:121
+#: src/admin/index.js:248
 msgid "Buy me a Coffee"
 msgstr ""
 

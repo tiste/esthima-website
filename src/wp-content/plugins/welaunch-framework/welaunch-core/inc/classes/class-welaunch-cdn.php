@@ -93,7 +93,12 @@ if ( ! class_exists( 'weLaunch_CDN', false ) ) {
 		 * @param      mixed  $footer_or_media True or 'all'.
 		 * @param      bool   $is_script Script or style.
 		 */
-		private static function cdn( $register = true, $handle, $src_cdn, $deps, $ver, $footer_or_media, $is_script = true ) {
+		private static function cdn( $register, $handle, $src_cdn, $deps, $ver, $footer_or_media, $is_script = true ) {
+
+			if(empty($register)) {
+				$register = true;
+			}
+
 			$tran_key = '_style_cdn_is_up';
 			if ( $is_script ) {
 				$tran_key = '_script_cdn_is_up';
@@ -167,7 +172,12 @@ if ( ! class_exists( 'weLaunch_CDN', false ) ) {
 		 * @param      mixed  $footer_or_media True or 'all'.
 		 * @param      bool   $is_script Script or style.
 		 */
-		private static function vendor_plugin( $register = true, $handle, $src_cdn, $deps, $ver, $footer_or_media, $is_script = true ) {
+		private static function vendor_plugin( $register, $handle, $src_cdn, $deps, $ver, $footer_or_media, $is_script = true ) {
+
+			if(empty($register)) {
+				$register = true;
+			}
+
 			if ( class_exists( 'weLaunch_VendorURL' ) ) {
 				$src = weLaunch_VendorURL::get_url( $handle );
 

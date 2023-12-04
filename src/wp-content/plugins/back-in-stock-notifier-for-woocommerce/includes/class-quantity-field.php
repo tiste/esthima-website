@@ -24,6 +24,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of add_settings_field
+		 *
 		 * @return void
 		 */
 		public function add_settings_field() {
@@ -37,6 +38,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of section_headings
+		 *
 		 * @return void
 		 */
 		public function section_headings() {
@@ -45,6 +47,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of enable_quantity_field
+		 *
 		 * @return void
 		 */
 		public function enable_quantity_field() {
@@ -56,6 +59,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of quantity_field_placeholder
+		 *
 		 * @return void
 		 */
 		public function quantity_field_placeholder() {
@@ -71,6 +75,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of quantity_field_empty_error
+		 *
 		 * @return void
 		 */
 		public function quantity_field_empty_error() {
@@ -84,6 +89,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of quantity_field_optional
+		 *
 		 * @return void
 		 */
 		public function quantity_field_optional() {
@@ -98,6 +104,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of add_column
+		 *
 		 * @param mixed $columns
 		 * @return mixed
 		 */
@@ -115,6 +122,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of manage_column
+		 *
 		 * @param mixed $column
 		 * @param mixed $post_id
 		 * @return void
@@ -122,12 +130,14 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 		public function manage_column( $column, $post_id ) {
 			if ( 'quantity' == $column ) {
 				$custom_quantity = get_post_meta( $post_id, 'cwginstock_custom_quantity', true );
+				$custom_quantity = isset( $custom_quantity ) && '' != $custom_quantity ? $custom_quantity : 1;
 				esc_html_e( $custom_quantity );
 			}
 		}
 
 		/**
 		 * Summary of is_quantity_field_enabled
+		 *
 		 * @return bool
 		 */
 		public function is_quantity_field_enabled() {
@@ -138,16 +148,18 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of get_placeholder
+		 *
 		 * @return mixed
 		 */
 		public function get_placeholder() {
 			$option = get_option( 'cwginstocksettings' );
-			$get_placeholder = isset( $option['quantity_field_placeholder'] ) && '' != $option['quantity_field_placeholder'] ? $option['quantity_field_placeholder'] : __('Quantity','back-in-stock-notifier-for-woocommerce');
+			$get_placeholder = isset( $option['quantity_field_placeholder'] ) && '' != $option['quantity_field_placeholder'] ? $option['quantity_field_placeholder'] : __( 'Quantity', 'back-in-stock-notifier-for-woocommerce' );
 			return $get_placeholder;
 		}
 
 		/**
 		 * Summary of add_quantity_field
+		 *
 		 * @param mixed $product_id
 		 * @param mixed $variation_id
 		 * @return void
@@ -161,7 +173,8 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 				<p>
 					<input type='number' class="add_quantity_field" name='cwginstocksettings[add_quantity_field]'
 						style='margin: 0 auto;width: 100% !important;text-align: center;' min="1"
-						placeholder="<?php echo do_shortcode( $placeholder ); ?>" value='<?php echo wp_kses_post( $quantity_data ); ?>' />
+						placeholder="<?php echo do_shortcode( $placeholder ); ?>"
+						value='<?php echo wp_kses_post( $quantity_data ); ?>' />
 				</p>
 				<?php
 			}
@@ -169,6 +182,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of save_quantity_meta
+		 *
 		 * @param mixed $quantity_meta
 		 * @return mixed
 		 */
@@ -178,6 +192,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of add_quantity_shortcode
+		 *
 		 * @param mixed $formatted_content
 		 * @param mixed $subscriber_id
 		 * @return array|string
@@ -194,6 +209,7 @@ if ( ! class_exists( 'CWG_Instock_Quantity_Field' ) ) {
 
 		/**
 		 * Summary of add_quantity_url
+		 *
 		 * @param mixed $cart_url
 		 * @param mixed $product_id
 		 * @param mixed $subscriber_id

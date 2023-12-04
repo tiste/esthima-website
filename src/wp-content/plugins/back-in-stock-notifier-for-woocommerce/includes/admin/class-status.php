@@ -313,7 +313,7 @@ if ( ! class_exists( 'CWG_Instock_Status' ) ) {
 		public function change_backend_ui() {
 			if ( isset( $_POST ) ) {
 				//nonce validation
-				if ( isset( $_POST['security'] ) && wp_verify_nonce( sanitize_text_field( $_POST['security'] ), 'cwginstock_backend_ui' ) ) {
+				if ( isset( $_POST['security'], $_POST['cwginstock_view'] ) && wp_verify_nonce( sanitize_text_field( $_POST['security'] ), 'cwginstock_backend_ui' ) ) {
 					update_option( 'cwginstock_backend_ui', sanitize_text_field( $_POST['cwginstock_view'] ) );
 					$status_info = array( 'status' => 'success', 'message' => __( 'Settings UI changed successfully', 'back-in-stock-notifier-for-woocommerce' ) );
 					wp_send_json( $status_info );

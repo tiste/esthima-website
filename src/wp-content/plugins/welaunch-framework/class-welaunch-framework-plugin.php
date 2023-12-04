@@ -461,11 +461,18 @@ if ( ! class_exists( 'weLaunch_Framework_Plugin', false ) ) {
 		 */
 		public function add_settings_link( $links, $file ) {
 
-			if ( strpos( WELAUNCH_PLUGIN_FILE, $file ) === false ) {
-				return $links;
+			$additional_links = array();
+			if($file == "welaunch-framework/welaunch-framework.php") {
+				$additional_links = array(
+					'settings' => '<a href="' . admin_url( 'tools.php?page=welaunch-framework' ) . '">' . esc_html__( 'Settings', 'welaunch-framework' ) . '</a>',
+				);
+			} elseif ($file == "woocommerce-catalog-mode/woocommerce-catalog-mode.php" && is_plugin_active('woocommerce-catalog-mode/woocommerce-catalog-mode.php')) {
+				$additional_links = array(
+					'settings' => '<a href="' . admin_url( 'admin.php?page=woocommerce_catalog_mode_options_options' ) . '">' . esc_html__( 'Settings', 'welaunch-framework' ) . '</a>',
+				);
 			}
 
-			return $links;
+			return array_merge( $additional_links, $links );
 		}
 
 		/**
@@ -535,6 +542,10 @@ if ( ! class_exists( 'weLaunch_Framework_Plugin', false ) ) {
 		public function plugin_metalinks( $links, $file ) {
 			if ( strpos( $file, 'welaunch-framework.php' ) !== false && is_plugin_active( $file ) ) {
 				$links[] = '<a href="' . esc_url( admin_url( add_query_arg( array( 'page' => 'welaunch-framework' ), 'tools.php' ) ) ) . '">' . esc_html__( 'Manage Licenses', 'welaunch-framework' ) . '</a>';
+				$links[] = '<a href="' . esc_url( 'https://www.welaunch.io/en/contact/#new-ticket' ) . '" target="_blank">' . esc_html__( 'Get Support', 'welaunch-framework' ) . '</a>';
+			} elseif( $file == "woocommerce-catalog-mode/woocommerce-catalog-mode.php" ) {
+				$links[] = '<a href="' . esc_url( 'https://www.welaunch.io/en/' ) . '" target="_blank">' . esc_html__( 'Documentation', 'welaunch-framework' ) . '</a>';
+				$links[] = '<a href="' . esc_url( 'https://www.welaunch.io/en/contact/#new-ticket' ) . '" target="_blank">' . esc_html__( 'Get Support', 'welaunch-framework' ) . '</a>';
 			}
 
 			return $links;

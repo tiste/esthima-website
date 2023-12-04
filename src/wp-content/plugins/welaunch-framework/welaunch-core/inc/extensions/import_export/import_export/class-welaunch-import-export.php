@@ -29,7 +29,7 @@ if ( ! class_exists( 'weLaunch_Import_Export', false ) ) {
 		 *
 		 * @throws ReflectionException .
 		 */
-		public function __construct( $field = array(), $value = '', $parent ) {
+		public function __construct( $field = array(), $value = '', $parent = null ) {
 			parent::__construct( $field, $value, $parent );
 
 			$this->is_field = $this->parent->extensions['import_export']->is_field;

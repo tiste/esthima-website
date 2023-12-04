@@ -80,7 +80,7 @@ if ( ! class_exists( 'weLaunch_Panel', false ) ) {
 			echo '<div class="wrap"><h2></h2></div>'; // Stupid hack for WordPress alerts and warnings.
 
 			echo '<div class="clear"></div>';
-			echo '<div class="wrap welaunch-wrap-div" data-opt-name="' . esc_attr( $this->parent->args['opt_name'] ) . '">';
+			echo '<div class="wrap welaunch-wrap-div woocommerce_page_' . esc_attr( $this->parent->args['opt_name'] ) . '_options ' . esc_attr( $this->parent->args['opt_name'] ) . '" data-opt-name="' . esc_attr( $this->parent->args['opt_name'] ) . '">';
 
 			// Do we support JS?
 			echo '<noscript><div class="no-js">' . esc_html__( 'Warning- This options panel will not work properly without javascript!', 'welaunch-framework' ) . '</div></noscript>';
