@@ -1,0 +1,81 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-17 13:29+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: woocommerce-single-variations.php:88
+msgid ""
+"WooCommerce Single Variations requires the WooCommerce & Redux Framework "
+"plugin. Please install or activate them before!"
+msgstr ""
+
+#: admin/options-init.php:116
+msgid "Information"
+msgstr ""
+
+#: admin/options-init.php:117
+msgid "<p>Need support? Please use the comment function on codecanyon.</p>"
+msgstr ""
+
+#: admin/options-init.php:139
+msgid "Single Variations"
+msgstr ""
+
+#: admin/options-init.php:141
+msgid "Need support? Please use the comment function on codecanyon."
+msgstr ""
+
+#: admin/options-init.php:146
+msgid "General"
+msgstr ""
+
+#: admin/options-init.php:154
+msgid "Enable"
+msgstr ""
+
+#: admin/options-init.php:155
+msgid "Enable variations table to use the options below"
+msgstr ""
+
+#: admin/options-init.php:161
+msgid "Hide Parent Products"
+msgstr ""
+
+#: admin/options-init.php:162
+msgid "Removes the main product and only shows variations in your shop."
+msgstr ""
+
+#: admin/class-woocommerce-single-variations-admin.php:111
+msgid "Variation Title"
+msgstr ""
+
+#. Name of the plugin
+msgid "WooCommerce Single Variations"
+msgstr ""
+
+#. Description of the plugin
+msgid "Transform your Variation Products into nice tables."
+msgstr ""
+
+#. URI of the plugin
+msgid "https://welaunch.io/plugins/woocommerce-single-variations/"
+msgstr ""
+
+#. Author of the plugin
+msgid "weLaunch"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://welaunch.io"
+msgstr ""

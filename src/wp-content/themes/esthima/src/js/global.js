@@ -250,7 +250,6 @@ function getCookie(cName) {
 		/* /produit - wrap gallery et desc */
 		/* produit - masquer prix quand variation */
 		if($('.single-product .site-main .product.product-type-variable').length){
-			console.log('var')
 			$('.single-product .site-main .product .summary > .price').css('display', 'none');
 		}
 		/* /produit - masquer prix quand variation */
@@ -455,7 +454,6 @@ function getCookie(cName) {
 		/* agence - ouvert/fermé */
 		if($('.store__tet__status').length && window.todayDate && window.arrayDaysMap && window.arrayHours){
 			var hoursToday = window.arrayHours[window.arrayDaysMap[window.todayDate.getDay()]];
-			console.log(hoursToday)
 			if(hoursToday.length<=0){
 				$('.store__tet__status').addClass('store__tet__status-closed');
 			}else{
@@ -582,6 +580,23 @@ function getCookie(cName) {
 			}
 		})
 		/* /newsletter - contact - positionnement labels */
+
+		/* connexion/inscription - positionnement labels */
+		$('.inscription__login .gfield--type-text input').on('input', function(){
+			if($(this).val()==null || $(this).val()==''){
+				$(this).parents('.gfield--type-text').removeClass('label-written')
+			}else{
+				$(this).parents('.gfield--type-text').addClass('label-written')
+			}
+		})
+		$('.inscription__register .gform-grid-col input').on('input', function(){
+			if($(this).val()==null || $(this).val()==''){
+				$(this).parents('.gform-grid-col').removeClass('label-written')
+			}else{
+				$(this).parents('.gform-grid-col').addClass('label-written')
+			}
+		})
+		/* /connexion/inscription - positionnement labels */
 
 	});
 	

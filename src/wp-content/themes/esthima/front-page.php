@@ -148,17 +148,24 @@
 				<?php echo get_field('shop_text'); ?>
 			</div>
 			<?php
-				$cats = get_field('shop_products');
-				if(!is_null($cats) && !empty($cats) && is_array($cats)) :
+				// $cats = get_field('shop_products');
+				$argsShop = array(
+					'post_type' => 'product',
+					'meta_key' => 'total_sales',
+					'orderby' => 'meta_value_num',
+					'posts_per_page' => 4,
+				);
+				$queryShop = new WP_Query( $argsShop );
+				if ( $queryShop->have_posts() ) :
 			?>
 			<div class="hp__shop__cats">
-				<?php foreach($cats as $c) : $product = wc_get_product($c); ?>
+				<?php while ( $queryShop->have_posts() ) : $queryShop->the_post(); global $product; ?>
 					<div class="hp__shop__cats__item">
 						<div class="hp__shop__cats__item__img">
-							<img src="<?php echo wp_get_attachment_image_src(get_post_thumbnail_id($c), 'single-post-thumbnail')[0]; ?>" alt="<?php echo $product->get_name(); ?>">
+							<img src="<?php echo wp_get_attachment_image_src(get_post_thumbnail_id(), 'single-post-thumbnail')[0]; ?>" alt="<?php echo $product->get_name(); ?>">
 						</div>
 						<div class="hp__shop__cats__item__cat">
-							<?php echo get_the_terms($c, 'product_cat')[0]->name; ?>
+							<?php echo get_the_terms(get_the_ID(), 'product_cat')[0]->name; ?>
 						</div>
 						<div class="hp__shop__cats__item__name">
 							<?php echo $product->get_name(); ?>
@@ -168,9 +175,9 @@
 						</div>
 						<a href="<?php echo $product->get_permalink(); ?>"></a>
 					</div>
-				<?php endforeach; ?>
+				<?php endwhile; ?>
 			</div>
-			<?php endif; ?>
+			<?php endif; wp_reset_postdata(); ?>
 			<?php
 				$btnShop = get_field('shop_link');
 				if(!is_null($btnShop) && !empty($btnShop) && is_array($btnShop)) :

@@ -1,0 +1,11 @@
+2023-12-04T09:01:10+00:00 CRITICAL Uncaught Error: Undefined constant "KIAMO_ENDPOINT" in /var/www/html/wp-content/themes/esthima/functions.php:102
+Stack trace:
+#0 /var/www/html/wp-settings.php(611): include()
+#1 /var/www/html/wp-config.php(96): require_once('/var/www/html/w...')
+#2 /var/www/html/wp-load.php(50): require_once('/var/www/html/w...')
+#3 /var/www/html/wp-admin/admin-ajax.php(22): require_once('/var/www/html/w...')
+#4 {main}
+  thrown dans /var/www/html/wp-content/themes/esthima/functions.php à la ligne 102
+
+2023-12-04T09:32:46+00:00 CRITICAL Allowed memory size of 134217728 bytes exhausted (tried to allocate 163840 bytes) dans /var/www/html/wp-includes/pomo/mo.php à la ligne 302
+

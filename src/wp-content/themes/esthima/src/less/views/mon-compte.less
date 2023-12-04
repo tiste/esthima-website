@@ -7,6 +7,9 @@
 }
 
 .page-template-mon-compte {
+    .footer__pink__container{
+        background: @white;
+    }
     .page-header {
         text-align: center;
         max-width: 963px;
@@ -44,25 +47,39 @@
         }
         .woocommerce-MyAccount-navigation-link {
             padding: 0;
-            
+            background-position: center left 30px;
+            background-repeat: no-repeat;
+            background-size: 20px;
             &:not(:first-child) {
                 border-top: 1px solid #E6E6E6;
             }
             &::before {
                 display: none;
             }
-
+            &:hover {
+                background-color: #F3F3F3;
+            }
             a {
                 display: block;
-                padding: 16px 30px;
-                &:hover {
-                    background-color: #F3F3F3;
-                }
+                padding: 16px 30px 16px 70px;
+            }
+            &--edit-account{
+                background-image: url('images/account-Compte.svg');
+            }
+            &--mes-devis{
+                background-image: url('images/account-Devis.svg');
+            }
+            &--orders{
+                background-image: url('images/account-Commande.svg');
+            }
+            &--mes-favoris{
+                background-image: url('images/account-Favoris.svg');
+            }
+            &--customer-logout{
+                background-image: url('images/account-Deconnexion.svg');
             }
             &.is-active {
-                a {
-                    background-color: #F7E1DA;
-                }
+                background-color: #F7E1DA;
             }
         }
     }
@@ -71,6 +88,81 @@
         background: #FFFFFF;
         border-radius: 20px;
         padding: 1.4% 2.4%;
+        .woocommerce-EditAccountForm{
+            p{
+                margin-top: 0;
+                margin-bottom: 20px;
+            }
+            input[type=text],
+            input[type=email],
+            input[type=password]{
+
+            }
+            button[type=submit]{
+                display: block;
+                width: fit-content;
+                margin: 0 auto;
+                padding: 18px 18px 18px 32px;
+                border-radius: 100px;
+                background-color: @main;
+                color: @white;
+                font-family: @main-font;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                @media (min-width: 768px){
+                    padding: 12px 12px 12px 24px;
+                    font-size: 12px;
+                }
+                @media (min-width: 1440px){
+                    padding: 14px 14px 14px 28px;
+                    font-size: 13px;
+                }
+                @media (min-width: 1680px){
+                    padding: 18px 18px 18px 32px;
+                    font-size: 16px;
+                }
+                &:hover{
+                    &::after{
+                        margin-left: 26px;
+                        @media (min-width: 768px){
+                            margin-left: 17px;
+                        }
+                        @media (min-width: 1440px){
+                            margin-left: 21px;
+                        }
+                        @media (min-width: 1680px){
+                            margin-left: 26px;
+                        }
+                    }
+                }
+                &::after{
+                    content: "";
+                    display: inline-block;
+                    margin-left: 12px;
+                    width: 20px; height: 20px;
+                    background-image: url('images/arrow-right-white.svg');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    vertical-align: middle;
+                    transition: 0.3s;
+                    @media (min-width: 768px){
+                        margin-left: 8px;
+                        width: 13px; height: 13px;
+                    }
+                    @media (min-width: 1440px){
+                        margin-left: 10px;
+                        width: 14px; height: 14px;
+                    }
+                    @media (min-width: 1680px){
+                        margin-left: 12px;
+                        width: 20px; height: 20px;
+                    }
+                }
+            }
+        }
     }
 
 }
