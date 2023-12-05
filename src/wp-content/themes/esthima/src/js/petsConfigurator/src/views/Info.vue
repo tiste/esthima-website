@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="petsconfigurator__content">
         Vos informations :
 		<input type="text" v-model="lastNameUser">
 		<div class="input-errors" v-for="error of v$.lastNameUser.$errors" :key="error.$uid">

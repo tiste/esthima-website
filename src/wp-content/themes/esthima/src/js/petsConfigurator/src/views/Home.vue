@@ -1,5 +1,5 @@
 <template>
-	<div class="petsconfigurator__home">
+	<div class="petsconfigurator__home petsconfigurator__content">
 		<div class="petsconfigurator__home__content">
 			<h1 class="petsconfigurator__h1 petsconfigurator-h-center">
 				Lorem ipsum dolor sit amet consectetur.

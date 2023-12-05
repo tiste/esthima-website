@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="petsconfigurator__content">
 		Je souhaite récupérer les cendres de {{nameAnimal}}
 		<ul>
 			<li>

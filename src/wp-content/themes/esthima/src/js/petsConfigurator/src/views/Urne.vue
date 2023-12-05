@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="petsconfigurator__content">
 		Je souhaite ajouter une urne décorative
 		<ul>
 			<li>

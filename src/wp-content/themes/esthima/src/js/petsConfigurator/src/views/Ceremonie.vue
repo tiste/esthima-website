@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="petsconfigurator__content">
 		Je souhaite une cérémonie d’adieu
 		<ul>
 			<li>

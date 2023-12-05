@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="petsconfigurator__content">
 		Mon animal est...
 		<ul>
 			<li>

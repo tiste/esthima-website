@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="petsconfigurator__content">
 		Je souhaite ajouter un “geste souvenir”
         
         En savoir plus
