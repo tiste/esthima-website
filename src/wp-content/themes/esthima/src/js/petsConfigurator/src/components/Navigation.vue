@@ -1,7 +1,7 @@
 <template>
 	<nav class="petsconfigurator__navigation">
-		<button @click.prevent="goPrev">Retour</button>
-		<button @click.prevent="goNext">Continuer</button>
+		<button @click.prevent="goPrev" class="btn btn--arrow">Retour</button>
+		<button @click.prevent="goNext" class="btn btn--arrow">Continuer</button>
     </nav>
 </template>
 
