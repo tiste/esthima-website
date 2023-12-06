@@ -1,7 +1,17 @@
 <template>
 	<nav class="petsconfigurator__navigation">
-		<button @click.prevent="goPrev" class="btn btn--arrow">Retour</button>
-		<button @click.prevent="goNext" class="btn btn--arrow">Continuer</button>
+		<div class="petsconfigurator__navigation__content">
+			<button @click.prevent="goPrev" class="btn btn--arrow btn--arrow-reverse btn--arrow-disable-hover petsconfigurator__navigation__button-desk">Retour</button>
+			<ProgressBar :value="percentBar" />
+			<div class="petsconfigurator__navigation__price">
+				<span>Total : <b>82,5€</b></span>
+			</div>
+			<div class="petsconfigurator__navigation__buttons">
+				<button @click.prevent="goPrev" class="btn btn--arrow btn--arrow-reverse btn--arrow-disable-hover ">Retour</button>
+				<button @click.prevent="goNext" class="btn btn--arrow btn--arrow-disable-hover">Continuer</button>
+			</div>
+			<button @click.prevent="goNext" class="btn btn--arrow btn--arrow-disable-hover petsconfigurator__navigation__button-desk">Continuer</button>
+		</div>
     </nav>
 </template>
 
@@ -18,10 +28,12 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
 import EventBus from '../EventBus';
 import { useStore } from 'vuex'
+import ProgressBar from './ProgressBar'
 
 const router = useRouter();
 const route = useRoute();
 const store = useStore()
+
 
 let transitionName = computed({
 	get () {
@@ -29,6 +41,15 @@ let transitionName = computed({
 	},
 	set (value) {
 		store.commit('petsConfigurator/updateTransitionName', value)
+	}
+})
+let percentBar = computed({
+	get () {
+		if (route.meta.percent) {
+		 	return route.meta.percent
+		} else {
+			return 10
+		}
 	}
 })
 

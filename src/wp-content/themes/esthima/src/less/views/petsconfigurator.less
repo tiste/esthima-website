@@ -47,7 +47,54 @@
     }
     &__navigation {
         position: fixed;
+        width: 100%;
         bottom: 0;
+        background-color: @white;
+        padding: 20px;
+        &__content {
+            margin-left: auto;
+            margin-right: auto;
+        }
+            &__buttons {
+                display: flex;
+                justify-content: space-between;
+            }
+            &__price {
+                display: flex;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                font-size: 18px;
+                font-weight: 400;
+                color: @text;
+                justify-content: center;
+                b {
+                    color: @main;
+                    font-weight: 600;
+                    font-size: 30px;
+                }
+            }
+            &__button-desk {
+                display: none;
+            }
+            @media screen and (min-width: 1024px) {
+                &__content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    max-width: 1390px;
+                }
+                &__button-desk {
+                    display: block;
+                }
+                .progressbar {
+                    flex: 1;
+                    max-width: 640px;
+                }
+                &__buttons {
+                    display: none;
+                }
+            }
+
     }
     &__h1 {
         font-size: 24px;

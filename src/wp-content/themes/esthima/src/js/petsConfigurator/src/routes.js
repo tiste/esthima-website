@@ -17,7 +17,8 @@ const router = createRouter({
         name: 'Home',
         component: Home,
         meta: {
-          nextPath: 'InfoAnimal'
+          nextPath: 'InfoAnimal',
+          percent: 10
         } 
     },
     {
@@ -26,7 +27,8 @@ const router = createRouter({
         component: InfoAnimal,
         meta: {
           backPath: 'Home',
-          nextPath: 'Cendres'
+          nextPath: 'Cendres',
+          percent: 30
         }
     },
     {
@@ -35,7 +37,8 @@ const router = createRouter({
         component: Cendres,
         meta: {
           backPath: 'InfoAnimal',
-          nextPath: 'Ceremonie'
+          nextPath: 'Ceremonie',
+          percent: 40
         }
     },
     {
@@ -44,7 +47,8 @@ const router = createRouter({
         component: Ceremonie,
         meta: {
           backPath: 'Cendres',
-          nextPath: 'Urne'
+          nextPath: 'Urne',
+          percent: 50
         }
     },
     {
@@ -53,7 +57,8 @@ const router = createRouter({
         component: Urne,
         meta: {
           backPath: 'Ceremonie',
-          nextPath: 'Souvenir'
+          nextPath: 'Souvenir',
+          percent: 70
         }
     },
     {
@@ -62,7 +67,8 @@ const router = createRouter({
         component: Souvenir,
         meta: {
           backPath: 'Urne',
-          nextPath: 'Info'
+          nextPath: 'Info',
+          percent: 80
         }
     },
     {
@@ -71,7 +77,8 @@ const router = createRouter({
         component: Info,
         meta: {
           backPath: 'Souvenir',
-          nextPath: 'Recap'
+          nextPath: 'Recap',
+          percent: 90
         }
     },
     {
