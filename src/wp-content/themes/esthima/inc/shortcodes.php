@@ -23,7 +23,12 @@ function template_partial($atts) {
 add_shortcode('partial', 'template_partial');
 
 add_shortcode('pets-configurator', function($atts) {
+	$wpvar = array(
+		'homeURL' => home_url(),
+		'themeDirectoryUri' => get_template_directory_uri()
+	);
 	wp_enqueue_script( 'petsConfigurator', get_stylesheet_directory_uri() . '/js/petsConfigurator.js', array(), false, true );
+	wp_add_inline_script( 'petsConfigurator', 'var wpvar = ' . wp_json_encode( $wpvar ), 'before' );
 	ob_start();
 	echo "<div id='petsConfigurator'></div>";
 	return ob_get_clean();

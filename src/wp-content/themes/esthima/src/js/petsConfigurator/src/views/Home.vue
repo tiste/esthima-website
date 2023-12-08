@@ -1,6 +1,6 @@
 <template>
-	<div class="petsconfigurator__home petsconfigurator__content">
-		<div class="petsconfigurator__home__content">
+	<div class="petsconfigurator__content petsconfigurator__content--home">
+		<div class="petsconfigurator__content__inner">
 			<h1 class="petsconfigurator__h1 petsconfigurator-h-center">
 				Lorem ipsum dolor sit amet consectetur.
 			</h1>

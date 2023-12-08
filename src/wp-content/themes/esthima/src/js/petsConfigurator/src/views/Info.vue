@@ -1,18 +1,39 @@
 <template>
-	<div class="petsconfigurator__content">
-        Vos informations :
-		<input type="text" v-model="lastNameUser">
-		<div class="input-errors" v-for="error of v$.lastNameUser.$errors" :key="error.$uid">
-			<div class="error-msg">{{ error.$message }}</div>
-        </div>
-        <input type="text" v-model="firstNameUser">
-        <div class="input-errors" v-for="error of v$.firstNameUser.$errors" :key="error.$uid">
-			<div class="error-msg">{{ error.$message }}</div>
-        </div>
-        <input type="text" v-model="emailUser">
-        <div class="input-errors" v-for="error of v$.emailUser.$errors" :key="error.$uid">
-			<div class="error-msg">{{ error.$message }}</div>
-        </div>
+	<div class="petsconfigurator__content petsconfigurator__content--parcours petsconfigurator__content--info">
+		<div class="petsconfigurator__hero petsconfigurator__hero--pets">
+			<img v-if="typeAnimal == 'chien'" :src="`${themeDirectoryUri}/images/configurateur/info-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
+			<img v-else-if="typeAnimal == 'chat'" :src="`${themeDirectoryUri}/images/configurateur/info-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
+			<img v-else-if="typeAnimal == 'nac'" :src="`${themeDirectoryUri}/images/configurateur/info-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
+		</div>
+
+		<div class="petsconfigurator__question">
+			<form class="petsconfigurator__question__form">
+				<span class="petsconfigurator__question__h1">
+					Vos informations :
+				</span>
+				<div class="input-text">
+					<input type="text" id="lastNameUser" v-model="lastNameUser" placeholder=" ">
+					<label for="lastNameUser">Nom<i style="color:red;">*</i></label>
+				</div>
+				<div class="input-errors" v-for="error of v$.lastNameUser.$errors" :key="error.$uid">
+					<div class="error-msg">{{ error.$message }}</div>
+				</div>
+				<div class="input-text">
+					<input type="text" id="lastNameUser" v-model="firstNameUser" placeholder=" ">
+					<label for="firstNameUser">Prénom<i style="color:red;">*</i></label>
+				</div>
+				<div class="input-errors" v-for="error of v$.firstNameUser.$errors" :key="error.$uid">
+					<div class="error-msg">{{ error.$message }}</div>
+				</div>
+				<div class="input-text">
+					<input type="text" id="emailUser" v-model="emailUser" placeholder=" ">
+					<label for="emailUser">Email<i style="color:red;">*</i></label>
+				</div>
+				<div class="input-errors" v-for="error of v$.emailUser.$errors" :key="error.$uid">
+					<div class="error-msg">{{ error.$message }}</div>
+				</div>
+			</form>
+		</div>
 	</div>
 </template>
 
@@ -25,16 +46,23 @@ export default {
 </script>
 
 <script setup>
-	import { computed, onMounted, onUnmounted } from 'vue'
+	import { computed, onMounted, onUnmounted, ref } from 'vue'
 	import EventBus from '../EventBus';
 	import { useStore } from 'vuex'
-	import { useRouter } from 'vue-router'
 	import { useVuelidate } from '@vuelidate/core'
 	import { required, email, helpers } from '@vuelidate/validators'
 
 	const store = useStore()
+
+	const themeDirectoryUri = window.wpvar.themeDirectoryUri || ''
 	
-	const router = useRouter()
+	const imgLoaded = ref(0)
+	
+	const typeAnimal = computed({
+		get () {
+			return store.state.petsConfigurator.typeAnimal
+		}
+	})
 
 	const lastNameUser = computed({
 		get () {
@@ -89,10 +117,14 @@ export default {
 	}
 
 	onMounted(() => {
-  		EventBus.on('goNextStep', validate);
+  		EventBus.on('goNextStep', validate)
+		setTimeout(() => {
+			imgLoaded.value = true
+		}, 300)
 	})
 	onUnmounted(() => {
-		EventBus.off('goNextStep', validate);
+		EventBus.off('goNextStep', validate)
+		imgLoaded.value = false
 	})
 		
 </script>

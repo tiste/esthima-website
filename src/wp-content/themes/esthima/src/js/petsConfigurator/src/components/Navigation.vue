@@ -25,24 +25,12 @@ export default {
 
 <script setup>
 import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router';
-import EventBus from '../EventBus';
-import { useStore } from 'vuex'
+import { useRoute } from 'vue-router';
+import { goPrev, goNext } from '../helpers/Navigate';
 import ProgressBar from './ProgressBar'
 
-const router = useRouter();
 const route = useRoute();
-const store = useStore()
 
-
-let transitionName = computed({
-	get () {
-		return store.state.petsConfigurator.transitionName
-	},
-	set (value) {
-		store.commit('petsConfigurator/updateTransitionName', value)
-	}
-})
 let percentBar = computed({
 	get () {
 		if (route.meta.percent) {
@@ -52,26 +40,5 @@ let percentBar = computed({
 		}
 	}
 })
-
-
-function goPrev() {
-	transitionName.value = 'slide-right'
-	if (route.meta.backPath) {
-		router.push({ name: route.meta.backPath })
-	} else {
-		router.back()
-	}
-}
-
-async function goNext() {
-	transitionName.value = 'slide-left'
-	if (route.meta.nextPath) {
-		const results = await EventBus.emit('goNextStep');
-		const shouldProceed = !results.includes(false);
-		if (shouldProceed) {
-    		router.push({ name: route.meta.nextPath });
-  		}
-	}
-}
 
 </script>
