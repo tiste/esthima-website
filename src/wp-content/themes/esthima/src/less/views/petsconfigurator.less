@@ -48,11 +48,37 @@
                 transition: all .6s ease;
                 opacity: 1;
             }
+        
+            @media screen and (min-width: 1024px) {
+                width: 60%;
+                height: 100%;
+                img {
+                    top: 50%;
+                    bottom: 0;
+                    left: inherit;
+                    right: 0;
+                    transform: translate(50%, -50%) rotate(0);
+                    width: 44vw;
+                    height: 33vw;
+                }
+                &::after {
+                    background-image: url('images/configurateur/accessoires-desk.png');
+                    top: inherit;
+                    bottom: 0;
+                    left: inherit;
+                    width: 51vw;
+                    height: 26vw;
+                    right: 0;
+                }
+            }
             
         }
         &__imgloaded {
             transform: translateX(-54%) rotate(-5deg) !important;
             opacity: 0;
+            @media screen and (min-width: 1024px) {
+                transform: translate(0, -50%) rotate(-5deg) !important;
+            }
         }
     }
     &__content {
@@ -92,6 +118,10 @@
             // background-position: top 25% right -64%;
             background-position: top 110px right -64%;
             height: 100%;
+            @media screen and (min-width: 1024px) {
+                background-size: 31vw 35vw;
+                background-position: bottom -2vw left -13vw;
+            }
         }
         &--info-animal {
             .petsconfigurator__question__list-radio {
@@ -109,6 +139,12 @@
                     margin-bottom: 20px;
                 }
             }
+        }
+        @media screen and (min-width: 1024px) {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-start;
+            align-items: center;
         }
     }
 
@@ -196,6 +232,11 @@
             .petsconfigurator__question__h1 {
                 margin-bottom: 20px;
                 text-align: center;
+                @media screen and (min-width: 1024px) {
+                    margin-bottom: 30px;
+                    text-align: left;
+                    font-size: 30px;
+                }
             }
             input[type=radio] {
                 display: none;
@@ -271,6 +312,9 @@
                     max-width: 100px;
                 }
             }
+            @media screen and (min-width: 1024px) {
+                justify-content: flex-start;
+            }
         }
         
         &__h1 {
@@ -278,6 +322,11 @@
             font-weight: 600;
             font-size: 24px;
             color: @text;
+        }
+
+        @media screen and (min-width: 1024px) {
+            width: 40%;
+            max-width: 530px;
         }
     }
 
@@ -308,6 +357,10 @@
                 &::after {
                     transform: scaleY(-1);
                 }
+            }
+            @media screen and (min-width: 1024px) {
+                text-align: left;
+                justify-content: flex-start;
             }
         }
         &-content {
@@ -397,5 +450,10 @@
             margin: 10px;
             color: red;
         }
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 0;
+        height: calc(100vh - var(--data-petsconfig-grow) - var(--data-height-header));
     }
 }
