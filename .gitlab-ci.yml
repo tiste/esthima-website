@@ -5,7 +5,7 @@ cache:
     - node_modules/
 before_script:
   - apt-get update
-  - apt-get -y --force-yes install zip unzip rsync php npm
+  - apt-get -y --force-yes install zip unzip rsync php npm sshpass
   - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$SSH_PRIVATE_KEY")
@@ -36,3 +36,27 @@ stage:
     #- rsync -avutzcIP --info=progress2 -e 'ssh -p 2121' --include-from ${include_path} --exclude-from ${exclude_path} ${upload_path} preprod-c1572d@nc1183.nexylan.net:~/htdocs/wp-content
     # Creation lien symbolique
     - ssh -tt preprod-c1572d@nc1183.nexylan.net -p 2121 "rm -d ~/htdocs/wp-content/themes/esthima && mv ~/releases/current_release ~/releases/${currentRelease} && mv ~/releases/tmp_release ~/releases/current_release && ln -snf ~/releases/current_release ~/htdocs/wp-content/themes/esthima && cd ~/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf"
+main:
+  environment:
+    name: main
+    url: recette.esthima.com
+  only:
+    - main
+  script:
+    - root=$(pwd)
+    - theme_path="/var/www/html/wp-content/themes/esthima/"
+    - plugin_path="/var/www/html/wp-content/plugins"
+    - upload_path="/var/www/html/wp-content/uploads"
+    - exclude_path="/var/www/html/wp-content/themes/esthima/_private/cmd/rsync_exclude.txt"
+    - include_path="/var/www/html/wp-content/themes/esthima/_private/cmd/rsync_include.txt"
+    - cd ./var/www/html/wp-content/themes/esthima/ && npm i && npm run prod
+    - rm -rf ./node_modules
+    - currentRelease=$(date +%s)
+    # Theme
+    - rsync -avutzP --info=progress2 -e 'sshpass -p "d2fke2abDRxj" ssh' --include-from ${include_path} --exclude-from ${exclude_path} ${theme_path} ubuntu@51.38.49.153:/var/www/releases/tmp_release &> /dev/null
+    # Plugins
+    #- rsync -avutzcIP --info=progress2 -e 'sshpass -p "d2fke2abDRxj" ssh' --include-from ${include_path} --exclude-from ${exclude_path} ${plugin_path} ubuntu@51.38.49.153:/var/www/html/wp-content
+    # Uploads
+    #- rsync -avutzcIP --info=progress2 -e 'sshpass -p "d2fke2abDRxj" ssh' --include-from ${include_path} --exclude-from ${exclude_path} ${upload_path} ubuntu@51.38.49.153:/var/www/html/wp-content
+    # Creation lien symbolique
+    - sshpass -p "d2fke2abDRxj" ssh -tt ubuntu@51.38.49.153 "rm -d /var/www/html/wp-content/themes/esthima && mv /var/www/releases/current_release /var/www/releases/${currentRelease} && mv /var/www/releases/tmp_release /var/www/releases/current_release && ln -snf /var/www/releases/current_release /var/www/html/wp-content/themes/esthima && cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf"
