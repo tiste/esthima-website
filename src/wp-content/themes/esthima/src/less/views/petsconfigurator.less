@@ -13,6 +13,23 @@
     margin-bottom: var(--data-petsconfig-grow);
     background-color: @lightbg;
     position: relative;
+    &__bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: @black;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 20;
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity .2s ease;
+        &--open {
+            opacity: 0.4;
+            transform: scale(1);
+        }
+    }
     &--home {
         height: calc(100vh - 75px);
     }
@@ -241,6 +258,7 @@
             input[type=radio] {
                 display: none;
                 & ~ label {
+                    cursor: pointer;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -385,7 +403,15 @@
         height: 100%;
         background-color: @white;
         overflow-y: auto;
+        transform: scale(0);
+        opacity: 0;
+        transition: transform .2s ease-out, opacity .2s ease-out;
+        &--open {
+            opacity: 1;
+            transform: scale(1);
+        }
         &__quit {
+            cursor: pointer;
             position: absolute;
             top: 20px;
             right: 20px;
@@ -443,6 +469,41 @@
 
             }
         }
+        @media screen and (min-width: 1024px) {
+            max-width: 892px;
+            height: auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 20px;
+            &--open {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            .petsconfigurator__question__h1 {
+                text-align: center;
+                padding-top: 80px;
+                padding-bottom: 0;
+                font-size: 38px;
+                br {
+                    display: none;
+                }
+            }
+            .petsconfigurator__question__list-radio {
+                display: flex;
+                justify-content: center;
+                li {
+                    flex: inherit;
+                }
+            }
+            &__content {
+                .btn {
+                    margin-top: 50px;
+                    margin-bottom: 80px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            } 
+        }
     }
 
     .input-errors {
@@ -454,6 +515,8 @@
 
     @media screen and (min-width: 1024px) {
         margin-bottom: 0;
-        height: calc(100vh - var(--data-petsconfig-grow) - var(--data-height-header));
+        &:not(.petsconfigurator--home) {
+            height: calc(100vh - var(--data-petsconfig-grow) - var(--data-height-header));
+        }
     }
 }

@@ -11,6 +11,7 @@ const getDefaultState = () => {
 		lastNameUser: '',
 		firstNameUser: '',
 		emailUser: '',
+		popupOpen: false,
 	}
 }
 
@@ -58,6 +59,9 @@ const mutations = {
 	},
 	updateEmailUser(state, value) {
 		state.emailUser = value
+	},
+	updatePopupOpen(state, value) {
+		state.popupOpen = value
 	},
 }
 

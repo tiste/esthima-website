@@ -7,6 +7,7 @@
       <Navigation v-show="route.name != 'Home'" ref="nav" />
     </router-view>
   </section>
+  <div class="petsconfigurator__bg" :class="{'petsconfigurator__bg--open': popupOpen}"></div>
 </template>
 
 <script setup>
@@ -25,6 +26,12 @@ const petsConfigGrow = ref(0)
 const transitionName = computed({
 	get () {
 		return store.state.petsConfigurator.transitionName
+	}
+})
+
+const popupOpen = computed({
+	get () {
+		return store.state.petsConfigurator.popupOpen
 	}
 })
 

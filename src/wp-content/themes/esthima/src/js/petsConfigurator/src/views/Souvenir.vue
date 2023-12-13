@@ -29,7 +29,7 @@
 					<div class="error-msg">{{ error.$message }}</div>
   				</div>
 
-				<div v-show="souvenir == true" class="petsconfigurator__souvenir-popup">
+				<div class="petsconfigurator__souvenir-popup" :class="{'petsconfigurator__souvenir-popup--open' : souvenir}">
 					<span class="petsconfigurator__souvenir-popup__quit" @click.prevent="closeGesteSouvenir"></span>
 					<div class="petsconfigurator__souvenir-popup__content">
 						<span class="petsconfigurator__question__h1">
@@ -94,6 +94,7 @@ export default {
 		},
 		set (value) {
 			store.commit('petsConfigurator/updateSouvenir', value)
+			store.commit('petsConfigurator/updatePopupOpen', value)
 		}
 	})
 	
