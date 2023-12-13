@@ -42,6 +42,8 @@ deploy-recette:
     url: recette.esthima.com
   only:
     - main
+  tags:
+    - esthima.fr-recette
   script:
     - root=$(pwd)
     - theme_path="/var/www/html/wp-content/themes/esthima/"
