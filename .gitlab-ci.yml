@@ -4,8 +4,8 @@ cache:
   paths:
     - node_modules/
 before_script:
-  - sudo apt-get update
-  - sudo apt-get -y --force-yes install zip unzip rsync php npm sshpass
+  - apt-get update
+  - apt-get -y --force-yes install zip unzip rsync php npm sshpass
   - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$SSH_PRIVATE_KEY")
