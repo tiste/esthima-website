@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-11-28 10:12:16+0000\n"
+"PO-Revision-Date: 2023-12-07 11:41:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,63 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.11\n"
 "Language: fr\n"
 "Project-Id-Version: Plugins - Yoast SEO - Stable (latest release)\n"
+
+#. translators: 1: Yoast SEO, 2: Link start tag to the Learn more link, 3: Link
+#. closing tag.
+#: src/presenters/admin/woocommerce-beta-editor-presenter.php:53
+msgid "The %1$s interface is currently unavailable in the beta WooCommerce product editor. To resolve any issues, please disable the beta editor. %2$sLearn how to disable the beta WooCommerce product editor.%3$s"
+msgstr "L‘interface de %1$s est actuellement indisponible dans la version bêta de l‘éditeur de produits de WooCommerce. Pour résoudre tout problème, veuillez désactiver l'éditeur bêta. %2$sApprendre à désactiver l'éditeur bêta de produits de WooCommerce.%3$s"
+
+#: src/presenters/admin/woocommerce-beta-editor-presenter.php:50
+msgid "Compatibility issue: Yoast SEO is incompatible with the beta WooCommerce product editor."
+msgstr "Problème de compatibilité : Yoast SEO est incompatible avec la version bêta de l'éditeur de produits de WooCommerce."
+
+#. translators: %1$s expands to an opening strong tag, %2$s expands to a
+#. closing strong tag
+#: src/presenters/admin/sidebar-presenter.php:71
+msgid "%1$s SAVE 30%% %2$s on your 12 month subscription"
+msgstr "%1$s Économisez 30%% %2$s sur votre abonnement de 12 mois"
+
+#: src/presenters/admin/sidebar-presenter.php:63 js/dist/elementor.js:101
+#: js/dist/introductions.js:9 js/dist/new-settings.js:9 js/dist/post-edit.js:9
+#: js/dist/support.js:19
+msgid "Use AI to generate titles and meta descriptions, automatically redirect deleted pages, get 24/7 support and much, much more!"
+msgstr "Utilisez l‘IA pour générer des titres et des méta descriptions, redirigez automatiquement les pages supprimées, profitez du support 24/7 et bien plus encore !"
+
+#: inc/class-wpseo-admin-bar-menu.php:598
+msgid "-30%"
+msgstr "-30%"
+
+#. translators: %1$s is a <br> tag.
+#: inc/class-addon-manager.php:409
+msgid "%1$s Now with 30%% Black Friday Discount!"
+msgstr "%1$s avec 30%% de remise pour le Black Friday !"
+
+#. translators: %1$s expands to opening span, %2$s expands to closing span
+#: admin/views/licenses.php:137
+msgid "%1$sSALE 30%% OFF!%2$s"
+msgstr "%1$sPROMO 30%% OFFERT !%2$s"
+
+#: admin/class-premium-upsell-admin-block.php:87
+#: admin/menu/class-base-menu.php:264 js/dist/block-editor.js:93
+#: js/dist/classic-editor.js:93 js/dist/elementor.js:93
+#: js/dist/externals-components.js:240 js/dist/new-settings.js:326
+msgid "30% OFF"
+msgstr "30% de réduction"
+
+#: admin/class-premium-upsell-admin-block.php:86 js/dist/block-editor.js:93
+#: js/dist/classic-editor.js:93 js/dist/elementor.js:93
+#: js/dist/externals-components.js:240 js/dist/new-settings.js:326
+msgid "BLACK FRIDAY"
+msgstr "BLACK FRIDAY"
+
+#. translators: %s expands to Yoast SEO Premium
+#: admin/class-premium-upsell-admin-block.php:71
+#: src/presenters/admin/sidebar-presenter.php:80 js/dist/elementor.js:103
+#: js/dist/introductions.js:11 js/dist/new-settings.js:11
+#: js/dist/new-settings.js:327 js/dist/post-edit.js:11 js/dist/support.js:21
+msgid "Claim your 30% off now!"
+msgstr "Réclamez vos 30% de remise maintenant !"
 
 #: admin/class-premium-upsell-admin-block.php:56 js/dist/elementor.js:563
 #: js/dist/new-settings.js:327 js/dist/post-edit.js:16
@@ -1766,14 +1823,14 @@ msgstr "Veuillez vérifier le format de l’URL Pinterest saisie. %s"
 msgid "Please check the format of the Wikipedia URL you entered. %s"
 msgstr "Veuillez vérifier le format de l’URL Wikipedia saisie. %s"
 
+#: admin/admin-settings-changed-listener.php:81
+msgid "Settings saved."
+msgstr "Réglages enregistrés."
+
 #. translators: %s: additional message with the submitted invalid value
 #: admin/class-yoast-input-validation.php:167
 msgid "Please check the format of the YouTube URL you entered. %s"
 msgstr "Veuillez vérifier le format de l’URL YouTube saisie. %s"
-
-#: admin/admin-settings-changed-listener.php:81
-msgid "Settings saved."
-msgstr "Réglages enregistrés."
 
 #. translators: %s: form value as submitted.
 #: admin/class-yoast-input-validation.php:319
@@ -2373,6 +2430,11 @@ msgstr "Titre du terme"
 #: inc/class-wpseo-replace-vars.php:1516
 msgid "User description"
 msgstr "Description du compte"
+
+#: admin/watchers/class-slug-change-watcher.php:90
+#: admin/watchers/class-slug-change-watcher.php:113
+msgid "Search engines and other websites can still send traffic to your deleted content."
+msgstr "Les moteurs de recherche et d’autres sites peuvent continuer à envoyer du trafic à votre contenu supprimé."
 
 #. translators: %s is replaced with Yoast SEO.
 #: admin/import/plugins/class-abstract-plugin-importer.php:257
@@ -3218,11 +3280,6 @@ msgstr "Nouveau titre %1$s"
 msgid "Existing %1$s Title"
 msgstr "Titre %1$s actuel"
 
-#: admin/views/redirects.php:32
-#: src/integrations/admin/redirects-page-integration.php:48
-msgid "Redirects"
-msgstr "Redirections"
-
 #: inc/sitemaps/class-sitemaps-cache-validator.php:294
 msgid "Expected an integer as input."
 msgstr "L’entrée doit être un entier."
@@ -3230,6 +3287,11 @@ msgstr "L’entrée doit être un entier."
 #: inc/sitemaps/class-sitemaps-cache-validator.php:111
 msgid "Trying to build the sitemap cache key, but the postfix and prefix combination leaves too little room to do this. You are probably requesting a page that is way out of the expected range."
 msgstr "Tentative de construction d’une clé de cache sécurisée pour le plan de site, mais la combinaison du suffixe et du préfixe laisse trop peu de place pour le faire. Vous demandez probablement une page qui est bien loin de la plage attendue."
+
+#: admin/views/redirects.php:32
+#: src/integrations/admin/redirects-page-integration.php:48
+msgid "Redirects"
+msgstr "Redirections"
 
 #: src/integrations/admin/crawl-settings-integration.php:246
 msgid "Keep"
@@ -3745,10 +3807,6 @@ msgstr "Qui devrait avoir accès aux réglages de %1$s"
 msgid "%1$s Extensions"
 msgstr "Extensions de %1$s"
 
-#: admin/views/redirects.php:175 admin/views/redirects.php:222
-msgid "New URL"
-msgstr "Nouvelle URL"
-
 #: admin/views/redirects.php:112
 msgid "URL"
 msgstr "URL"
@@ -3792,10 +3850,6 @@ msgstr "Grâce à ce formulaire, vous pouvez réinitialiser les réglages SEO de
 msgid "Settings Updated."
 msgstr "Les réglages ont été mis à jour."
 
-#: inc/class-wpseo-replace-vars.php:1496
-msgid "Permalink"
-msgstr "Permalien"
-
 #. translators: 1: link open tag; 2: link close tag.
 #: admin/views/tabs/network/general.php:47
 msgid "Enter the %1$sSite ID%2$s for the site whose settings you want to use as default for all sites that are added to your network. Leave empty for none (i.e. the normal plugin defaults will be used)."
@@ -3837,6 +3891,14 @@ msgstr "Améliorez votre classement localement dans Google Maps, sans verser une
 #: admin/views/tabs/network/general.php:40
 msgid "Choose the site whose settings you want to use as default for all sites that are added to your network. If you choose 'None', the normal plugin defaults will be used."
 msgstr "Choisissez le site dont les réglages serviront de base à tous les nouveaux sites de votre réseau. Si vous choisissez « Aucun », les réglages par défaut seront utilisés."
+
+#: inc/class-wpseo-replace-vars.php:1496
+msgid "Permalink"
+msgstr "Permalien"
+
+#: admin/views/redirects.php:175 admin/views/redirects.php:222
+msgid "New URL"
+msgstr "Nouvelle URL"
 
 #: src/deprecated/src/integrations/admin/social-templates-integration.php:219
 msgid "Social settings"
