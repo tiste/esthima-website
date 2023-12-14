@@ -25,6 +25,29 @@
 					<div class="error-msg">{{ error.$message }}</div>
 				</div>
 				
+				<div class="petsconfigurator__urne-popup" :class="{'petsconfigurator__urne-popup--open' : urne}">
+					<span class="petsconfigurator__urne-popup__quit" @click.prevent="closeUrne"></span>
+					<div class="petsconfigurator__urne-popup__content">
+						<span class="petsconfigurator__question__h1">
+							Je choisis mon <br>urne décorative
+						</span>
+						<div class="spinning-icon">
+							<div class="load-icon"></div>
+						</div>
+						<ul class="petsconfigurator__question__list-radio">
+							<li v-for="p in productsUrnes">
+								<img :src="p.image_url" />
+								{{p.name}}
+								{{p.price}}
+								<!-- <input type="radio" id="gesteSouvenirTrue" value="empreinte" v-model="gesteSouvenir"/>
+								<label for="gesteSouvenirTrue">
+									<img :src="`${themeDirectoryUri}/images/configurateur/patte.svg`" alt="Empreinte">
+								</label>
+								<span>Empreinte</span> -->
+							</li>
+						</ul>
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -57,6 +80,7 @@ export default {
 		},
 		set (value) {
 			store.commit('petsConfigurator/updateUrne', value)
+			store.commit('petsConfigurator/updatePopupOpen', value)
 		}
 	})
 
@@ -76,6 +100,15 @@ export default {
 		urne
 	})
 
+	const productsUrnes = computed({
+		get () {
+			return store.state.petsConfigurator.productsUrnes
+		}
+	})
+
+	const closeUrne = () => {
+		urne.value = false
+	}
 
 	const validate = async () => {
 		const isFormCorrect = await v$.value.$validate();
@@ -84,6 +117,8 @@ export default {
 
 	onMounted(() => {
   		EventBus.on('goNextStep', validate)
+		  console.log(productsUrnes)
+
 		setTimeout(() => {
 			imgLoaded.value = true
 		}, 300)

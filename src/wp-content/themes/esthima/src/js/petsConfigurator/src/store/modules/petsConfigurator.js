@@ -3,15 +3,16 @@ const getDefaultState = () => {
 		transitionName: '',
 		typeAnimal: '',
 		nameAnimal: '',
-		cendre: false,
-		ceremonieAdieu: false,
-		urne: false,
-		souvenir: false,
+		cendre: '',
+		ceremonieAdieu: '',
+		urne: '',
+		souvenir: '',
 		gesteSouvenir: '',
 		lastNameUser: '',
 		firstNameUser: '',
 		emailUser: '',
 		popupOpen: false,
+		productsUrnes: [],
 	}
 }
 
@@ -63,6 +64,12 @@ const mutations = {
 	updatePopupOpen(state, value) {
 		state.popupOpen = value
 	},
+	updateProductsUrnes(state, value) {
+		state.productsUrnes = value
+	},
+	resetState(state) {
+		Object.assign(state, getDefaultState())
+	}
 }
 
 

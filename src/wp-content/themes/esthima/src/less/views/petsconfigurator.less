@@ -506,6 +506,118 @@
         }
     }
 
+    &__urne-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 777;
+        width: 100%;
+        height: 100%;
+        background-color: @white;
+        overflow-y: auto;
+        transform: scale(0);
+        opacity: 0;
+        transition: transform .2s ease-out, opacity .2s ease-out;
+        &--open {
+            opacity: 1;
+            transform: scale(1);
+        }
+        &__quit {
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            &::after {
+                content: '';
+                display: block;
+                background: url('images/configurateur/cross-popup.svg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        &__content {
+            .petsconfigurator__question__h1 {
+                color: @main;
+                padding: 25px;
+            }
+            .petsconfigurator__question__list-radio {
+                display: block;
+                margin-top: 40px;
+                margin-left: auto;
+                margin-right: auto;
+                li {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: 20px;
+                    span {
+                        display: block;
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: @text;
+                        margin-top: 14px;
+                    }
+                }
+                input[type=radio] {
+                    & ~ label {
+                        width: 163px;
+                        height: 168px;
+                        border-radius: 0px;
+                        background-color: @grey-1;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                }
+            }
+            .btn {
+                margin-top: 32px;
+                margin-bottom: 32px;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+        }
+        @media screen and (min-width: 1024px) {
+            max-width: 892px;
+            height: auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 20px;
+            &--open {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            .petsconfigurator__question__h1 {
+                text-align: center;
+                padding-top: 80px;
+                padding-bottom: 0;
+                font-size: 38px;
+                br {
+                    display: none;
+                }
+            }
+            .petsconfigurator__question__list-radio {
+                display: flex;
+                justify-content: center;
+                li {
+                    flex: inherit;
+                }
+            }
+            &__content {
+                .btn {
+                    margin-top: 50px;
+                    margin-bottom: 80px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            } 
+        }
+    }
+
     .input-errors {
         .error-msg {
             margin: 10px;
@@ -517,6 +629,44 @@
         margin-bottom: 0;
         &:not(.petsconfigurator--home) {
             height: calc(100vh - var(--data-petsconfig-grow) - var(--data-height-header));
+        }
+    }
+
+    .spinning-icon{
+        width: 20px;
+        height: 20px;
+    }
+    .load-icon {
+        width: 100%;
+        height: 100%;
+        border: 3px solid #e0fbfc;
+        border-radius: 50%;
+        position: relative;
+        z-index: 5;
+      
+        &:after {
+          content: '';
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          border-top: 3px solid transparent;
+          border-bottom: 3px solid transparent;
+          border-left: 3px solid transparent;
+          border-right: 3px solid #52b69a;
+          border-radius: 50%;
+          position: absolute;
+          top: -3px;
+          left: -3px;
+          animation: circle-rotate .80s both linear infinite;
+        }
+    }
+    @keyframes circle-rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        
+        to {
+          transform: rotate(360deg);
         }
     }
 }

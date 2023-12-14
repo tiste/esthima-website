@@ -25,7 +25,8 @@ add_shortcode('partial', 'template_partial');
 add_shortcode('pets-configurator', function($atts) {
 	$wpvar = array(
 		'homeURL' => home_url(),
-		'themeDirectoryUri' => get_template_directory_uri()
+		'themeDirectoryUri' => get_template_directory_uri(),
+		'baseApi' => home_url('wp-json/esthima/v1/')
 	);
 	wp_enqueue_script( 'petsConfigurator', get_stylesheet_directory_uri() . '/js/petsConfigurator.js', array(), false, true );
 	wp_add_inline_script( 'petsConfigurator', 'var wpvar = ' . wp_json_encode( $wpvar ), 'before' );
