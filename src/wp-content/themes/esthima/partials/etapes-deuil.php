@@ -1,5 +1,4 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
-
 <?php $steps = get_field('steps'); ?>
 <?php if(!is_null($steps) && !empty($steps) && is_array($steps)) : ?>
     <div class="steps-death">
