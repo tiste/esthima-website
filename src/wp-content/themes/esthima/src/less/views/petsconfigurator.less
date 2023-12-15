@@ -632,41 +632,6 @@
         }
     }
 
-    .spinning-icon{
-        width: 20px;
-        height: 20px;
-    }
-    .load-icon {
-        width: 100%;
-        height: 100%;
-        border: 3px solid #e0fbfc;
-        border-radius: 50%;
-        position: relative;
-        z-index: 5;
-      
-        &:after {
-          content: '';
-          display: inline-block;
-          width: 100%;
-          height: 100%;
-          border-top: 3px solid transparent;
-          border-bottom: 3px solid transparent;
-          border-left: 3px solid transparent;
-          border-right: 3px solid #52b69a;
-          border-radius: 50%;
-          position: absolute;
-          top: -3px;
-          left: -3px;
-          animation: circle-rotate .80s both linear infinite;
-        }
-    }
-    @keyframes circle-rotate {
-        from {
-          transform: rotate(0deg);
-        }
-        
-        to {
-          transform: rotate(360deg);
-        }
-    }
+   
+ 
 }

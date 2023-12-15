@@ -31,11 +31,8 @@
 						<span class="petsconfigurator__question__h1">
 							Je choisis mon <br>urne décorative
 						</span>
-						<div class="spinning-icon">
-							<div class="load-icon"></div>
-						</div>
 						<ul class="petsconfigurator__question__list-radio">
-							<li v-for="p in productsUrnes">
+							<li v-for="p in productsUrnes" class="petsconfigurator__question__">
 								<img :src="p.image_url" />
 								{{p.name}}
 								{{p.price}}
