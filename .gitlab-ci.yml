@@ -52,7 +52,7 @@ deploy-recette:
     - rm -rf ./node_modules
     - currentRelease=$(date +%s)
     - cd $root
-    - cp ./src/wp-content/themes/esthima /var/www/html/releases/tmp_release
+    - cp -r ./src/wp-content/themes/esthima /var/www/html/releases/tmp_release
     - rm -d /var/www/html/wp-content/themes/esthima
     - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
     - mv /var/www/releases/tmp_release /var/www/releases/current_release
