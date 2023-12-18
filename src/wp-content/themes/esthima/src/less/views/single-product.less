@@ -110,6 +110,29 @@
                     @media (min-width: 1680px){
                         gap: 12px;
                     }
+                    &-scroll{
+                        overflow: hidden scroll;
+                        &::-webkit-scrollbar-track{
+                            background-color: #F5F5F5;
+                            border-radius: 25px;
+                        }
+                        &::-webkit-scrollbar{
+                            width: 8px;
+                            @media (min-width: 768px){
+                                width: 5px;
+                            }
+                            @media (min-width: 1440px){
+                                width: 6px;
+                            }
+                            @media (min-width: 1680px){
+                                width: 8px;
+                            }
+                        }
+                        &::-webkit-scrollbar-thumb{
+                            background-color: @main; 
+                            border-radius: 25px;
+                        }
+                    }
                     .woocommerce-product-gallery__image{
                         display: block;
                         width: 100px;
