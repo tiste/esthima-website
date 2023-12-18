@@ -90,9 +90,10 @@ function getCookie(cName) {
 	$( window ).load(function() {
 
 		/* produit - ajout barre scroll gallerie */
-		if($('.woocommerce-product-gallery__wrapper').length){
+		if($('.woocommerce-product-gallery__wrapper').length && window.innerWidth>767){
 			if($('.woocommerce-product-gallery__wrapper__gallery').outerHeight() > $('.woocommerce-product-gallery__wrapper__mainimg').outerHeight()){
 				$('.woocommerce-product-gallery__wrapper__gallery').addClass('woocommerce-product-gallery__wrapper__gallery-scroll');
+				$('.woocommerce-product-gallery__wrapper__gallery').css('max-height', $('.woocommerce-product-gallery__wrapper__mainimg').outerHeight()+'px');
 			}
 		}
 		/* /produit - ajout barre scroll gallerie */
