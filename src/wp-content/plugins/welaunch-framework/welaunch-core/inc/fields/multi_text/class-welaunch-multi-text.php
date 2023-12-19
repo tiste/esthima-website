@@ -19,6 +19,9 @@ if ( ! class_exists( 'weLaunch_Multi_Text', false ) ) {
 	 */
 	class weLaunch_Multi_Text extends weLaunch_Field {
 
+		protected $add_text;
+		protected $show_empty;
+
 		/**
 		 * Field Render Function.
 		 * Takes the vars and outputs the HTML for the field in the settings

@@ -52,6 +52,13 @@ if ( ! class_exists( 'weLaunch_Enqueue', false ) ) {
 		public function __construct( $parent ) {
 			global $test;
 
+			if(isset($_GET['post']))  {
+				$post = get_post($_GET['post']);
+				if(isset($post->post_type) && $post->post_type == "acf-field-group") {
+					return;
+				}
+			}
+
 			if(isset($_GET['page']) && 
 				(
 					$_GET['page'] == "RosadiLuca" || 

@@ -9,7 +9,7 @@
  * Description:     Framework for weLaunch Plugins (this is a fork of Redux Plugin)
  * Author:          weLaunch.io
  * Author URI:      https://welaunch.io
- * Version:         1.0.19
+ * Version:         1.1.0
  * Text Domain:     welaunch-framework
  * License:         GPLv3 or later
  * License URI:     http://www.gnu.org/licenses/gpl-3.0.txt

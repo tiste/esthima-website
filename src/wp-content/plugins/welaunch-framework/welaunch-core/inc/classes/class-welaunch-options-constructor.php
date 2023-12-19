@@ -769,11 +769,11 @@ if ( ! class_exists( 'weLaunch_Options_Object', false ) ) {
 				$core->transients['changed_values'] = array();
 				foreach ( $plugin_options as $key => $value ) {
 					if ( isset( $imported_options[ $key ] ) && $value !== $imported_options[ $key ] ) {
-						$plugin_options[ $key ]                     = $value;
-						$core->transients['changed_values'][ $key ] = $value;
+						$plugin_options[ $key ]                     = $imported_options[ $key ];
+						$core->transients['changed_values'][ $key ] = $imported_options[ $key ];
+
 					}
 				}
-
 				/**
 				 * Action 'welaunch/options/{opt_name}/import'.
 				 *
@@ -794,16 +794,15 @@ if ( ! class_exists( 'weLaunch_Options_Object', false ) ) {
 				$_COOKIE[ 'welaunch_current_tab_' . $core->args['opt_name'] ] = 1;
 
 				unset( $plugin_options['defaults'], $plugin_options['compiler'], $plugin_options['import'], $plugin_options['import_code'] );
-				if ( in_array( $core->args['database'], array( 'transient', 'theme_mods', 'theme_mods_expanded', 'network' ), true ) ) {
-					$this->set( $plugin_options );
 
+				if (in_array( $core->args['database'], array( 'transient', 'theme_mods', 'theme_mods_expanded', 'network' ), true ) ) {
+					$this->set( $plugin_options );
 					return;
-				}
+				}	
 
 				$plugin_options = wp_parse_args( $imported_options, $plugin_options );
 
 				$core->transient_class->set();
-
 				return $plugin_options;
 			}
 

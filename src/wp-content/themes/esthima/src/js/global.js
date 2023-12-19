@@ -92,8 +92,6 @@ function getCookie(cName) {
 		/* produit - ajout barre scroll gallerie */
 		if($('.woocommerce-product-gallery__wrapper').length && window.innerWidth>767){
 			setTimeout(()=>{
-				console.log('gallery', $('.woocommerce-product-gallery__wrapper__gallery').outerHeight())
-				console.log('img', $('.woocommerce-product-gallery__wrapper__mainimg').outerHeight())
 				if($('.woocommerce-product-gallery__wrapper__gallery').outerHeight() > $('.woocommerce-product-gallery__wrapper__mainimg').outerHeight()){
 					$('.woocommerce-product-gallery__wrapper__gallery').addClass('woocommerce-product-gallery__wrapper__gallery-scroll');
 					$('.woocommerce-product-gallery__wrapper__gallery').css('max-height', $('.woocommerce-product-gallery__wrapper__mainimg').outerHeight()+'px');
