@@ -13,8 +13,24 @@
                 <div>En savoir plus</div>
             </div>
             <div class="pricing-plan__prices">
-                <div><?php echo $c['tarif1']; ?>€</div>
-                <div><?php echo $c['tarif2']; ?>€</div>
+                <div class="pricing-plan__prices__card">
+                    <div class="pricing-plan__prices__card__price">
+                        <?php echo $c['tarif1']; ?>€
+                    </div>
+                    <div class="pricing-plan__prices__card__animal">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/nac.svg" alt="NAC">
+                        NAC
+                    </div>
+                </div>
+                <div class="pricing-plan__prices__card">
+                    <div class="pricing-plan__prices__card__price">
+                        <?php echo $c['tarif2']; ?>€
+                    </div>
+                    <div class="pricing-plan__prices__card__animal">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/chiens-chats.svg" alt="Chiens, chats">
+                        Chiens, chats
+                    </div>
+                </div>
             </div>
             <div class="pricing-plan__features">
                 <?php if(!is_null($c['avantages']) && !empty($c['avantages']) && is_array($c['avantages'])) : ?>
