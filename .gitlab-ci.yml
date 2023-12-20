@@ -58,7 +58,7 @@ deploy-recette:
     - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
     - mv /var/www/releases/tmp_release /var/www/releases/current_release
     #- ln -snf /var/www/releases/current_release /var/www/html/wp-content/themes/esthima
-    - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
+    # - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
 deploy-production:
   environment:
     name: main
@@ -82,4 +82,4 @@ deploy-production:
     - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
     - mv /var/www/releases/tmp_release /var/www/releases/current_release
     #- ln -snf /var/www/releases/current_release /var/www/html/wp-content/themes/esthima
-    - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
+    # - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
