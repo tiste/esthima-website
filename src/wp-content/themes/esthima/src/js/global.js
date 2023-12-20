@@ -100,6 +100,15 @@ function getCookie(cName) {
 		}
 		/* /produit - ajout barre scroll gallerie */
 		
+		/* produit - affichage prix produit simple/variable */
+		$(document).on('change', '.variations select', function(){
+			if($('.woocommerce-variation-price').length && $('.woocommerce-variation-price').html()!=null && $('.woocommerce-variation-price').html()!=''){
+				$('.single-product .site-main > .product .product__tet .summary > .price').attr('style', 'display: none !important');
+			}else{
+				$('.single-product .site-main > .product .product__tet .summary > .price').attr('style', 'display: block !important');
+			}
+		})
+		/* /produit - affichage prix produit simple/variable */
 
 		/* panier - notes de commande */
 		if($('.woocommerce-checkout #order_comments_field').length){

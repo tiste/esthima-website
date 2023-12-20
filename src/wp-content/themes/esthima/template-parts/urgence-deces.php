@@ -20,7 +20,7 @@
             <div class="urgence-deces__blocks__item__text">
                 En utilisant notre formulaire de contact
             </div>
-            <a href="<?php echo get_permalink(get_field('global_contact', 'option')); ?>" class="urgence-deces__blocks__item__link btn btn--arrow">
+            <a href="<?php echo get_permalink(get_field('global_contact', 'option')[0]); ?>" class="urgence-deces__blocks__item__link btn btn--arrow">
                 Formulaire de contact
             </a>
         </div>
