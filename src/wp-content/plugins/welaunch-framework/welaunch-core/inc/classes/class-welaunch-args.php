@@ -50,6 +50,13 @@ if ( ! class_exists( 'weLaunch_Args', false ) ) {
 		 */
 		public $dev_mode_forced = false;
 
+		protected $core_instance;
+		protected $core_thread;
+		protected $field_types;
+		protected $field_head;
+		protected $repeater_data;
+		protected $localize_data;
+
 		/**
 		 * weLaunch_Args constructor.
 		 *

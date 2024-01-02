@@ -25,6 +25,9 @@ if ( ! class_exists( 'weLaunch_Field', false ) ) {
 		 */
 		public static $descriptors = array();
 
+		public $field;
+		public $select2_config;
+
 		/**
 		 * Make base descriptor.
 		 *

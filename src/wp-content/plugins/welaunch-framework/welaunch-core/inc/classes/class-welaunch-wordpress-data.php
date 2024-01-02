@@ -293,6 +293,30 @@ if ( ! class_exists( 'weLaunch_WordPress_Data', false ) ) {
 				case 'post':
 					$results = get_posts( $args );
 					$data    = $this->process_results( $results, 'ID', 'post_title', $display_keys, $secondary_key );
+
+					if(empty($data) && (in_array('product', $args['post_type']) || in_array('product_variation', $args['post_type'])) ) {
+
+						$args2 = $args;
+
+			            $args2['meta_query'] = array(
+			                array(
+			                    'key' => '_sku',
+			                    'value' => $args2['s'],
+			                    'compare' => 'LIKE'
+			                )
+			            );
+						unset($args2['s']);
+						// var_dump($args2);
+						$results = get_posts( $args2 );
+						// var_dump($results);
+						$data    = $this->process_results( $results, 'ID', 'post_title', $display_keys, $secondary_key );
+						if(!empty($data)) {
+							foreach($data as $data_id => &$data_single) {
+								$data_single = $data_single . ' (' . get_post_meta($data_id, '_sku', true) . ')'; 
+							}
+						}
+					}
+
 					break;
 
 				case 'users':

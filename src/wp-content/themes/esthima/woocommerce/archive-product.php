@@ -33,8 +33,12 @@ get_header( 'shop' );
 		global $wp_query;
 		global $paged;
 		$cat = $wp_query->get_queried_object();
-		$thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
-		$image = wp_get_attachment_url( $thumbnail_id );
+		if($cat->name!='product'){
+			$thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+			$image = wp_get_attachment_url( $thumbnail_id );
+		}else{
+			$image = get_the_post_thumbnail_url(intval(get_option('woocommerce_shop_page_id')));
+		}
 	?>
 	<?php do_action( 'woocommerce_before_main_content' ); ?>
 	<div class="woocommerce-products-header" style="--bg-img: url('<?php echo str_replace("'", "\'", $image); ?>');">
@@ -54,7 +58,17 @@ get_header( 'shop' );
 	</div>
 
 	<div class="cats__filters">
-		<?php echo do_shortcode('[yith_wcan_filters slug="default-preset"]'); ?>
+		<?php 
+			if($cat->name=='product'){
+				echo do_shortcode('[yith_wcan_filters slug="default-preset"]');
+			}elseif($cat->slug=='bijoux-cineraires'){
+				echo do_shortcode('[yith_wcan_filters slug="default-preset-3"]');
+			}elseif($cat->slug=='urnes-animaux-reliquaires'){
+				echo do_shortcode('[yith_wcan_filters slug="default-preset-4"]');
+			}else{
+				echo do_shortcode('[yith_wcan_filters slug="default-preset-2"]');
+			}
+		?>
 	</div>
 
 <?php

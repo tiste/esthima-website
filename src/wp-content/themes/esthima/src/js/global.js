@@ -89,6 +89,34 @@ function getCookie(cName) {
 
 	$( window ).load(function() {
 
+		/* produit - ajout barre scroll gallerie */
+		if($('.woocommerce-product-gallery__wrapper').length && window.innerWidth>767){
+			setTimeout(()=>{
+				if($('.woocommerce-product-gallery__wrapper__gallery').outerHeight() > $('.woocommerce-product-gallery__wrapper__mainimg').outerHeight()){
+					$('.woocommerce-product-gallery__wrapper__gallery').addClass('woocommerce-product-gallery__wrapper__gallery-scroll');
+					$('.woocommerce-product-gallery__wrapper__gallery').css('max-height', $('.woocommerce-product-gallery__wrapper__mainimg').outerHeight()+'px');
+				}
+			}, 100)
+		}
+		/* /produit - ajout barre scroll gallerie */
+		
+		/* produit - affichage prix produit simple/variable */
+		$(document).on('change', '.variations select', function(){
+			if($('.woocommerce-variation-price').length && $('.woocommerce-variation-price').html()!=null && $('.woocommerce-variation-price').html()!=''){
+				$('.single-product .site-main > .product .product__tet .summary > .price').attr('style', 'display: none !important');
+			}else{
+				$('.single-product .site-main > .product .product__tet .summary > .price').attr('style', 'display: block !important');
+			}
+		})
+		/* /produit - affichage prix produit simple/variable */
+
+		/* panier - notes de commande */
+		if($('.woocommerce-checkout #order_comments_field').length){
+			$('.woocommerce-checkout #order_comments_field label').html("Numéro de convention");
+			$('.woocommerce-checkout #order_comments_field #order_comments').attr('placeholder', "Si vous avez fait appel au service de crémation Esthima pour votre animal, merci de renseigner le numéro de convention");
+		}
+		/* /panier - notes de commande */
+
 		/* taille espaceur header */
 		if($('.heightHeader').length){
 			$('.heightHeader').css('height', $('header.header').outerHeight()+'px');

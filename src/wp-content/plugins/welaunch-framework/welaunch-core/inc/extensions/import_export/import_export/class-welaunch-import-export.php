@@ -19,6 +19,7 @@ if ( ! class_exists( 'weLaunch_Import_Export', false ) ) {
 	 */
 	class weLaunch_Import_Export extends weLaunch_Field {
 
+		public $is_field;
 
 		/**
 		 * weLaunch_Import_Export constructor.

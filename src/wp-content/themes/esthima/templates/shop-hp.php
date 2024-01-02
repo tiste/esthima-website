@@ -41,6 +41,8 @@ get_header('shop');
     </div>
     <?php endif; ?>
 
+    <a href="<?php echo get_the_permalink(intval(get_option('woocommerce_shop_page_id'))); ?>" class="btn btn--arrow shop__all">Tous nos produits</a>
+
     <div class="shop__solo">
         <h2><?php echo get_field('solo_title'); ?></h2>
         <div class="shop__solo__text">

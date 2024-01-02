@@ -84,6 +84,15 @@ if ( ! class_exists( 'weLaunchFramework', false ) ) {
 		 * @access public
 		 */
 		public static $_upload_url; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+		
+		public $field_head;
+		public $field_types;
+
+		public $core_instance;
+		public $core_thread;
+
+		public $repeater_data;
+		public $localize_data;
 
 		/**
 		 * Init

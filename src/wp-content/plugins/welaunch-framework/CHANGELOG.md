@@ -1,5 +1,14 @@
 # Changelog
 ======
+1.1.0
+======
+- NEW:	Search by SKU Fallback
+		https://imgur.com/a/t4sXfSu
+- NEW:	PHP8.3 support
+- FIX:	ACF select2 issue
+- FIX:	Import / Export not working
+
+======
 1.0.19
 ======
 - FIX: AUtload error
