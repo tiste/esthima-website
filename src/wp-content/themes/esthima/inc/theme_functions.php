@@ -151,16 +151,16 @@ function custom_listing_template() {
     
     $listing_template = '<li data-store-id="<%= id %>" class="storeloc__map__store">' . "\r\n";
 
-	$listing_template .= "\t\t" . '<div class="storeloc__map__store__img">' . "\r\n";
+	$listing_template .= "\t\t" . '<a href="<%= permalink %>"  class="storeloc__map__store__img">' . "\r\n";
     $listing_template .= "\t\t\t\t" . '<%= thumb %>' . "\r\n";
     $listing_template .= "\t\t\t\t" . '<img src="'.get_template_directory_uri().'/images/default-store.jpg">' . "\r\n";
-	$listing_template .= "\t\t" . "</div>" . "\r\n";
+	$listing_template .= "\t\t" . "</a>" . "\r\n";
 
 	$listing_template .= "\t\t" . '<div class="storeloc__map__store__infos">' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<% if ( terms ) { %>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__surtitle"><%= terms %> de</div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<% } %>' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__title"><%= store %></div>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<a href="<%= permalink %>"  class="storeloc__map__store__infos__title"><%= store %></a>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address2 %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse">'.wpsl_address_format_placeholders().'</div>' . "\r\n";
