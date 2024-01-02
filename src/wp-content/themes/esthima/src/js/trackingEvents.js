@@ -63,6 +63,7 @@ export class TrackingEvents {
         this.pushEventsStoreLocation()
         this.pushEventsBoutique()
         this.pushEventsEspacePress()
+        this.pushEventsPriseRDV()
     }
 
     pushEventsNavigationHeader() {
@@ -507,6 +508,84 @@ export class TrackingEvents {
                 'eventLabel': eventLabel
             });
         })
+    }
+   
+    pushEventsPriseRDV() {
+        if (this.pageType == "Prise de RDV") {
+            var startPriseRDV = () => {
+                window.dataLayer.push({
+                    'event': 'clickPriseRdv',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Start',
+                    'eventLabel': ''
+                });
+                let stepN = jQuery("#main-view form .nav-item.active")
+                let stepN1 = stepN.find('.step-1')
+                let stepN2 = stepN.find('.step-2')
+                let stepN3 = stepN.find('.step-3')
+                let stepN4 = stepN.find('.step-4')
+                stepN = '1'
+
+                if (stepN1.length > 0) {
+                    stepN = '1'
+                } else if (stepN2.length > 0) {
+                    stepN = '2'
+                } else if (stepN3.length > 0) {
+                    stepN = '3'
+                } else if (stepN4.length > 0) {
+                    stepN = '4'
+                }
+                window.dataLayer.push({
+                    'event': 'clickPriseRdv',
+                    'eventCategory': this.pageType,
+                    'eventAction': `Step ${stepN}`,
+                    'eventLabel': ''
+                });
+            }
+
+            var stepChangeAndFinal = () => {
+                let stepN = jQuery("#main-view form .nav-item.active")
+                let stepN1 = stepN.find('.step-1')
+                let stepN2 = stepN.find('.step-2')
+                let stepN3 = stepN.find('.step-3')
+                let stepN4 = stepN.find('.step-4')
+                if (stepN1.length > 0) {
+                    stepN = '1'
+                } else if (stepN2.length > 0) {
+                    stepN = '2'
+                } else if (stepN3.length > 0) {
+                    stepN = '3'
+                } else if (stepN4.length > 0) {
+                    stepN = '4'
+                }
+              
+                window.dataLayer.push({
+                    'event': 'clickPriseRdv',
+                    'eventCategory': this.pageType,
+                    'eventAction': `Step ${stepN}`,
+                    'eventLabel': ''
+                });
+                if (stepN == '3') {
+                    alert('submit')
+                    window.dataLayer.push({
+                        'event': 'clickPriseRdv',
+                        'eventCategory': this.pageType,
+                        'eventAction': 'Final Step',
+                        'eventLabel': 'Submit'
+                    });
+                }
+            }
+            setInterval(() => {
+
+                jQuery('._3DNWQGIj8wqfDSxytYq0Cx button').each(function() {
+                    jQuery(this).unbind('click', startPriseRDV)
+                    jQuery(this).bind('click', startPriseRDV)
+                })
+                jQuery('button[aria-label=Suite]').unbind('click', stepChangeAndFinal)
+                jQuery('button[aria-label=Suite]').bind('click', stepChangeAndFinal)
+            }, 1000)
+
+        }
     }
      
 }
