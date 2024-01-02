@@ -24,7 +24,6 @@ export default {
 	import { computed, onMounted } from 'vue'
 	import { useRoute, useRouter } from 'vue-router'
 	import { useStore } from 'vuex'
-	import { request } from '../helpers/Request.js'
 
 	const router = useRouter()
 	const route = useRoute()
@@ -47,20 +46,7 @@ export default {
 		}
 	}
 
-	const productsUrnes = computed({
-		get () {
-			return store.state.petsConfigurator.productsUrnes
-		},
-		set (value) {
-			store.commit('petsConfigurator/updateProductsUrnes', value)
-		}
-	})
-
-
 	onMounted(() => {
 		store.commit('petsConfigurator/resetState')
-		request('urnes').then((res) => {
-			productsUrnes.value = res
-		})
 	})
 </script>

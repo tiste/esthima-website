@@ -31,18 +31,31 @@
 						<span class="petsconfigurator__question__h1">
 							Je choisis mon <br>urne décorative
 						</span>
-						<ul class="petsconfigurator__question__list-radio">
-							<li v-for="p in productsUrnes" class="petsconfigurator__question__">
-								<img :src="p.image_url" />
-								{{p.name}}
-								{{p.price}}
-								<!-- <input type="radio" id="gesteSouvenirTrue" value="empreinte" v-model="gesteSouvenir"/>
-								<label for="gesteSouvenirTrue">
-									<img :src="`${themeDirectoryUri}/images/configurateur/patte.svg`" alt="Empreinte">
-								</label>
-								<span>Empreinte</span> -->
+						<div class="petsconfigurator__show-up-urne" v-if="urneShowUp != null">
+							<a href="#" @click.prevent="showDetailUrne(null)">retour</a>
+							dazdazdaz
+						</div>
+						<ul class="petsconfigurator__question__list-radio petsconfigurator__question__list-radio--urnes" :style="(urneShowUp != null) ? 'display:none!important' : ''">
+							<li v-for="p in productsUrnes" class="petsconfigurator__urne" @click.prevent="showDetailUrne(p)">
+								<div class="petsconfigurator__urne__thumb">
+									<img :src="p.image_url" />
+								</div>
+								<span class="petsconfigurator__urne__name">
+									{{p.name}}
+								</span>
+								<span class="petsconfigurator__urne__price">
+									Dès {{formatCurrency(p.price)}}
+								</span>
+							</li>
+							<li v-for="i in 20" class="petsconfigurator__urne petsconfigurator__urne--loading" v-show="productsUrnes.length <= 0">
+								<div class="petsconfigurator__urne__thumb"></div>
+								<span class="petsconfigurator__urne__name">
+								</span>
+								<span class="petsconfigurator__urne__price">
+								</span>
 							</li>
 						</ul>
+						
 					</div>
 				</div>
 			</form>
@@ -70,6 +83,8 @@ export default {
 	const themeDirectoryUri = window.wpvar.themeDirectoryUri || ''
 
 	const imgLoaded = ref(0)
+
+	const urneShowUp = ref(null)
 
 	const urne = computed({
 		get () {
@@ -112,9 +127,27 @@ export default {
       	if (!isFormCorrect) return false;
 	}
 
+	const showDetailUrne = (urne) => {
+		urneShowUp.value = urne
+	}
+
+	const formatCurrency = (value) => {
+      if (isNaN(value)) {
+        return value;
+      }
+
+      const options = {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      };
+
+      return new Intl.NumberFormat('fr-FR', options).format(value);
+    }
+
 	onMounted(() => {
   		EventBus.on('goNextStep', validate)
-		  console.log(productsUrnes)
 
 		setTimeout(() => {
 			imgLoaded.value = true

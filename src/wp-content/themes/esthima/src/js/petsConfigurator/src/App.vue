@@ -15,6 +15,8 @@ import { computed, onMounted, ref } from 'vue'
 import { RouterView, useRoute } from "vue-router";
 import Navigation from "./components/Navigation";
 import { useStore } from 'vuex'
+import { request } from './helpers/Request.js'
+
 
 
 const route = useRoute()
@@ -49,9 +51,21 @@ const navHeightRefresh = () => {
   petsConfigGrow.value = `--data-petsconfig-grow:${nav.value.$el.clientHeight}px`
 }
 
+const productsUrnes = computed({
+  get () {
+    return store.state.petsConfigurator.productsUrnes
+  },
+  set (value) {
+    store.commit('petsConfigurator/updateProductsUrnes', value)
+  }
+})
+
 onMounted(() => {
   navHeightRefresh()
   window.addEventListener("resize", navHeightRefresh);
+  request('urnes').then((res) => {
+    productsUrnes.value = res
+  })
 })
 
 
