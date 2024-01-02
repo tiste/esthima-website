@@ -1,0 +1,28 @@
+.progressbar {
+    position: relative;
+    margin-bottom: 15px;
+
+    &__info {
+        display: block;
+        color: @main;
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        margin-left: 5%;
+        transform: translateX(-15px);
+        transition: all 0.5s ease;
+
+    }
+    &__background {
+        height: 5px;
+        background: @grey;
+        border-radius: 10px;
+    }
+
+    &__bar {
+        height: 100%;
+        background: @main;
+        transition: transform .5s ease;
+        border-radius: 10px;
+    }
+}

@@ -120,6 +120,7 @@ function getCookie(cName) {
 		/* taille espaceur header */
 		if($('.heightHeader').length){
 			$('.heightHeader').css('height', $('header.header').outerHeight()+'px');
+			$('body').css('--data-height-header', $('header.header').outerHeight()+'px');
 		}
 		/* /taille espaceur header */
 

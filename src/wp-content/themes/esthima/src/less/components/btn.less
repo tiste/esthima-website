@@ -3,6 +3,7 @@
         display: block;
         width: fit-content;
     }
+  
     &--arrow{
         padding: 18px 18px 18px 32px;
         border-radius: 100px;
@@ -25,20 +26,7 @@
             padding: 18px 18px 18px 32px;
             font-size: 16px;
         }
-        &:hover{
-            &::after{
-                margin-left: 26px;
-                @media (min-width: 768px){
-                    margin-left: 17px;
-                }
-                @media (min-width: 1440px){
-                    margin-left: 21px;
-                }
-                @media (min-width: 1680px){
-                    margin-left: 26px;
-                }
-            }
-        }
+    
         &::after{
             content: "";
             display: inline-block;
@@ -68,6 +56,77 @@
             color: @main;
             &::after{
                 background-image: url('images/arrow-right-pink.svg');
+            }
+        }
+        &-reverse {
+            display: flex !important;
+            flex-direction: row-reverse;
+            padding: 18px 32px 18px 18px;
+
+            @media (min-width: 768px){
+                padding: 12px 24px 12px 12px;
+            }
+            @media (min-width: 1440px){
+                padding: 14px 28px 14px 14px;
+            }
+            @media (min-width: 1680px){
+                padding: 18px 32px 18px 18px;
+            }
+         
+            &::after {
+                transform: scale(-1);
+                margin-left: 0px;
+                margin-right: 12px;
+                @media (min-width: 768px){
+                    margin-left: 0px;
+                    margin-right: 8px;
+                }
+                @media (min-width: 1440px){
+                    margin-left: 0px;
+                    margin-right: 10px;
+                }
+                @media (min-width: 1680px){
+                    margin-left: 0px;
+                    margin-right: 12px;
+                }
+            }
+        }
+    }
+    &--arrow:not(.btn--arrow-disable-hover) {
+        .btn--arrow {
+            &:hover{
+                &::after{
+                    margin-left: 26px;
+                    @media (min-width: 768px){
+                        margin-left: 17px;
+                    }
+                    @media (min-width: 1440px){
+                        margin-left: 21px;
+                    }
+                    @media (min-width: 1680px){
+                        margin-left: 26px;
+                    }
+                }
+            }
+            &-reverse {
+                &:hover{
+                    &::after{
+                        margin-left: 0px;
+                        margin-right: 26px;
+                        @media (min-width: 768px){
+                            margin-left: 0px;
+                            margin-right: 17px;
+                        }
+                        @media (min-width: 1440px){
+                            margin-left: 0px;
+                            margin-right: 21px;
+                        }
+                        @media (min-width: 1680px){
+                            margin-left: 0px;
+                            margin-right: 26px;
+                        }
+                    }
+                }
             }
         }
     }
