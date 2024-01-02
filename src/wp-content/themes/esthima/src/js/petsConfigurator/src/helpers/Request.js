@@ -13,5 +13,4 @@ export const request = async (url, data, method = 'GET', base = window.wpvar.bas
   }
 
 
-  return jQuery.ajax(params)
-}
+  return jQuery.ajax(
