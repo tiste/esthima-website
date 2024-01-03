@@ -116,9 +116,12 @@
                 </div>
                 <div class="store__infos__contact">
                     <img src="<?php echo get_template_directory_uri(); ?>/images/close-pink.svg" alt="Fermer" class="store__infos__contact__close">
+                    <div class="store__infos__contact__title">
+                        Nous contacter
+                    </div>
                     <?php
                         $contactEmail = get_post_meta(get_the_ID(), 'wpsl_email', true);
-                        echo do_shortcode('[gravityform id="1" title="true" description="false" ajax="true" field_values="sendemail='.$contactEmail.'"]');
+                        echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true" field_values="sendemail='.$contactEmail.'"]');
                     ?>
                 </div>
             </div>

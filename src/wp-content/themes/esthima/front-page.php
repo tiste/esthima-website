@@ -62,9 +62,9 @@
 			<div class="hp__services__vignettes">
 				<?php foreach($servicesVignettes as $sv) : ?>
 					<div class="hp__services__vignettes__item" style="--bg-img: url('<?php echo str_replace("'", "\'", $sv['image']); ?>')">
-						<div class="hp__services__vignettes__item__text">
+						<h3 class="hp__services__vignettes__item__text">
 							Pour <span><?php echo $sv['link']['title']; ?></span>
-						</div>
+						</h3>
 						<img src="<?php echo get_template_directory_uri(); ?>/images/arrow-big.svg" class="hp__services__vignettes__item__arrow">
 						<a href="<?php echo $sv['link']['url']; ?>" target="<?php echo $sv['link']['target']; ?>"></a>
 					</div>
@@ -126,7 +126,7 @@
 				<?php endforeach; ?>
 			</div>
 			<?php endif; ?>
-			<h3><?php echo get_field('imgblock_subtitle'); ?></h3>
+			<span class="hp__imgblock__block__subtitle"><?php echo get_field('imgblock_subtitle'); ?></span>
 			<?php
 				$refs = get_field('imgblock_refs');
 				if(!is_null($refs) && !empty($refs) && is_array($refs)) :
@@ -167,9 +167,9 @@
 						<div class="hp__shop__cats__item__cat">
 							<?php echo get_the_terms(get_the_ID(), 'product_cat')[0]->name; ?>
 						</div>
-						<div class="hp__shop__cats__item__name">
+						<h3 class="hp__shop__cats__item__name">
 							<?php echo $product->get_name(); ?>
-						</div>
+						</h3>
 						<div class="hp__shop__cats__item__minprice">
 							à partir de <?php echo $product->get_price(); ?>€
 						</div>
@@ -203,9 +203,9 @@
 				<?php if($key==0) : ?>
 				<div class="containerCustom2">
 					<div class="hp__guides__item__texts">
-						<div class="hp__guides__item__title">
+						<h3 class="hp__guides__item__title">
 							<?php echo $g['title']; ?>
-						</div>
+						</h3>
 						<div class="hp__guides__item__text">
 							<?php echo $g['text']; ?>
 						</div>
@@ -213,9 +213,9 @@
 				</div>
 				<?php else : ?>
 					<div class="hp__guides__item__texts">
-						<div class="hp__guides__item__title">
+						<h3 class="hp__guides__item__title">
 							<?php echo $g['title']; ?>
-						</div>
+						</h3>
 						<div class="hp__guides__item__text">
 							<?php echo $g['text']; ?>
 						</div>

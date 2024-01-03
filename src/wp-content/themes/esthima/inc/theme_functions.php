@@ -157,10 +157,15 @@ function custom_listing_template() {
 	$listing_template .= "\t\t" . "</a>" . "\r\n";
 
 	$listing_template .= "\t\t" . '<div class="storeloc__map__store__infos">' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<% if ( terms ) { %>' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__surtitle"><%= terms %> de</div>' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<% } %>' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<a href="<%= permalink %>"  class="storeloc__map__store__infos__title"><%= store %></a>' . "\r\n";
+	// $listing_template .= "\t\t\t\t" . '<% if ( terms ) { %>' . "\r\n";
+	// $listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__surtitle"><%= terms %> de</div>' . "\r\n";
+	// $listing_template .= "\t\t\t\t" . '<% } %>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<a href="<%= permalink %>" class="storeloc__map__store__infos__title"><h3>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<% if ( terms ) { %>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<span><%= terms %> de</span>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<% } %>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<%= store %>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '</h3></a>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address2 %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse">'.wpsl_address_format_placeholders().'</div>' . "\r\n";
