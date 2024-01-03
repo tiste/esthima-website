@@ -27,6 +27,7 @@ const config = {
   entry:
   {
     global: "./src/js/global.js",
+    petsConfigurator: "./src/js/petsConfigurator/src/main.js",
     trackingEvents: "./src/js/trackingEvents.js",
     trackingDataLayer: "./src/js/trackingDataLayer.js",
     tracking: "./src/js/tracking.js"
@@ -34,15 +35,22 @@ const config = {
   mode: (args.env == 'production') ? "production" : "development",
   target: ["web", "es5"],
   resolve: {
-    extensions: ["*", ".js", ".vue"]
+    extensions: ["*", ".js", ".vue", ".ts", ".tsx"]
   },
   module: {
     rules: [
       {
-        exclude: /node_modules|vue\/src|vue-router\//,
+        exclude: /node_modules/,
         test: /\.(js|jsx)$/i,
         use: {
           loader: 'babel-loader',
+        }
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
         }
       },
       {

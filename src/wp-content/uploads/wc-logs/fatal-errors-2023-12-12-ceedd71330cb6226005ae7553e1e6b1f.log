@@ -1,0 +1,15 @@
+2023-12-12T10:52:07+00:00 CRITICAL Uncaught Error: Failed opening required '/var/www/html/wp-content/plugins/woocommerce/packages/woocommerce-blocks/src/Domain/Services/OnboardingTasks/ReviewCheckoutTask.php' (include_path='.:/usr/share/php') in /var/www/html/wp-content/plugins/woocommerce/vendor/jetpack-autoloader/class-php-autoloader.php:90
+Stack trace:
+#0 /var/www/html/wp-content/plugins/woocommerce/packages/woocommerce-blocks/src/Domain/Services/OnboardingTasks/TasksController.php(26): Automattic\Jetpack\Autoloader\jp2d4db689c5af5edbed15ffb53d752898\PHP_Autoloader::load_class('Automattic\\WooC...')
+#1 /var/www/html/wp-includes/class-wp-hook.php(324): Automattic\WooCommerce\Blocks\Domain\Services\OnboardingTasks\TasksController->register_tasks('')
+#2 /var/www/html/wp-includes/class-wp-hook.php(348): WP_Hook->apply_filters(NULL, Array)
+#3 /var/www/html/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#4 /var/www/html/wp-settings.php(643): do_action('init')
+#5 /var/www/html/wp-config.php(97): require_once('/var/www/html/w...')
+#6 /var/www/html/wp-load.php(50): require_once('/var/www/html/w...')
+#7 /var/www/html/wp-cron.php(46): require_once('/var/www/html/w...')
+#8 {main}
+  thrown dans /var/www/html/wp-content/plugins/woocommerce/vendor/jetpack-autoloader/class-php-autoloader.php à la ligne 90
+
+2023-12-12T10:53:35+00:00 CRITICAL Allowed memory size of 134217728 bytes exhausted (tried to allocate 32768 bytes) dans /var/www/html/wp-content/plugins/advanced-custom-fields-pro/includes/fields/class-acf-field-relationship.php à la ligne 467
+

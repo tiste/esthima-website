@@ -124,3 +124,4 @@ require get_template_directory() . '/inc/kiamo.php';
 // $kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, KIAMO_CALLBACK_ID);
 
 // $kiamo->isRewind(var);
+require get_template_directory() . '/services/service-petsconfigurator.php';

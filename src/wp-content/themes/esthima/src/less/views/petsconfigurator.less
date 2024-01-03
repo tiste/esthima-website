@@ -1,0 +1,764 @@
+.page-template-pets-configurator {
+    background-color: @lightbg;
+    //reset space
+    line-height: 0;
+    font-size: 0;
+}
+.petsconfigurator {
+    line-height: 1.2;
+    font-size: 13px;
+    // height: calc(100vh - 75px);
+    // height: calc(100vh + var(--data-petsconfig-grow));
+    height: 100vh;
+    margin-bottom: var(--data-petsconfig-grow);
+    background-color: @lightbg;
+    position: relative;
+    &__bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: @black;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 20;
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity .2s ease;
+        &--open {
+            opacity: 0.4;
+            transform: scale(1);
+        }
+    }
+    &--home {
+        height: calc(100vh - 75px);
+    }
+    &-h-center {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    &__hero {
+        &--pets {
+            width: 100%;
+            height: 67vw;
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                display: block;
+                width: 100%;
+                height: 100%;
+                background-image: url('images/configurateur/accessoires-mob.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+                top: 0;
+                left: 0;
+            }
+            img {
+                display: block;
+                width: 70%;
+                left: 50%;
+                transform: translateX(0) rotate(0);
+                top: 9%;
+                position: absolute;
+                transition: all .6s ease;
+                opacity: 1;
+            }
+        
+            @media screen and (min-width: 1024px) {
+                width: 60%;
+                height: 100%;
+                img {
+                    top: 50%;
+                    bottom: 0;
+                    left: inherit;
+                    right: 0;
+                    transform: translate(50%, -50%) rotate(0);
+                    width: 44vw;
+                    height: 33vw;
+                }
+                &::after {
+                    background-image: url('images/configurateur/accessoires-desk.png');
+                    top: inherit;
+                    bottom: 0;
+                    left: inherit;
+                    width: 51vw;
+                    height: 26vw;
+                    right: 0;
+                }
+            }
+            
+        }
+        &__imgloaded {
+            transform: translateX(-54%) rotate(-5deg) !important;
+            opacity: 0;
+            @media screen and (min-width: 1024px) {
+                transform: translate(0, -50%) rotate(-5deg) !important;
+            }
+        }
+    }
+    &__content {
+        position: absolute;
+        width: 100%;
+        background-color: @lightbg;
+      
+        &--home {
+            background-image: url('images/configurateur/bg-home-petsconfig.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow-y: hidden;
+            .petsconfigurator__p {
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+            .petsconfigurator__content__inner {
+                width: 100%;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 10px 15px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+        &--parcours {
+            background-image: url('images/configurateur/pissenlit.svg');
+            background-size: 70% auto;
+            background-repeat: no-repeat;
+            // background-position: top 25% right -64%;
+            background-position: top 110px right -64%;
+            height: 100%;
+            @media screen and (min-width: 1024px) {
+                background-size: 31vw 35vw;
+                background-position: bottom -2vw left -13vw;
+            }
+        }
+        &--info-animal {
+            .petsconfigurator__question__list-radio {
+                margin-bottom: 30px;
+            }
+        }
+        &--souvenir {
+            .petsconfigurator__question__list-radio--bool {
+                margin-top: 20px;
+            }
+        }
+        &--info {
+            .petsconfigurator__question__form {
+                .input-text {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        @media screen and (min-width: 1024px) {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-start;
+            align-items: center;
+        }
+    }
+
+    &__navigation {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        background-color: @white;
+        padding: 20px;
+        &__content {
+            margin-left: auto;
+            margin-right: auto;
+        }
+            &__buttons {
+                display: flex;
+                justify-content: space-between;
+            }
+            &__price {
+                display: flex;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                font-size: 18px;
+                font-weight: 400;
+                color: @text;
+                justify-content: center;
+                b {
+                    color: @main;
+                    font-weight: 600;
+                    font-size: 30px;
+                }
+            }
+            @media screen and (max-width: 1023px) {
+                &__button-desk {
+                    display: none !important;
+                }
+            }
+            @media screen and (min-width: 1024px) {
+                &__content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    max-width: 1390px;
+                }
+                &__button-desk {
+                    display: block;
+                }
+                .progressbar {
+                    flex: 1;
+                    max-width: 640px;
+                }
+                &__buttons {
+                    display: none;
+                }
+            }
+
+    }
+    &__h1 {
+        font-size: 24px;
+        font-weight: 600;
+        color: @main;
+        line-height: 1.4;
+        @media screen and (min-width: 768px) {
+            font-size: 32px;
+        }
+        @media screen and (min-width: 1440px) {
+            font-size: 38px;
+        }
+    }
+    &__p {
+        font-size: 16px;
+        font-weight: 400;
+        color: @text;
+        line-height: 1.4;
+        @media screen and (min-width: 768px) {
+            font-size: 18px;
+        }
+        @media screen and (min-width: 1440px) {
+            font-size: 22px;
+        }
+    }
+
+    &__question {
+        &__form {
+            padding: 20px;
+            .petsconfigurator__question__h1 {
+                margin-bottom: 20px;
+                text-align: center;
+                @media screen and (min-width: 1024px) {
+                    margin-bottom: 30px;
+                    text-align: left;
+                    font-size: 30px;
+                }
+            }
+            input[type=radio] {
+                display: none;
+                & ~ label {
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 400;
+                    width: 100%;
+                    height: 55px;
+                    border-radius: 66px;
+                    background-color: @white;
+                    border: 2px solid @white;
+                    transition: border-color .2s ease;
+                }
+                &:checked {
+                    & ~ label {
+                        border-color: @main;
+                    }
+                }
+            }
+            
+            .input-text {
+                display: flex;
+                position: relative;
+                font-size: 16px;
+                font-weight: 600;
+                width: 100%;
+                height: 55px;
+                border-radius: 60px;
+                border: 1px solid @grey;
+                padding: 10px 28px;
+                background-color: @white;
+                input[type=text] {
+                    border: none;
+                    padding: 0px;
+                    margin-top: auto;
+                }
+                input[type=text] + label {
+                    transition: all .2s ease;
+                    font-size: 16px;
+                    font-weight: 400;
+                }
+                input[type=text]:placeholder-shown + label {
+                    position: absolute;
+                    left: 28px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                input[type=text]:not(:placeholder-shown) + label {
+                    position: absolute;
+                    font-size: 12px;
+                    top: 16px;
+                    left: 28px;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+        &__list-radio {
+            display: flex;
+            width: 100%;
+            margin-left: -5px;
+            margin-right: -5px;
+            li {
+                flex: 1;
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+            &--bool {
+                justify-content: center;
+                li {
+                    max-width: 100px;
+                }
+            }
+            &--urnes {
+                display: flex !important;
+                justify-content: flex-start !important;
+                flex-wrap: wrap;
+                padding: 0px 20px;
+                margin-top: 0px !important;
+                margin-left: -10px;
+                margin-right: -10px;
+                max-width: 1380px;
+                overflow-y: auto;
+                max-height: 80vh;
+                @media screen and (min-width: 1024px) {
+                    max-height: 65vh;
+                }
+                
+                &::-webkit-scrollbar-track
+                {
+                    border-radius: 10px;
+                    background-color: #F5F5F5;
+                }
+
+                &::-webkit-scrollbar
+                {
+                    width: 8px;
+                    background-color: #F5F5F5;
+                }
+
+                &::-webkit-scrollbar-thumb
+                {
+                    border-radius: 10px;
+                    background-color: @main;
+                }
+                .petsconfigurator__urne {
+                    width: calc(50% - 20px);
+                    flex: none;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    &__thumb {
+                        width: 100%;
+                        height: 100%;
+                        max-height: 150px;
+                        min-height: 150px;
+                        background-color: @grey-1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-bottom: 10px;
+                        img {
+                            width: 150px;
+                            height: 150px;
+                            mix-blend-mode: multiply;
+                        }
+                    }
+                    &__name {
+                        margin-top: 0px !important;
+                        margin-left: 0px;
+                        text-align: left;
+                        align-self: flex-start;
+                        font-size: 15px;
+                        font-weight: 600;
+                        color: @text;
+                    }
+                    &__price {
+                        margin-top: 5px !important;
+                        margin-left: 0px;
+                        text-align: left;
+                        align-self: flex-start;
+                        font-size: 15px;
+                        font-weight: 600;
+                        color: @main !important;
+                    }
+
+                    &--loading {
+                        .petsconfigurator__urne__thumb {
+                            background: linear-gradient(110deg, #ececec 8%, @grey-1 18%, #ececec 33%);
+                            animation: 1.5s shine linear infinite;
+                            background-size: 200% 100%;
+                        }
+                        .petsconfigurator__urne__name {
+                            background: linear-gradient(110deg, #ececec 8%, @grey-1 18%, #ececec 33%);
+                            animation: 1.5s shine linear infinite;
+                            background-size: 200% 100%;
+                            height: 30px;
+                            width: 100%;
+                            border-radius: 5px;
+                        }
+                        .petsconfigurator__urne__price {
+                            background: linear-gradient(110deg, #ececec 8%, @grey-1 18%, #ececec 33%);
+                            animation: 1.5s shine linear infinite;
+                            background-size: 200% 100%;
+                            height: 30px;
+                            width: 40%;
+                            border-radius: 5px;
+                            margin-top: 10px !important;
+                        }
+                    }
+
+                    @media screen and (min-width: 768px) {
+                        width: calc(33.33% - 20px);
+                        &__thumb {
+                            max-height: 260px;
+                            min-height: 260px;
+                            img {
+                                width: 260px;
+                                height: 260px;
+                            }
+                        }
+                    }
+                    @media screen and (min-width: 1024px) {
+                        width: calc(25% - 20px);
+                    }
+                    @media screen and (min-width: 1280px) {
+                        width: calc(20% - 20px);
+                    }
+                }
+            }
+            @media screen and (min-width: 1024px) {
+                justify-content: flex-start;
+            }
+
+        }
+        
+        &__h1 {
+            display: block;
+            font-weight: 600;
+            font-size: 24px;
+            color: @text;
+        }
+
+        @media screen and (min-width: 1024px) {
+            width: 40%;
+            max-width: 530px;
+        }
+    }
+
+    &__peekaboo {
+        &-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 400;
+            color: @main;
+            margin-bottom: 10px;
+            &::after {
+                content: '';
+                display: block;
+                background: url('images/configurateur/dropdown.svg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                width: 9px;
+                height: 6px;
+                margin-left: 12px;
+                transition: transform .2s ease;
+            }
+            &--open {
+                &::after {
+                    transform: scaleY(-1);
+                }
+            }
+            @media screen and (min-width: 1024px) {
+                text-align: left;
+                justify-content: flex-start;
+            }
+        }
+        &-content {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 400;
+            color: @text;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+    }
+
+    &__souvenir-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 777;
+        width: 100%;
+        height: 100%;
+        background-color: @white;
+        overflow-y: auto;
+        transform: scale(0);
+        opacity: 0;
+        transition: transform .2s ease-out, opacity .2s ease-out;
+        &--open {
+            opacity: 1;
+            transform: scale(1);
+        }
+        &__quit {
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            &::after {
+                content: '';
+                display: block;
+                background: url('images/configurateur/cross-popup.svg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        &__content {
+            .petsconfigurator__question__h1 {
+                color: @main;
+                padding: 25px;
+            }
+            .petsconfigurator__question__list-radio {
+                display: block;
+                margin-top: 40px;
+                margin-left: auto;
+                margin-right: auto;
+                li {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: 20px;
+                    span {
+                        display: block;
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: @text;
+                        margin-top: 14px;
+                    }
+                }
+                input[type=radio] {
+                    & ~ label {
+                        width: 163px;
+                        height: 168px;
+                        border-radius: 0px;
+                        background-color: @grey-1;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                }
+            }
+            .btn {
+                margin-top: 32px;
+                margin-bottom: 32px;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+        }
+        @media screen and (min-width: 1024px) {
+            max-width: 892px;
+            height: auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 20px;
+            &--open {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            .petsconfigurator__question__h1 {
+                text-align: center;
+                padding-top: 80px;
+                padding-bottom: 0;
+                font-size: 38px;
+                br {
+                    display: none;
+                }
+            }
+            .petsconfigurator__question__list-radio {
+                display: flex;
+                justify-content: center;
+                li {
+                    flex: inherit;
+                }
+            }
+            &__content {
+                .btn {
+                    margin-top: 50px;
+                    margin-bottom: 80px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            } 
+        }
+    }
+
+    &__urne-popup {
+        position: fixed;
+        max-width: 1660px !important;
+        top: 0;
+        left: 0;
+        z-index: 777;
+        width: 100%;
+        height: 100%;
+        background-color: @white;
+        overflow-y: hidden;
+        transform: scale(0);
+        opacity: 0;
+        transition: transform .2s ease-out, opacity .2s ease-out;
+        @media screen and (min-width: 1024px) {
+            max-height: 90%;
+            min-height: 90%;
+        }
+        &--open {
+            opacity: 1;
+            transform: scale(1);
+        }
+        &__quit {
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            &::after {
+                content: '';
+                display: block;
+                background: url('images/configurateur/cross-popup.svg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        &__content {
+            .petsconfigurator__question__h1 {
+                color: @main;
+                padding: 25px;
+            }
+            .petsconfigurator__question__list-radio {
+                display: block;
+                margin-top: 40px;
+                margin-left: auto;
+                margin-right: auto;
+                li {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: 20px;
+                    span {
+                        display: block;
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: @text;
+                        margin-top: 14px;
+                    }
+                }
+                input[type=radio] {
+                    & ~ label {
+                        width: 163px;
+                        height: 168px;
+                        border-radius: 0px;
+                        background-color: @grey-1;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                }
+            }
+            .btn {
+                margin-top: 32px;
+                margin-bottom: 32px;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+        }
+        @media screen and (min-width: 1024px) {
+            max-width: 892px;
+            height: auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 20px;
+            &--open {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            .petsconfigurator__question__h1 {
+                text-align: center;
+                padding-top: 80px;
+                padding-bottom: 0;
+                font-size: 38px;
+                br {
+                    display: none;
+                }
+            }
+            .petsconfigurator__question__list-radio {
+                display: flex;
+                justify-content: center;
+                li {
+                    flex: inherit;
+                }
+            }
+            &__content {
+                .btn {
+                    margin-top: 50px;
+                    margin-bottom: 80px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            } 
+        }
+    }
+
+    .input-errors {
+        .error-msg {
+            margin: 10px;
+            color: red;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 0;
+        &:not(.petsconfigurator--home) {
+            height: calc(100vh - var(--data-petsconfig-grow) - var(--data-height-header));
+        }
+    }
+
+    
+}
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}   

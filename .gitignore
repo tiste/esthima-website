@@ -1,0 +1,6 @@
+\.DS_Store
+node_modules/
+/src/wp-content/themes/esthima/js
+cache/
+*Zone.Identifier
+\wc-logs
