@@ -33,7 +33,26 @@
 						</span>
 						<div class="petsconfigurator__show-up-urne" v-if="urneShowUp != null">
 							<a href="#" @click.prevent="showDetailUrne(null)">retour</a>
-							dazdazdaz
+							<div class="petsconfigurator__show-up-urne__content">
+								<div>
+									<img :src="urneShowUp.image_url" />
+								</div>
+								<div>
+									REFERENCE: {{urneShowUp.sku}}
+									{{urneShowUp.name}}
+									{{urneShowUp.description}}
+									<hr>
+									<ul>
+										<li v-for="(variation, name) in urneShowUp.variations">
+											{{ name }}
+											<select @change="updatePrice(urneShowUp.available_variations)" :ref="el => { urneAttributesSelected[`attribute_${name}`] = el.value }">
+												<option v-for="v in variation" :value="v">{{v}}</option>
+											</select>
+										</li>
+									</ul>
+									{{urneShowUp.price}}
+								</div>
+							</div>
 						</div>
 						<ul class="petsconfigurator__question__list-radio petsconfigurator__question__list-radio--urnes" :style="(urneShowUp != null) ? 'display:none!important' : ''">
 							<li v-for="p in productsUrnes" class="petsconfigurator__urne" @click.prevent="showDetailUrne(p)">
@@ -83,6 +102,8 @@ export default {
 	const themeDirectoryUri = window.wpvar.themeDirectoryUri || ''
 
 	const imgLoaded = ref(0)
+	
+	const urneAttributesSelected = ref([])
 
 	const urneShowUp = ref(null)
 
@@ -129,6 +150,39 @@ export default {
 
 	const showDetailUrne = (urne) => {
 		urneShowUp.value = urne
+	}
+
+	const updatePrice = (availableVariations) => {
+
+		// currentAttributes[`attribute_${nameAttribute}`] = event.target.value 
+		// currentAttributes[`attribute_${nameAttribute}`] = event.target.value 
+		let foundVariations = null
+		availableVariations.map((availableVariation) => {
+			availableVariation.attributes.map((e) => {
+				const obj1Keys = Object.keys(e['attributes']).sort();
+				const obj2Keys = Object.keys(availableVariations).sort();
+				if (obj1Keys.length !== obj2Keys.length) {
+					} else {
+					const areEqual = obj1Keys.every((key, index) => {
+						const objValue1 = obj1[key];
+						const objValue2 = obj2[obj2Keys[index]];
+						return objValue1 === objValue2;
+					});
+					if (areEqual) {
+						console.log('equal')
+						foundVariations = e
+					}
+				}
+			})
+		})
+
+		// console.log('***********************')
+		// console.log(event.target.value)
+		// console.log('***********************')
+		console.log('***********************')
+		console.log(foundVariations)
+		console.log('***********************')
+
 	}
 
 	const formatCurrency = (value) => {
