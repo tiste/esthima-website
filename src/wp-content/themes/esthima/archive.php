@@ -37,7 +37,7 @@ $queryRegular = new WP_Query($argsRegular);
         </div>
         <div class="guides__tet__texts">
             <h1><?php echo $pageTitle; ?></h1>
-            <h2><?php echo $pageSubtitle; ?></h2>
+            <div class="guides__tet__texts__text"><?php echo $pageSubtitle; ?></div>
         </div>
         <div class="guides__tet__sticky" style="--bg-img: url('<?php echo str_replace("'", "\'", get_the_post_thumbnail_url($querySticky[0]->ID)); ?>')">
             <div class="guides__tet__sticky__cat">
@@ -107,7 +107,7 @@ $queryRegular = new WP_Query($argsRegular);
                 </div>
                 <?php if( ($queryRegular->current_post + 1) == ($queryRegular->post_count) ) : ?>
                 <div class="guides__posts__newsletter guides__posts__newsletter-<?php echo $i; ?>">
-                    <h3>Restez informés en vous inscrivant à notre newsletter !</h3>
+                <div class="guides__posts__newsletter__title">Restez informés en vous inscrivant à notre newsletter !</div>
                     <div class="guides__posts__newsletter__form">
 						<div>
 							<input type="email" placeholder="Votre adresse email">
