@@ -6,6 +6,7 @@ const getDefaultState = () => {
 		cendre: '',
 		ceremonieAdieu: '',
 		urne: '',
+		urneProduct: '',
 		souvenir: '',
 		gesteSouvenir: '',
 		lastNameUser: '',
@@ -66,6 +67,9 @@ const mutations = {
 	},
 	updateProductsUrnes(state, value) {
 		state.productsUrnes = value
+	},
+	updateUrneProduct(state, value) {
+		state.urneProduct = value
 	},
 	resetState(state) {
 		Object.assign(state, getDefaultState())

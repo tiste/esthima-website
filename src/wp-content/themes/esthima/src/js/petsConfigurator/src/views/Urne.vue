@@ -39,18 +39,26 @@
 								</div>
 								<div>
 									REFERENCE: {{urneShowUp.sku}}
+									<br>
 									{{urneShowUp.name}}
+									<br>
+									<span v-show="urneShowUp.stock_status == 'instock' && urneShowUp.available == true">En stock</span>
+									<br>
+									<span v-show="urneShowUp.available == false">Indisponible</span>
+									<br>
 									{{urneShowUp.description}}
+									<br>
 									<hr>
 									<ul>
 										<li v-for="(variation, name) in urneShowUp.variations">
 											{{ name }}
-											<select @change="updatePrice(urneShowUp.available_variations)" :ref="el => { urneAttributesSelected[`attribute_${name}`] = el.value }">
+											<select @change="updateProductShowUp()" :ref="el => { urneAttributesSelected[`attribute_${name}`] = el }">
 												<option v-for="v in variation" :value="v">{{v}}</option>
 											</select>
 										</li>
 									</ul>
-									{{urneShowUp.price}}
+									<span v-if="urneShowUp.available == false">Indisponible</span>
+									<span v-else>{{formatCurrency(urneShowUp.price)}}</span>
 								</div>
 							</div>
 						</div>
@@ -91,7 +99,7 @@ export default {
 </script>
 
 <script setup>
-	import { computed, onMounted, onUnmounted, ref } from 'vue'
+	import { computed, onMounted, onUnmounted, ref, nextTick } from 'vue'
 	import EventBus from '../EventBus';
 	import { useStore } from 'vuex'
 	import { useVuelidate } from '@vuelidate/core'
@@ -114,6 +122,14 @@ export default {
 		set (value) {
 			store.commit('petsConfigurator/updateUrne', value)
 			store.commit('petsConfigurator/updatePopupOpen', value)
+		}
+	})
+	const urneProduct = computed({
+		get () {
+			return store.state.petsConfigurator.UrneProduct
+		},
+		set (value) {
+			store.commit('petsConfigurator/updateUrneProduct', value)
 		}
 	})
 
@@ -150,38 +166,66 @@ export default {
 
 	const showDetailUrne = (urne) => {
 		urneShowUp.value = urne
+		if (
+			urneShowUp.value != null &&
+			urneShowUp.value.type == "variable"
+		) {
+			nextTick(() => {
+				updateProductShowUp()
+      		});
+		}
+		
 	}
 
-	const updatePrice = (availableVariations) => {
-
-		// currentAttributes[`attribute_${nameAttribute}`] = event.target.value 
-		// currentAttributes[`attribute_${nameAttribute}`] = event.target.value 
+	const updateProductShowUp = () => {
+		
+		if (
+			urneShowUp.value == null ||
+			urneShowUp.value.type != "variable"
+		) {
+			return
+		}
+		
+		let availableVariations = urneShowUp.value.available_variations
 		let foundVariations = null
+		let urneAttributesSelectedValue = {}
+		
+		Object.keys(urneAttributesSelected.value).map((nameAttrib) => {
+			if (urneAttributesSelected.value[nameAttrib]) {
+				urneAttributesSelectedValue[nameAttrib] = urneAttributesSelected.value[nameAttrib].value 
+			}
+		})
+		
 		availableVariations.map((availableVariation) => {
-			availableVariation.attributes.map((e) => {
-				const obj1Keys = Object.keys(e['attributes']).sort();
-				const obj2Keys = Object.keys(availableVariations).sort();
-				if (obj1Keys.length !== obj2Keys.length) {
-					} else {
-					const areEqual = obj1Keys.every((key, index) => {
-						const objValue1 = obj1[key];
-						const objValue2 = obj2[obj2Keys[index]];
-						return objValue1 === objValue2;
-					});
-					if (areEqual) {
-						console.log('equal')
-						foundVariations = e
-					}
+			const obj1 = urneAttributesSelectedValue
+			const obj2 = availableVariation.attributes
+			const obj1Keys = Object.keys(obj1).sort();
+			const obj2Keys = Object.keys(obj2).sort();
+			if (obj1Keys.length !== obj2Keys.length) {
+				} else {
+				const areEqual = obj1Keys.every((key, index) => {
+					const objValue1 = obj1[key];
+					const objValue2 = obj2[obj2Keys[index]];
+					return objValue1 === objValue2;
+				});
+				if (areEqual) {
+					foundVariations = availableVariation
 				}
-			})
+			}
 		})
 
-		// console.log('***********************')
-		// console.log(event.target.value)
-		// console.log('***********************')
-		console.log('***********************')
-		console.log(foundVariations)
-		console.log('***********************')
+		let tmpData = {...urneShowUp.value}
+
+		if (foundVariations) {
+			tmpData.sku = foundVariations.sku
+			tmpData.price = foundVariations.display_price
+			tmpData.stock_status = (foundVariations.is_in_stock) ? 'instock' : ''
+			tmpData.available = true
+		} else {
+			tmpData.available = false
+		}
+		
+		urneShowUp.value = tmpData
 
 	}
 

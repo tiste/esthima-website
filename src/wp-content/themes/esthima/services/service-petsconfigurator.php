@@ -27,6 +27,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 'urnes-nac'
             ]
         ]);
+     
         $urnesR = [];
         foreach ($urnes as $u) {
             $currentUrne = [];
@@ -35,9 +36,11 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 $currentUrne['sku'] = $u->sku;
                 $currentUrne['price'] = $u->get_variation_regular_price();
                 $currentUrne['name'] = $u->name;
+                $currentUrne['stock_status'] = $u->stock_status;
                 $currentUrne['description'] = $u->description;
                 $currentUrne['variations_prices'] = $u->get_variation_prices();
                 $currentUrne['variations'] = $u->get_variation_attributes();
+                $currentUrne['available'] = true;
                 $currentUrne['available_variations'] = $u->get_available_variations();
                 $currentUrne['image'] = $u->get_image();
                 $currentUrne['image_url'] = wp_get_attachment_image_url($u->get_image_id(), 'medium');
@@ -45,6 +48,8 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 $currentUrne['sku'] = $u->sku;
                 $currentUrne['price'] = $u->price;
                 $currentUrne['name'] = $u->name;
+                $currentUrne['available'] = true;
+                $currentUrne['stock_status'] = $u->stock_status;
                 $currentUrne['description'] = $u->description;
                 $currentUrne['image'] = $u->get_image();
                 $currentUrne['image_url'] = wp_get_attachment_image_url($u->get_image_id(), 'medium');
