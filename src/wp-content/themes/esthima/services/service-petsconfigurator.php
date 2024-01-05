@@ -27,7 +27,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 'urnes-nac'
             ]
         ]);
-     
+
         $urnesR = [];
         foreach ($urnes as $u) {
             $currentUrne = [];

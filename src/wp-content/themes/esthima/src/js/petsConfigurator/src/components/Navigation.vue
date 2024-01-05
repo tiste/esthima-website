@@ -4,7 +4,7 @@
 			<button @click.prevent="goPrev" class="btn btn--arrow btn--arrow-reverse btn--arrow-disable-hover petsconfigurator__navigation__button-desk">Retour</button>
 			<ProgressBar :value="percentBar" />
 			<div class="petsconfigurator__navigation__price">
-				<span>Total : <b>82,5€</b></span>
+				<span>Total : <b>{{totalPrice}}€</b></span>
 			</div>
 			<div class="petsconfigurator__navigation__buttons">
 				<button @click.prevent="goPrev" class="btn btn--arrow btn--arrow-reverse btn--arrow-disable-hover ">Retour</button>
@@ -26,10 +26,13 @@ export default {
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 import { goPrev, goNext } from '../helpers/Navigate';
 import ProgressBar from './ProgressBar'
 
-const route = useRoute();
+const route = useRoute()
+
+const store = useStore()
 
 let percentBar = computed({
 	get () {
@@ -38,6 +41,12 @@ let percentBar = computed({
 		} else {
 			return 10
 		}
+	}
+})
+
+const totalPrice = computed({
+	get () {
+		return store.getters['petsConfigurator/totalPrice']
 	}
 })
 
