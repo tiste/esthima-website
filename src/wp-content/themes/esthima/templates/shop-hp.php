@@ -67,6 +67,13 @@ get_header('shop');
         <a href="<?php echo get_term_link(get_field('solo_cat')); ?>" class="btn btn--arrow"><?php echo get_field('solo_ctatext') ?></a>
     </div>
 
+    <div class="shop__seo">
+        <h1><?php echo get_field('seo_title'); ?></h1>
+        <div class="shop__seo__text">
+            <?php echo get_field('seo_text'); ?>
+        </div>
+    </div>
+
 </main>
 
 <?php get_footer('shop'); ?>

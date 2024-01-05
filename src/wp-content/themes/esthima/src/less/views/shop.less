@@ -691,4 +691,67 @@
             }
         }
     }
+    &__seo{
+        margin: 0 auto 40px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        @media (min-width: 768px){
+            margin: 0 auto 107px;
+            width: 98%;
+            max-width: 920px;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        @media (min-width: 1440px){
+            margin: 0 auto 128px;
+            max-width: 1104px;
+        }
+        @media (min-width: 1680px){
+            margin: 0 auto 160px;
+            max-width: 1380px;
+        }
+        > h1{
+            margin: 0 0 20px;
+            width: 100%;
+            color: @main;
+            font-family: @main-font;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.6;
+            @media (min-width: 768px){
+                margin: 0 0 0;
+                width: 30.43%;
+                font-size: 19px;
+            }
+            @media (min-width: 1440px){
+                font-size: 23px;
+            }
+            @media (min-width: 1680px){
+                font-size: 28px;
+            }
+        }
+        > div{
+            width: 100%;
+            color: @text;
+            font-family: @main-font;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.6;
+            @media (min-width: 768px){
+                width: 59.42%;
+                font-size: 12px;
+            }
+            @media (min-width: 1440px){
+                font-size: 14px;
+            }
+            @media (min-width: 1680px){
+                font-size: 18px;
+            }
+        }
+    }
 }
