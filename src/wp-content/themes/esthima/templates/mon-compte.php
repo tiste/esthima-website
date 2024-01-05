@@ -43,16 +43,23 @@ get_header();
                 <?php endwhile; ?>
 
             <?php else : ?>
-                <div class="inscription">
-                    <div class="inscription__login">
-                        <h2>Connexion</h2>
-                        <?php echo do_shortcode('[gravityform action="login" title="false" description="false" logged_in_avatar="false" logged_in_message="Vous êtes bien connecté" login_redirect="'.home_url('/').'mon-compte/" logout_redirect="'.home_url('/').'" registration_link_display="false" forgot_password_display="true" /]'); ?>
+                <?php if(strpos($_SERVER['REQUEST_URI'],'/lost-password') !== false) : ?>
+                    <div class="reset-pass">
+                        <?php the_content() ?>
+                        <a href="<?php echo home_url('/'); ?>mon-compte" class="reset-pass__back">Retour</a>
                     </div>
-                    <div class="inscription__register">
-                        <h2>Inscription</h2>
-                        <?php echo do_shortcode('[gravityform id="4" title="false" description="false" ajax="true"]'); ?>
+                <?php else : ?>
+                    <div class="inscription">
+                        <div class="inscription__login">
+                            <h2>Connexion</h2>
+                            <?php echo do_shortcode('[gravityform action="login" title="false" description="false" logged_in_avatar="false" logged_in_message="Vous êtes bien connecté" login_redirect="'.home_url('/').'mon-compte/" logout_redirect="'.home_url('/').'" registration_link_display="false" forgot_password_display="true" /]'); ?>
+                        </div>
+                        <div class="inscription__register">
+                            <h2>Inscription</h2>
+                            <?php echo do_shortcode('[gravityform id="4" title="false" description="false" ajax="true"]'); ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
             <?php endif; ?>
 
         </div>

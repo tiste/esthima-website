@@ -643,6 +643,16 @@ function getCookie(cName) {
 		})
 		/* /connexion/inscription - positionnement labels */
 
+		/* reset pass - positionnement labels */
+		$('.reset-pass .lost_reset_password .form-row input').on('input', function(){
+			if($(this).val()==null || $(this).val()==''){
+				$(this).parents('.form-row').removeClass('label-written')
+			}else{
+				$(this).parents('.form-row').addClass('label-written')
+			}
+		})
+		/* /reset pass - positionnement labels */
+
 	});
 	
 })(window, jQuery);
