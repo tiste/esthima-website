@@ -46,7 +46,7 @@ get_header();
                 <div class="inscription">
                     <div class="inscription__login">
                         <h2>Connexion</h2>
-                        <?php echo do_shortcode('[gravityform action="login" title="false" description="false" logged_in_avatar="false" logged_in_message="Vous êtes bien connecté" login_redirect="'.home_url('/').'mon-compte/" logout_redirect="'.home_url('/').'" registration_link_display="false" forgot_password_display="false" /]'); ?>
+                        <?php echo do_shortcode('[gravityform action="login" title="false" description="false" logged_in_avatar="false" logged_in_message="Vous êtes bien connecté" login_redirect="'.home_url('/').'mon-compte/" logout_redirect="'.home_url('/').'" registration_link_display="false" forgot_password_display="true" /]'); ?>
                     </div>
                     <div class="inscription__register">
                         <h2>Inscription</h2>
