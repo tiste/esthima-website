@@ -48,7 +48,7 @@ deploy-recette:
     - theme_path="/var/www/html/wp-content/themes/esthima/"
     - plugin_path="/var/www/html/wp-content/plugins"
     - upload_path="/var/www/html/wp-content/uploads"
-    - curl -s https://deb.nodesource.com/setup_16.x | sudo bash
+    - curl -s https://deb.nodesource.com/setup_16.x
     - sudo apt-get install nodejs -y
     - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
     - rm -rf ./node_modules
