@@ -44,10 +44,10 @@
             <div class="guide__body__sharerate__share">
             <div class="guide__body__sharerate__share__title">Partager l'article</div>
                 <div class="guide__body__sharerate__share__links">
-                    <a href="#">
+                    <a href="https://facebook.com/sharer.php?u=<?php echo home_url('').$_SERVER['REQUEST_URI']; ?>" target="_blank">
                         <img src="<?php echo get_template_directory_uri(); ?>/images/social/facebook-round.svg" alt="Facebook">
                     </a>
-                    <a href="#">
+                    <a href="https://www.linkedin.com/shareArticle?url=<?php echo home_url('').$_SERVER['REQUEST_URI']; ?>&title=<?php echo str_replace(' ', '%20', get_the_title()); ?>&summary=<?php echo str_replace(' ', '%20', get_the_title()); ?>&source=<?php echo $_SERVER['HTTP_HOST']; ?>" target="_blank">
                         <img src="<?php echo get_template_directory_uri(); ?>/images/social/linkedin-round.svg" alt="Facebook">
                     </a>
                     <a href="#">
