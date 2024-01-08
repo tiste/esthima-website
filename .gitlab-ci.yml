@@ -15,7 +15,6 @@ deploy-stage-krealid:
     - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - echo "$GITLAB_USER_LOGIN"
     - mkdir -p ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - echo $SSH_PRIVATE_KEY
@@ -25,8 +24,6 @@ deploy-stage-krealid:
     - upload_path=${root}"/src/wp-content/uploads"
     - exclude_path=${root}"/src/wp-content/themes/esthima/_private/cmd/rsync_exclude.txt"
     - include_path=${root}"/src/wp-content/themes/esthima/_private/cmd/rsync_include.txt"
-    - mkdir testFX
-    - echo pwd
     - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
     - rm -rf ./node_modules
     - currentRelease=$(date +%s)
@@ -51,6 +48,9 @@ deploy-recette:
     - theme_path="/var/www/html/wp-content/themes/esthima/"
     - plugin_path="/var/www/html/wp-content/plugins"
     - upload_path="/var/www/html/wp-content/uploads"
+    - echo "$GITLAB_USER_LOGIN"
+    - mkdir testFX
+    - echo pwd
     - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
     - rm -rf ./node_modules
     - currentRelease=$(date +%s)
