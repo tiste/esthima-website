@@ -17,7 +17,6 @@
 		"@babel/core": "^7.1.6",
 		"@babel/preset-env": "^7.1.6",
 		"@hail2u/css-mqpacker": "github:hail2u/node-css-mqpacker#v8.0.1",
-		"@vue/compiler-sfc": "^3.4.5",
 		"babel-eslint": "^10.1.0",
 		"babel-loader": "^8.0.4",
 		"browser-sync": "^2.27.7",
