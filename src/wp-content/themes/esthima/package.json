@@ -42,7 +42,7 @@
 		"vue-loader": "^16.0.0",
 		"webpack": "^5.69.1",
 		"webpack-stream": "^7.0.0",
-		"vue/compiler-sfc": "npm:@vue/compiler-sfc@^3"
+		"@vue/compiler-sfc": "npm:@vue/compiler-sfc@^3"
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.4.4",
