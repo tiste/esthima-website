@@ -32,8 +32,10 @@
 					</div>
 					<div class="footer__top__left__form newsletterForm">
 						<div>
-							<input type="email" placeholder="Votre adresse email">
-							<input type="submit">
+							<form action="<?php echo home_url('inscription-a-la-newsletter'); ?>" method="GET">
+								<input type="email" name="email" placeholder="Votre adresse email">
+								<input type="submit">
+							</form>
 						</div>
 						<div class="footer__top__left__form__check">
 							<input type="checkbox" id="newsletterconsent" name="newsletterconsent">

@@ -1,2 +1,9 @@
 2023-11-16T08:38:17+00:00 INFO [UPGRADE CHECK] Got remaining rate from GitHub  : 58
 2023-11-16T08:38:18+00:00 INFO [UPGRADE CHECK] Got latest version from GitHub : 2.3.1
+2023-11-16T13:01:54+00:00 INFO [UPGRADE CHECK] Got remaining rate from GitHub  : 60
+2023-11-16T13:01:55+00:00 INFO [UPGRADE CHECK] Got latest version from GitHub : 2.3.1
+2023-11-16T13:41:04+00:00 INFO [UPGRADE CHECK] Last check is less than 1 hour ago, getting from local save : 2.3.1
+2023-11-16T13:41:06+00:00 INFO [UPGRADE CHECK] Last check is less than 1 hour ago, getting from local save : 2.3.1
+2023-11-16T13:41:06+00:00 INFO [UPGRADE CHECK] Last check is less than 1 hour ago, getting from local save : 2.3.1
+2023-11-16T13:41:08+00:00 INFO [UPGRADE CHECK] Last check is less than 1 hour ago, getting from local save : 2.3.1
+2023-11-16T13:41:16+00:00 INFO [UPGRADE CHECK] Last check is less than 1 hour ago, getting from local save : 2.3.1

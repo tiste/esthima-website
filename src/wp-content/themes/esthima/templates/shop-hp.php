@@ -34,12 +34,14 @@ get_header('shop');
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <a href="<?php echo get_term_link($c['cat']); ?>" class="btn btn--arrow">Découvrir la collection</a>
+                    <a href="<?php echo get_term_link($c['cat']); ?>" class="btn btn--arrow"><?php echo $c['cta_text']; ?></a>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
     <?php endif; ?>
+
+    <a href="<?php echo get_the_permalink(intval(get_option('woocommerce_shop_page_id'))); ?>" class="btn btn--arrow shop__all">Tous nos produits</a>
 
     <div class="shop__solo">
         <h2><?php echo get_field('solo_title'); ?></h2>

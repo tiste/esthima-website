@@ -1,0 +1,219 @@
+.rappel{
+    &__form-title {
+        color: @main !important;
+        font-size: 20px !important;
+        font-weight: 600 !important;
+        line-height: 120% !important;
+    }
+    &__grid{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 16px;
+        margin: 30px auto;
+        @media (min-width: 768px){
+            grid-template-columns: repeat(2, 1fr);
+            gap: 11px;
+            margin: 20px auto;
+        }
+        @media (min-width: 1440px){
+            gap: 13px;
+            margin: 24px auto;
+        }
+        @media (min-width: 1680px){
+            gap: 16px;
+            margin: 30px auto;
+        }
+    }
+    &__empty{
+        display: none;
+        @media (min-width: 768px){
+            display: block;
+        }
+    }
+    &__full{
+        @media (min-width: 768px){
+            grid-column: span 2;
+        }
+    }
+    .has-label{
+        position: relative;
+        &.has-label-written{
+            > label{
+                top: 12px;
+                font-size: 12px;
+                font-weight: 400;
+                @media (min-width: 768px){
+                    top: 8px;
+                    font-size: 12px;
+                }
+                @media (min-width: 1440px){
+                    top: 10px;
+                    font-size: 12px;
+                }
+                @media (min-width: 1680px){
+                    top: 12px;
+                    font-size: 12px;
+                }
+            }
+        }
+        > label{
+            margin: 0;
+            position: absolute;
+            top: 20px; left: 28px;
+            color: @text;
+            font-family: @main-font;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1;
+            transition: 0.3s;
+            @media (min-width: 768px){
+                top: 13px; left: 19px;
+                font-size: 12px;
+            }
+            @media (min-width: 1440px){
+                top: 16px; left: 22px;
+                font-size: 13px;
+            }
+            @media (min-width: 1680px){
+                top: 20px; left: 28px;
+                font-size: 16px;
+            }
+        }
+        > input{
+            padding: 30px 28px 15px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            @media (min-width: 768px){
+                padding: 20px 19px 10px 19px;
+                font-size: 12px;
+            }
+            @media (min-width: 1440px){
+                padding: 24px 22px 12px 22px;
+                font-size: 13px;
+            }
+            @media (min-width: 1680px){
+                padding: 30px 28px 15px 28px;
+                font-size: 16px;
+            }
+        }
+    }
+    select{
+        display: block;
+        width: 100%;
+        border: 1px solid #D4D4D4;
+        border-radius: 100px;
+        color: @text;
+        font-family: @main-font;
+        font-style: normal;
+        font-size: 16px;
+        padding: 0 24px;
+        height: 56px;
+        line-height: 1;
+        appearance: none;
+        background-image: url('images/arrow-down-pink.svg');
+        background-position: center right 18px;
+        background-repeat: no-repeat;
+        background-size: 20px;
+        @media (min-width: 768px){
+            font-size: 12px;
+            padding: 0 16px;
+            height: 37px;
+            background-position: center right 12px;
+            background-size: 13px;
+        }
+        @media (min-width: 1440px){
+            font-size: 13px;
+            padding: 0 19px;
+            height: 45px;
+            background-position: center right 14px;
+            background-size: 16px;
+        }
+        @media (min-width: 1680px){
+            font-size: 16px;
+            padding: 0 24px;
+            height: 56px;
+            background-position: center right 18px;
+            background-size: 20px;
+        }
+    }
+    input[type=text],
+    input[type=tel]{
+        display: block;
+        width: 100%;
+        border: 1px solid #D4D4D4;
+        border-radius: 100px;
+        color: @text;
+        font-family: @main-font;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        padding: 0 24px;
+        height: 56px;
+        line-height: 1;
+        @media (min-width: 768px){
+            font-size: 12px;
+            padding: 0 16px;
+            height: 37px;
+        }
+        @media (min-width: 1440px){
+            font-size: 13px;
+            padding: 0 19px;
+            height: 45px;
+        }
+        @media (min-width: 1680px){
+            font-size: 16px;
+            padding: 0 24px;
+            height: 56px;
+        }
+    }
+    input[type=submit]{
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
+        padding: 18px 56px 18px 42px;
+        border-radius: 100px;
+        background-color: @main;
+        color: @white;
+        font-family: @main-font;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        background-image: url('images/arrow-right-white.svg');
+        background-position: center right 25px;
+        background-repeat: no-repeat;
+        background-size: 20px;
+        transition: 0.3s;
+        @media (min-width: 768px){
+            padding: 12px 37px 12px 28px;
+            font-size: 12px;
+            background-position: center right 17px;
+            background-size: 13px;
+        }
+        @media (min-width: 1440px){
+            padding: 14px 45px 14px 34px;
+            font-size: 13px;
+            background-position: center right 20px;
+            background-size: 16px;
+        }
+        @media (min-width: 1680px){
+            padding: 18px 56px 18px 42px;
+            font-size: 16px;
+            background-position: center right 25px;
+            background-size: 20px;
+        }
+        &:hover{
+            padding: 18px 70px 18px 42px;
+            @media (min-width: 768px){
+                padding: 12px 48px 12px 28px;
+            }
+            @media (min-width: 1440px){
+                padding: 14px 57px 14px 34px;
+            }
+            @media (min-width: 1680px){
+                padding: 18px 70px 18px 42px;
+            }
+        }
+    }
+}

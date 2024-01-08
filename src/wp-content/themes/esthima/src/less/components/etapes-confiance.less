@@ -1,0 +1,42 @@
+.etapes {
+    .flex(@justify:center);
+}
+
+.etapes-card {
+    background-color: @lightbg;
+    width: 400px;
+    border-radius: 95px;
+    padding: 10px 16px; 
+    .flex(@align-items:center);
+    column-gap: 30px;
+    &__img {
+        background-color: @white;
+        border-radius: 50%;
+        width: 105px;
+        height: 105px;
+        .flex(@justify:center, @align-items : center);
+        &__container {
+            .flex(@justify:center, @align-items : center);
+            border: 1px @lightbg solid;
+            border-radius: 50%;
+            width: 93px;
+            height: 93px;
+
+            img {
+                width: 60px;
+            }
+        }
+    }
+    &__text {
+        &__step {
+            color: @main;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 2.1px;
+            text-transform: uppercase;
+        }
+        &__detail {
+            font-size: 19px;
+        }
+    }
+}

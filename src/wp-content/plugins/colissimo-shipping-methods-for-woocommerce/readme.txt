@@ -2,8 +2,8 @@
 Contributors: iscpcolissimo
 Tags: shipping, colissimo, woocommerce
 Requires at least: 4.7
-Tested up to: 6.1
-Stable tag: 1.9.0
+Tested up to: 6.4
+Stable tag: 1.9.1
 Requires PHP: 7.4.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -57,6 +57,25 @@ L’e-acheteur peut suivre sur son espace client le parcours de son colis et eff
 
 
 == Changelog ==
+
+## 1.9.1
+
+AMÉLIORATIONS
+
+* Les prix par défaut installés à la première activation ont été mis à jour pour suivre la grille tarifaire de 2023
+* Les codes courts {order_date} et {order_number} sont à présent disponibles dans le sujet des emails de suivi Colissimo
+* La génération d'une étiquette depuis la page d'édition d'une commande a été revue pour le HPOS
+* La librairie TCPDF utilisée pour la génération des factures a été mise à jour
+* Un message informatif a été ajouté pour les comptes Facilité n'ayant pas encore accepté les CGV
+* De multiples sécurités ont été ajoutées suites aux modifications pour le HPOS afin de s'assurer que la commande existe bien lors de diverses manipulations
+
+CORRECTIFS
+
+* La redirection après suppression d'un bordereau depuis la page d'édition d'une commande a été corrigée
+* L'application d'une méthode de livraison Colissimo depuis la page d'édition d'une commande a été corrigé
+* Une sécurité a été ajoutée lors de la mise à jour des données relatives aux bordereaux pour les versions antérieures à la v1.8.2
+* Correction de la mise à jour des statuts Colissimo pour les commandes avec numéros de suivi importés
+
 
 ## 1.9.0
 

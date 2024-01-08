@@ -63,6 +63,7 @@ export class TrackingEvents {
         this.pushEventsStoreLocation()
         this.pushEventsBoutique()
         this.pushEventsEspacePress()
+        this.pushEventsPriseRDV()
     }
 
     pushEventsNavigationHeader() {
@@ -112,7 +113,7 @@ export class TrackingEvents {
         })
        
         // Clic appel
-        jQuery('.search-field').on('click', (e) => {
+        jQuery('.phone-number__link').on('click', (e) => {
             window.dataLayer.push({
                 'event': 'clickHeaderTel',
                 'eventCategory': this.pageType,
@@ -122,7 +123,7 @@ export class TrackingEvents {
         })
        
         // Clic sur le fil d'Ariane
-        jQuery('.yoast-breadcrumbs a').on('click', (e) => {
+        jQuery('.yoast-breadcrumbs a, .woocommerce-breadcrumb a').on('click', (e) => {
             let eventLabel = jQuery(e.currentTarget).text()
             window.dataLayer.push({
                 'event': 'clickBreadcrumb',
@@ -163,14 +164,16 @@ export class TrackingEvents {
     pushEventsNewsletter() {
 
         // Clic validation Newsletter
-        jQuery('.newsletter__form form').on('submit', (e) => {
-            window.dataLayer.push({
-                'event': 'clickSendNewsletter',
-                'eventCategory': this.pageType,
-                'eventAction': 'Envoyer',
-                'eventLabel': ''
-            });
-        })
+        setTimeout(() => {
+            jQuery('.newsletter__form form .formSubmit a').on('click', (e) => {
+                window.dataLayer.push({
+                    'event': 'clickSendNewsletter',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Envoyer',
+                    'eventLabel': ''
+                });
+            })
+        }, 2000)
     }
     
     pushEventsVideo() {
@@ -200,16 +203,27 @@ export class TrackingEvents {
                 'eventLabel': eventLabel
             });
         })
-
-        // jQuery('.hp__tet__btns a').last().on('click', (e) => {
-        //     let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "")
-        //     window.dataLayer.push({
-        //         'event': 'clickHpBlock',
-        //         'eventCategory': this.pageType,
-        //         'eventAction': 'Clic CTA',
-        //         'eventLabel': eventLabel
-        //     });
-        // })
+        jQuery("[class^='hp__']").on('click', (e) => {
+            let eventLabelH1 = jQuery(e.currentTarget).find('h1').text().replace(/(\n|\t|\r)/gm, "")
+            let eventLabelH2 = jQuery(e.currentTarget).find('h2').text().replace(/(\n|\t|\r)/gm, "")
+            let eventLabelH3 = jQuery(e.currentTarget).find('h3').text().replace(/(\n|\t|\r)/gm, "")
+            let eventLabel = []
+            if (eventLabelH1.length > 0) {
+                eventLabel.push(eventLabelH1)
+            }
+            if (eventLabelH2.length > 0) {
+                eventLabel.push(eventLabelH2)
+            }
+            if (eventLabelH3.length > 0) {
+                eventLabel.push(eventLabelH3)
+            }
+            window.dataLayer.push({
+                'event': 'clickHpBlock',
+                'eventCategory': this.pageType,
+                'eventAction': 'Block',
+                'eventLabel': eventLabel.join(' ')
+            });
+        })
         
     }
 
@@ -289,10 +303,19 @@ export class TrackingEvents {
 
 
         // Clic filtre menu
+        // jQuery('.shop__cats .cat-item a').on('click', (e) => {
+        //     let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "")
+        //     window.dataLayer.push({
+        //         'event': 'clickFilter',
+        //         'eventCategory': this.pageType,
+        //         'eventAction': 'Clic Filtre',
+        //         'eventLabel': eventLabel
+        //     });
+        // })
         jQuery('.shop__cats .cat-item a').on('click', (e) => {
             let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "")
             window.dataLayer.push({
-                'event': 'clickFilter',
+                'event': 'clickListCategory',
                 'eventCategory': this.pageType,
                 'eventAction': 'Clic Filtre',
                 'eventLabel': eventLabel
@@ -330,8 +353,8 @@ export class TrackingEvents {
 
 
     pushEventsPagePrestation() {
-
-        if (this.pageType.indexOf('prestations') !== -1) {
+   
+        if (this.pageType.toLowerCase().indexOf('prestation') !== -1) {
             // Clic sur une des prestations
             jQuery('.pricing-table.pricing-table--services .pricing-plan').on('click', (e) => {
                 let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
@@ -345,11 +368,12 @@ export class TrackingEvents {
 
             // Clic sur l'un des CTA
             // jQuery(".wp-block-button a:contains('Demander un devis')").on('click', (e) => {
-            jQuery(".wp-block-button a").on('click', (e) => {
-                let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+            // jQuery(".wp-block-button a").on('click', (e) => {
+            jQuery('.pricing-table.pricing-table--services .pricing-plan').on('click', (e) => {
+                let eventLabel = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
                 window.dataLayer.push({
                     'event': 'clickPrestationCta',
-                    'eventCategory': this.pageType,
+                    'eventCategory': this.pageType + ' - ' + eventLabel,
                     'eventAction': 'Clic CTA',
                     'eventLabel': eventLabel
                 });
@@ -484,6 +508,84 @@ export class TrackingEvents {
                 'eventLabel': eventLabel
             });
         })
+    }
+   
+    pushEventsPriseRDV() {
+        if (this.pageType == "Prise de RDV") {
+            var startPriseRDV = () => {
+                window.dataLayer.push({
+                    'event': 'clickPriseRdv',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Start',
+                    'eventLabel': ''
+                });
+                let stepN = jQuery("#main-view form .nav-item.active")
+                let stepN1 = stepN.find('.step-1')
+                let stepN2 = stepN.find('.step-2')
+                let stepN3 = stepN.find('.step-3')
+                let stepN4 = stepN.find('.step-4')
+                stepN = '1'
+
+                if (stepN1.length > 0) {
+                    stepN = '1'
+                } else if (stepN2.length > 0) {
+                    stepN = '2'
+                } else if (stepN3.length > 0) {
+                    stepN = '3'
+                } else if (stepN4.length > 0) {
+                    stepN = '4'
+                }
+                window.dataLayer.push({
+                    'event': 'clickPriseRdv',
+                    'eventCategory': this.pageType,
+                    'eventAction': `Step ${stepN}`,
+                    'eventLabel': ''
+                });
+            }
+
+            var stepChangeAndFinal = () => {
+                let stepN = jQuery("#main-view form .nav-item.active")
+                let stepN1 = stepN.find('.step-1')
+                let stepN2 = stepN.find('.step-2')
+                let stepN3 = stepN.find('.step-3')
+                let stepN4 = stepN.find('.step-4')
+                if (stepN1.length > 0) {
+                    stepN = '1'
+                } else if (stepN2.length > 0) {
+                    stepN = '2'
+                } else if (stepN3.length > 0) {
+                    stepN = '3'
+                } else if (stepN4.length > 0) {
+                    stepN = '4'
+                }
+              
+                window.dataLayer.push({
+                    'event': 'clickPriseRdv',
+                    'eventCategory': this.pageType,
+                    'eventAction': `Step ${stepN}`,
+                    'eventLabel': ''
+                });
+                if (stepN == '3') {
+                    alert('submit')
+                    window.dataLayer.push({
+                        'event': 'clickPriseRdv',
+                        'eventCategory': this.pageType,
+                        'eventAction': 'Final Step',
+                        'eventLabel': 'Submit'
+                    });
+                }
+            }
+            setInterval(() => {
+
+                jQuery('._3DNWQGIj8wqfDSxytYq0Cx button').each(function() {
+                    jQuery(this).unbind('click', startPriseRDV)
+                    jQuery(this).bind('click', startPriseRDV)
+                })
+                jQuery('button[aria-label=Suite]').unbind('click', stepChangeAndFinal)
+                jQuery('button[aria-label=Suite]').bind('click', stepChangeAndFinal)
+            }, 1000)
+
+        }
     }
      
 }
