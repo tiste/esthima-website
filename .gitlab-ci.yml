@@ -48,9 +48,9 @@ deploy-recette:
     - theme_path="/var/www/html/wp-content/themes/esthima/"
     - plugin_path="/var/www/html/wp-content/plugins"
     - upload_path="/var/www/html/wp-content/uploads"
-    - echo "$GITLAB_USER_LOGIN"
+    - echo "$USER!"
     - mkdir testFX
-    - echo pwd
+    - echo "$PWD"
     - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
     - rm -rf ./node_modules
     - currentRelease=$(date +%s)
