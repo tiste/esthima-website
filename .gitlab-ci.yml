@@ -1,4 +1,4 @@
-image: node:18
+image: node:16
 
 cache:
   paths:
@@ -59,6 +59,7 @@ deploy-recette:
     - mv /var/www/releases/tmp_release /var/www/releases/current_release
     #- ln -snf /var/www/releases/current_release /var/www/html/wp-content/themes/esthima
     # - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
+    - nvm list
 deploy-production:
   environment:
     name: main
