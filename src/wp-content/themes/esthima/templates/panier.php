@@ -8,6 +8,11 @@ get_header('shop');
 
 <main class="main main-content panier">
     <div class="panier__top">
+        <div class="panier__top__breadcrumbs">
+            <a href="<?php echo home_url('/'); ?>boutique">Boutique</a>
+            >
+            Panier
+        </div>
         <h1>Mon panier <span>/ <?php echo WC()->cart->get_cart_contents_count(); echo (WC()->cart->get_cart_contents_count()>1) ? ' articles' : ' article'; ?> </span></h1>
         <?php the_content(); ?>
         <div class="back-container">
