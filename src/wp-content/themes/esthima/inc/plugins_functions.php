@@ -96,3 +96,16 @@ function lw_variable_product_price( $v_price, $v_product ) {
         return $v_price;
     }
 }
+
+// ajout validation tel francais
+add_filter( 'gform_phone_formats', 'fr_phone_format' );
+function fr_phone_format( $phone_formats ) {
+    $phone_formats['fr'] = array(
+        'label'       => 'France',
+        'mask'        => '9 99 99 99 99',
+        'regex'       => '/^[1|2|3|4|5|6|7|8|9][0-9]{8}$/',
+        'instruction' => false,
+    );
+ 
+    return $phone_formats;
+}
