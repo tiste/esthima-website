@@ -65,7 +65,10 @@
     L&#39;animal est pucé :<input  id="00N0800000KQERi" name="00N0800000KQERi" type="checkbox" value="1" /><br>
     L&#39;animal est tatoué :<input  id="00N0800000KQERj" name="00N0800000KQERj" type="checkbox" value="1" /><br>
     <br>
-    <input id="consent" name="consent" type="checkbox" value="1" class="h-mr-8"/><label for="consent">J’accepte que mon adresse électronique soit transmise aux <a href="<?php echo the_permalink('crematoriums') ?>">"partenaires"</a> de la société Esthima à des fins de prospection commerciale par courrier électronique.</label>
+    <input id="consent" name="consent" type="checkbox" value="1" class="h-mr-8"/><label for="consent">
+        En cochant cette case, j’autorise la société Incineris SASU à transmettre mes coordonnées à la société Mésange Prévoyance à des fins de prospection par téléphone ou par courrier électronique.
+        <!-- J’accepte que mon adresse électronique soit transmise aux <a href="<?php echo the_permalink('crematoriums') ?>">"partenaires"</a> de la société Esthima à des fins de prospection commerciale par courrier électronique. -->
+    </label>
     <input type="submit" name="submit">
     </form>
 </main>
