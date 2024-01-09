@@ -106,6 +106,12 @@ function fr_phone_format( $phone_formats ) {
         'regex'       => '/^[1|2|3|4|5|6|7|8|9][0-9]{8}$/',
         'instruction' => false,
     );
+    $phone_formats['fr2'] = array(
+        'label'       => 'France avec 0',
+        'mask'        => '99 99 99 99 99',
+        'regex'       => '/^[0][1|2|3|4|5|6|7|8|9][0-9]{8}$/',
+        'instruction' => false,
+    );
  
     return $phone_formats;
 }
