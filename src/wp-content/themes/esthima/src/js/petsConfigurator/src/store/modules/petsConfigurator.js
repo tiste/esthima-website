@@ -15,6 +15,8 @@ const getDefaultState = () => {
 		popupOpen: false,
 		productsUrnes: [],
 		cremationChoice: '',
+		prixEmpreinte: 20,
+		prixTouffe: 20,
 		cremations: {
 			"privee": {
 				"nac": "239",
@@ -34,35 +36,42 @@ const state = getDefaultState()
 
 // getters
 const getters = {
-	totalPrice(state) {
+	totalPrice(state, getters) {
 		let price = 0
 
 		//urne 
 		if(state.urne && state.urneProduct) {
 			if (state.urneProduct['type'] == "variation" && state.urneProduct.variation_selected) {
-				price = eval(price + state.urneProduct.display_price.display_price)
+				price = parseFloat(price) + parseFloat(state.urneProduct.display_price.display_price)
 			} else {
-				price = eval(price + state.urneProduct.price)
+				price = parseFloat(price) + parseFloat(state.urneProduct.price)
 			}
 		}
 
 		//geste souvenir
 		if (state.souvenir) {
 			if (state.gesteSouvenir == "empreinte") {
-				// price = price + prixEmpreinte
+				price = parseFloat(price) + state.prixEmpreinte
 			} else {
-				// price = price + prixTouffe
-			}
-			price = price + 20
-		}
-		//ceremonie
-		if (state.ceremonieAdieu) {
-			if (state.cremationChoice) {
-				price = eval(price + state.cremations[state.cremationChoice][state.typeAnimal])
+				price = parseFloat(price) + state.prixTouffe
 			}
 		}
 
+		//ceremonie
+		if (state.ceremonieAdieu !== '') {
+			let cremationChoice = getters.cremationChoice
+			price = parseFloat(price) + parseFloat(state.cremations[cremationChoice][state.typeAnimal])
+		}
+
 		return price
+	},
+	cremationChoice(state) {
+		let cremationChoice = state.ceremonieAdieu ? 'privee' : 'reference'
+		return cremationChoice
+	},
+	priceCremation(state, getters) {
+		let cremationChoice = getters.cremationChoice
+		return state.cremations[cremationChoice][state.typeAnimal]
 	}
 }
 

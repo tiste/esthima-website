@@ -20,7 +20,7 @@
 				</div>
 				<div class="input-text">
 					<input type="text" id="lastNameUser" v-model="firstNameUser" placeholder=" ">
-					<label for="firstNameUser">Prénom<i style="color:red;">*</i></label>
+					<label for="lastNameUser">Prénom<i style="color:red;">*</i></label>
 				</div>
 				<div class="input-errors" v-for="error of v$.firstNameUser.$errors" :key="error.$uid">
 					<div class="error-msg">{{ error.$message }}</div>

@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import store from "./store/index";
 
 import Home from './views/Home';
 import InfoAnimal from './views/InfoAnimal';
@@ -78,7 +79,7 @@ const router = createRouter({
           backPath: 'Urne',
           nextPath: 'Info',
           percent: 80
-        }
+        },
     },
     {
         path: '/informations',
@@ -96,10 +97,16 @@ const router = createRouter({
         component: Recap,
         meta: {
           backPath: 'Info',
-          nextPath: ''
+          nextPath: '',
+          percent: 0
         }
     },
   ],
 });
+
+// router.beforeEach((to, from) => {
+//   console.log('zz')
+//   store.commit('petsConfigurator/updatePopupOpen', false)
+// })
 
 export default router;

@@ -1,8 +1,9 @@
 <?php if (!defined('ABSPATH')) exit; // Exit if accessed directly
-/**
- * Exemple de service REST de WP.
- * Le service pourra être appelé comme ceci: `http://{hote}/wp-json/{API_SITE_DOMAINE}/v{API_SITE_VERSION}/{route}`
- */
+
+require_once __DIR__ . "/../inc/dompdf/autoload.inc.php";
+
+use Dompdf\Dompdf;
+
 class ServicePetsconfigurator extends WP_REST_Controller
 {
     public function register_routes()
@@ -12,6 +13,14 @@ class ServicePetsconfigurator extends WP_REST_Controller
         register_rest_route($namespace, '/urnes', array(
             'methods' => 'GET',
             'callback' => array($this, 'getUrnes')
+        ));
+        register_rest_route($namespace, '/register-devis', array(
+            'methods' => 'POST',
+            'callback' => array($this, 'registerDevis')
+        ));
+        register_rest_route($namespace, '/generate-pdf', array(
+            'methods' => 'GET',
+            'callback' => array($this, 'generatePDF')
         ));
     }
 
@@ -62,6 +71,75 @@ class ServicePetsconfigurator extends WP_REST_Controller
 
         return new WP_REST_Response($urnesR, 200);
     }
+    
+
+    public function registerDevis(WP_REST_Request $request)
+    {
+        $espece = $request->get_param('espece');
+        $nom = $request->get_param('nom');
+        $recuperation_cendres = $request->get_param('recuperation_cendres');
+        $ceremonie_adieu = $request->get_param('ceremonie_adieu');
+        $urne = $request->get_param('urne');
+        $urne_sku = $request->get_param('urne_sku');
+        $geste_souvenir = $request->get_param('geste_souvenir');
+        $cremation = $request->get_param('cremation');
+        $prix_urne = $request->get_param('prix_urne');
+        $prix_geste_souvenir = $request->get_param('prix_geste_souvenir');
+        $prix_cremation = $request->get_param('prix_cremation');
+        $prix_total = $request->get_param('prix_total');
+        $email = $request->get_param('email');
+        $nom_personne = $request->get_param('nom_personne');
+        $prenom_personne = $request->get_param('prenom_personne');
+        $compte = $request->get_param('userID');
+        $postTitle = $espece . ' - ' . $nom . ' - ' . $email;
+
+        $post_id = wp_insert_post(array(
+            'post_title'    => $postTitle,
+            'post_content' => '',
+            'post_status'   => 'publish',
+            'post_author'   => 1,
+            'post_type'     => 'devis'
+        ));
+
+        if($post_id) {
+            update_field('espece', $espece, $post_id);
+            update_field('nom', $nom, $post_id);
+            update_field('recuperation_cendres', $recuperation_cendres, $post_id);
+            update_field('ceremonie_adieu', $ceremonie_adieu, $post_id);
+            update_field('urne', $urne, $post_id);
+            // if (!empty($urne_relation)) {
+            //     update_field('compte', $urne_relation, $post_id);
+            // }
+            update_field('urne_sku', $urne_sku, $post_id);
+            update_field('geste_souvenir', $geste_souvenir, $post_id);
+            update_field('cremation', $cremation, $post_id);
+            update_field('prix_urne', $prix_urne, $post_id);
+            update_field('prix_geste_souvenir', $prix_geste_souvenir, $post_id);
+            update_field('prix_cremation', $prix_cremation, $post_id);
+            update_field('prix_total', $prix_total, $post_id);
+            if (!empty($compte)) {
+                update_field('compte', $compte, $post_id);
+            } else {
+                $users = get_users(array('search' => $email, 'search_columns' => array('user_login')));
+                if ($users) {
+                    update_field('compte', $users[0]->ID, $post_id);
+                }
+            }
+            update_field('email', $email, $post_id);
+            update_field('nom_personne', $nom_personne, $post_id);
+            update_field('prenom_personne', $prenom_personne, $post_id);
+        }
+
+        return $post_id;
+    }
+
+    public function generatePDF($post_id) {
+        $pdf = new Dompdf();
+        $pdf->loadHtml("<h2>zdazdazd</h2>");
+        $pdf->render();
+        $pdf->stream('devis.pdf', ['Attachements' => 0]);
+    }
+    
 }
 add_action('rest_api_init', function () {
     (new ServicePetsconfigurator())->register_routes();
