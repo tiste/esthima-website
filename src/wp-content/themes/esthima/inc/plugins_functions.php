@@ -30,7 +30,7 @@ add_action( 'woocommerce_shop_loop_item_title', 'add_desc_loop', 10 );
 if ( ! function_exists( 'add_desc_loop' ) ) {
 	function add_desc_loop() {
 		echo '<div class="woocommerce-loop-product__desc">' . get_the_excerpt() . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo do_shortcode('[yith_compare_button]');
+        //echo do_shortcode('[yith_compare_button]');
         echo do_shortcode('[yith_wcwl_add_to_wishlist]');
 	}
 }

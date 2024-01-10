@@ -210,5 +210,6 @@ function esthima_my_account_endpoint_mes_devis_content() {
 }
 add_action( 'woocommerce_account_mes-favoris_endpoint', 'esthima_my_account_endpoint_mes_favoris_content' );
 function esthima_my_account_endpoint_mes_favoris_content() {
-	echo 'test2';
+	//echo 'test2';
+	echo '<div class="account-wishlist">' . do_shortcode('[yith_wcwl_wishlist pagination="no"]') . '</div>';
 }
