@@ -15,7 +15,7 @@
     <div class="rappel__grid">
         <div class="rappel__half">
             <select  id="salutation" name="salutation">
-                <option value="">- Civilité -</option>
+                <option value="">- Civilité * -</option>
                 <option value="M.">M</option>
                 <option value="Mlle">Mlle</option>
                 <option value="Mme">Mme</option>
@@ -26,38 +26,38 @@
         </div>
         <div class="rappel__empty"></div>
         <div class="rappel__half has-label">
-            <label for="last_name">Nom</label>
+            <label for="last_name">Nom *</label>
             <input  id="last_name" maxlength="80" name="last_name" size="20" type="text" />
         </div>
         <div class="rappel__half has-label">
-            <label for="first_name">Prénom</label>
+            <label for="first_name">Prénom *</label>
             <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" />
         </div>
         <div class="rappel__full has-label">
-            <label for="email">Adresse e-mail</label>
+            <label for="email">Adresse e-mail *</label>
             <input  id="email" maxlength="80" name="email" size="20" type="text" />
         </div>
         <div class="rappel__full has-label">
-            <label for="phone">Téléphone</label>
+            <label for="phone">Téléphone *</label>
             <input  id="phone" maxlength="40" name="phone" size="20" type="text" />
         </div>
     </div>
     <div class="rappel__form-title"> Votre animal :</div>
     <div class="rappel__grid">
         <div class="rappel__full has-label">
-            <label for="00N0800000KQERk">Nom de l&#39;animal</label>
+            <label for="00N0800000KQERk">Nom de l&#39;animal *</label>
             <input  id="00N0800000KQERk" maxlength="50" name="00N0800000KQERk" size="20" type="text" />
         </div>
         <div class="rappel__full">
             <select  id="00N0800000KQERh" name="00N0800000KQERh" title="Espèce de l&#39;animal">
-                <option value="">- Espèce de l'animal -</option>
+                <option value="">- Espèce de l'animal * -</option>
                 <option value="Chien">Chien</option>
                 <option value="Chat">Chat</option>
                 <option value="NAC">NAC</option>
             </select>
         </div>
         <div class="rappel__full has-label">
-            <label for="00N0800000KQERg">Age de l&#39;animal</label>
+            <label for="00N0800000KQERg">Age de l&#39;animal *</label>
             <input  id="00N0800000KQERg" name="00N0800000KQERg" size="20" type="text" />
         </div>
 
@@ -71,5 +71,8 @@
     </label>
     <input type="submit" name="submit">
     </form>
+    <div>
+        * Champs obligatoires
+    </div>
 </main>
 <?php endif; ?>
