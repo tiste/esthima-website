@@ -2,7 +2,7 @@
 	get_header();
 ?>
 
-<main class="main">
+<main class="main" itemscope itemtype="http://schema.org/LocalBusiness">
 
     <div class="store__tet" style="--bg-img: url('<?php echo (!empty(get_the_post_thumbnail_url())) ? get_the_post_thumbnail_url() : get_template_directory_uri().'/images/default-store.jpg'; ?>');">
         <div class="storeloc__tet__breadcrumbs">
@@ -31,7 +31,7 @@
                 <h1><?php echo $typeStr; ?> de <span><?php echo get_the_title(); ?></span></h1>
                 <div class="store__tet__btns">
                     <a href="#" class="btn btn--arrow">Personnaliser les obsèques</a>
-                    <a href="<?php echo home_url('/'); ?>prise-de-rendez-vous/" class="store__tet__btns__rdv">Prendre rendez-vous</a>
+                    <a href="<?php echo home_url('/'); ?>prendre-rdv/" class="store__tet__btns__rdv">Prendre rendez-vous</a>
                     <a href="tel:<?php echo get_post_meta(get_the_ID(), 'wpsl_phone', true); ?>" class="store__tet__btns__call">Nous appeler</a>
                 </div>
             </div>
@@ -48,12 +48,12 @@
                     </div>
                     <h2>Infos pratiques</h2>
                     <div class="store__infos__infos__flex">
-                        <div class="store__infos__infos__flex__item store__infos__infos__flex__item-address">
-                            <span><?php echo get_post_meta(get_the_ID(), 'wpsl_address', true); ?></span>
+                        <div class="store__infos__infos__flex__item store__infos__infos__flex__item-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                            <span itemprop="streetAddress"><?php echo get_post_meta(get_the_ID(), 'wpsl_address', true); ?></span>
                             <span><?php echo get_post_meta(get_the_ID(), 'wpsl_address2', true); ?></span>
-                            <span><?php echo get_post_meta(get_the_ID(), 'wpsl_zip', true); ?> <?php echo get_post_meta(get_the_ID(), 'wpsl_city', true); ?></span>
+                            <span><span itemprop="postalCode"><?php echo get_post_meta(get_the_ID(), 'wpsl_zip', true); ?></span> <span style="display: inline" itemprop="addressLocality"><?php echo get_post_meta(get_the_ID(), 'wpsl_city', true); ?></span></span>
                         </div>
-                        <div class="store__infos__infos__flex__item store__infos__infos__flex__item-hours">
+                        <div class="store__infos__infos__flex__item store__infos__infos__flex__item-hours" itemprop="openingHours">
                             <?php
                                 $hours = get_post_meta(get_the_ID(), 'wpsl_hours', true);
                                 $horaires = array();
@@ -116,9 +116,12 @@
                 </div>
                 <div class="store__infos__contact">
                     <img src="<?php echo get_template_directory_uri(); ?>/images/close-pink.svg" alt="Fermer" class="store__infos__contact__close">
+                    <div class="store__infos__contact__title">
+                        Nous contacter
+                    </div>
                     <?php
                         $contactEmail = get_post_meta(get_the_ID(), 'wpsl_email', true);
-                        echo do_shortcode('[gravityform id="1" title="true" description="false" ajax="true" field_values="sendemail='.$contactEmail.'"]');
+                        echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true" field_values="sendemail='.$contactEmail.'"]');
                     ?>
                 </div>
             </div>

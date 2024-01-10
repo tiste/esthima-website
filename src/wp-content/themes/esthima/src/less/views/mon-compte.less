@@ -166,3 +166,208 @@
     }
 
 }
+
+.account-wishlist{
+    .wishlist-title{
+        display: none !important;
+        margin-bottom: 20px;
+        pointer-events: none;
+        @media (min-width: 768px){
+            margin-bottom: 20px;
+        }
+        @media (min-width: 1440px){
+            margin-bottom: 24px;
+        }
+        @media (min-width: 1680px){
+            margin-bottom: 30px;
+        }
+        h2{
+            padding: 0;
+            color: @text;
+            font-family: @main-font;
+            font-size: 38px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1;
+            @media (min-width: 768px){
+                font-size: 45px;
+            }
+            @media (min-width: 1440px){
+                font-size: 54px;
+            }
+            @media (min-width: 1680px){
+                font-size: 68px;
+            }
+            span{
+                color: @main;
+            }
+        }
+        .show-title-form{
+            display: none !important;
+        }
+    }
+    .wishlist_table{
+        border-spacing: 0;
+        *{
+            font-family: @main-font;
+        }
+        thead{
+            th{
+                border: none;
+            }
+        }
+        .remove_from_wishlist{
+            font-size: 0;
+            width: 15px; height: 15px;
+            background-color: transparent;
+            background-image: url('images/close-pink.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            transition: 0.3s;
+            &:hover{
+                background-color: transparent;
+                background-image: url('images/close-whitepink.svg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+        }
+        .add_to_cart_button{
+            font-size: 0;
+            width: 20px; height: 20px;
+            background-image: url('images/cart-pink.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        th.product-name,
+        th.product-price,
+        th.product-stock-status{
+            text-align: left;
+        }
+        td.product-remove,
+        td.product-thumbnail,
+        td.product-name,
+        td.product-price,
+        td.product-stock-status,
+        td.product-add-to-cart{
+            text-align: left;
+        }
+    }
+    .yith_wcwl_wishlist_footer{
+        .yith-wcwl-share{
+            float: none;
+            @media (min-width: 768px){
+                float: left;
+            }
+            .yith-wcwl-share-title{
+                margin: 0 0 10px;
+            }
+            .share-button{
+                font-size: 0;
+                a{
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 30px; height: 30px;
+                    background-color: transparent;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+                .facebook{
+                    background-image: url('images/social/facebook-round.svg');
+                }
+                .twitter{
+                    background-image: url('images/social/twitter-round.svg');
+                }
+                .pinterest{
+                    background-image: url('images/social/pinterest-round.svg');
+                }
+                .email{
+                    background-image: url('images/social/email-round.svg');
+                }
+                .whatsapp{
+                    background-image: url('images/social/whatsapp-round.svg');
+                }
+            }
+        }
+        .ask-an-estimate-button{
+            display: block;
+            width: 100%;
+            padding: 18px 18px 18px 32px;
+            border-radius: 100px;
+            background-color: @main;
+            color: @white;
+            font-family: @main-font;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            transform: translateX(0);
+            transition: 0.3s;
+            @media (min-width: 768px){
+                width: fit-content;
+                padding: 12px 12px 12px 24px;
+                font-size: 12px;
+            }
+            @media (min-width: 1440px){
+                padding: 14px 14px 14px 28px;
+                font-size: 13px;
+            }
+            @media (min-width: 1680px){
+                padding: 18px 18px 18px 32px;
+                font-size: 16px;
+            }
+            &:hover{
+                color: @white;
+                background-color: @main;
+                @media (min-width: 768px){
+                    transform: translateX(9px);
+                }
+                @media (min-width: 1440px){
+                    transform: translateX(11px);
+                }
+                @media (min-width: 1680px){
+                    transform: translateX(14px);
+                }
+                &::after{
+                    margin-left: 26px;
+                    @media (min-width: 768px){
+                        margin-left: 17px;
+                    }
+                    @media (min-width: 1440px){
+                        margin-left: 21px;
+                    }
+                    @media (min-width: 1680px){
+                        margin-left: 26px;
+                    }
+                }
+            }
+            &::after{
+                content: "";
+                display: inline-block;
+                margin-left: 12px;
+                width: 20px; height: 20px;
+                background-image: url('images/arrow-right-white.svg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                vertical-align: middle;
+                transition: 0.3s;
+                @media (min-width: 768px){
+                    margin-left: 8px;
+                    width: 13px; height: 13px;
+                }
+                @media (min-width: 1440px){
+                    margin-left: 10px;
+                    width: 14px; height: 14px;
+                }
+                @media (min-width: 1680px){
+                    margin-left: 12px;
+                    width: 20px; height: 20px;
+                }
+            }
+        }
+    }
+}

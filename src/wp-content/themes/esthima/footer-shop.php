@@ -54,13 +54,15 @@
 					</div>
 					<div class="footer__top__left__form newsletterForm">
 						<div>
-							<input type="email" placeholder="Votre adresse email">
-							<input type="submit">
+							<form action="<?php echo home_url('inscription-a-la-newsletter'); ?>" method="GET">
+								<input type="email" name="email" placeholder="Votre adresse email">
+								<input type="submit">
+							</form>
 						</div>
-						<div class="footer__top__left__form__check">
+						<!-- <div class="footer__top__left__form__check">
 							<input type="checkbox" id="newsletterconsent" name="newsletterconsent">
 							<label for="newsletterconsent">J’accepte de m’inscrire à la newsletter et je reconnais avoir pris connaissance de la politique de confidentialité d’Esthima.</label>
-						</div>
+						</div> -->
 					</div>
 					<div class="footer__top__left__flex">
 						<div class="footer__top__left__flex__item footer__top__left__flex__item-1">

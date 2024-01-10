@@ -111,10 +111,10 @@ function getCookie(cName) {
 		/* /produit - affichage prix produit simple/variable */
 
 		/* panier - notes de commande */
-		if($('.woocommerce-checkout #order_comments_field').length){
-			$('.woocommerce-checkout #order_comments_field label').html("Numéro de convention");
-			$('.woocommerce-checkout #order_comments_field #order_comments').attr('placeholder', "Si vous avez fait appel au service de crémation Esthima pour votre animal, merci de renseigner le numéro de convention");
-		}
+		// if($('.woocommerce-checkout #order_comments_field').length){
+		// 	$('.woocommerce-checkout #order_comments_field label').html("Numéro de convention");
+		// 	$('.woocommerce-checkout #order_comments_field #order_comments').attr('placeholder', "Si vous avez fait appel au service de crémation Esthima pour votre animal, merci de renseigner le numéro de convention");
+		// }
 		/* /panier - notes de commande */
 
 		/* taille espaceur header */
@@ -642,6 +642,16 @@ function getCookie(cName) {
 			}
 		})
 		/* /connexion/inscription - positionnement labels */
+
+		/* reset pass - positionnement labels */
+		$('.reset-pass .lost_reset_password .form-row input').on('input', function(){
+			if($(this).val()==null || $(this).val()==''){
+				$(this).parents('.form-row').removeClass('label-written')
+			}else{
+				$(this).parents('.form-row').addClass('label-written')
+			}
+		})
+		/* /reset pass - positionnement labels */
 
 	});
 	

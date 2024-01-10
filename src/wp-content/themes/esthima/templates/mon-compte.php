@@ -14,9 +14,9 @@ get_header();
 
             <div class="page-header">
                 <?php if(is_user_logged_in()) : ?>
-                <div class="page-header__title">
+                <h1 class="page-header__title">
                     Mon compte
-                </div>
+                </h1>
                 <div class="page-header__intro">
                     <?php $current_user = wp_get_current_user(); ?>
                     Bonjour<?php echo !empty($current_user->user_firstname) ? ' '.$current_user->user_firstname : ''; ?>,
@@ -25,9 +25,9 @@ get_header();
                     À partir du tableau de bord de votre compte, vous pouvez visualiser vos commandes récentes, gérer vos adresses de livraison et de facturation ainsi que changer votre mot de passe et les détails de votre compte.
                 </div>
                 <?php else : ?>
-                <div class="page-header__title">
+                <h1 class="page-header__title">
                     Mon espace
-                </div>
+                </h1>
                 <?php endif; ?>
             </div>
             
@@ -36,23 +36,30 @@ get_header();
 
                 <?php while ( have_posts() ) : the_post(); ?>
 
-                    <div class="the-content">
+                    <div>
                         <?php the_content() ?>
                     </div>
                     
                 <?php endwhile; ?>
 
             <?php else : ?>
-                <div class="inscription">
-                    <div class="inscription__login">
-                        <h2>Connexion</h2>
-                        <?php echo do_shortcode('[gravityform action="login" title="false" description="false" logged_in_avatar="false" logged_in_message="Vous êtes bien connecté" login_redirect="'.home_url('/').'mon-compte/" logout_redirect="'.home_url('/').'" registration_link_display="false" forgot_password_display="false" /]'); ?>
+                <?php if(strpos($_SERVER['REQUEST_URI'],'/lost-password') !== false) : ?>
+                    <div class="reset-pass">
+                        <?php the_content() ?>
+                        <a href="<?php echo home_url('/'); ?>mon-compte" class="reset-pass__back">Retour</a>
                     </div>
-                    <div class="inscription__register">
-                        <h2>Inscription</h2>
-                        <?php echo do_shortcode('[gravityform id="4" title="false" description="false" ajax="true"]'); ?>
+                <?php else : ?>
+                    <div class="inscription">
+                        <div class="inscription__login">
+                            <h2>Connexion</h2>
+                            <?php echo do_shortcode('[gravityform action="login" title="false" description="false" logged_in_avatar="false" logged_in_message="Vous êtes bien connecté" login_redirect="'.home_url('/').'mon-compte/" logout_redirect="'.home_url('/').'" registration_link_display="false" forgot_password_display="true" /]'); ?>
+                        </div>
+                        <div class="inscription__register">
+                            <h2>Inscription</h2>
+                            <?php echo do_shortcode('[gravityform id="4" title="false" description="false" ajax="true"]'); ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
             <?php endif; ?>
 
         </div>

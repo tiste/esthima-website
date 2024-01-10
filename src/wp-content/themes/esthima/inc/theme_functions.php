@@ -157,15 +157,20 @@ function custom_listing_template() {
 	$listing_template .= "\t\t" . "</a>" . "\r\n";
 
 	$listing_template .= "\t\t" . '<div class="storeloc__map__store__infos">' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<% if ( terms ) { %>' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__surtitle"><%= terms %> de</div>' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<% } %>' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<a href="<%= permalink %>"  class="storeloc__map__store__infos__title"><%= store %></a>' . "\r\n";
+	// $listing_template .= "\t\t\t\t" . '<% if ( terms ) { %>' . "\r\n";
+	// $listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__surtitle"><%= terms %> de</div>' . "\r\n";
+	// $listing_template .= "\t\t\t\t" . '<% } %>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<a href="<%= permalink %>" class="storeloc__map__store__infos__title"><h3>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<% if ( terms ) { %>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<span><%= terms %> de</span>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<% } %>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<%= store %>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '</h3></a>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address2 %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse">'.wpsl_address_format_placeholders().'</div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__btns">' . "\r\n";
-	$listing_template .= "\t\t\t\t\t\t" . '<a href="'.home_url('/').'prise-de-rendez-vous/" class="storeloc__map__store__infos__btns__rdv">Prendre rendez-vous</a>' . "\r\n";
+	$listing_template .= "\t\t\t\t\t\t" . '<a href="'.home_url('/').'prendre-rdv/" class="storeloc__map__store__infos__btns__rdv">Prendre rendez-vous</a>' . "\r\n";
 	$listing_template .= "\t\t\t\t\t\t" . '<% if ( phone ) { %>' . "\r\n";
 	$listing_template .= "\t\t\t\t\t\t" . '<a href="tel:<%= phone %>" class="storeloc__map__store__infos__btns__call">Nous appeler</a>' . "\r\n";
 	$listing_template .= "\t\t\t\t\t\t" . '<% } %>' . "\r\n";
@@ -205,5 +210,6 @@ function esthima_my_account_endpoint_mes_devis_content() {
 }
 add_action( 'woocommerce_account_mes-favoris_endpoint', 'esthima_my_account_endpoint_mes_favoris_content' );
 function esthima_my_account_endpoint_mes_favoris_content() {
-	echo 'test2';
+	//echo 'test2';
+	echo '<div class="account-wishlist">' . do_shortcode('[yith_wcwl_wishlist pagination="no"]') . '</div>';
 }

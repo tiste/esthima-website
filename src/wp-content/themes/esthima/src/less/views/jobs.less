@@ -517,6 +517,7 @@
                     display: none;
                 }
                 .gform_footer{
+                    display: block !important;
                     padding: 20px 0 0;
                     @media (min-width: 768px){
                         padding: 13px 0 0;
@@ -526,6 +527,10 @@
                     }
                     @media (min-width: 1680px){
                         padding: 20px 0 0;
+                    }
+                    &::after{
+                        content: "* champs obligatoires";
+                        display: block;
                     }
                     input[type="submit"]{
                         display: block;

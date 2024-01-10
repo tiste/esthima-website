@@ -1,0 +1,67 @@
+.results-search{
+    width: 100%;
+    margin: 0 auto 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    @media (min-width: 768px){
+        width: 98%;
+        max-width: 1107px;
+        margin: 0 auto 97px;
+        gap: 20px;
+    }
+    @media (min-width: 1440px){
+        max-width: 1328px;
+        margin: 0 auto 116px;
+        gap: 24px;
+    }
+    @media (min-width: 1680px){
+        max-width: 1660px;
+        margin: 0 auto 145px;
+        gap: 30px;
+    }
+    h1{
+        color: @text;
+        span{
+            color: @main;
+        }
+    }
+    &__item{
+        color: @text;
+        &:not(:last-child){
+            border-bottom: solid 1px @text;
+        }
+        &:not(:first-child){
+            padding-bottom: 30px;
+            @media (min-width: 768px){
+                padding-bottom: 20px;
+            }
+            @media (min-width: 1440px){
+                padding-bottom: 24px;
+            }
+            @media (min-width: 1680px){
+                padding-bottom: 30px;
+            }
+        }
+        h3{
+            span{
+                color: @main;
+            }
+        }
+        a{
+            color: @main;
+            text-decoration: underline;
+            &::after{
+                content: "";
+                display: inline-block;
+                vertical-align: middle;
+                width: 13px; height: 13px;
+                margin-left: 10px;
+                background-image: url('images/arrow-pink.svg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+        }
+    }
+}
