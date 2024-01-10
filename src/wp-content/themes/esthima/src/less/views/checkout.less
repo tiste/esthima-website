@@ -381,11 +381,9 @@
                     color: @text !important;
                     &::before{
                         border: 1em solid #FAE5E2 !important;
-                    }
-                    .hipay-field-label,
-                    input[type=text],
-                    input[type=tel]{
-                        color: @text !important;
+                        border-right-color: transparent !important;
+                        border-left-color: transparent !important;
+                        border-top-color: transparent !important;
                     }
                 }
             }
@@ -396,7 +394,7 @@
             display: block;
             padding: 18px 18px 18px 32px;
             border-radius: 100px;
-            background-color: @main;
+            background-color: @main !important;
             color: @white;
             font-family: @main-font;
             font-size: 16px;
