@@ -51,6 +51,11 @@
 					<a href="<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>"></a>
 				</div>
 				<div class="header__top__shop-parts__cart">
+					<?php if(WC()->cart->get_cart_contents_count() > 0) : ?>
+						<div class="header__top__shop-parts__cart__number">
+							<?php echo WC()->cart->get_cart_contents_count(); ?>
+						</div>
+					<?php endif; ?>
 					<img src="<?php echo get_template_directory_uri(); ?>/images/cart.svg" class="header__top__shop-parts__cart__picto">
 					<div class="header__top__shop-parts__cart__text">
 						Mon panier
@@ -77,6 +82,9 @@
 			<img src="<?php echo get_template_directory_uri(); ?>/images/close.svg" alt="Fermer" class="header__menu__close">
 			<div class="header__menu__search">
 				<?php get_search_form(); ?>
+			</div>
+			<div class="header__menu__shop">
+				<?php wp_list_categories( array('taxonomy' => 'product_cat', 'title_li'  => '') ); ?>
 			</div>
 			<?php wp_nav_menu(['menu'=>'Header - main', 'container_class'=>'header__menu__main']); ?>
 			<?php wp_nav_menu(['menu'=>'Header - second', 'container_class'=>'header__menu__second']); ?>

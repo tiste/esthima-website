@@ -54,7 +54,7 @@
 						<div class="input-errors" v-for="error of v$.gesteSouvenir.$errors" :key="error.$uid">
 							<div class="error-msg">{{ error.$message }}</div>
 						</div>
-						<button @click.prevent="goNext" class="btn btn--arrow btn--arrow-disable-hover">Continuer</button>
+						<button @click.prevent="goNextPage" class="btn btn--arrow btn--arrow-disable-hover">Continuer</button>
 					</div>
 				</div>
 				
@@ -113,6 +113,11 @@ export default {
 		}
 	})
 
+	const goNextPage = () => {
+		store.commit('petsConfigurator/updatePopupOpen', false)
+		goNext()
+	}
+
 	const peekaboo = () => {
 		peekabooBool.value = !peekabooBool.value
 	}
@@ -144,6 +149,11 @@ export default {
 	}
 
 	onMounted(() => {
+		if (souvenir.value) {
+			store.commit('petsConfigurator/updatePopupOpen', true)
+		} else {
+			store.commit('petsConfigurator/updatePopupOpen', false)
+		}
   		EventBus.on('goNextStep', validate)
 		setTimeout(() => {
 			imgLoaded.value = true

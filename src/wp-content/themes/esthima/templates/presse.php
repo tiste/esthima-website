@@ -54,8 +54,8 @@ get_header();
         );
         $queryPresse = new WP_Query($argsPresse);
     ?>
-    <?php if($queryPresse->have_posts()) : ?>
-        <div class="presse__posts">
+    <div class="presse__posts">
+        <?php if($queryPresse->have_posts()) : ?>
             <div class="presse__posts__grid">
                 <?php while ($queryPresse->have_posts()) : $queryPresse->the_post(); ?>
                     <div class="presse__posts__grid__item">
@@ -75,20 +75,21 @@ get_header();
                     </div>
                 <?php endwhile; ?>
             </div>
-            <div class="presse__posts__pagination">
-            <?php
-                echo paginate_links(array(
-                    'format' => '?page=%#%',
-                    'total'     => $queryPresse->max_num_pages,
-                    'current'   => $pagedPresse,
-                    'prev_text' => '&laquo; Previous',
-                    'next_text' => 'Next &raquo;',
-                    'mid_size'           => 2,
-                ));
-                ?>
-            </div>
+        <?php endif; wp_reset_postdata(); ?>
+        <div class="presse__posts__pagination">
+        <?php
+            echo paginate_links(array(
+                // 'format' => '?page=%#%',
+                'total'     => $queryPresse->max_num_pages,
+                'current'   => $pagedPresse,
+                'prev_text' => '&laquo; Previous',
+                'next_text' => 'Next &raquo;',
+                'mid_size'           => 2,
+            ));
+            ?>
         </div>
-    <?php endif; wp_reset_postdata(); ?>
+    </div>
+    
 
 
 </main>

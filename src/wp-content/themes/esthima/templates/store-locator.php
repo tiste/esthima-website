@@ -14,8 +14,8 @@ get_header();
         <div class="storeloc__tet__breadcrumbs">
             <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
         </div>
-        <h2>AGENCES ET CRÉMATORIUMS POUR ANIMAUX</h2>
-        <h1>Trouvez une agence près de chez vous</h1>
+        <h1>AGENCES ET CRÉMATORIUMS POUR ANIMAUX</h1>
+        <h2>Trouvez une agence près de chez vous</h2>
         <div class="storeloc__tet__text">
             Esthima dispose de centres de crémation et agences funéraires partout en France.
         </div>

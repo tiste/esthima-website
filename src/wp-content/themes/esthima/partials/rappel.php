@@ -24,3 +24,4 @@
     </div>
     <input type="submit" value="Être rappelé">
 </form>
+<div>* Champs obligatoires</div>

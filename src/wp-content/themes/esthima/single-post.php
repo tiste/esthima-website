@@ -42,22 +42,22 @@
         <hr>
         <div class="guide__body__sharerate">
             <div class="guide__body__sharerate__share">
-                <h3>Partager l'article</h3>
+                <div class="guide__body__sharerate__share__title">Partager l'article</div>
                 <div class="guide__body__sharerate__share__links">
-                    <a href="#">
+                    <a href="https://facebook.com/sharer.php?u=<?php echo home_url('').$_SERVER['REQUEST_URI']; ?>" target="_blank">
                         <img src="<?php echo get_template_directory_uri(); ?>/images/social/facebook-round.svg" alt="Facebook">
                     </a>
-                    <a href="#">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/social/linkedin-round.svg" alt="Facebook">
+                    <a href="https://www.linkedin.com/shareArticle?url=<?php echo home_url('').$_SERVER['REQUEST_URI']; ?>&title=<?php echo str_replace(' ', '%20', get_the_title()); ?>&summary=<?php echo str_replace(' ', '%20', get_the_title()); ?>&source=<?php echo $_SERVER['HTTP_HOST']; ?>" target="_blank">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/social/linkedin-round.svg" alt="LinkedIn">
                     </a>
-                    <a href="#">
+                    <!-- <a href="#">
                         <img src="<?php echo get_template_directory_uri(); ?>/images/social/instagram-round.svg" alt="Facebook">
-                    </a>
+                    </a> -->
                     <a href="whatsapp://send?text=<?php echo get_the_permalink(); ?>" data-action="share/whatsapp/share">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/social/whatsapp-round.svg" alt="Facebook">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/social/whatsapp-round.svg" alt="WhatsApp">
                     </a>
-                    <a href="#">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/social/email-round.svg" alt="Facebook">
+                    <a href="mailto:?subject=<?php echo get_the_title(); ?> - Esthima&body=<?php echo get_the_permalink(); ?>">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/social/email-round.svg" alt="Email">
                     </a>
                 </div>
             </div>
@@ -96,8 +96,8 @@
             <div class="guide__body__event__flex">
                 <img src="<?php echo get_field('global_event_img', 'option'); ?>" alt="<?php echo get_field('global_event_title', 'option'); ?>" class="guide__body__event__img">
                 <div class="guide__body__event__texts">
-                    <h4><?php echo get_field('global_event_surtitle', 'option'); ?></h4>
-                    <h3><?php echo get_field('global_event_title', 'option'); ?></h3>
+                    <div class="guide__body__event__texts__surtitle"><?php echo get_field('global_event_surtitle', 'option'); ?></div>
+                    <div class="guide__body__event__texts__title"><?php echo get_field('global_event_title', 'option'); ?></div>
                     <div class="guide__body__event__texts__date">
                         <?php
                             $dateDebutEvent = get_field('global_event_start', 'option');
@@ -151,7 +151,7 @@
     ?>
     <?php if((!is_null($morePosts) && !empty($morePosts) && is_array($morePosts)) || $queryMorePosts->have_posts()) : ?>
     <div class="guide__more">
-        <h2>Cela peut vous intéresser</h2>
+        <div class="guide__more__title">Cela peut vous intéresser</div>
         <div class="guide__more__flex">
         <?php if(!is_null($morePosts) && !empty($morePosts) && is_array($morePosts)) : ?>
             <?php foreach($morePosts as $mp) : ?>

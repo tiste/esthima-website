@@ -34,6 +34,9 @@ const transitionName = computed({
 const popupOpen = computed({
 	get () {
 		return store.state.petsConfigurator.popupOpen
+	},
+	set (value) {
+		store.commit('petsConfigurator/updatePopupOpen', value)
 	}
 })
 
@@ -63,6 +66,7 @@ const productsUrnes = computed({
 onMounted(() => {
   navHeightRefresh()
   window.addEventListener("resize", navHeightRefresh);
+  popupOpen.value = false
   request('urnes').then((res) => {
     productsUrnes.value = res
   })
