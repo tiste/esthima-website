@@ -7,66 +7,77 @@
 		</div>
 
 		<div class="petsconfigurator__question">
-			<span class="petsconfigurator__question__h1">
-				Mon offre personnalisée :
-			</span>
-			<ul>
-				<li>Espèce : {{ store.state.petsConfigurator.typeAnimal}}</li>
-				<li>Nom : {{ store.state.petsConfigurator.nameAnimal}}</li>
-				<li>Récupération des cendres : {{ (store.state.petsConfigurator.cendre) ? 'Oui' : 'Non'}}</li>
-				<li>Cérémonie d'adieu : {{ (store.state.petsConfigurator.ceremonieAdieu) ? 'Oui' : 'Non' }}</li>
-				<li>Urne : {{ (store.state.petsConfigurator.urne) ? urneDetails : 'Non'}}</li>
-				<li>Geste souvenir : {{ (store.state.petsConfigurator.souvenir) ? `Oui / ${store.state.petsConfigurator.gesteSouvenir}` : 'Non'}}</li>
-			</ul>
+			<div class="petsconfigurator__question__form">
 
-			<span>
-				Pour {{ store.state.petsConfigurator.nameAnimal }},<br>
-				voici la prestation funéraire proposée :
-			</span>
-
-			<div v-if="cremationChoice == 'privee'">
-				<span>La crémation<br><b>privée</b></span>
-				<ul>
-					<li>
-						Prise en charge de l'animal décédé
-					</li>
-					<li>
-						Recueillement auprès de votre animal dans le salon funéraire avant sa crémation
-					</li>
-					<li>
-						Crémation individuelle
-					</li>
-					<li>
-						Remise d'un certificat de crémation
-					</li>
-					<li>
-						Restitution des cendres dans une urne de dispersion ou dans une urne décorative (en option).
-					</li>
-					<li>
-						Remise de l'urne au crématorium, en agence Esthima ou en clinique vétérinaire
-					</li>
+				<span class="petsconfigurator__question__h1">
+					Mon offre personnalisée :
+				</span>
+				<ul class="petsconfigurator__question__list">
+					<li>Espèce : <span>{{ store.state.petsConfigurator.typeAnimal}}</span></li>
+					<li>Nom : <span>{{ store.state.petsConfigurator.nameAnimal}}</span></li>
+					<li>Récupération des cendres : <span>{{ (store.state.petsConfigurator.cendre) ? 'Oui' : 'Non'}}</span></li>
+					<li>Cérémonie d'adieu : <span>{{ (store.state.petsConfigurator.ceremonieAdieu) ? 'Oui' : 'Non' }}</span></li>
+					<li>Urne : <span>{{ (store.state.petsConfigurator.urne) ? urneDetails : 'Non'}}</span></li>
+					<li>Geste souvenir : <span>{{ (store.state.petsConfigurator.souvenir) ? `Oui / ${store.state.petsConfigurator.gesteSouvenir}` : 'Non'}}</span></li>
 				</ul>
-			</div>
-		
-			<div v-else>
-				<span>La crémation<br><b>référence</b></span>
-				<ul>
-					<li>
-						Prise en charge de l'animal décédé
-					</li>
-					<li>
-						Recueillement auprès de votre animal dans le salon funéraire avant sa crémation
-					</li>
-					<li>
-						Crémation individuelle
-					</li>
-					<li>
-						Remise d'un certificat de crémation
-					</li>
-				</ul>
-			</div>
-		</div> 
 
+				<span class="petsconfigurator__question__subtitle">
+					Pour {{ store.state.petsConfigurator.nameAnimal }},<br>
+					voici la prestation funéraire proposée&nbsp;:
+				</span>
+
+				<div v-if="cremationChoice == 'privee'" class="petsconfigurator__question__cremation">
+					<div class="petsconfigurator__question__cremation__title">
+						<div class="petsconfigurator__question__cremation__title__image">
+							<img :src="`${themeDirectoryUri}/images/configurateur/fleur.svg`" alt="">
+						</div>
+						<div>
+							<span class="petsconfigurator__question__cremation__title__one">La crémation</span><br>
+							<span class="petsconfigurator__question__cremation__title__two">privée</span>
+						</div>
+					</div>
+					<ul class="petsconfigurator__question__cremation__list">
+						<li>
+							Prise en charge de l'animal décédé
+						</li>
+						<li>
+							Recueillement auprès de votre animal dans le salon funéraire avant sa crémation
+						</li>
+						<li>
+							Crémation individuelle
+						</li>
+						<li>
+							Remise d'un certificat de crémation
+						</li>
+						<li>
+							Restitution des cendres dans une urne de dispersion ou dans une urne décorative (en option).
+						</li>
+						<li>
+							Remise de l'urne au crématorium, en agence Esthima ou en clinique vétérinaire
+						</li>
+					</ul>
+				</div>
+			
+				<div v-else class="petsconfigurator__question__cremation">
+					<span>La crémation<br><b>référence</b></span>
+					<ul>
+						<li>
+							Prise en charge de l'animal décédé
+						</li>
+						<li>
+							Recueillement auprès de votre animal dans le salon funéraire avant sa crémation
+						</li>
+						<li>
+							Crémation individuelle
+						</li>
+						<li>
+							Remise d'un certificat de crémation
+						</li>
+					</ul>
+				</div>
+			</div> 
+
+		</div>
 	</div>
 </template>
 <script>
