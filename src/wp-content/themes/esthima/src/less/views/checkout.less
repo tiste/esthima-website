@@ -363,4 +363,22 @@
             }
         }
     }
+    .woocommerce-checkout-payment{
+        border: 1px solid rgba(0,0,0,.1);
+        border-radius: 5px;
+        background-color: @white;
+        .payment_methods{
+            &::before{
+                content: none;
+            }
+            .wc_payment_method{
+                &::before{
+                    content: none;
+                }
+                .payment_box{
+                    background-color: rgba(246, 203, 197, 0.50);
+                }
+            }
+        }
+    }
 }
