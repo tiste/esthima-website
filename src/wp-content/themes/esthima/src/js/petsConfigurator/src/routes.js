@@ -1,13 +1,23 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import store from "./store/index";
 
-const Home = () => import('./views/Home')
-const InfoAnimal = () => import('./views/InfoAnimal')
-const Cendres = () => import('./views/Cendres')
-const Ceremonie = () => import('./views/Ceremonie')
-const Urne = () => import('./views/Urne')
-const Souvenir = () => import('./views/Souvenir')
-const Info = () => import('./views/Info')
-const Recap = () => import('./views/Recap')
+import Home from './views/Home';
+import InfoAnimal from './views/InfoAnimal';
+import Cendres from './views/Cendres';
+import Ceremonie from './views/Ceremonie';
+import Urne from './views/Urne';
+import Souvenir from './views/Souvenir';
+import Info from './views/Info';
+import Recap from './views/Recap';
+
+// const Home = () => import('./views/Home')
+// const InfoAnimal = () => import('./views/InfoAnimal')
+// const Cendres = () => import('./views/Cendres')
+// const Ceremonie = () => import('./views/Ceremonie')
+// const Urne = () => import('./views/Urne')
+// const Souvenir = () => import('./views/Souvenir')
+// const Info = () => import('./views/Info')
+// const Recap = () => import('./views/Recap')
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -69,7 +79,7 @@ const router = createRouter({
           backPath: 'Urne',
           nextPath: 'Info',
           percent: 80
-        }
+        },
     },
     {
         path: '/informations',
@@ -87,10 +97,16 @@ const router = createRouter({
         component: Recap,
         meta: {
           backPath: 'Info',
-          nextPath: ''
+          nextPath: '',
+          percent: 0
         }
     },
   ],
 });
+
+// router.beforeEach((to, from) => {
+//   console.log('zz')
+//   store.commit('petsConfigurator/updatePopupOpen', false)
+// })
 
 export default router;

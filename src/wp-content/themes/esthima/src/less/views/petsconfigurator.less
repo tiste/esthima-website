@@ -13,6 +13,26 @@
     margin-bottom: var(--data-petsconfig-grow);
     background-color: @lightbg;
     position: relative;
+    &::-webkit-scrollbar-track
+    {
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar
+    {
+        width: 8px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        background-color: @main;
+    }
+    &--recap {
+        height: 150vh;
+    }
     &__bg {
         position: fixed;
         top: 0;
@@ -157,6 +177,115 @@
                 }
             }
         }
+        &--recap {
+            .petsconfigurator__question__h1 {
+                font-size: 24px;
+                font-weight: 600;
+                color: @main; 
+                margin-bottom: 20px;
+                text-align: left !important;
+            }
+            .petsconfigurator__question__list {
+                font-size: 16px;
+                font-weight: 400;
+                color: @text;
+                li {
+                    position: relative;
+                    margin-left: 10px;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    &::before {
+                        content: '';
+                        width: 1px;
+                        height: 1px;
+                        border-radius: 50%;
+                        background-color: @text;
+                        display: block;
+                        position: absolute;
+                        left: -10px;
+                        top: 10px;
+
+                    }
+                }
+                span {
+                    font-weight: 600;
+                    color: @main;
+                }
+            }
+            .petsconfigurator__question__subtitle {
+                display: block;
+                font-size: 20px;
+                font-weight: 600;
+                color: @text;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                @media screen and (min-width: 1024px) {
+                    font-size: 30px;
+                }
+            } 
+            .petsconfigurator__question__cremation {
+                background-color: @white;
+                border: 1px solid @main;
+                border-radius: 20px;
+                padding: 20px;
+                &__title {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 25px;
+                    &__image {
+                        margin-right: 20px;
+                    }
+                    &__one {
+                        font-size: 18px;
+                        font-weight: 400;
+                        // font-size: 20px;
+
+                    }
+                    &__two {
+                        font-size: 30px;
+                        font-weight: 600;
+                        color: @main;
+                        text-transform: uppercase;
+                        // font-size: 42px;
+                    }
+                }
+                @media screen and (min-width: 1024px) {
+                    padding: 30px;
+                    &__title {
+                        &__one {
+                            font-size: 20px;
+    
+                        }
+                        &__two {
+                            font-size: 42px;
+                        }
+                    }
+                }
+                &__list {
+                    font-size: 16px;
+                    font-weight: 600;
+                    li {
+                        position: relative;
+                        margin-top: 15px;
+                        margin-bottom: 15px;
+                        margin-left: 30px;
+                        &::before {
+                            content: '';
+                            background-image: url('images/configurateur/check.svg');
+                            display: block;
+                            width: 18px;
+                            height: 13px;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            position: absolute;
+                            top: 4px;
+                            left: -30px;
+
+                        }
+                    }
+                }
+            }
+        }
         @media screen and (min-width: 1024px) {
             display: flex;
             flex-direction: row-reverse;
@@ -192,6 +321,42 @@
                     font-weight: 600;
                     font-size: 30px;
                 }
+                &--recap {
+                    @media screen and (max-width: 1023px) {
+                        flex-direction: column;
+                        align-items: center;
+                    }
+
+                    .petsconfigurator__navigation__price__alma {
+                        display: flex;
+                        align-items: center;
+                        @media screen and (min-width: 1024px) {
+                            margin-left: 20px;
+                            img {
+                                margin-left: 20px;
+                            }
+                        }
+                    }
+                }
+            }
+            .petsconfigurator__navigation__recap-btn {
+                width: 100%;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                text-align: center;
+                @media screen and (min-width: 628px) {
+                    width: auto;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                @media screen and (min-width: 1024px) {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+            .petsconfigurator__navigation__recap-btn-back {
+                margin-left: auto;
+                margin-right: auto;
             }
             @media screen and (max-width: 1023px) {
                 &__button-desk {
@@ -755,6 +920,159 @@
         }
     }
 
+    &__show-up-urne {
+        padding-left: 20px;
+        padding-right: 20px;
+        overflow-y: auto;
+        max-height: 80vh;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+   
+        @media screen and (min-width: 1024px) {
+            padding-left: 40px;
+            padding-right: 40px;
+            max-height: 72vh;
+            &__content {
+                display: flex;
+            }
+            &__picture {
+                display: flex;
+                align-items: flex-start;
+                width: 40%;
+            }
+            &__info {
+                width: 60%;
+            }
+        }
+        &__back {
+            display: block;
+            font-size: 18px;
+            font-weight: 400;
+            color: @text;
+        }
+        &__picture {
+            display: flex;
+            justify-content: center;
+            img {
+                display: block;
+            }
+        }
+        &__info {
+            &__ref {
+                display: block;
+                font-size: 14px;
+                font-weight: 400;
+                color: @text;
+            }
+            &__name {
+                display: block;
+                font-size: 38px;
+                font-weight: 700;
+                color: @main;
+            }
+            &__stock {
+                display: block;
+                font-size: 16px;
+                font-weight: 600;
+                color: @text;
+                &--instock {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    &::before {
+                        content: '';
+                        display: inline-block;
+                        background-color: @success;
+                        width: 12px;
+                        height: 12px;
+                        margin-right: 4px;
+                        border-radius: 50%;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+            &__description {
+                display: block;
+                font-size: 14px;
+                font-weight: 600;
+                color: @text;
+                line-height: 1.6;
+            }
+            &__separator {
+                display: block;
+                width: 100%;
+                height: 1px;
+                background-color: @grey;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            &__list-variation {
+                li {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+                label {
+                    display: block;
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: @text;
+                    border-radius: 50%;
+                    margin-bottom: 8px;
+                }
+                select{
+                    display: block;
+                    width: 100%;
+                    appearance: none;
+                    border-radius: 100px;
+                    border: 1px solid #D4D4D4;
+                    background-color: #FFF;
+                    background-image: url('images/arrow-down-pink.svg');
+                    background-position: center right 18px;
+                    background-repeat: no-repeat;
+                    background-size: 22px;
+                    padding: 0 24px;
+                    height: 56px; line-height: 56px;
+                    color: @text;
+                    font-family: @main-font;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    @media (min-width: 768px){
+                        background-position: center right 12px;
+                        background-size: 15px;
+                        padding: 0 16px;
+                        height: 37px; line-height: 37px;
+                        font-size: 12px;
+                    }
+                    @media (min-width: 1440px){
+                        background-position: center right 14px;
+                        background-size: 18px;
+                        padding: 0 19px;
+                        height: 45px; line-height: 45px;
+                        font-size: 13px;
+                    }
+                    @media (min-width: 1680px){
+                        background-position: center right 18px;
+                        background-size: 22px;
+                        padding: 0 24px;
+                        height: 56px; line-height: 56px;
+                        font-size: 16px;
+                    }
+                }
+            }
+            &__price {
+                display: block;
+                font-size: 38px;
+                font-weight: 600;
+                color: @main;
+            }
+            &__btn {
+                
+            }
+        }
+    }
     
 }
 @keyframes shine {

@@ -10,10 +10,11 @@ const cookieName = 'petsConfigurator'
 
 const vuexCookie = new VuexPersistence({
 	key: cookieName,
-	restoreState: (key, storage) => Cookie.getJSON(key),
-	saveState: (key, state, storage) => Cookie.set(key, state, {
-		expires: 3
-	})
+	storage: window.localStorage
+	// restoreState: (key, storage) => Cookie.getJSON(key),
+	// saveState: (key, state, storage) => Cookie.set(key, state, {
+	// 	expires: 3
+	// })
 })
 
 export default createStore({

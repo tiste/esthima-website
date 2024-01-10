@@ -25,20 +25,46 @@
 					<div class="error-msg">{{ error.$message }}</div>
 				</div>
 				
-				<div class="petsconfigurator__urne-popup" :class="{'petsconfigurator__urne-popup--open' : urne}">
+				<div class="petsconfigurator__urne-popup" :class="{'petsconfigurator__urne-popup--open' : showPopup}">
 					<span class="petsconfigurator__urne-popup__quit" @click.prevent="closeUrne"></span>
-					<div class="petsconfigurator__urne-popup__content">
+					<div class="petsconfigurator__urne-popup__content" v-if="showPopup">
 						<span class="petsconfigurator__question__h1">
 							Je choisis mon <br>urne décorative
 						</span>
 						<div class="petsconfigurator__show-up-urne" v-if="urneShowUp != null">
-							<a href="#" @click.prevent="showDetailUrne(null)">retour</a>
-							dazdazdaz
+							<a href="#" class="petsconfigurator__show-up-urne__back" @click.prevent="showDetailUrne(null)">&lt; Retour</a>
+							<div class="petsconfigurator__show-up-urne__content">
+								<div class="petsconfigurator__show-up-urne__picture">
+									<img v-lazy="urneShowUp.image_url"  />
+								</div>
+								<div class="petsconfigurator__show-up-urne__info">
+									<span class="petsconfigurator__show-up-urne__info__ref">REFERENCE: {{urneShowUp.sku}}</span>
+									<span class="petsconfigurator__show-up-urne__info__name">{{urneShowUp.name}}</span>
+									<span class="petsconfigurator__show-up-urne__info__stock petsconfigurator__show-up-urne__info__stock--instock" v-show="urneShowUp.stock_status == 'instock' && urneShowUp.available == true">En stock</span>
+									<span class="petsconfigurator__show-up-urne__info__stock" v-show="urneShowUp.available == false">Indisponible</span>
+									<span class="petsconfigurator__show-up-urne__info__description">{{urneShowUp.description}}</span>
+									<span class="petsconfigurator__show-up-urne__info__separator"></span>
+									<ul class="petsconfigurator__show-up-urne__info__list-variation">
+										<li v-for="(variation, name) in urneShowUp.variations">
+											<label v-if="name == 'pa_couleur'">Couleurs</label>
+											<label v-else-if="name == 'pa_contenance'">Poids de l'animal</label>
+											<label v-else-if="name == 'pa_matiere'">Matière</label>
+											<label v-else>{{ name }}</label>
+											<select @change="updateProductShowUp()" :ref="el => { urneAttributesSelected[`attribute_${name}`] = el }">
+												<option v-for="v in variation" :value="v">{{v}}</option>
+											</select>
+										</li>
+									</ul>
+									<span class="petsconfigurator__show-up-urne__info__price" v-if="urneShowUp.available == false">Indisponible</span>
+									<span class="petsconfigurator__show-up-urne__info__price" v-else>{{formatCurrency(urneShowUp.price)}}</span>
+									<button class="btn btn--primary petsconfigurator__show-up-urne__info__btn" @click.prevent="selectUrne(urneShowUp)">Sélectionner le produit</button>
+								</div>
+							</div>
 						</div>
 						<ul class="petsconfigurator__question__list-radio petsconfigurator__question__list-radio--urnes" :style="(urneShowUp != null) ? 'display:none!important' : ''">
 							<li v-for="p in productsUrnes" class="petsconfigurator__urne" @click.prevent="showDetailUrne(p)">
 								<div class="petsconfigurator__urne__thumb">
-									<img :src="p.image_url" />
+									<img v-lazy="p.image_url" />
 								</div>
 								<span class="petsconfigurator__urne__name">
 									{{p.name}}
@@ -72,17 +98,23 @@ export default {
 </script>
 
 <script setup>
-	import { computed, onMounted, onUnmounted, ref } from 'vue'
+	import { computed, onMounted, onUnmounted, ref, nextTick } from 'vue'
 	import EventBus from '../EventBus';
 	import { useStore } from 'vuex'
 	import { useVuelidate } from '@vuelidate/core'
 	import { required, helpers } from '@vuelidate/validators'
+	import { goNext } from '../helpers/Navigate';
+
 
 	const store = useStore()
 
 	const themeDirectoryUri = window.wpvar.themeDirectoryUri || ''
 
 	const imgLoaded = ref(0)
+	
+	const urneAttributesSelected = ref([])
+	
+	const showPopup = ref(false)
 
 	const urneShowUp = ref(null)
 
@@ -92,7 +124,16 @@ export default {
 		},
 		set (value) {
 			store.commit('petsConfigurator/updateUrne', value)
+			showPopup.value = value
 			store.commit('petsConfigurator/updatePopupOpen', value)
+		}
+	})
+	const urneProduct = computed({
+		get () {
+			return store.state.petsConfigurator.UrneProduct
+		},
+		set (value) {
+			store.commit('petsConfigurator/updateUrneProduct', value)
 		}
 	})
 
@@ -129,6 +170,75 @@ export default {
 
 	const showDetailUrne = (urne) => {
 		urneShowUp.value = urne
+		if (
+			urneShowUp.value != null &&
+			urneShowUp.value.type == "variable"
+		) {
+			nextTick(() => {
+				updateProductShowUp()
+      		});
+		}
+		
+	}
+
+	const updateProductShowUp = () => {
+		
+		if (
+			urneShowUp.value == null ||
+			urneShowUp.value.type != "variable"
+		) {
+			return
+		}
+		
+		let availableVariations = urneShowUp.value.available_variations
+		let foundVariations = null
+		let urneAttributesSelectedValue = {}
+		
+		Object.keys(urneAttributesSelected.value).map((nameAttrib) => {
+			if (urneAttributesSelected.value[nameAttrib]) {
+				urneAttributesSelectedValue[nameAttrib] = urneAttributesSelected.value[nameAttrib].value 
+			}
+		})
+		
+		availableVariations.map((availableVariation) => {
+			const obj1 = urneAttributesSelectedValue
+			const obj2 = availableVariation.attributes
+			const obj1Keys = Object.keys(obj1).sort();
+			const obj2Keys = Object.keys(obj2).sort();
+			if (obj1Keys.length !== obj2Keys.length) {
+				} else {
+				const areEqual = obj1Keys.every((key, index) => {
+					const objValue1 = obj1[key];
+					const objValue2 = obj2[obj2Keys[index]];
+					return objValue1 === objValue2;
+				});
+				if (areEqual) {
+					foundVariations = availableVariation
+				}
+			}
+		})
+
+		let tmpData = {...urneShowUp.value}
+
+		if (foundVariations) {
+			tmpData.sku = foundVariations.sku
+			tmpData.price = foundVariations.display_price
+			tmpData.stock_status = (foundVariations.is_in_stock) ? 'instock' : ''
+			tmpData.variation_selected = foundVariations
+			tmpData.available = true
+		} else {
+			tmpData.available = false
+		}
+		
+		urneShowUp.value = tmpData
+
+	}
+
+	const selectUrne = (selectUrne) => {
+		urneProduct.value = selectUrne
+		store.commit('petsConfigurator/updatePopupOpen', false)
+		showPopup.value = false
+		goNext()
 	}
 
 	const formatCurrency = (value) => {
@@ -147,6 +257,13 @@ export default {
     }
 
 	onMounted(() => {
+		if (urne.value) {
+			showPopup.value = true
+			store.commit('petsConfigurator/updatePopupOpen', true)
+		} else {
+			showPopup.value = false
+			store.commit('petsConfigurator/updatePopupOpen', false)
+		}
   		EventBus.on('goNextStep', validate)
 
 		setTimeout(() => {
