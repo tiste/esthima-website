@@ -98,6 +98,8 @@
                 padding: 28px 13px 13px;
                 width: 200px;
                 min-height: 167px;
+                display: flex;
+                flex-direction: column;
             }
             @media (min-width: 1440px){
                 padding: 34px 16px 16px;
@@ -171,9 +173,24 @@
                     font-size: 14px;
                 }
             }
+            .phone-number{
+                margin: 0 auto 12px;
+                @media (min-width: 768px){
+                    margin: 0 auto 11px;
+                }
+                @media (min-width: 1440px){
+                    margin: 0 auto 14px;
+                }
+                @media (min-width: 1680px){
+                    margin: 0 auto 17px;
+                }
+            }
             &__link.btn{
                 width: 100%;
                 text-align: center;
+                @media (min-width: 768px){
+                    margin-top: auto;
+                }
             }
             .phone-number{
                 .phone-number__pill__number{

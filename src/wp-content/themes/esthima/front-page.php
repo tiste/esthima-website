@@ -182,7 +182,7 @@
 				$btnShop = get_field('shop_link');
 				if(!is_null($btnShop) && !empty($btnShop) && is_array($btnShop)) :
 			?>
-			<a href="<?php echo $btnShop['title']; ?>" target="<?php echo $btnShop['target']; ?>" class="hp__shop__btn btn btn--arrow"><?php echo $btnShop['title']; ?></a>
+			<a href="<?php echo $btnShop['url']; ?>" target="<?php echo $btnShop['target']; ?>" class="hp__shop__btn btn btn--arrow"><?php echo $btnShop['title']; ?></a>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -198,14 +198,26 @@
 		<?php foreach($guides as $key => $g) : ?>
 			<div class="hp__guides__item hp__guides__item-<?php echo $key+1; ?>">
 				<div class="hp__guides__item__img">
-					<img src="<?php echo $g['image']; ?>" alt="<?php echo $g['title']; ?>">
-				</div>
+					<?php if(!is_null($g['guide']) && !empty($g['guide'])) : ?>
+					<a href="<?php echo str_replace('"', '\"', get_permalink($g['guide'][0])); ?>">
+					<?php endif; ?>
+						<img src="<?php echo $g['image']; ?>" alt="<?php echo $g['title']; ?>">
+					<?php if(!is_null($g['guide']) && !empty($g['guide'])) : ?>
+					</a>
+					<?php endif; ?>
+					</div>
 				<?php if($key==0) : ?>
 				<div class="containerCustom2">
 					<div class="hp__guides__item__texts">
-						<h3 class="hp__guides__item__title">
-							<?php echo $g['title']; ?>
-						</h3>
+						<?php if(!is_null($g['guide']) && !empty($g['guide'])) : ?>
+						<a href="<?php echo str_replace('"', '\"', get_permalink($g['guide'][0])); ?>">
+						<?php endif; ?>
+							<h3 class="hp__guides__item__title">
+								<?php echo $g['title']; ?>
+							</h3>
+						<?php if(!is_null($g['guide']) && !empty($g['guide'])) : ?>
+						</a>
+						<?php endif; ?>
 						<div class="hp__guides__item__text">
 							<?php echo $g['text']; ?>
 						</div>
@@ -213,9 +225,15 @@
 				</div>
 				<?php else : ?>
 					<div class="hp__guides__item__texts">
-						<h3 class="hp__guides__item__title">
-							<?php echo $g['title']; ?>
-						</h3>
+						<?php if(!is_null($g['guide']) && !empty($g['guide'])) : ?>
+						<a href="<?php echo str_replace('"', '\"', get_permalink($g['guide'][0])); ?>">
+						<?php endif; ?>
+							<h3 class="hp__guides__item__title">
+								<?php echo $g['title']; ?>
+							</h3>
+						<?php if(!is_null($g['guide']) && !empty($g['guide'])) : ?>
+						</a>
+						<?php endif; ?>
 						<div class="hp__guides__item__text">
 							<?php echo $g['text']; ?>
 						</div>
