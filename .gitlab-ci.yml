@@ -66,6 +66,12 @@ deploy-recette:
     #- ln -snf /var/www/releases/current_release /var/www/html/wp-content/themes/esthima
     # - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
 deploy-production:
+  before_script:
+    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+    - ". ~/.nvm/nvm.sh"
+    - nvm install v16.20.2
+    - nvm use v16.20.2
+    - node --version
   environment:
     name: main
     url: esthima.com
