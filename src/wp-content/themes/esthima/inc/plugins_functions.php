@@ -112,6 +112,12 @@ function fr_phone_format( $phone_formats ) {
         'regex'       => '/^[0][1|2|3|4|5|6|7|8|9][0-9]{8}$/',
         'instruction' => false,
     );
+    $phone_formats['cp'] = array(
+        'label'       => 'Code postal',
+        'mask'        => '99999',
+        'regex'       => '/^[0-9]{5}$/',
+        'instruction' => false,
+    );
  
     return $phone_formats;
 }
