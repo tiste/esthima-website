@@ -2,8 +2,8 @@
 	<div class="petsconfigurator__content petsconfigurator__content--parcours petsconfigurator__content--cendres">
 		<div class="petsconfigurator__hero petsconfigurator__hero--pets">
 			<img v-if="typeAnimal == 'chien'" :src="`${themeDirectoryUri}/images/configurateur/cendre-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
-			<img v-else-if="typeAnimal == 'chat'" :src="`${themeDirectoryUri}/images/configurateur/cendre-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
-			<img v-else-if="typeAnimal == 'nac'" :src="`${themeDirectoryUri}/images/configurateur/cendre-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
+			<img v-else-if="typeAnimal == 'chat'" :src="`${themeDirectoryUri}/images/configurateur/cendre-chat.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
+			<img v-else-if="typeAnimal == 'nac'" :src="`${themeDirectoryUri}/images/configurateur/cendre-nac.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
 		</div>
 
 		<div class="petsconfigurator__question">

@@ -18,7 +18,7 @@
 			</div>
 			<button @click.prevent="goNext" class="btn btn--arrow btn--arrow-disable-hover petsconfigurator__navigation__button-desk" v-if="route.name != 'Recap'">Continuer</button>
 			<button @click.prevent="downloadOffre" class="btn btn--arrow btn--arrow-disable-hover petsconfigurator__navigation__recap-btn" v-if="route.name == 'Recap'">Télécharger mon offre personnalisée</button>
-			<button class="btn btn--arrow btn--arrow-disable-hover petsconfigurator__navigation__recap-btn" v-if="route.name == 'Recap'">Être rappelé par Esthima</button>
+			<a href="/urgence-deces-animal" class="btn btn--arrow btn--arrow-disable-hover petsconfigurator__navigation__recap-btn" v-if="route.name == 'Recap'">Être rappelé par Esthima</a>
 		</div>
     </nav>
 </template>
