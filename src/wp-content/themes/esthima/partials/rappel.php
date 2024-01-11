@@ -118,5 +118,7 @@ if (isset($_POST['go'])) {
 </form>
 <div>* Champs obligatoires</div>
 <?php else : ?>
-    <p class="has-text-align-center has-medium-font-size" style="font-style:normal;font-weight:600">Merci, nous allons vous recontacter dans les plus brefs délais.</p>
+    <p class="has-text-align-center has-medium-font-size" style="font-style:normal;font-weight:600">
+        Nous avons bien pris en compte votre demande de rappel, nous allons la traiter dans les meilleurs délais. Pour information, nos services sont ouverts du lundi au vendredi de 8h00 à 18h00 et le samedi de 8h00 à 12h00; nous prendrons en compte votre demande de rappel dans ces horaires
+    </p>
 <?php endif; ?>
