@@ -2,8 +2,8 @@
 	<div class="petsconfigurator__content petsconfigurator__content--parcours petsconfigurator__content--info">
 		<div class="petsconfigurator__hero petsconfigurator__hero--pets">
 			<img v-if="typeAnimal == 'chien'" :src="`${themeDirectoryUri}/images/configurateur/info-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
-			<img v-else-if="typeAnimal == 'chat'" :src="`${themeDirectoryUri}/images/configurateur/info-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
-			<img v-else-if="typeAnimal == 'nac'" :src="`${themeDirectoryUri}/images/configurateur/info-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
+			<img v-else-if="typeAnimal == 'chat'" :src="`${themeDirectoryUri}/images/configurateur/info-chat.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
+			<img v-else-if="typeAnimal == 'nac'" :src="`${themeDirectoryUri}/images/configurateur/info-nac.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
 		</div>
 
 		<div class="petsconfigurator__question">
@@ -20,7 +20,7 @@
 				</div>
 				<div class="input-text">
 					<input type="text" id="lastNameUser" v-model="firstNameUser" placeholder=" ">
-					<label for="firstNameUser">Prénom<i style="color:red;">*</i></label>
+					<label for="lastNameUser">Prénom<i style="color:red;">*</i></label>
 				</div>
 				<div class="input-errors" v-for="error of v$.firstNameUser.$errors" :key="error.$uid">
 					<div class="error-msg">{{ error.$message }}</div>

@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 
 
@@ -66,7 +67,8 @@ const config = {
     path: path.resolve(__dirname),
   },
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new webpack.DefinePlugin({ __VUE_PROD_DEVTOOLS__: 'false', }),
   ]
 };
 
