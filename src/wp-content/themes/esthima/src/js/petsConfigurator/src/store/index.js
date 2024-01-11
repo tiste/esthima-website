@@ -21,6 +21,6 @@ export default createStore({
 	modules: {
 	  petsConfigurator
 	},
-	strict: debug,
+	devtools: false,
 	plugins: [vuexCookie.plugin]
 })
