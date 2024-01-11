@@ -303,9 +303,11 @@
             }
             ul{
                 li{
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: nowrap;
+                    // display: flex;
+                    // flex-direction: row;
+                    // flex-wrap: nowrap;
+                    position: relative;
+                    padding-left: 1.5em;
                     &::before {
                         content: "\2022";
                         color: @main;
@@ -313,6 +315,9 @@
                         display: block;
                         width: 4em;
                         margin-left: 0.5em;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
                         @media (min-width: 768px){
                             width: 1em;
                         }
