@@ -79,42 +79,42 @@ class Kiamo
      */
     public function postRewind($aRequest)
     {
-        // $oEntity = $this->oEntitiesService->getEntityByPostalCode(substr($aRequest['postalCode'], 0, 2));
-        // $oJson = json_encode([[
-        //     'destination' =>  $aRequest['phone'],
-        //     'userdata' => [
-        //         'NumeroPresente' => $oEntity->getAddress()->getPhone(),
-        //         'SF_contactAgence' => $oEntity->getFunctionalId(),
-        //         'CCKInteractionLabel' => $aRequest['lastname'],
-        //         'CCKCompanyCid' => 4,
-        //     ],
-        // ]]);
+        $oEntity = $this->oEntitiesService->getEntityByPostalCode(substr($aRequest['postalCode'], 0, 2));
+        $oJson = json_encode([[
+            'destination' =>  $aRequest['phone'],
+            'userdata' => [
+                'NumeroPresente' => $oEntity->getAddress()->getPhone(),
+                'SF_contactAgence' => $oEntity->getFunctionalId(),
+                'CCKInteractionLabel' => $aRequest['lastname'],
+                'CCKCompanyCid' => 4,
+            ],
+        ]]);
 
-        // $oCurl = curl_init($this->sKiamoEndpoint.'services/'.$this->iKiamoCallbackId.'/interactions');
-        // curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($oCurl, CURLINFO_HEADER_OUT, true);
-        // curl_setopt($oCurl, CURLOPT_POST, true);
-        // curl_setopt($oCurl, CURLOPT_POSTFIELDS, $oJson);
-        // curl_setopt($oCurl, CURLOPT_HTTPHEADER, [
-        //     'Content-Type: application/json',
-        //     'Kiamo-Api-Token: '.$this->sKiamoToken,
-        // ]);
+        $oCurl = curl_init($this->sKiamoEndpoint.'services/'.$this->iKiamoCallbackId.'/interactions');
+        curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($oCurl, CURLINFO_HEADER_OUT, true);
+        curl_setopt($oCurl, CURLOPT_POST, true);
+        curl_setopt($oCurl, CURLOPT_POSTFIELDS, $oJson);
+        curl_setopt($oCurl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Kiamo-Api-Token: '.$this->sKiamoToken,
+        ]);
 
-        // $sResponse = curl_exec($oCurl);
-        // $sError    = curl_error($oCurl);
-        // $iErrno    = curl_errno($oCurl);
+        $sResponse = curl_exec($oCurl);
+        $sError    = curl_error($oCurl);
+        $iErrno    = curl_errno($oCurl);
 
-        // if (is_resource($oCurl)) {
-        //     curl_close($oCurl);
-        // }
+        if (is_resource($oCurl)) {
+            curl_close($oCurl);
+        }
 
-        // if (0 !== $iErrno) {
-        //     throw new \Exception($sError, $iErrno);
-        // }
+        if (0 !== $iErrno) {
+            throw new \Exception($sError, $iErrno);
+        }
 
-        // $oResponse = json_decode($sResponse);
-        // if (property_exists($oResponse, 'error')) {
-        //     throw new \Exception($oResponse->error->message);
-        // }
+        $oResponse = json_decode($sResponse);
+        if (property_exists($oResponse, 'error')) {
+            throw new \Exception($oResponse->error->message);
+        }
     }
 }

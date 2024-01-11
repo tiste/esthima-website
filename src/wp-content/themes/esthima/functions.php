@@ -118,10 +118,4 @@ require get_template_directory() . '/inc/widget_include_partial.php';
 /* SERVICE */
 require get_template_directory() . '/inc/kiamo.php';
 
-// define(KIAMO_ENDPOINT, 'https://incineris-kiamo-labo.komeo.fr/api/v2/');
-// define(KIAMO_TOKEN, '083e55bde788591bbfdc6316774b24c8c37d40ce');
-// define(KIAMO_CALLBACK_ID, '89');
-// $kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, KIAMO_CALLBACK_ID);
-
-// $kiamo->isRewind(var);
 require get_template_directory() . '/services/service-petsconfigurator.php';
