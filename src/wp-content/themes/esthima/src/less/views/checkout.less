@@ -316,6 +316,44 @@
             }
         }
     }
+    p#billing_convention_field{
+        position: relative;
+        // margin-top: 50px;
+        &::before{
+            content: "Numéro de convention";
+            /* padding: 0 16px 8px; */
+            
+            margin: 10px 0 16px;
+            color: @text;
+            font-family: @main-font;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            @media (min-width: 768px){
+                margin: 8px 0 11px;
+                font-size: 13px;
+            }
+            @media (min-width: 1440px){
+                margin: 10px 0 13px;
+                font-size: 16px;
+            }
+            @media (min-width: 1680px){
+                margin: 12px 0 16px;
+                font-size: 20px;
+            }
+        }
+        // &::after{
+        //     content: "";
+        //     display: block;
+        //     background-color: #F8F0E8;
+        //     width: calc(100% + 42px);
+        //     height: 10px;
+        //     position: absolute;
+        //     top: -20px;
+        //     left: -21px;
+        // }
+    }
     #order_review_heading{
         margin: 40px 0 20px;
         color: @text;
