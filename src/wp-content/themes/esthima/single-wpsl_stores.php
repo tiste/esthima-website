@@ -30,8 +30,8 @@
                 ?>
                 <h1><?php echo $typeStr; ?> de <span><?php echo get_the_title(); ?></span></h1>
                 <div class="store__tet__btns">
-                    <a href="#" class="btn btn--arrow">Personnaliser les obsèques</a>
-                    <a href="<?php echo home_url('/'); ?>prendre-rdv/" class="store__tet__btns__rdv">Prendre rendez-vous</a>
+                    <a href="<?php echo home_url('/'); ?>configurateur" class="btn btn--arrow">Personnaliser les obsèques</a>
+                    <a href="<?php echo home_url('/'); ?>prendre-rdv" class="store__tet__btns__rdv">Prendre rendez-vous</a>
                     <a href="tel:<?php echo get_post_meta(get_the_ID(), 'wpsl_phone', true); ?>" class="store__tet__btns__call">Nous appeler</a>
                 </div>
             </div>
