@@ -73,7 +73,7 @@
 			<div class="containerCustom2">
 				<div class="footer__bottom__container">
 					<?php wp_nav_menu(['menu'=>'Footer - bottom', 'container_class'=>'footer__bottom__menu']); ?>
-					<div class="footer__bottom__copyrights"><?php echo get_field('footer_copyrights', 'option'); ?></div>
+					<div class="footer__bottom__copyrights">Esthima©<?php echo date('Y'); ?> - Tous droits réservés</div>
 				</div>
 			</div>
 		</div>
