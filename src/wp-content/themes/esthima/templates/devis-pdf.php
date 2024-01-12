@@ -77,7 +77,18 @@
     </tr>
     <tr>
         <td class="title">Geste souvenir</td>
-        <td><?php echo (isset($args['geste_souvenir'])) ? $args['geste_souvenir'] : ''; ?></td>
+        <td> 
+            <?php if (isset($args['geste_souvenir'])): ?>
+                <?php if (isset($args['geste_souvenir_empreinte'])): ?>
+                    <br>
+                    Empreinte: Oui / <?php echo $args['prix_geste_souvenir_empreinte']; ?> €
+                <?php endif; ?> 
+                <?php if (isset($args['geste_souvenir_empreinte'])): ?>
+                    <br>
+                    Touffe de poils: Oui / <?php echo $args['prix_geste_souvenir_touffe']; ?> € 
+                <?php endif; ?> 
+            <?php endif; ?> 
+        </td>
     </tr>
     <tr>
         <td class="title">Crémation</td>

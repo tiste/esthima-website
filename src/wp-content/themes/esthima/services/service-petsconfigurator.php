@@ -4,6 +4,7 @@ require_once __DIR__ . "/../inc/dompdf/autoload.inc.php";
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Services\Kiamo;
 
 class ServicePetsconfigurator extends WP_REST_Controller
 {
@@ -22,6 +23,10 @@ class ServicePetsconfigurator extends WP_REST_Controller
         register_rest_route($namespace, '/generate-pdf', array(
             'methods' => 'GET',
             'callback' => array($this, 'generatePDF')
+        ));
+        register_rest_route($namespace, '/call-kiamo', array(
+            'methods' => 'POST',
+            'callback' => array($this, 'callKiamo')
         ));
     }
 
@@ -85,14 +90,19 @@ class ServicePetsconfigurator extends WP_REST_Controller
         $urne = $request->get_param('urne');
         $urne_sku = $request->get_param('urne_sku');
         $geste_souvenir = $request->get_param('geste_souvenir');
+        $geste_souvenir_empreinte = $request->get_param('geste_souvenir_empreinte');
+        $geste_souvenir_touffe = $request->get_param('geste_souvenir_touffe');
         $cremation = $request->get_param('cremation');
         $prix_urne = $request->get_param('prix_urne');
         $prix_geste_souvenir = $request->get_param('prix_geste_souvenir');
+        $prix_geste_souvenir_empreinte = $request->get_param('prix_geste_souvenir_empreinte');
+        $prix_geste_souvenir_touffe = $request->get_param('prix_geste_souvenir_touffe');
         $prix_cremation = $request->get_param('prix_cremation');
         $prix_total = $request->get_param('prix_total');
         $email = $request->get_param('email');
         $nom_personne = $request->get_param('nom_personne');
         $prenom_personne = $request->get_param('prenom_personne');
+        $tel_personne = $request->get_param('tel_personne');
         $compte = $request->get_param('userID');
         $postTitle = $espece . ' - ' . $nom . ' - ' . $email;
 
@@ -120,6 +130,10 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 // if (!empty($urne_relation)) {
                 //     update_field('compte', $urne_relation, $post_id);
                 // }
+                update_field('geste_souvenir_empreinte', $geste_souvenir_empreinte, $post_id);
+                update_field('geste_souvenir_touffe', $geste_souvenir_touffe, $post_id);
+                update_field('prix_geste_souvenir_empreinte', $prix_geste_souvenir_empreinte, $post_id);
+                update_field('prix_geste_souvenir_touffe', $prix_geste_souvenir_touffe, $post_id);
                 update_field('urne_sku', $urne_sku, $post_id);
                 update_field('geste_souvenir', $geste_souvenir, $post_id);
                 update_field('cremation', $cremation, $post_id);
@@ -138,6 +152,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 update_field('email', $email, $post_id);
                 update_field('nom_personne', $nom_personne, $post_id);
                 update_field('prenom_personne', $prenom_personne, $post_id);
+                update_field('tel_personne', $tel_personne, $post_id);
             }
         }
 
@@ -156,17 +171,21 @@ class ServicePetsconfigurator extends WP_REST_Controller
         $urne = get_field('urne', $post_id);
         $urne_sku = get_field('urne_sku', $post_id);
         $geste_souvenir = get_field('geste_souvenir', $post_id);
+        $geste_souvenir_empreinte = get_field('geste_souvenir_empreinte', $post_id);
+        $geste_souvenir_touffe = get_field('geste_souvenir_touffe', $post_id);
         $cremation = get_field('cremation', $post_id);
         $prix_urne = get_field('prix_urne', $post_id);
         $prix_geste_souvenir = get_field('prix_geste_souvenir', $post_id);
+        $prix_geste_souvenir_empreinte = get_field('prix_geste_souvenir_empreinte', $post_id);
+        $prix_geste_souvenir_touffe = get_field('prix_geste_souvenir_touffe', $post_id);
         $prix_cremation = get_field('prix_cremation', $post_id);
         $prix_total = get_field('prix_total', $post_id);
         $email = get_field('email', $post_id);
         $nom_personne = get_field('nom_personne', $post_id);
         $prenom_personne = get_field('prenom_personne', $post_id);
+        $tel_personne = $request->get_param('tel_personne');
         $compte = get_field('userID', $post_id);
         $postTitle = $espece . ' - ' . $nom . ' - ' . $email;
-       
 
         ob_start();
         echo get_template_part('templates/devis-pdf', null, [
@@ -177,14 +196,18 @@ class ServicePetsconfigurator extends WP_REST_Controller
             'urne' => $urne,
             'urne_sku' => $urne_sku,
             'geste_souvenir' => $geste_souvenir,
+            'geste_souvenir_empreinte' => $geste_souvenir_empreinte,
+            'geste_souvenir_touffe' => $geste_souvenir_touffe,
             'cremation' => $cremation,
             'prix_urne' => $prix_urne,
             'prix_geste_souvenir' => $prix_geste_souvenir,
+            'prix_geste_souvenir_empreinte' => $prix_geste_souvenir_empreinte,
+            'prix_geste_souvenir_touffe' => $prix_geste_souvenir_touffe,
             'prix_cremation' => $prix_cremation,
             'prix_total' => $prix_total,
             'nom_personne' => $nom_personne,
             'prenom_personne' => $prenom_personne,
-            'prix_geste_souvenir' => $prix_geste_souvenir,
+            'tel_personne' => $tel_personne,
             'email' => $email,
             'compte' => $compte,
             'postTitle' => $postTitle
@@ -198,6 +221,24 @@ class ServicePetsconfigurator extends WP_REST_Controller
         $pdf->loadHtml($devis);
         $pdf->render();
         $pdf->stream('devis.pdf', ['Attachements' => 0]);
+    }
+
+    public function callKiamo(WP_REST_Request $request) {
+        
+        $nom_personne = $request->get_param('nom_personne');
+        $prenom_personne = $request->get_param('prenom_personne');
+        $tel = $request->get_param('tel');
+       
+        $kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, KIAMO_CALLBACK_ID);
+        
+        $isRewind = $kiamo->isRewind($tel);
+        if(!$isRewind){
+            $kiamo->postRewind([
+                'firstname' => $prenom_personne,
+                'lastname' => $nom_personne,
+                'phone' => $tel
+            ]);
+        }
     }
     
 }

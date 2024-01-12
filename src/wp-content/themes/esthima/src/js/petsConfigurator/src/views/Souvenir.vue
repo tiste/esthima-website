@@ -37,22 +37,22 @@
 						</span>
 						<ul class="petsconfigurator__question__list-radio">
 							<li>
-								<input type="radio" id="gesteSouvenirTrue" value="empreinte" v-model="gesteSouvenir"/>
-								<label for="gesteSouvenirTrue">
+								<input type="checkbox" id="gesteSouvenirEmpreinte" :value="true" v-model="gesteSouvenirEmpreinte"/>
+								<label for="gesteSouvenirEmpreinte">
 									<img :src="`${themeDirectoryUri}/images/configurateur/patte.svg`" alt="Empreinte">
 								</label>
 								<span>Empreinte</span>
 							</li>
 							<li>
-								<input type="radio" id="gesteSouvenirFalse" value="touffe de poil" v-model="gesteSouvenir"/>
-								<label for="gesteSouvenirFalse">
+								<input type="checkbox" id="gesteSouvenirTouffe" :value="true" v-model="gesteSouvenirTouffe"/>
+								<label for="gesteSouvenirTouffe">
 									<img :src="`${themeDirectoryUri}/images/configurateur/touffe.svg`" alt="touffe de poil">
 								</label>
 								<span>Touffe de poil</span>
 							</li>
 						</ul>
-						<div class="input-errors" v-for="error of v$.gesteSouvenir.$errors" :key="error.$uid">
-							<div class="error-msg">{{ error.$message }}</div>
+						<div class="input-errors" v-if="(v$.gesteSouvenirEmpreinte.$invalid || v$.gesteSouvenirTouffe.$invalid) && v$.$dirty">
+							<div class="error-msg petsconfigurator-h-center">Veuillez choisir une option</div>
 						</div>
 						<button @click.prevent="goNextPage" class="btn btn--arrow btn--arrow-disable-hover">Continuer</button>
 					</div>
@@ -98,12 +98,21 @@ export default {
 		}
 	})
 	
-    const gesteSouvenir = computed({
+    const gesteSouvenirEmpreinte = computed({
 		get () {
-			return store.state.petsConfigurator.gesteSouvenir
+			return store.state.petsConfigurator.gesteSouvenirEmpreinte
 		},
 		set (value) {
-			store.commit('petsConfigurator/updateGesteSouvenir', value)
+			store.commit('petsConfigurator/updateGesteSouvenirEmpreinte', value)
+		}
+	})
+
+	const gesteSouvenirTouffe = computed({
+		get () {
+			return store.state.petsConfigurator.gesteSouvenirTouffe
+		},
+		set (value) {
+			store.commit('petsConfigurator/updateGesteSouvenirTouffe', value)
 		}
 	})
 
@@ -113,10 +122,7 @@ export default {
 		}
 	})
 
-	const goNextPage = () => {
-		store.commit('petsConfigurator/updatePopupOpen', false)
-		goNext()
-	}
+
 
 	const peekaboo = () => {
 		peekabooBool.value = !peekabooBool.value
@@ -126,22 +132,43 @@ export default {
 		souvenir.value = false
 	}
 
+	const gesteSouvenirIsSelected = (value) => {
+		if (souvenir.value && !gesteSouvenirEmpreinte.value && !gesteSouvenirTouffe.value) {
+			//invalide
+			return false
+		} 
+		//valide
+		return true
+	}
+
+	
+
 	const rules = {
 		souvenir: {
 			required: helpers.withMessage('Veuillez choisir une option', required)
 		},
-		gesteSouvenir: {
-			required: requiredIf(() => {
-                helpers.withMessage('Veuillez choisir une option', required)
-            })
+		gesteSouvenirEmpreinte: {
+			gesteSouvenirIsSelected
+		},
+		gesteSouvenirTouffe: {
+			gesteSouvenirIsSelected
 		}
 	}
 
-	const v$ = useVuelidate(rules, {
+	const v$ = useVuelidate(rules, {	
 		souvenir,
-		gesteSouvenir
+		gesteSouvenirEmpreinte,
+		gesteSouvenirTouffe,
 	})
 
+
+	const goNextPage = async () => {
+		let isValid = await validate()
+		if (isValid !== false) {
+			store.commit('petsConfigurator/updatePopupOpen', false)
+			goNext()
+		}
+	}
 
 	const validate = async () => {
 		const isFormCorrect = await v$.value.$validate();

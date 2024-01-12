@@ -2,9 +2,9 @@
 
 <?php
 use App\Services\Kiamo;
-define('KIAMO_ENDPOINT', 'https://incineris-kiamo-labo.komeo.fr/api/v2/');
-define('KIAMO_TOKEN', '083e55bde788591bbfdc6316774b24c8c37d40ce');
-define('KIAMO_CALLBACK_ID', '89');
+if (!defined('KIAMO_ENDPOINT')) define('KIAMO_ENDPOINT', 'https://incineris-kiamo-labo.komeo.fr/api/v2/');
+if (!defined('KIAMO_TOKEN')) define('KIAMO_TOKEN', '083e55bde788591bbfdc6316774b24c8c37d40ce');
+if (!defined('KIAMO_CALLBACK_ID')) define('KIAMO_CALLBACK_ID', '89');
 $kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, KIAMO_CALLBACK_ID);
 
 $isCompleted = false;

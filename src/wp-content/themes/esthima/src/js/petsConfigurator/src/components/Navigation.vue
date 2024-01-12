@@ -18,7 +18,7 @@
 			</div>
 			<button @click.prevent="goNext" class="btn btn--arrow btn--arrow-disable-hover petsconfigurator__navigation__button-desk" v-if="route.name != 'Recap'">Continuer</button>
 			<button @click.prevent="downloadOffre" class="btn btn--arrow btn--arrow-disable-hover petsconfigurator__navigation__recap-btn" v-if="route.name == 'Recap'">Télécharger mon offre personnalisée</button>
-			<a href="/urgence-deces-animal" class="btn btn--arrow btn--arrow-disable-hover petsconfigurator__navigation__recap-btn" v-if="route.name == 'Recap'">Être rappelé par Esthima</a>
+			<button @click.prevent="sendCallback" class="btn btn--arrow btn--arrow-disable-hover petsconfigurator__navigation__recap-btn" v-if="route.name == 'Recap'">Être rappelé par Esthima</button>
 		</div>
     </nav>
 </template>
@@ -38,6 +38,8 @@ import { useStore } from 'vuex';
 import { goPrev, goNext } from '../helpers/Navigate';
 import ProgressBar from './ProgressBar'
 import { request } from '../helpers/Request.js'
+import EventBus from '../EventBus';
+
 
 const themeDirectoryUri = window.wpvar.themeDirectoryUri || ''
 const userID = window.wpvar.currentAccountID || ''
@@ -71,20 +73,37 @@ const downloadOffre = () => {
         'ceremonie_adieu': (store.state.petsConfigurator.ceremonieAdieu) ? 'Oui' : 'Non',
         'urne': (store.state.petsConfigurator.urne) ? urneDetails.value : 'Non',
         'urne_sku': (store.state.petsConfigurator.urne) ? urneSku.value : '',
-        'geste_souvenir': (store.state.petsConfigurator.souvenir) ? `Oui / ${store.state.petsConfigurator.gesteSouvenir}` : 'Non',
+        'geste_souvenir': (store.state.petsConfigurator.souvenir) ? `Oui / (${souvenirDetails.value})` : 'Non',
+        'geste_souvenir_empreinte': (store.state.petsConfigurator.gesteSouvenirEmpreinte) ? `Oui` : 'Non',
+        'geste_souvenir_touffe': (store.state.petsConfigurator.gesteSouvenirTouffe) ? `Oui` : 'Non',
         'cremation': store.getters['petsConfigurator/cremationChoice'],
         'prix_urne': urnePrice.value,
+        'prix_geste_souvenir_empreinte': (store.state.petsConfigurator.gesteSouvenirEmpreinte) ? store.state.petsConfigurator.prixEmpreinte : '',
+        'prix_geste_souvenir_touffe': (store.state.petsConfigurator.gesteSouvenirTouffe) ? store.state.petsConfigurator.prixTouffe : '',
         'prix_geste_souvenir': souvenirPrice.value,
         'prix_cremation': store.getters['petsConfigurator/priceCremation'],
         'prix_total': store.getters['petsConfigurator/totalPrice'],
         'email': store.state.petsConfigurator.emailUser,
         'nom_personne': store.state.petsConfigurator.lastNameUser,
         'prenom_personne': store.state.petsConfigurator.firstNameUser,
+        'tel_personne': store.state.petsConfigurator.telUser,
         'userID': userID,
 	}
 
 	request('register-devis', JSON.stringify(data), 'POST').then((postID) => {
 		window.open( `${baseApi}generate-pdf?id=${postID}`, '_blank');
+	})
+}
+
+const sendCallback = async () => {
+	let data = {
+        'nom_personne': store.state.petsConfigurator.nameAnimal,
+        'tel': store.state.petsConfigurator.tel,
+        'postalCode': store.state.petsConfigurator.postalCodeUser,
+	}
+
+	request('call-kiamo', JSON.stringify(data), 'POST').then(async (res) => {
+		await EventBus.emit('confirmCallKiamo');
 	})
 }
 
@@ -112,15 +131,36 @@ const urnePrice = computed({
 	}
 })
 
-const souvenirPrice = computed({
+const souvenirDetails = computed({
 	get() {
-		if (store.state.petsConfigurator.gesteSouvenir) {
-			if (store.state.petsConfigurator.gesteSouvenir == "empreinte") {
-				return store.state.petsConfigurator.prixEmpreinte
-			} else {
-				return store.state.petsConfigurator.prixTouffe
+		let p = []
+		if (store.state.petsConfigurator.gesteSouvenirEmpreinte) {
+			if (store.state.petsConfigurator.gesteSouvenirEmpreinte) {
+				p.push('Empreinte')
 			}
 		}
+		if (store.state.petsConfigurator.gesteSouvenirTouffe) {
+			if (store.state.petsConfigurator.gesteSouvenirTouffe) {
+				p.push('Touffe de poils')
+			} 
+		}
+		return p.join(' , ')
+	}
+})
+const souvenirPrice = computed({
+	get() {
+		let p = 0
+		if (store.state.petsConfigurator.gesteSouvenirEmpreinte) {
+			if (store.state.petsConfigurator.gesteSouvenirEmpreinte) {
+				p = parseFloat(p) + parseFloat(store.state.petsConfigurator.prixEmpreinte)
+			}
+		}
+		if (store.state.petsConfigurator.gesteSouvenirTouffe) {
+			if (store.state.petsConfigurator.gesteSouvenirTouffe) {
+				p = parseFloat(p) + parseFloat(store.state.petsConfigurator.prixTouffe)
+			} 
+		}
+		return p
 	}
 })
 

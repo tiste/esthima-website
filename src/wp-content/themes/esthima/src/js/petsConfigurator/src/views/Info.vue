@@ -32,6 +32,14 @@
 				<div class="input-errors" v-for="error of v$.emailUser.$errors" :key="error.$uid">
 					<div class="error-msg">{{ error.$message }}</div>
 				</div>
+				<div class="input-text">
+					<input type="text" id="telUser" v-model="telUser" placeholder=" ">
+					<label for="telUser">Numéro de téléphone<i style="color:red;">*</i></label>
+				</div>
+				<div class="input-errors" v-for="error of v$.telUser.$errors" :key="error.$uid">
+					<div class="error-msg" v-if="error.$message != ''">{{ error.$message }}</div>
+					<div class="error-msg" v-else>{{ error.$params.message }}</div>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -57,6 +65,12 @@ export default {
 	const themeDirectoryUri = window.wpvar.themeDirectoryUri || ''
 	
 	const imgLoaded = ref(0)
+
+	const isFrenchPhoneNumber = helpers.withParams(
+		{ type: 'isFrenchPhoneNumber', message: 'Numéro de téléphone invalide' },
+		value => /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/gmi.test(value)
+	)
+
 	
 	const typeAnimal = computed({
 		get () {
@@ -90,7 +104,17 @@ export default {
 			store.commit('petsConfigurator/updateEmailUser', value)
 		}
 	})
+   
+	const telUser = computed({
+		get () {
+			return store.state.petsConfigurator.telUser
+		},
+		set (value) {
+			store.commit('petsConfigurator/updateTelUser', value)
+		}
+	})
 
+	
 	const rules = {
 		lastNameUser: {
 			required: helpers.withMessage('Veuillez choisir une option', required)
@@ -101,13 +125,18 @@ export default {
 		emailUser: { 
 			required: helpers.withMessage('Veuillez remplir ce champ', required),
 			email: helpers.withMessage("L'email est incorrect", email)
+		},
+		telUser: { 
+			required: helpers.withMessage('Veuillez remplir ce champ', required),
+			isFrenchPhoneNumber
 		}
 	}
 
 	const v$ = useVuelidate(rules, {
 		lastNameUser,
 		firstNameUser,
-		emailUser
+		emailUser,
+		telUser
 	})
 
 
