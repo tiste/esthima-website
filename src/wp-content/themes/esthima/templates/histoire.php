@@ -14,8 +14,8 @@ get_header();
             </div>
             <div class="histoire__tet__container">
                 <div class="histoire__tet__texts">
-                    <h1><?php echo get_field('tet_title'); ?></h1>
-                    <h2><?php echo get_field('tet_subtitle'); ?></h2>
+                    <h2 class="histoire__tet__texts__title"><?php echo get_field('tet_title'); ?></h2>
+                    <h1 class="histoire__tet__texts__subtitle"><?php echo get_field('tet_subtitle'); ?></h1>
                     <div class="histoire__tet__texts__text">
                         <?php echo get_field('tet_text'); ?>
                     </div>
@@ -46,7 +46,7 @@ get_header();
         <div class="histoire__list__list">
             <?php foreach($list as $l) : ?>
                 <div class="histoire__list__list__item">
-                    <h3><?php echo $l['title']; ?></h3>
+                    <h2 class="histoire__list__list__item__title"><?php echo $l['title']; ?></h2>
                     <div class="histoire__list__list__item__text"><?php echo $l['text']; ?></div>
                 </div>
             <?php endforeach; ?>
@@ -60,7 +60,7 @@ get_header();
     <div class="histoire__bottom">
         <?php foreach($bottom as $b) : ?>
             <div class="histoire__bottom__item">
-                <h3><?php echo $b['title']; ?></h3>
+                <h3 class="histoire__bottom__item__title"><?php echo $b['title']; ?></h3>
                 <div class="histoire__bottom__item__text"><?php echo $b['text']; ?></div>
                 <?php if(!is_null($b['link']) && !empty($b['link']) && is_array($b['link'])) : ?>
                     <a href="<?php echo str_replace('"', '\"', $b['link']['url']); ?>" target="<?php echo str_replace('"', '\"', $b['link']['target']); ?>" class="histoire__bottom__item__btn btn btn--arrow"><?php echo $b['link']['title']; ?></a>
