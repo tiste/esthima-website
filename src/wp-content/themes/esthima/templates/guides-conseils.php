@@ -151,6 +151,16 @@ $queryRegular = new WP_Query($argsRegular);
         </div>
     <?php endif; ?>
 
+    <?php $bottomTitle = get_field('bottom_title'); ?>
+    <?php if(!is_null($bottomTitle) && !empty($bottomTitle) && $paged<2) : ?>
+    <div class="contact__bottom">
+        <h2><?php echo $bottomTitle; ?></h2>
+        <div class="contact__bottom__text">
+            <?php echo get_field('bottom_text'); ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <div class="guides__thecontent">
         <?php if ( have_posts() ) : ?>
             <?php while ( have_posts() ) : the_post(); ?>
