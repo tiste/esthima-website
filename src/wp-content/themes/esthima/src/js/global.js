@@ -533,19 +533,24 @@ function getCookie(cName) {
 			}
 		})
 		// setInterval(() => {
-		// 	if ($('.has-label').length > 0) {
-		// 		if($('.has-label input').val()==null || $('.has-label input').val()==''){
-		// 			$('.has-label input').parents('.has-label').removeClass('has-label-written')
-		// 		}else{
-		// 			$('.has-label input').parents('.has-label').addClass('has-label-written')
-		// 		}
-
-		// 		if($('.has-label textarea').val()==null || $('.has-label textarea').val()==''){
-		// 			$('.has-label textarea').parents('.has-label').removeClass('has-label-written')
-		// 		}else{
-		// 			$('.has-label textarea').parents('.has-label').addClass('has-label-written')
-		// 		}
-		// 	}
+			if ($('.has-label input').length > 0) {
+				$('.has-label input').each(function(){
+					if($(this).val()==null || $(this).val()==''){
+						$(this).parents('.has-label').removeClass('has-label-written')
+					}else{
+						$(this).parents('.has-label').addClass('has-label-written')
+					}
+				})
+			}
+			if ($('.has-label textarea').length > 0) {
+				$('.has-label textarea').each(function(){
+					if($(this).val()==null || $(this).val()==''){
+						$(this).parents('.has-label').removeClass('has-label-written')
+					}else{
+						$(this).parents('.has-label').addClass('has-label-written')
+					}
+				})
+			}
 		// }, 2000)
 
 		/* /agence - contact - positionnement labels */
