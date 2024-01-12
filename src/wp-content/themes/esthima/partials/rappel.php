@@ -71,8 +71,10 @@ if (isset($_POST['go'])) {
     <div class="rappel__grid">
         <div class="rappel__half">
             <select name="gender" id="gender">
-                <option value="Mr">Mr</option>
+                <option value="">- Civilité * -</option>
                 <option value="Mme">Mme</option>
+                <option value="M.">M.</option>
+                <option value="Autre">Autre</option>
             </select>
             <?php if($emptyGender) : ?>
                 <div class="rappel__error">Ce champ est obligatoire</div>

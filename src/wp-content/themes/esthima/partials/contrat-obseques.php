@@ -16,12 +16,9 @@
         <div class="rappel__half">
             <select  id="salutation" name="salutation">
                 <option value="">- Civilité * -</option>
-                <option value="M.">M</option>
-                <option value="Mlle">Mlle</option>
                 <option value="Mme">Mme</option>
-                <option value="Dr">Dr</option>
-                <option value="Mr &amp; Mme">Mr &amp; Mme</option>
-                <option value="Famille">Famille</option>
+                <option value="M.">M.</option>
+                <option value="Autre">Autre</option>
             </select>
         </div>
         <div class="rappel__empty"></div>
