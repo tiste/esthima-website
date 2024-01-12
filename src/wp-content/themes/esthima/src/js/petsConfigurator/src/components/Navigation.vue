@@ -98,7 +98,7 @@ const downloadOffre = () => {
 const sendCallback = async () => {
 	let data = {
         'nom_personne': store.state.petsConfigurator.nameAnimal,
-        'tel': store.state.petsConfigurator.tel,
+        'tel': store.state.petsConfigurator.telUser,
         'postalCode': store.state.petsConfigurator.postalCodeUser,
 	}
 
