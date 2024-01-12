@@ -16,9 +16,6 @@ $emptyPostcode = false;
 $errorTel = false;
 $errorPostcode = false;
 if (isset($_POST['go'])) {
-    var_dump(strlen($_POST['tel'])); echo '<br><br>';
-    var_dump($_POST['tel'][0]); echo '<br><br>';
-    var_dump($_POST['tel'][1]); echo '<br><br>';
     if(
         !is_null($_POST['gender']) && !empty($_POST['gender']) &&
         !is_null($_POST['lastname']) && !empty($_POST['lastname']) &&
