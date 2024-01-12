@@ -98,8 +98,7 @@ const downloadOffre = () => {
 const sendCallback = async () => {
 	let data = {
         'nom_personne': store.state.petsConfigurator.nameAnimal,
-        'tel': store.state.petsConfigurator.telUser,
-        'postalCode': store.state.petsConfigurator.postalCodeUser,
+        'tel': store.state.petsConfigurator.telUser
 	}
 
 	request('call-kiamo', JSON.stringify(data), 'POST').then(async (res) => {
