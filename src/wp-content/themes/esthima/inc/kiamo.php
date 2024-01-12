@@ -79,14 +79,11 @@ class Kiamo
      */
     public function postRewind($aRequest)
     {
-        $oEntity = $this->oEntitiesService->getEntityByPostalCode(substr($aRequest['postalCode'], 0, 2));
         $oJson = json_encode([[
             'destination' =>  $aRequest['phone'],
             'userdata' => [
-                'NumeroPresente' => $oEntity->getAddress()->getPhone(),
-                'SF_contactAgence' => $oEntity->getFunctionalId(),
-                'CCKInteractionLabel' => $aRequest['lastname'],
-                'CCKCompanyCid' => 4,
+                'nom' => $aRequest['lastname'],
+                'prenom' => $aRequest['firstname'],
             ],
         ]]);
 

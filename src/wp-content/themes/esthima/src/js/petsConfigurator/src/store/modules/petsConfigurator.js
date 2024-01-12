@@ -8,15 +8,17 @@ const getDefaultState = () => {
 		urne: '',
 		urneProduct: '',
 		souvenir: '',
-		gesteSouvenir: '',
+		gesteSouvenirEmpreinte: false,
+		gesteSouvenirTouffe: false,
 		lastNameUser: '',
 		firstNameUser: '',
 		emailUser: '',
+		telUser: '',
 		popupOpen: false,
 		productsUrnes: [],
 		cremationChoice: '',
-		prixEmpreinte: 20,
-		prixTouffe: 20,
+		prixEmpreinte: 30,
+		prixTouffe: 5,
 		cremations: {
 			"privee": {
 				"nac": "239",
@@ -50,9 +52,10 @@ const getters = {
 
 		//geste souvenir
 		if (state.souvenir) {
-			if (state.gesteSouvenir == "empreinte") {
+			if (state.gesteSouvenirEmpreinte) {
 				price = parseFloat(price) + state.prixEmpreinte
-			} else {
+			}
+			if (state.gesteSouvenirTouffe) {
 				price = parseFloat(price) + state.prixTouffe
 			}
 		}
@@ -102,8 +105,11 @@ const mutations = {
 	updateSouvenir(state, value) {
 		state.souvenir = value
 	},
-	updateGesteSouvenir(state, value) {
-		state.gesteSouvenir = value
+	updateGesteSouvenirEmpreinte(state, value) {
+		state.gesteSouvenirEmpreinte = value
+	},
+	updateGesteSouvenirTouffe(state, value) {
+		state.gesteSouvenirTouffe = value
 	},
 	updateLastNameUser(state, value) {
 		state.lastNameUser = value
@@ -113,6 +119,9 @@ const mutations = {
 	},
 	updateEmailUser(state, value) {
 		state.emailUser = value
+	},
+	updateTelUser(state, value) {
+		state.telUser = value
 	},
 	updatePopupOpen(state, value) {
 		state.popupOpen = value
