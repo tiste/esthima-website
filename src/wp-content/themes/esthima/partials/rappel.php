@@ -16,6 +16,9 @@ $emptyPostcode = false;
 $errorTel = false;
 $errorPostcode = false;
 if (isset($_POST['go'])) {
+    var_dump(strlen($_POST['tel'])); echo '<br><br>';
+    var_dump($_POST['tel'][0]); echo '<br><br>';
+    var_dump($_POST['tel'][1]); echo '<br><br>';
     if(
         !is_null($_POST['gender']) && !empty($_POST['gender']) &&
         !is_null($_POST['lastname']) && !empty($_POST['lastname']) &&
@@ -26,7 +29,7 @@ if (isset($_POST['go'])) {
         if(
             strlen($_POST['tel'])!=10 ||
             $_POST['tel'][0] != '0' ||
-            $_POST['tel'][1] != '1' || $_POST['tel'][1] != '2' || $_POST['tel'][1] != '3' || $_POST['tel'][1] != '4' || $_POST['tel'][1] != '5' || $_POST['tel'][1] != '6' || $_POST['tel'][1] != '7' || $_POST['tel'][1] != '8' || $_POST['tel'][1] != '9'
+            ($_POST['tel'][1] != '1' && $_POST['tel'][1] != '2' && $_POST['tel'][1] != '3' && $_POST['tel'][1] != '4' && $_POST['tel'][1] != '5' && $_POST['tel'][1] != '6' && $_POST['tel'][1] != '7' && $_POST['tel'][1] != '8' && $_POST['tel'][1] != '9')
         ){
             $errorTel = true;
         }elseif(
