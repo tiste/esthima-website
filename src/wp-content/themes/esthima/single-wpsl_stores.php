@@ -6,11 +6,8 @@
 
     <div class="store__tet" style="--bg-img: url('<?php echo (!empty(get_the_post_thumbnail_url())) ? get_the_post_thumbnail_url() : get_template_directory_uri().'/images/default-store.jpg'; ?>');">
         <div class="storeloc__tet__breadcrumbs">
-            <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
-        </div>
-        <div class="storeloc__tet__breadcrumbs">
             <span>
-                <span><a href="<?php echo home_url(''); ?>">Accueil</a></span> &gt; <span><a href="<?php echo home_url('/'); ?>crematoriums">Nos agences et crématoriums</a></span> &gt; <span class="breadcrumb_last" aria-current="page">Vincennes</span>
+                <span><a href="<?php echo home_url(''); ?>">Accueil</a></span> &gt; <span><a href="<?php echo home_url('/'); ?>crematoriums">Nos agences et crématoriums</a></span> &gt; <span class="breadcrumb_last" aria-current="page"><?php echo get_the_title(); ?></span>
             </span>
         </div>
         <div class="main-content">
