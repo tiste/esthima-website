@@ -8,6 +8,11 @@
         <div class="storeloc__tet__breadcrumbs">
             <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
         </div>
+        <div class="storeloc__tet__breadcrumbs">
+            <span>
+                <span><a href="<?php echo home_url(''); ?>">Accueil</a></span> &gt; <span><a href="<?php echo home_url('/'); ?>crematoriums">Nos agences et crématoriums</a></span> &gt; <span class="breadcrumb_last" aria-current="page">Vincennes</span>
+            </span>
+        </div>
         <div class="main-content">
             <div class="store__tet__container">
                 <div class="store__tet__status"></div>
