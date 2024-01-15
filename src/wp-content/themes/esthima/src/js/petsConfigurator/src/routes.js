@@ -28,7 +28,8 @@ const router = createRouter({
         component: Home,
         meta: {
           nextPath: 'InfoAnimal',
-          percent: 10
+          percent: 10,
+          step: 0
         } 
     },
     {
@@ -38,7 +39,8 @@ const router = createRouter({
         meta: {
           backPath: 'Home',
           nextPath: 'Cendres',
-          percent: 30
+          percent: 30,
+          step: 1
         }
     },
     {
@@ -48,7 +50,8 @@ const router = createRouter({
         meta: {
           backPath: 'InfoAnimal',
           nextPath: 'Ceremonie',
-          percent: 40
+          percent: 40,
+          step: 2
         }
     },
     {
@@ -58,7 +61,8 @@ const router = createRouter({
         meta: {
           backPath: 'Cendres',
           nextPath: 'Urne',
-          percent: 50
+          percent: 50,
+          step: 3
         }
     },
     {
@@ -68,7 +72,8 @@ const router = createRouter({
         meta: {
           backPath: 'Ceremonie',
           nextPath: 'Souvenir',
-          percent: 70
+          percent: 70,
+          step: 4
         }
     },
     {
@@ -78,7 +83,8 @@ const router = createRouter({
         meta: {
           backPath: 'Urne',
           nextPath: 'Info',
-          percent: 80
+          percent: 80,
+          step: 5
         },
     },
     {
@@ -88,7 +94,8 @@ const router = createRouter({
         meta: {
           backPath: 'Souvenir',
           nextPath: 'Recap',
-          percent: 90
+          percent: 90,
+          step: 6
         }
     },
     {
@@ -98,15 +105,30 @@ const router = createRouter({
         meta: {
           backPath: 'Info',
           nextPath: '',
-          percent: 0
+          percent: 0,
+          step: 7
         }
     },
   ],
 });
 
-// router.beforeEach((to, from) => {
-//   console.log('zz')
-//   store.commit('petsConfigurator/updatePopupOpen', false)
-// })
+router.beforeEach((to, from) => {
+  console.log(to)
+  window.dataLayer.push({
+    'event': 'clickConfigurateur',
+    'eventCategory': 'Configurateur',
+    'eventAction' : 'Step ' + to.meta.step,
+    'eventLabel': 'Submit'
+  });
+
+  if (to.name == 'Recap') {
+    window.dataLayer.push({
+      'event': 'confirmationConfigurateur',
+      'eventCategory': 'Configurateur',
+      'eventAction' : 'Page de confirmation',
+      'eventLabel': ''
+    });
+  }
+})
 
 export default router;

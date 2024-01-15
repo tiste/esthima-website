@@ -16,6 +16,7 @@ export class TrackingEvents {
             'Page Prise en charge':'comment-proceder',
             'Page Urgence décés':'urgence-deces',
             'Page Hommage':'temoignages',
+            'Formulaire Contrat Obséques':'contrat-obseques',
         }
 
         this.assocNameByClassBody = {
@@ -64,6 +65,8 @@ export class TrackingEvents {
         this.pushEventsBoutique()
         this.pushEventsEspacePress()
         this.pushEventsPriseRDV()
+        this.pushEventsCrematoriums()
+        this.pushEventsContractObseque()
     }
 
     pushEventsNavigationHeader() {
@@ -417,14 +420,14 @@ export class TrackingEvents {
     pushEventsPageUrgenceDeces() {
         // Clic sur un CTA de la page Prise en charge
         if (this.pageType == "Page Urgence décés") {
+           
             // jQuery(".wp-block-button a:contains('être rappelé')").on('click', (e) => {
-            jQuery(".wp-block-button a").on('click', (e) => {
-                let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+            jQuery(".rappel").on('submit', (e) => {
                 window.dataLayer.push({
                     'event': 'clickUrgenceCta',
                     'eventCategory': this.pageType,
                     'eventAction': 'Clic CTA',
-                    'eventLabel': eventLabel
+                    'eventLabel': "Etre rappelé"
                 });
             })
         }
@@ -481,6 +484,71 @@ export class TrackingEvents {
             }
           }, 2000);
        
+    }
+
+    pushEventsCrematoriums() {
+
+        if (jQuery(".single .store__tet__btns .store__tet__btns__call").length > 0) {
+            jQuery(".single .store__tet__btns .store__tet__btns__call").on('click', (e) => {
+                let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickCtaStoreLoc',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic - ' + eventLabel,
+                    'eventLabel': eventLabel
+                });
+            })
+        }
+        
+        if (jQuery(".single .store__tet__btns .store__tet__btns__rdv").length > 0) {
+            jQuery(".single .store__tet__btns .store__tet__btns__rdv").on('click', (e) => {
+                let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickCtaStoreLoc',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic - ' + eventLabel,
+                    'eventLabel': eventLabel
+                });
+            })
+        }
+        
+        if (jQuery(".single .store__tet__btns .btn.btn--arrow").length > 0) {
+            jQuery(".single .store__tet__btns .btn.btn--arrow").on('click', (e) => {
+                let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickCtaStoreLoc',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic - ' + eventLabel,
+                    'eventLabel': eventLabel
+                });
+            })
+        }
+
+        if (jQuery(".single-wpsl_stores #gform_1").length > 0) {
+            jQuery(".single-wpsl_stores #gform_1").on('submit', (e) => {
+                let eventLabel = jQuery('select[name=input_14] option:selected').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickSendContact',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Envoyer',
+                    'eventLabel': eventLabel
+                });
+                if (jQuery(".single-wpsl_stores #gform_1").length > 0) {
+                    setTimeout(() => {
+
+                        jQuery(".single-wpsl_stores #gform_1").on('submit', (e) => {
+                            let eventLabel = jQuery('select[name=input_14] option:selected').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                            window.dataLayer.push({
+                                'event': 'clickSendContact',
+                                'eventCategory': this.pageType,
+                                'eventAction': 'Envoyer',
+                                'eventLabel': eventLabel
+                            });
+                        })
+                    }, 5000)
+                }
+            })
+        }
     }
 
     pushEventsBoutique() {
@@ -586,6 +654,26 @@ export class TrackingEvents {
             }, 1000)
 
         }
+    }
+
+    pushEventsContractObseque() {
+
+        if (this.pageType == "Formulaire Contrat Obséques") {
+            setTimeout(() => {
+                if (jQuery(".rappel.rappel--obseques").length > 0) {
+                    jQuery(".rappel.rappel--obseques").on('submit', (e) => {
+                        window.dataLayer.push({
+                            'event': 'submitContratObsq',
+                            'eventCategory': 'Formulaire Contrat Obséques',
+                            'eventAction': 'Submit',
+                            'eventLabel': ''
+                        });
+                    })
+                }
+            }, 4000)
+        }
+
+
     }
      
 }

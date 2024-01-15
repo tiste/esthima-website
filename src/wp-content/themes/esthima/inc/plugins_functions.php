@@ -98,7 +98,7 @@ function lw_variable_product_price( $v_price, $v_product ) {
 }
 
 // ajout validation tel francais
-add_filter( 'gform_phone_formats', 'fr_phone_format' );
+// add_filter( 'gform_phone_formats', 'fr_phone_format' );
 function fr_phone_format( $phone_formats ) {
     $phone_formats['fr'] = array(
         'label'       => 'France',

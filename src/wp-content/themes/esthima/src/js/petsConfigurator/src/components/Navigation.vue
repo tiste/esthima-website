@@ -89,6 +89,12 @@ const downloadOffre = () => {
         'tel_personne': store.state.petsConfigurator.telUser,
         'userID': userID,
 	}
+	window.dataLayer.push({
+		'event': 'clicCtaConfigurateur',
+		'eventCategory': 'Configurateur',
+		'eventAction' : 'Page d e confirmation',
+		'eventLabel': 'Clic CTA - Télécharger mon offre personnalisée'
+	});
 
 	request('register-devis', JSON.stringify(data), 'POST').then((postID) => {
 		window.open( `${baseApi}generate-pdf?id=${postID}`, '_blank');

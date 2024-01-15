@@ -532,7 +532,7 @@ function getCookie(cName) {
 				$(this).parents('.has-label').addClass('has-label-written')
 			}
 		})
-		// setInterval(() => {
+		setInterval(() => {
 			if ($('.has-label input').length > 0) {
 				$('.has-label input').each(function(){
 					if($(this).val()==null || $(this).val()==''){
@@ -551,7 +551,7 @@ function getCookie(cName) {
 					}
 				})
 			}
-		// }, 2000)
+		}, 1000)
 
 		/* /agence - contact - positionnement labels */
 
