@@ -92,7 +92,7 @@ const downloadOffre = () => {
 	window.dataLayer.push({
 		'event': 'clicCtaConfigurateur',
 		'eventCategory': 'Configurateur',
-		'eventAction' : 'Page d e confirmation',
+		'eventAction' : 'Page de confirmation',
 		'eventLabel': 'Clic CTA - Télécharger mon offre personnalisée'
 	});
 
@@ -106,6 +106,13 @@ const sendCallback = async () => {
         'nom_personne': store.state.petsConfigurator.nameAnimal,
         'tel': store.state.petsConfigurator.telUser
 	}
+
+	window.dataLayer.push({
+		'event': 'clicCtaConfigurateur',
+		'eventCategory': 'Configurateur',
+		'eventAction' : 'Page de confirmation',
+		'eventLabel': 'Clic CTA - Etre rappelé'
+	});
 
 	request('call-kiamo', JSON.stringify(data), 'POST').then(async (res) => {
 		await EventBus.emit('confirmCallKiamo');

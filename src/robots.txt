@@ -1,0 +1,38 @@
+User-agent: *
+
+# On empêche l'indexation des dossiers sensibles
+Disallow: /wp-admin/
+Disallow: /trackback
+Disallow: /*.php$
+Disallow: /*.inc$
+Disallow: /*.gz$
+Disallow: /wp-login.php
+
+# Limiter le crawl inutile
+Disallow: *lang=*
+Disallow: *?preview_id=*
+Disallow: *?post_type=*
+Disallow: *?page_id=*
+Disallow: *?action=*
+Disallow: *?add_to_wishlist=*
+Disallow: *?add-to-cart=*
+Disallow: *?yith_wcan=*
+Disallow: *?&attribute_pa_couleur=*
+Disallow: *?attribute_pa_contenance=*
+Disallow: *?s=*
+Disallow: *?search=*
+Disallow: *feed*
+Disallow: *?term=*
+Disallow: *?cat=*
+Disallow: *?email*
+Disallow: *?gender=*
+Disallow: *?orderby=*
+Disallow : *?yith_wcan=*
+
+Disallow: */store-category/*
+Disallow: */service_type/*
+Disallow: */faq_cat/*
+Disallow: */store_services/*
+Disallow: */avantage-produit/*
+
+Sitemap: https://esthima.krealid.com/sitemap_index.xml

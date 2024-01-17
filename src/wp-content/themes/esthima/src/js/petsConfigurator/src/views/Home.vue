@@ -42,12 +42,12 @@ export default {
 	function goNext() {
 		transitionName.value = 'slide-left'
 		if (route.meta.nextPath) {
-			window.dataLayer.push({
-				'event': 'clickConfigurateur',
-				'eventCategory': 'Configurateur',
-				'eventAction' : 'Initialisation',
-				'eventLabel': ''
-			});
+			// window.dataLayer.push({
+			// 	'event': 'clickConfigurateur',
+			// 	'eventCategory': 'Configurateur',
+			// 	'eventAction' : 'Initialisation',
+			// 	'eventLabel': ''
+			// });
 			router.push({ name: route.meta.nextPath })
 		}
 	}

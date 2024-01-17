@@ -204,6 +204,13 @@ $queryRegular = new WP_Query($argsRegular);
         </div>
     <?php endif; ?>
 
+    <div class="shop__seo">
+        <h2><?php echo get_field('seo_title'); ?></h2>
+        <div class="shop__seo__text">
+            <?php echo get_field('seo_text'); ?>
+        </div>
+    </div>
+
 </main>
 
 
