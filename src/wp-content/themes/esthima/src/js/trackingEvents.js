@@ -206,6 +206,7 @@ export class TrackingEvents {
                 'eventLabel': eventLabel
             });
         })
+
         jQuery(".main > [class^='hp__']").on('click', (e) => {
             let eventLabelH1 = jQuery(e.currentTarget).find('h1').text().replace(/(\n|\t|\r)/gm, "")
             let eventLabelH2 = jQuery(e.currentTarget).find('h2').text().replace(/(\n|\t|\r)/gm, "")
@@ -383,6 +384,7 @@ export class TrackingEvents {
                     'eventAction': eventAction,
                     'eventLabel': eventAction
                 });
+                return
             })
 
             // Clic sur l'un des CTA
@@ -396,6 +398,8 @@ export class TrackingEvents {
                     'eventAction': 'Clic CTA',
                     'eventLabel': eventLabel
                 });
+                e.stopImmediatePropagation()
+                return
             })
         }
 
@@ -432,10 +436,21 @@ export class TrackingEvents {
     }
 
     pushEventsPageTarif() {
-        // Clic sur l'un des CTA
-        jQuery(".pricing-table .pricing-plan").on('click', (e) => {
-            let btnDevisExist = jQuery(e.currentTarget).find("a:contains('Demander un devis')")
-            if (btnDevisExist.length > 0) {
+        if (this.pageType == "Page Tarifs") {
+            // Clic sur l'un des CTA
+            jQuery(".pricing-table > .pricing-plan").on('click', (e) => {
+                let btnDevisExist = jQuery(e.currentTarget).find("a:contains('Demander un devis')")
+                if (btnDevisExist.length > 0) {
+                    let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                    window.dataLayer.push({
+                        'event': 'clickTarifDevis',
+                        'eventCategory': this.pageType,
+                        'eventAction': 'Demande devis',
+                        'eventLabel': eventAction
+                    });
+                }
+            })
+            jQuery(".pricing-table > .pricing-plan").on('click', (e) => {
                 let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
                 window.dataLayer.push({
                     'event': 'clickTarifDevis',
@@ -443,26 +458,17 @@ export class TrackingEvents {
                     'eventAction': 'Demande devis',
                     'eventLabel': eventAction
                 });
-            }
-        })
-        jQuery(".pricing-table > .pricing-plan").on('click', (e) => {
-            let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
-            window.dataLayer.push({
-                'event': 'clickTarifDevis',
-                'eventCategory': this.pageType,
-                'eventAction': 'Demande devis',
-                'eventLabel': eventAction
-            });
-        })
-        jQuery(".pricing-table .pricing-plan a").on('click', (e) => {
-            let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
-            window.dataLayer.push({
-                'event': 'clickCtaTarif',
-                'eventCategory': this.pageType,
-                'eventAction': 'Clic CTA',
-                'eventLabel': eventAction
-            });
-        })
+            })
+            jQuery(".pricing-table > .pricing-plan a").on('click', (e) => {
+                let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickCtaTarif',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic CTA',
+                    'eventLabel': eventAction
+                });
+            })
+        }
     }
 
     pushEventsPagePriseEnCharge() {

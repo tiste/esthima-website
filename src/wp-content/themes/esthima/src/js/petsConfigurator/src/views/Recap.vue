@@ -89,10 +89,10 @@
 		<div class="petsconfigurator__souvenir-popup" :class="{'petsconfigurator__souvenir-popup--open' : popUpKiamo}">
 			<span class="petsconfigurator__souvenir-popup__quit" @click.prevent="closePopUpKiamo"></span>
 			<div class="petsconfigurator__souvenir-popup__content">
-				<li style="padding: 30px;font-weight: 600;padding-top: 10px;font-size: 16px;text-align: left;align-items: flex-start;">
+				<div style="padding: 30px;font-weight: 600;padding-top: 50px;font-size: 16px;text-align: left;align-items: flex-start;">
 					<p style="text-align: left;">Nous avons bien pris en compte votre demande de rappel, nous allons la traiter dans les meilleurs délais.</p>
 					<p>Pour information, nos services sont ouverts du lundi au vendredi de 8h00 à 18h00 et le samedi de 8h00 à 12h00; nous prendrons en compte votre demande de rappel dans ces horaires</p>
-				</li>
+				</div>
 			</div>
 		</div>
 
