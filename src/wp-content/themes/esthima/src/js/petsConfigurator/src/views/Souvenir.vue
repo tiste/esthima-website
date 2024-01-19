@@ -13,7 +13,7 @@
 				</span>
 				<a href="#" @click.prevent="peekaboo" class="petsconfigurator__peekaboo-link" :class="{'petsconfigurator__peekaboo-link--open': peekabooBool}">En savoir plus</a>
 				<div v-show="peekabooBool" class="petsconfigurator__peekaboo-content">
-					Lorem ipsum dolor sit amet consectetur. In aliquet ut neque faucibus et in. Nullam tristique vel dignissim phasellus dictum non maecenas ut. Enim nunc curabitur turpis mus molestie adipiscing.
+					Pour garder une douce présence de votre animal auprès de vous, il vous est possible de conserver une empreinte de la patte ou une mèche de poils de votre animal en souvenir.
 				</div>
 				<ul class="petsconfigurator__question__list-radio petsconfigurator__question__list-radio--bool">
 					<li>
