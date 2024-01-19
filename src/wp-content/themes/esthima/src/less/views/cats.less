@@ -184,9 +184,23 @@
                 color: @white;
                 font-weight: 700;
             }
+            &.horizontal:not(.filters-modal) {
+                & .yith-wcan-filter {
+                    @media (max-width: @min-tablet-width) {
+                        width: 100%;
+                    }
+                    & .filter-title.collapsable {
+                        @media (max-width: @min-tablet-width) {
+                            border-radius: 27px;
+                            line-height: 52px;
+                            padding: 0 55px 0 24px;
+                        }
+                    }
+                } 
+            }
             .yith-wcan-filter.yith-wcan-filter{   
-                border: solid 1px #D4D4D4;
-                border-radius: 27px;
+                // border: solid 1px #D4D4D4;
+                // border-radius: 27px;
                 @media (min-width: 768px){
                     border: none;
                     border-radius: 0;

@@ -101,6 +101,7 @@ function getCookie(cName) {
 		/* /produit - ajout barre scroll gallerie */
 		
 		/* produit - affichage prix produit simple/variable */
+
 		$(document).on('change', '.variations select', function(){
 			if($('.woocommerce-variation-price').length && $('.woocommerce-variation-price').html()!=null && $('.woocommerce-variation-price').html()!=''){
 				$('.single-product .site-main > .product .product__tet .summary > .price').attr('style', 'display: none !important');
@@ -108,6 +109,7 @@ function getCookie(cName) {
 				$('.single-product .site-main > .product .product__tet .summary > .price').attr('style', 'display: block !important');
 			}
 		})
+		
 		/* /produit - affichage prix produit simple/variable */
 
 		/* panier - notes de commande */
@@ -278,9 +280,31 @@ function getCookie(cName) {
 		}
 		/* /produit - wrap gallery et desc */
 		/* produit - masquer prix quand variation */
-		if($('.single-product .site-main .product.product-type-variable').length){
-			$('.single-product .site-main .product .summary > .price').css('display', 'none');
+		// if($('.single-product .site-main .product.product-type-variable').length){
+		// 	$('.single-product .site-main .product .summary > .price').css('display', 'none');
+		// }
+		if($('.single-product .site-main .product .variations_form').length > 0) {
+			//console.log($('.single-product .site-main .product .variations_form').length);
+			let variationSelect = document.querySelectorAll('.variations_form select');
+			let variationSelectLength = variationSelect.length;
+			let displayPrice = 0;
+			console.log(variationSelect);
+			[...variationSelect].map(select => {
+				if (select.value) {
+					displayPrice++;
+				}
+			});
+			console.log(displayPrice)
+			if(displayPrice > 0) {
+				$('.single-product .site-main .product .summary > .price').css('display', 'none');
+			} else {
+				$('.single-product .site-main .product .summary > .price').css('display', 'block');
+			}
+			
+		} else {
+			$('.single-product .site-main .product .summary > .price').css('display', 'block');
 		}
+
 		/* /produit - masquer prix quand variation */
 		/* produit - masquer bandeau descriptif si vide */
 		if($('.woocommerce-Tabs-panel--reviews').length && !$('.woocommerce-Tabs-panel--description').length){
