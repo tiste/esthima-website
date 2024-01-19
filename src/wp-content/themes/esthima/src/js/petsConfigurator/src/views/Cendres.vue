@@ -8,6 +8,9 @@
 
 		<div class="petsconfigurator__question">
 			<form class="petsconfigurator__question__form">
+				<span class="petsconfigurator__question__h1-sup">
+					Pour le garder près de moi
+				</span>
 				<span class="petsconfigurator__question__h1">
 					Je souhaite récupérer les cendres de {{nameAnimal}}
 				</span>

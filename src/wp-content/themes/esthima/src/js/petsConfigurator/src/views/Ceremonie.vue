@@ -8,6 +8,9 @@
 
 		<div class="petsconfigurator__question">
 			<form class="petsconfigurator__question__form">
+				<span class="petsconfigurator__question__h1-sup">
+					Pour l'accompagner jusqu'au bout
+				</span>
 				<span class="petsconfigurator__question__h1">
 					Je souhaite une cérémonie d’adieu
 				</span>

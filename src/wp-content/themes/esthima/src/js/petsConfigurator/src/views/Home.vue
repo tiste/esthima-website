@@ -5,7 +5,7 @@
 				Personnaliser les obsèques de votre animal
 			</h1>
 			<p class="petsconfigurator__p petsconfigurator-h-center">
-				Lorem ipsum dolor sit amet consectetur. Commodo felis enim mus placerat amet risus dapibus vestibulum in. Nunc et sed faucibus quam.
+				Parce que votre histoire est unique, rendez hommage à votre animal selon vos souhaits.
 			</p>
 			<button @click.prevent="goNext" class="btn btn--arrow petsconfigurator-h-center">Commencer</button>
 		</div>
