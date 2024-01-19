@@ -8,6 +8,9 @@
 
 		<div class="petsconfigurator__question">
 			<form class="petsconfigurator__question__form">
+				<span class="petsconfigurator__question__h1-sup">
+					Pour que {{nameAnimal}} garde sa place parmi nous
+				</span>
 				<span class="petsconfigurator__question__h1">
 					Je souhaite ajouter une urne décorative
 				</span>
@@ -117,6 +120,13 @@ export default {
 	const showPopup = ref(false)
 
 	const urneShowUp = ref(null)
+
+
+	const nameAnimal = computed({
+		get () {
+			return store.state.petsConfigurator.nameAnimal
+		}
+	})
 
 	const urne = computed({
 		get () {

@@ -14,7 +14,7 @@ export class TrackingEvents {
             'Page Prestation - Incinération': 'incineration',
             'Page Tarif': 'tarifs',
             'Page Prise en charge':'comment-proceder',
-            'Page Urgence décés':'urgence-deces',
+            'Page Urgence décès':'urgence-deces',
             'Page Hommage':'temoignages',
             'Formulaire Contrat Obséques':'contrat-obseques',
         }
@@ -499,6 +499,15 @@ export class TrackingEvents {
                     'eventCategory': this.pageType,
                     'eventAction': 'Clic CTA',
                     'eventLabel': "Etre rappelé"
+                });
+            })
+
+            jQuery(".gk-bloc-urgence a.wp-block-button__link").on('submit', (e) => {
+                window.dataLayer.push({
+                    'event': 'clickUrgenceCta',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic CTA',
+                    'eventLabel': "Prendre rendez-vous"
                 });
             })
         }

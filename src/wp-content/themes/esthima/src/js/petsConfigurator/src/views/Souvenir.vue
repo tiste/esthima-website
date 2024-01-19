@@ -8,6 +8,9 @@
 
 		<div class="petsconfigurator__question">
 			<form class="petsconfigurator__question__form">
+				<span class="petsconfigurator__question__h1-sup">
+					Pour ne jamais l’oublier
+				</span>
 				<span class="petsconfigurator__question__h1">
 					Je souhaite ajouter un <br>“geste souvenir”
 				</span>

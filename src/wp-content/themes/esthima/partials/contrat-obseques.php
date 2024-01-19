@@ -1,16 +1,20 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
 
-<?php $orgId = "00DAa000003uMCD"; ?>
+<?php $orgId = "00DAa000003uMCD";
+    $sfUrl = "https://test.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=".$orgId;
+    // $sfUrl = "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=".$orgId;
+?>
 <?php if (isset($_GET['send']) && !empty($_GET['send'])) : ?>
 <main class="main">
     <h3 class="h-center h-color-main">Votre demande a bien été envoyée !</h3>
 </main>
 <?php else: ?>
 <main class="main">
-    <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=<?php echo $orgId; ?>" method="POST" class="rappel rappel--obseques"> 
+    <form action="<?php echo $sfUrl; ?>" method="POST" class="rappel rappel--obseques"> 
     <input type=hidden name="oid" value="<?php echo $orgId; ?>">
     <input type=hidden name="retURL" value="<?php echo get_the_permalink() . '?send=1'; ?>">
-
+    <input type="hidden" id="lead_source" name="lead_source" value="Web_funeral">
+    
     <div class="rappel__form-title"> Vos informations :</div>
     <div class="rappel__grid">
         <div class="rappel__half">
