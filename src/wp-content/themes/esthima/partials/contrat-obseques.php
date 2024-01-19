@@ -1,8 +1,13 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
 
-<?php $orgId = "00DAa000003uMCD";
-    $sfUrl = "https://test.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=".$orgId;
-    // $sfUrl = "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=".$orgId;
+<?php 
+    if ($_SERVER['SERVER_NAME'] == 'www.esthima.fr') { 
+        $orgId = "00D24000000jNFO";
+        $sfUrl = "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=".$orgId;
+    } else {
+        $orgId = "00DAa000003uMCD";
+        $sfUrl = "https://test.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=".$orgId;
+    }
 ?>
 <?php if (isset($_GET['send']) && !empty($_GET['send'])) : ?>
 <main class="main">
