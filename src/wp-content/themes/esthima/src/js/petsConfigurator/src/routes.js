@@ -112,22 +112,28 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from) => {
-  console.log(to)
-  window.dataLayer.push({
-    'event': 'clickConfigurateur',
-    'eventCategory': 'Configurateur',
-    'eventAction' : 'Step ' + to.meta.step,
-    'eventLabel': 'Submit'
-  });
-
-  if (to.name == 'Recap') {
+router.afterEach((to, from) => {
+  if (from.name != "" && from.name !== undefined && from.name != "Home" && to.name != "Recap") {
     window.dataLayer.push({
-      'event': 'confirmationConfigurateur',
+      'event': 'clickConfigurateur',
       'eventCategory': 'Configurateur',
-      'eventAction' : 'Page de confirmation',
-      'eventLabel': ''
+      'eventAction' : 'Step ' + from.meta.step,
+      'eventLabel': 'Submit'
     });
+  } else if (from.name == "Home") {
+      window.dataLayer.push({
+        'event': 'clickConfigurateur',
+        'eventCategory': 'Configurateur',
+        'eventAction' : 'Initialisation',
+        'eventLabel': ''
+      });
+  } else if (from.name == "Recap") {
+      window.dataLayer.push({
+        'event': 'confirmationConfigurateur',
+        'eventCategory': 'Configurateur',
+        'eventAction' : 'Page de confirmation',
+        'eventLabel': ''
+      });
   }
 })
 

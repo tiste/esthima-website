@@ -206,7 +206,8 @@ export class TrackingEvents {
                 'eventLabel': eventLabel
             });
         })
-        jQuery("[class^='hp__']").on('click', (e) => {
+
+        jQuery(".main > [class^='hp__']").on('click', (e) => {
             let eventLabelH1 = jQuery(e.currentTarget).find('h1').text().replace(/(\n|\t|\r)/gm, "")
             let eventLabelH2 = jQuery(e.currentTarget).find('h2').text().replace(/(\n|\t|\r)/gm, "")
             let eventLabelH3 = jQuery(e.currentTarget).find('h3').text().replace(/(\n|\t|\r)/gm, "")
@@ -238,6 +239,22 @@ export class TrackingEvents {
                 'event': 'clickAccountConnexion',
                 'eventCategory': this.pageType,
                 'eventAction': 'Connexion',
+                'eventLabel': 'Success'
+            });
+        })
+        jQuery('.inscription__login form input[type=submit]').on('click', (e) => {
+            window.dataLayer.push({
+                'event': 'clickAccountConnexion',
+                'eventCategory': this.pageType,
+                'eventAction': 'Connexion',
+                'eventLabel': 'Success'
+            });
+        })
+        jQuery('.inscription__register form input[type=submit]').on('click', (e) => {
+            window.dataLayer.push({
+                'event': 'clickAccountInscription',
+                'eventCategory': this.pageType,
+                'eventAction': 'Inscription',
                 'eventLabel': 'Success'
             });
         })
@@ -359,20 +376,21 @@ export class TrackingEvents {
    
         if (this.pageType.toLowerCase().indexOf('prestation') !== -1) {
             // Clic sur une des prestations
-            jQuery('.pricing-table.pricing-table--services .pricing-plan').on('click', (e) => {
+            jQuery('.pricing-table.pricing-table--services > .pricing-plan').on('click', (e) => {
                 let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
                 window.dataLayer.push({
                     'event': 'clickPrestationCta',
                     'eventCategory': this.pageType,
                     'eventAction': eventAction,
-                    'eventLabel': ''
+                    'eventLabel': eventAction
                 });
+                return
             })
 
             // Clic sur l'un des CTA
             // jQuery(".wp-block-button a:contains('Demander un devis')").on('click', (e) => {
             // jQuery(".wp-block-button a").on('click', (e) => {
-            jQuery('.pricing-table.pricing-table--services .pricing-plan').on('click', (e) => {
+            jQuery('.pricing-table.pricing-table--services .pricing-plan a').on('click', (e) => {
                 let eventLabel = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
                 window.dataLayer.push({
                     'event': 'clickPrestationCta',
@@ -380,15 +398,59 @@ export class TrackingEvents {
                     'eventAction': 'Clic CTA',
                     'eventLabel': eventLabel
                 });
+                e.stopImmediatePropagation()
+                return
             })
         }
+
+        // if (this.pageType.toLowerCase().indexOf('incineration') !== -1) {
+            if (jQuery('.wp-block-buttons')) {
+                jQuery('.wp-block-buttons .wp-block-button a').on('click', (e) => {
+                    let eventLabel = jQuery(e.currentTarget).text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+
+                    if (eventLabel.indexOf('nos tarifs') !== -1) {
+                        window.dataLayer.push({
+                            'event': 'clickPrestationCta',
+                            'eventCategory': this.pageType,
+                            'eventAction': 'Clic CTA',
+                            'eventLabel': eventLabel
+                        });
+                    } else if (eventLabel.indexOf('offre pers') !== -1) {
+                        window.dataLayer.push({
+                            'event': 'clickPrestationCta',
+                            'eventCategory': this.pageType,
+                            'eventAction': 'Clic CTA',
+                            'eventLabel': eventLabel
+                        });
+                    } else if (eventLabel.indexOf('rends hommage') !== -1) {
+                        window.dataLayer.push({
+                            'event': 'clickPrestationCta',
+                            'eventCategory': this.pageType,
+                            'eventAction': 'Clic CTA',
+                            'eventLabel': eventLabel
+                        });
+                    }
+                })
+            }
+        // }
     }
 
     pushEventsPageTarif() {
-        // Clic sur l'un des CTA
-        jQuery(".pricing-table .pricing-plan").on('click', (e) => {
-            let btnDevisExist = jQuery(e.currentTarget).find("a:contains('Demander un devis')")
-            if (btnDevisExist.length > 0) {
+        if (this.pageType == "Page Tarifs") {
+            // Clic sur l'un des CTA
+            jQuery(".pricing-table > .pricing-plan").on('click', (e) => {
+                let btnDevisExist = jQuery(e.currentTarget).find("a:contains('Demander un devis')")
+                if (btnDevisExist.length > 0) {
+                    let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                    window.dataLayer.push({
+                        'event': 'clickTarifDevis',
+                        'eventCategory': this.pageType,
+                        'eventAction': 'Demande devis',
+                        'eventLabel': eventAction
+                    });
+                }
+            })
+            jQuery(".pricing-table > .pricing-plan").on('click', (e) => {
                 let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
                 window.dataLayer.push({
                     'event': 'clickTarifDevis',
@@ -396,8 +458,17 @@ export class TrackingEvents {
                     'eventAction': 'Demande devis',
                     'eventLabel': eventAction
                 });
-            }
-        })
+            })
+            jQuery(".pricing-table > .pricing-plan a").on('click', (e) => {
+                let eventAction = jQuery(e.currentTarget).find('.pricing-plan__head').text().replace(/(\n|\t|\r)/gm, "").trim().replace(/\s+/g, ' ')
+                window.dataLayer.push({
+                    'event': 'clickCtaTarif',
+                    'eventCategory': this.pageType,
+                    'eventAction': 'Clic CTA',
+                    'eventLabel': eventAction
+                });
+            })
+        }
     }
 
     pushEventsPagePriseEnCharge() {

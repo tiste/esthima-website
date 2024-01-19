@@ -147,9 +147,8 @@ function custom_store_meta( $store_meta, $store_id ) {
 add_filter( 'wpsl_listing_template', 'custom_listing_template' );
 function custom_listing_template() {
 
-    global $wpsl, $wpsl_settings;
-	// var_dump($wpsl_settings["editor_hours"]);
-	// $hours = htmlspecialchars(json_encode($wpsl_settings["editor_hours"]["dropdown"]));
+	global $wpsl, $wpsl_settings, $wpsl_admin;
+	
     $listing_template = '<li data-store-id="<%= id %>" class="storeloc__map__store">' . "\r\n";
 
 	$listing_template .= "\t\t" . '<a href="<%= permalink %>"  class="storeloc__map__store__img">' . "\r\n";
@@ -216,3 +215,73 @@ function esthima_my_account_endpoint_mes_favoris_content() {
 	//echo 'test2';
 	echo '<div class="account-wishlist">' . do_shortcode('[yith_wcwl_wishlist pagination="no"]') . '</div>';
 }
+
+add_filter('wpseo_breadcrumb_links', function($links) {
+	
+	if(is_singular('guide')) {
+		$linkTmp = [];
+		$linkTmp[0] = $links[0];
+		$linkTmp[1] = [
+			'url' => home_url('conseils-actualites'),
+			'text' => "Nos guides & nos conseils"
+		];
+		$linkTmp[2] = $links[1];
+		$linkTmp[3] = $links[2];
+		$links = $linkTmp;
+    }
+
+	if(is_singular('product')) {
+		$linkTmp = [];
+		$linkTmp[0] = $links[0];
+		$linkTmp[1] = [
+			'url' => home_url('boutique'),
+			'text' => "Boutique"
+		];
+		$linkTmp[2] = $links[1];
+		$linkTmp[3] = $links[2];
+		$links = $linkTmp;
+    }
+
+	return $links;
+});
+
+// add_action( 'init', 'remove_wc_breadcrumbs' ); 
+// function remove_wc_breadcrumbs() { 
+// 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 ); 
+// }
+
+// add_filter( 'woo_breadcrumbs', function($breadcrumbs){
+	
+// 	if ( function_exists( 'yoast_breadcrumb' ) ) {
+// 		// $before = '<div class="breadcrumb breadcrumbs woo - breadcrumbs"><div class="breadcrumb - trail">';
+// 		// $after = '</div></div>';
+	
+// 		$breadcrumbs = yoast_breadcrumb();
+// 	}
+// 	return $breadcrumbs;
+// });
+// add_filter( 'wpseo_breadcrumb_output', 'custom_wpseo_breadcrumb_output' );
+// function custom_wpseo_breadcrumb_output( $output ){
+// if( is_product() ){
+//     $from = 'rel="v:url" property="v:title">Product</a>'; 
+//     $to = 'rel="v:url" property="v:title">New Title</a>';
+//     $output = str_replace( $from, $to, $output );
+// }
+
+// elseif ( is_shop() ) {
+//     $from = '<span class="breadcrumb_last">Products</span>'; 
+//     $to = '<span class="breadcrumb_last">New Title</span>';
+//     $output = str_replace( $from, $to, $output );
+// }
+// return $output;
+// }
+
+function any_head_canonical( $output = '' ){
+	if( is_home() ){$output = home_url( '/' ); }
+	if( is_category() ){ global $cat; $output = get_category_link($cat); }
+	if( is_tag() ){ global $tag_id; $output = get_tag_link($tag_id); }
+	if( is_page() ){ global $page_id; $output = get_page_link($page_id); }
+	if( is_single() ){ $output = get_permalink(); }
+	if( $output != '' ){ echo '<link rel="canonical" href="',$output,'">'; }
+}
+add_action('wp_head', 'any_head_canonical');

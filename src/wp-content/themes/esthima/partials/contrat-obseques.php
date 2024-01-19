@@ -1,6 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
 
-<?php $orgId = "00D24000000jNFO"; ?>
+<?php $orgId = "00DAa000003uMCD"; ?>
 <?php if (isset($_GET['send']) && !empty($_GET['send'])) : ?>
 <main class="main">
     <h3 class="h-center h-color-main">Votre demande a bien été envoyée !</h3>
@@ -16,9 +16,12 @@
         <div class="rappel__half">
             <select  id="salutation" name="salutation">
                 <option value="">- Civilité * -</option>
+                <option value="M.">M</option>
+                <option value="Mlle">Mlle</option>
                 <option value="Mme">Mme</option>
-                <option value="M.">M.</option>
-                <option value="Autre">Autre</option>
+                <option value="Dr">Dr</option>
+                <option value="Mr & Mme">Mr & Mme</option>
+                <option value="Famille">Famille</option>
             </select>
         </div>
         <div class="rappel__empty"></div>

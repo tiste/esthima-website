@@ -65,19 +65,19 @@ if (true) : ?>
             </select>
         <?php endif; ?>
 
-        <ul class="list-faq">
+        <ul class="list-faq" itemscope itemtype="https://schema.org/FAQPage">
             <?php while ( $questions_reponses->have_posts() ) : $questions_reponses->the_post();
                 $question = get_the_title();
                 $reponse = get_the_content();
                 $terms = get_the_terms( get_the_ID(), 'faq_cat' );
                 $terms = join('**', wp_list_pluck( $terms , 'slug') );
                 ?>
-                <li class="list-faq__item <?php echo ($currentFAQ==0) ? 'list-faq__item-open' : 'list-faq__item-closed'; ?>" data-cats="*<?php echo $terms; ?>*">
-                    <div class="list-faq__item__question">
+                <li class="list-faq__item <?php echo ($currentFAQ==0) ? 'list-faq__item-open' : 'list-faq__item-closed'; ?>" data-cats="*<?php echo $terms; ?>*" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <div class="list-faq__item__question" itemprop="name">
                         <?php echo $question; ?>
                     </div>
-                    <div class="list-faq__item__answer">
-                        <div class="list-faq__item__answer__content">
+                    <div class="list-faq__item__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <div class="list-faq__item__answer__content" itemprop="text">
                             <?php echo $reponse; ?>
                         </div>
                     </div>

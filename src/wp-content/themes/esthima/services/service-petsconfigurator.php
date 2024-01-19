@@ -239,6 +239,9 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 'phone' => $tel
             ]);
         }
+        
+        return new WP_REST_Response([], 200);
+        
     }
     
 }
