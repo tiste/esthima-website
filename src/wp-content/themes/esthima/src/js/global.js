@@ -507,6 +507,7 @@ function getCookie(cName) {
 		/* agence - ouvert/fermé */
 		if($('.store__tet__status').length && window.todayDate && window.arrayDaysMap && window.arrayHours){
 			var hoursToday = window.arrayHours[window.arrayDaysMap[window.todayDate.getDay()]];
+			console.log(hoursToday);
 			if(hoursToday.length<=0){
 				$('.store__tet__status').addClass('store__tet__status-closed');
 			}else{
@@ -683,5 +684,112 @@ function getCookie(cName) {
 		/* /reset pass - positionnement labels */
 
 	});
+
+	/* store listing - ouvert/fermé */
+	if( document.body.classList.contains('page-template-store-locator')) {
+		const wpslStore = document.getElementById('wpsl-stores');
+		const wpslStoreList = wpslStore.querySelector('ul');
+		console.log(wpslStoreList);
+
+
+		var observeDOM = (function(){
+			var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+		  
+			return function( obj, callback ){
+			  if( !obj || obj.nodeType !== 1 ) return; 
+		  
+			  if( MutationObserver ){
+				// define a new observer
+				var mutationObserver = new MutationObserver(callback)
+		  
+				// have the observer observe for changes in children
+				mutationObserver.observe( obj, { childList:true, subtree:true })
+				return mutationObserver
+			  }
+			  
+			  // browser support fallback
+			  else if( window.addEventListener ){
+				obj.addEventListener('DOMNodeInserted', callback, false)
+				obj.addEventListener('DOMNodeRemoved', callback, false)
+			  }
+			}
+		})()
+
+		let dateToday = new Date();
+		// Sunday - Saturday : 0 - 6
+		let currentDay = dateToday.getDay();
+		let currentHours = dateToday.getHours();
+		let currentMinutes = dateToday.getMinutes();
+		let currentTime = currentHours+':'+currentMinutes;
+		// console.log('current time');
+		// console.log(currentTime);
+
+		if(currentDay == 0) {
+			currentDay = 7;
+		}
+
+
+		// Observe wpslStoreList element:
+		observeDOM( wpslStoreList, function(m){ 
+			var addedNodes = [], removedNodes = [];
+		
+			m.forEach(record => record.addedNodes.length & addedNodes.push(...record.addedNodes))
+			
+			m.forEach(record => record.removedNodes.length & removedNodes.push(...record.removedNodes))
+		
+		console.log('Added:', addedNodes, 'Removed:', removedNodes);
+			let bingo = false;
+			addedNodes.map(node => {
+				
+				if(bingo == false) {
+					if(node.nodeName == "LI" && node.classList.contains('storeloc__map__store')) {
+						bingo = true;
+					}
+				}
+			})
+			console.log(bingo);
+			if(bingo) {
+				const storeListing = document.querySelectorAll('.storeloc__map__store');
+				[...storeListing].map(store => {
+						let hourOpeningToday;
+						let hourClosingToday;
+						let selectedTimeArray;
+						let ct = store.querySelector('.storeloc__map__store__infos__opening');
+						console.log(ct);
+						let selectedTime = store.querySelector('table.wpsl-opening-hours tbody tr:nth-child('+currentDay+') td:nth-child(2)').innerText;
+						// console.log(selectedTime);
+						if(selectedTime == 'Closed') {
+							console.log('fermé')
+							ct.classList.toggle('closed');
+							ct.innerText = 'Fermé';
+						} else {
+							selectedTimeArray = selectedTime.split(' - ');
+							hourOpeningToday = selectedTimeArray[0];
+							hourClosingToday = selectedTimeArray[selectedTimeArray.length - 1];
+							console.log(hourClosingToday);
+							if (currentTime > hourClosingToday || currentTime < hourOpeningToday) {
+								ct.classList.toggle('closed');
+								ct.innerText = 'Fermé';
+							} else {
+								ct.innerText = `Ouvert`;
+							}
+							//console.log(currentTime > hourClosingToday)
+
+							
+							
+						}
+
+				})
+				// console.log(storeListing);
+			}
+		});
+ 
+
+			
+			
+		
+	}		
+
+	/* /store listing - ouvert/fermé */
 	
 })(window, jQuery);

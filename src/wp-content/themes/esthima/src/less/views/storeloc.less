@@ -410,7 +410,8 @@
                         // }
                         &__title{
                             display: block;
-                            margin: 0 0 13px;
+                            // margin: 0 0 13px;
+                            margin: 0;
                             color: @main;
                             font-family: @main-font;
                             font-size: 26px;
@@ -419,15 +420,15 @@
                             line-height: 1.3;
                             text-transform: uppercase;
                             @media (min-width: 768px){
-                                margin: 0 0 9px;
+                                //margin: 0 0 9px;
                                 font-size: 17px;
                             }
                             @media (min-width: 1440px){
-                                margin: 0 0 10px;
+                                //margin: 0 0 10px;
                                 font-size: 21px;
                             }
                             @media (min-width: 1680px){
-                                margin: 0 0 13px;
+                                //margin: 0 0 13px;
                                 font-size: 26px;
                             }
                             span{
@@ -582,6 +583,21 @@
                                     margin-left: 10px;
                                 }
                             }
+                        }
+                        &__opening {
+                            color: #99C935;
+                            font-size: 14px;
+                            font-weight: 700;
+                            display: list-item;
+                            list-style-type: disc;
+                            margin-left: 1rem;
+                            &.closed {
+                                color: #EC3D3D;
+                                list-style-type: circle;          
+                            }
+                        }
+                        & .wpsl-opening-hours {
+                            display: none;
                         }
                     }
                 }

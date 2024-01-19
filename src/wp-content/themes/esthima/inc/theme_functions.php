@@ -148,7 +148,8 @@ add_filter( 'wpsl_listing_template', 'custom_listing_template' );
 function custom_listing_template() {
 
     global $wpsl, $wpsl_settings;
-    
+	// var_dump($wpsl_settings["editor_hours"]);
+	// $hours = htmlspecialchars(json_encode($wpsl_settings["editor_hours"]["dropdown"]));
     $listing_template = '<li data-store-id="<%= id %>" class="storeloc__map__store">' . "\r\n";
 
 	$listing_template .= "\t\t" . '<a href="<%= permalink %>"  class="storeloc__map__store__img">' . "\r\n";
@@ -166,6 +167,8 @@ function custom_listing_template() {
 	$listing_template .= "\t\t\t\t\t\t" . '<% } %>' . "\r\n";
 	$listing_template .= "\t\t\t\t\t\t" . '<%= store %>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '</h3></a>' . "\r\n";
+	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__opening" ></div>' . "\r\n";
+	$listing_template .= "\t\t\t" . '<p style="display:none"><%= hours %></p>' . "\r\n"; 
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address2 %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse">'.wpsl_address_format_placeholders().'</div>' . "\r\n";
