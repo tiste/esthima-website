@@ -490,7 +490,7 @@ export class TrackingEvents {
     
     pushEventsPageUrgenceDeces() {
         // Clic sur un CTA de la page Prise en charge
-        if (this.pageType == "Page Urgence décés") {
+        if (this.pageType == "Page Urgence décès") {
            
             // jQuery(".wp-block-button a:contains('être rappelé')").on('click', (e) => {
             jQuery(".rappel").on('submit', (e) => {
