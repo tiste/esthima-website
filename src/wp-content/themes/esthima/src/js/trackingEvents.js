@@ -502,7 +502,7 @@ export class TrackingEvents {
                 });
             })
 
-            jQuery(".gk-bloc-urgence a.wp-block-button__link").on('submit', (e) => {
+            jQuery(".gk-bloc-urgence a.wp-block-button__link").on('click', (e) => {
                 window.dataLayer.push({
                     'event': 'clickUrgenceCta',
                     'eventCategory': this.pageType,
