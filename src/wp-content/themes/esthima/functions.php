@@ -133,3 +133,7 @@ require get_template_directory() . '/inc/widget_include_partial.php';
 require get_template_directory() . '/inc/kiamo.php';
 
 require get_template_directory() . '/services/service-petsconfigurator.php';
+
+// Remove trailing slash from pagination links
+add_filter('paginate_links','untrailingslashit');
+add_filter( 'get_pagenum_link', 'untrailingslashit');

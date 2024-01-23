@@ -241,7 +241,7 @@
 				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
-		<a href="<?php echo home_url('/'); ?>conseils-actualites/" class="btn btn--arrow">Tous nos guides & conseils</a>
+		<a href="<?php echo home_url('/'); ?>conseils-actualites" class="btn btn--arrow">Tous nos guides & conseils</a>
 	</div>
 	<?php endif; ?>
 

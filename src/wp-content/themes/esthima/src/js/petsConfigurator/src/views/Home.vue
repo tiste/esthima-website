@@ -2,10 +2,10 @@
 	<div class="petsconfigurator__content petsconfigurator__content--home">
 		<div class="petsconfigurator__content__inner">
 			<h1 class="petsconfigurator__h1 petsconfigurator-h-center">
-				Personnaliser les obsèques de votre animal
+				Configurateur d'obsèques animalières sur-mesure ou personnalisée | Esthima
 			</h1>
 			<p class="petsconfigurator__p petsconfigurator-h-center">
-				Parce que votre histoire est unique, rendez hommage à votre animal selon vos souhaits.
+				Personnalisez les obsèques de votre animal selon vos souhaits et obtenez un devis gratuit et personnalisé en 5 minutes.
 			</p>
 			<button @click.prevent="goNext" class="btn btn--arrow petsconfigurator-h-center">Commencer</button>
 		</div>
