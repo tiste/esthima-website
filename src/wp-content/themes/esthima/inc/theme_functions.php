@@ -242,46 +242,94 @@ add_filter('wpseo_breadcrumb_links', function($links) {
 		$links = $linkTmp;
     }
 
+	if(is_archive()) {
+
+		$taxonomy = get_queried_object()->taxonomy;
+
+		if ($taxonomy == "guide_cat") {
+
+			$linkTmp = [];
+			$linkTmp[0] = $links[0];
+			$linkTmp[1] = [
+				'url' => home_url('conseils-actualites'),
+				'text' => "Nos guides & nos conseils"
+			];
+
+			foreach ($links as $l) {
+				$linkTmp[] = $l;
+			}
+
+			$links = $linkTmp;
+		}
+	}
 	return $links;
 });
 
-// add_action( 'init', 'remove_wc_breadcrumbs' ); 
-// function remove_wc_breadcrumbs() { 
-// 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 ); 
-// }
-
-// add_filter( 'woo_breadcrumbs', function($breadcrumbs){
-	
-// 	if ( function_exists( 'yoast_breadcrumb' ) ) {
-// 		// $before = '<div class="breadcrumb breadcrumbs woo - breadcrumbs"><div class="breadcrumb - trail">';
-// 		// $after = '</div></div>';
-	
-// 		$breadcrumbs = yoast_breadcrumb();
-// 	}
-// 	return $breadcrumbs;
-// });
-// add_filter( 'wpseo_breadcrumb_output', 'custom_wpseo_breadcrumb_output' );
-// function custom_wpseo_breadcrumb_output( $output ){
-// if( is_product() ){
-//     $from = 'rel="v:url" property="v:title">Product</a>'; 
-//     $to = 'rel="v:url" property="v:title">New Title</a>';
-//     $output = str_replace( $from, $to, $output );
-// }
-
-// elseif ( is_shop() ) {
-//     $from = '<span class="breadcrumb_last">Products</span>'; 
-//     $to = '<span class="breadcrumb_last">New Title</span>';
-//     $output = str_replace( $from, $to, $output );
-// }
-// return $output;
-// }
-
-function any_head_canonical( $output = '' ){
+add_action('wp_head', function($output = ''){
 	if( is_home() ){$output = home_url( '/' ); }
 	if( is_category() ){ global $cat; $output = get_category_link($cat); }
 	if( is_tag() ){ global $tag_id; $output = get_tag_link($tag_id); }
-	if( is_page() ){ global $page_id; $output = get_page_link($page_id); }
+	if( is_page() ){
+		global $page_id;
+		$output = get_page_link($page_id);
+		$paged = get_query_var('paged');
+		if ($paged) {
+			$output .= "/page/" . $paged;
+		}
+	}
 	if( is_single() ){ $output = get_permalink(); }
 	if( $output != '' ){ echo '<link rel="canonical" href="',$output,'">'; }
-}
-add_action('wp_head', 'any_head_canonical');
+});
+
+add_filter('wp_title', function($title) {
+	if( is_page() ){
+		$paged = get_query_var('paged');
+		if ($paged) {
+			$title .= " Page " . $paged . " | Esthima";
+		}
+	}
+	return $title;
+});
+
+add_filter( 'wpseo_schema_graph', function($data, $context) {
+	global $post;
+
+	if (is_singular('guide')){
+
+		$schema_data = [
+			"@context" => "https://schema.org",
+			"@type" => "NewsArticle",
+			"headline" => get_the_title(),
+			"image" => [
+				get_the_post_thumbnail_url('1x1'),
+				get_the_post_thumbnail_url('4x3'),
+				get_the_post_thumbnail_url('16x9')
+			],
+			"datePublished" => get_the_date('c'),
+			"dateModified" => get_the_modified_date('c'),
+			"author" => [],
+		];
+	
+		$author_id = get_post_field( 'post_author', $post->ID );
+		$author_name = get_the_author_meta( 'display_name', $author_id );
+
+
+		$schema_data['author'][] = [
+			"@type" => "Person",
+			"name" => $author_name,
+			"url" => get_author_posts_url($author_id),
+		];
+
+		$data[] = $schema_data;
+	
+	}
+
+	if (is_page('crematoriums')) {
+		// echo "<pre>";
+		// print_r($data);
+		// echo "</pre>";
+		// die;
+	}
+
+	return $data;
+}, 10, 2 );

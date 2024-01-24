@@ -4,9 +4,8 @@
 * Template Name: Guides & conseils
 */
 get_header();
+
 ?>
-
-
 
 <main class="main main-content">
 
