@@ -16,7 +16,7 @@ get_header('shop');
         <h1>Mon panier <span>/ <?php echo WC()->cart->get_cart_contents_count(); echo (WC()->cart->get_cart_contents_count()>1) ? ' articles' : ' article'; ?> </span></h1>
         <?php the_content(); ?>
         <div class="back-container">
-            <a href="<?php echo home_url('/'); ?>boutique/" class="panier__top__back">Continuer mes achats</a>
+            <a href="<?php echo home_url('/'); ?>boutique" class="panier__top__back">Continuer mes achats</a>
         </div>
         <div class="shop__bottom">
 			<?php $vignettes = get_field('footer_shop_vignettes', 'option'); ?>

@@ -333,3 +333,11 @@ add_filter( 'wpseo_schema_graph', function($data, $context) {
 
 	return $data;
 }, 10, 2 );
+
+add_filter( 'paginate_links', function($link){
+	$taxonomy = get_queried_object()->taxonomy;
+	if ($taxonomy == "product_cat") {
+		$link = str_replace('/page/1', '', $link);
+	}
+    return $link;
+});

@@ -23,6 +23,15 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="msapplication-TileColor" content="#D34C3B">
 	<meta name="theme-color" content="#D43B68">
+	<?php if (is_product()): ?>
+		<?php
+			  $limit = 30;
+			  $excerpt = explode(' ', get_the_excerpt(), $limit);
+			  array_pop($excerpt);
+			  $excerpt = implode(" ",$excerpt)."...";	
+		?>
+		<meta name="description" content="<?php echo $excerpt; ?>">
+	<?php endif; ?>
 	<?php wp_head(); ?>
 </head>
 
