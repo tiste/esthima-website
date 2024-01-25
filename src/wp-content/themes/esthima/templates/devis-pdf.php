@@ -103,7 +103,7 @@
                     <li>Restitution des cendres dans un tube de dispersion ou dans une urne décorative (en option).</li>
                     <li>Remise de l'urne au crématorium, en agence Esthima ou en clinique vétérinaire</li>
                 </ul>
-                <?php else: ?>
+                <?php elseif($args['cremation'] == "reference"): ?>
                 <span style="font-weight: 700;">La crémation RÉFÉRENCE</span>
                 <ul>
                     <li>Prise en charge de l'animal décédé</li>
@@ -111,6 +111,12 @@
                     <li>Remise d'un certificat de crémation</li>
                     <li>Restitution des cendres dans un tube de dispersion ou dans une urne décorative (en option).</li>
                     <li>Remise de l'urne au crématorium, en agence Esthima ou en clinique vétérinaire</li>
+                </ul>
+                <?php else: ?>
+                <span style="font-weight: 700;">La crémation PLURIELLE</span>
+                <ul>
+                    <li>Prise en charge de l'animal décédé</li>
+                    <li>Crémation collective avec d'autres animaux de compagnie</li>
                 </ul>
             <?php endif; ?>
         </td>
