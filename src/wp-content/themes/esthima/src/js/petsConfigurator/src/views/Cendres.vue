@@ -61,6 +61,9 @@ export default {
 		},
 		set (value) {
 			store.commit('petsConfigurator/updateCendre', value)
+			if (value == false) {
+				store.commit('petsConfigurator/updateCeremonieAdieu', false)
+			} 
 		}
 	})
 	

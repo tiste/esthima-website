@@ -171,8 +171,10 @@ $queryRegular = new WP_Query($argsRegular);
                     <h3>Restez informés en vous inscrivant à notre newsletter !</h3>
                     <div class="guides__posts__newsletter__form">
 						<div>
-							<input type="email" placeholder="Votre adresse email">
+                        <form action="<?php echo home_url("inscription-a-la-newsletter"); ?>" method="GET">
+							<input type="email" name="email" placeholder="Votre adresse email">
 							<input type="submit">
+                        </form>
 						</div>
 						<div class="guides__posts__newsletter__form__check">
 							<input type="checkbox" id="newsletterconsent" name="newsletterconsent">

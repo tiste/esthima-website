@@ -20,15 +20,20 @@ const getDefaultState = () => {
 		prixEmpreinte: 30,
 		prixTouffe: 5,
 		cremations: {
-			"privee": {
-				"nac": "239",
-				"chien": "319",
-				"chat": "319"
+			"plurielle": {
+				"nac": "69",
+				"chien": "99",
+				"chat": "99"
 			},
 			"reference": {
 				"nac": "149",
 				"chien": "229",
 				"chat": "229"
+			},
+			"privee": {
+				"nac": "239",
+				"chien": "319",
+				"chat": "319"
 			}
 		}
 	}
@@ -69,7 +74,30 @@ const getters = {
 		return price
 	},
 	cremationChoice(state) {
-		let cremationChoice = state.ceremonieAdieu ? 'privee' : 'reference'
+		//plurielle
+		// state.ceremonieAdieu false
+		// state.cendre false
+		
+		//reference
+		// state.ceremonieAdieu false
+		// state.cendre true
+
+		//privee
+		// state.ceremonieAdieu true
+		// state.cendre true
+
+		let cremationChoice = ''
+		
+		if (state.ceremonieAdieu == true && state.cendre == true) {
+			cremationChoice = 'privee';
+		} else if ((state.ceremonieAdieu == false || state.ceremonieAdieu == '') && state.cendre == true) {
+			cremationChoice = 'reference';
+		} else if (state.ceremonieAdieu == false && state.cendre == false) {
+			cremationChoice = 'plurielle';
+		} else {
+			cremationChoice = 'plurielle';
+		}
+	
 		return cremationChoice
 	},
 	priceCremation(state, getters) {

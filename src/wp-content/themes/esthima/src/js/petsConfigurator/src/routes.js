@@ -112,6 +112,26 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach((to, from) => {
+  
+  console.log(to.name)
+  console.log(["Ceremonie", "Urne"].indexOf(to.name))
+  console.log(store.getters.cremationChoice)
+  console.log(store.state.petsConfigurator.cendre == false   )
+  if (["Ceremonie", "Urne"].indexOf(to.name) !== -1 ) {
+    if (store.state.petsConfigurator.cendre == false) {
+      //plurielle so push souvenir
+      if (from.name == "Souvenir") {
+        return { name: 'Cendres' }
+      } else {
+        return { name: 'Souvenir' }
+      }
+    }
+
+  }
+  
+})
+
 router.afterEach((to, from) => {
   if (from.name != "" && from.name !== undefined && from.name != "Home" && to.name != "Recap") {
     window.dataLayer.push({

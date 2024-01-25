@@ -58,7 +58,7 @@
 					</ul>
 				</div>
 			
-				<div v-else class="petsconfigurator__question__cremation">
+				<div v-else-if="cremationChoice == 'reference'" class="petsconfigurator__question__cremation">
 					<div class="petsconfigurator__question__cremation__title">
 						<div class="petsconfigurator__question__cremation__title__image">
 							<img :src="`${themeDirectoryUri}/images/configurateur/fleur.svg`" alt="">
@@ -83,6 +83,25 @@
 						</li>
 					</ul>
 				</div>
+				<div v-else class="petsconfigurator__question__cremation">
+					<div class="petsconfigurator__question__cremation__title">
+						<div class="petsconfigurator__question__cremation__title__image">
+							<img :src="`${themeDirectoryUri}/images/configurateur/fleur.svg`" alt="">
+						</div>
+						<div>
+							<span class="petsconfigurator__question__cremation__title__one">La crémation</span><br>
+							<span class="petsconfigurator__question__cremation__title__two">plurielle</span>
+						</div>
+					</div>
+					<ul class="petsconfigurator__question__cremation__list">
+						<li>
+							Prise en charge de l'animal décédé
+						</li>
+						<li>
+							Crémation collective avec d'autres animaux de compagnie
+						</li>
+					</ul>
+				</div>
 			</div> 
 
 		</div>
@@ -91,7 +110,7 @@
 			<div class="petsconfigurator__souvenir-popup__content">
 				<div style="padding: 30px;font-weight: 600;padding-top: 50px;font-size: 16px;text-align: left;align-items: flex-start;">
 					<p style="text-align: left;">Nous avons bien pris en compte votre demande de rappel, nous allons la traiter dans les meilleurs délais.</p>
-					<p>Pour information, nos services sont ouverts du lundi au vendredi de 8h00 à 18h00 et le samedi de 8h00 à 12h00; nous prendrons en compte votre demande de rappel dans ces horaires</p>
+					<p>Pour information, nos services sont ouverts du lundi au vendredi de 8h00 à 18h00 et le samedi de 8h30 à 12h30; nous prendrons en compte votre demande de rappel dans ces horaires</p>
 				</div>
 			</div>
 		</div>
