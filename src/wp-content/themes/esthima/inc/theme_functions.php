@@ -287,6 +287,11 @@ add_filter('wp_title', function($title) {
 		if ($paged) {
 			$title .= " Page " . $paged . " | Esthima";
 		}
+	} else if (is_archive()) {
+		// $paged = get_query_var('paged');
+		// if ($paged) {
+		// 	$title .= " Page " . $paged . " | Esthima";
+		// }
 	}
 	return $title;
 });
@@ -341,3 +346,20 @@ add_filter( 'paginate_links', function($link){
 	}
     return $link;
 });
+
+add_action('woocommerce_get_breadcrumb', function($crumbs, $that){
+	$crumbsTmp = [];
+	$crumbsTmp[0] = $crumbs[0];
+	$crumbsTmp[1][0] = "Boutique";
+	$crumbsTmp[1][1] = home_url('boutique');
+
+	foreach ($crumbs as $ckey => $cvalue) {
+		if ($ckey > 0) {
+			$crumbsTmp[] = $cvalue;
+		}
+	}
+
+	$crumbs = $crumbsTmp;
+
+	return $crumbs;
+}, 10, 2);
