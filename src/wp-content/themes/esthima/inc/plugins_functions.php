@@ -132,3 +132,10 @@ function handler_function_name($message, $product_id) {
 remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display' );
 add_action( 'add_crosssells_bottom', 'woocommerce_cross_sell_display' );
 
+add_filter('woocommerce_get_breadcrumb',function($crumbs,$tthis){
+    if(strpos($crumbs[count($crumbs)-1][0],'Page ')===0){
+        unset($crumbs[count($crumbs)-1]);
+        $args["breadcrumb"][count($crumbs)-1][1]='';
+    }
+    return $crumbs;
+},10,2);
