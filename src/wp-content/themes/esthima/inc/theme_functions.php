@@ -266,7 +266,14 @@ add_filter('wpseo_breadcrumb_links', function($links) {
 });
 
 add_action('wp_head', function($output = ''){
-	if( is_home() ){$output = home_url( '/' ); }
+	if( is_home() ){
+		global $page_id;
+		$output = home_url( '/actualites' );
+		$paged = get_query_var('paged');
+		if ($paged) {
+			$output .= "/page/" . $paged;
+		}
+	}
 	if( is_category() ){ global $cat; $output = get_category_link($cat); }
 	if( is_tag() ){ global $tag_id; $output = get_tag_link($tag_id); }
 	if( is_page() ){
@@ -363,3 +370,26 @@ add_action('woocommerce_get_breadcrumb', function($crumbs, $that){
 
 	return $crumbs;
 }, 10, 2);
+
+
+
+add_action('woocommerce_before_shop_loop_item', function(){
+	global $product;
+	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
+
+	echo '<div itemscope itemtype="http://schema.org/Product">
+	<link itemprop="url" href="' . get_the_permalink($product->id) . '" />
+	<meta itemprop="name" content="' . $product->get_name() . '" />
+	<link itemprop="image" href="' . $image[0] . '" />
+	<meta itemprop="brand" content="Esthima" />
+	<meta itemprop="sku" content="' . $product->get_sku() . '" />
+	<meta itemprop="description" content="' . htmlspecialchars($product->get_description()) . '" />
+	</div>';
+
+	echo '<div itemscope itemtype="https://schema.org/Offer">
+	<link itemprop="availability" href="https://schema.org/InStock" />
+	<meta itemprop="url" content="' . get_the_permalink($product->id) . '" />
+	<meta itemprop="priceCurrency" content="EUR" />
+	<meta itemprop="price" content="' . $product->get_price() . '" />
+	</div>';
+});

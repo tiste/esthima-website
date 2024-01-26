@@ -22,13 +22,29 @@ get_header('shop');
                     <?php if(!is_null($c['products']) && !empty($c['products']) && is_array($c['products'])) : ?>
                         <div class="shop__blocks__item__texts__products">
                             <?php foreach($c['products'] as $p) : ?>
-                                <?php $product = wc_get_product($p); ?>
-                                <div class="shop__blocks__item__texts__products__prod">
+                                <?php
+                                    $product = wc_get_product($p);
+                                    $image = wp_get_attachment_image_src( get_post_thumbnail_id( $p ), 'single-post-thumbnail' );
+                                ?>
+                                <div class="shop__blocks__item__texts__products__prod" itemscope itemtype="http://schema.org/Product">
+                                    <link itemprop="url" href="<?php echo get_the_permalink($p); ?>" />
+                                    <link itemprop="image" href="<?php echo $image[0]; ?>" />
+                                    <meta itemprop="brand" content="Esthima" />
+                                    <meta itemprop="sku" content="<?php echo $product->get_sku(); ?>" />
+                                    <meta itemprop="description" content="<?php echo htmlspecialchars($product->get_description()); ?>" />
                                     <div class="shop__blocks__item__texts__products__prod__img">
                                         <?php echo $product->get_image(); ?>
                                     </div>
-                                    <div class="shop__blocks__item__texts__products__prod__name"><?php echo $product->get_name(); ?></div>
-                                    <div class="shop__blocks__item__texts__products__prod__price"><?php echo $product->get_price_html(); ?></div>
+                                    <div class="shop__blocks__item__texts__products__prod__name" itemprop="name"><?php echo $product->get_name(); ?></div>
+                                    <div class="shop__blocks__item__texts__products__prod__price" itemscope itemtype="https://schema.org/Offer">
+                                        <link itemprop="availability" href="https://schema.org/InStock" />
+                                        <meta itemprop="url" content="<?php echo get_the_permalink($p); ?>" />
+                                        <meta itemprop="priceCurrency" content="EUR" />
+                                        <meta itemprop="price" content="<?php echo $product->get_price(); ?>" />
+                                        <span>
+                                            <?php echo $product->get_price_html(); ?>
+                                        </span>   
+                                    </div>
                                     <a href="<?php echo get_the_permalink($p); ?>"></a>
                                 </div>
                             <?php endforeach; ?>
