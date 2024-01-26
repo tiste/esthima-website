@@ -261,7 +261,7 @@ function getCookie(cName) {
 				let i = htmlTitle.indexOf(' ');
 				let splits = [htmlTitle.slice(0,i), htmlTitle.slice(i+1)];
 				if(splits.length>1){
-					$(this).html(splits[0] + '<span>' + splits[1] + '</span>')
+					$(this).html(splits[0] + ' <span>' + splits[1] + '</span>')
 				}
 			})
 		}
