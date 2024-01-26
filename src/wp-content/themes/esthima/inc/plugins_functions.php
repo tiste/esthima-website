@@ -128,3 +128,7 @@ function handler_function_name($message, $product_id) {
     $patate = strip_tags( get_the_title( $product_id ));
     return "L'article \"" . $patate . "\" a été ajouté au panier.";
 }
+
+remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display' );
+add_action( 'add_crosssells_bottom', 'woocommerce_cross_sell_display' );
+

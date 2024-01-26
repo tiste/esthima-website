@@ -341,6 +341,24 @@ function getCookie(cName) {
 				});
 			})
 		}
+		if($('.cross-sells .products').length && window.innerWidth<768){
+			$('.cross-sells .products').each(function(index){
+				$(this).addClass('swiper');
+				$(this).find('li.product').each(function(){
+					$(this).addClass('swiper-slide');
+				})
+				let newHPShopHTML = '<div class="swiper-wrapper">' + $(this).html() + '</div><div class="products-'+index+'__prev products__prev swiper-button-prev"></div><div class="products-'+index+'__next products__next swiper-button-next"></div>';
+				$(this).html(newHPShopHTML);
+				new Swiper(this, {
+					spaceBetween: 10,
+					slidesPerView: 'auto',
+					navigation: {
+						nextEl: '.products-'+index+'__next',
+						prevEl: '.products-'+index+'__prev',
+					}
+				});
+			})
+		}
 		if($('.shop__solo__products').length && window.innerWidth<768){
 			$('.shop__solo__products').each(function(){
 				$(this).addClass('swiper');

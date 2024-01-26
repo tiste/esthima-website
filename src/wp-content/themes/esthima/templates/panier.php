@@ -64,6 +64,7 @@ get_header('shop');
 		        <?php woocommerce_product_loop_end(); ?>
 	        </section>
         <?php endif; wp_reset_postdata(); ?>
+        <?php do_action( 'add_crosssells_bottom' ); ?>
     </div>
 </main>
 
