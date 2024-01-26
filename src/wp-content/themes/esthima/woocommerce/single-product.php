@@ -33,7 +33,26 @@ get_header( 'shop' ); ?>
 
 		<?php while ( have_posts() ) : ?>
 			<?php the_post(); ?>
-
+			<?php 
+				global $product;
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
+			
+				echo '<div itemscope itemtype="http://schema.org/Product">
+				<link itemprop="url" href="' . get_the_permalink($product->id) . '" />
+				<meta itemprop="name" content="' . $product->get_name() . '" />
+				<link itemprop="image" href="' . $image[0] . '" />
+				<meta itemprop="brand" content="Esthima" />
+				<meta itemprop="sku" content="' . $product->get_sku() . '" />
+				<meta itemprop="description" content="' . htmlspecialchars($product->get_description()) . '" />
+				</div>';
+			
+				echo '<div itemscope itemtype="https://schema.org/Offer">
+				<link itemprop="availability" href="https://schema.org/InStock" />
+				<meta itemprop="url" content="' . get_the_permalink($product->id) . '" />
+				<meta itemprop="priceCurrency" content="EUR" />
+				<meta itemprop="price" content="' . $product->get_price() . '" />
+				</div>';
+			?>
 			<?php wc_get_template_part( 'content', 'single-product' ); ?>
 
 		<?php endwhile; // end of the loop. ?>
