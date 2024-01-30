@@ -68,7 +68,7 @@ $queryRegular = new WP_Query($argsRegular);
     ?>
     <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
     <div class="guides__cats">
-        <a href="<?php echo home_url('/'); ?>actualites/" class="">Tous les articles</a>
+        <a href="<?php echo home_url('/'); ?>actualites" class="">Tous les articles</a>
         <?php foreach($cats as $c) : ?>
             <a href="<?php echo get_term_link($c); ?>" class="<?php echo ($c->slug==$currentCat->slug) ? 'active' : '' ?>"><?php echo $c->name; ?></a>
         <?php endforeach; ?>
@@ -76,7 +76,7 @@ $queryRegular = new WP_Query($argsRegular);
     <?php endif; ?>
 
     <select class="guides__cats-mob">
-        <option value="<?php echo str_replace('"', '\"', home_url('/')); ?>actualites/">Tous les articles</option>
+        <option value="<?php echo str_replace('"', '\"', home_url('/')); ?>actualites">Tous les articles</option>
         <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
             <?php foreach($cats as $c) : ?>
                 <option value="<?php echo str_replace('"', '\"', get_term_link($c)); ?>" <?php echo ($c->slug==$currentCat->slug) ? 'selected' : '' ?>><?php echo $c->name; ?></option>

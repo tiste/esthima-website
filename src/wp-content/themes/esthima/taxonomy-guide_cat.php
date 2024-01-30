@@ -155,7 +155,7 @@ $queryRegular = new WP_Query($argsRegular);
     <?php $currentURL = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
 
     <select class="guides__cats-mob">
-        <option value="<?php echo str_replace('"', '\"', home_url('/')); ?>conseils-actualites/">Tous les articles</option>
+        <option value="<?php echo str_replace('"', '\"', home_url('/')); ?>conseils-actualites">Tous les articles</option>
         <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
             <?php foreach($cats as $c) : ?>
                 <option value="<?php echo str_replace('"', '\"', get_term_link($c)); ?>" <?php echo ($currentURL==get_term_link($c)) ? 'selected' : ''; ?>><?php echo $c->name; ?></option>
