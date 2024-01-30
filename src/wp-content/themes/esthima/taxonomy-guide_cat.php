@@ -175,7 +175,7 @@ $queryRegular = new WP_Query($argsRegular);
                 </div>
                 <?php if( ($queryRegular->current_post + 1) == ($queryRegular->post_count) ) : ?>
                 <div class="guides__posts__newsletter guides__posts__newsletter-<?php echo $i; ?>">
-                    <h3>Restez informés en vous inscrivant à notre newsletter !</h3>
+                    <div class="guides__posts__newsletter__title">Restez informés en vous inscrivant à notre newsletter !</div>
                     <div class="guides__posts__newsletter__form">
 						<div>
                         <form action="<?php echo home_url("inscription-a-la-newsletter"); ?>" method="GET">
