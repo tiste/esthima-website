@@ -65,13 +65,25 @@ $queryRegular = new WP_Query($argsRegular);
     <div class="guides__tet">
         <div class="lightBG"></div>
         <div class="guides__tet__breadcrumbs">
-            <span>
-                <span><a href="<?php echo home_url(); ?>">Accueil</a></span> &gt;
-                <span><a href="<?php echo home_url('/'); ?>conseils-actualites">Nos guides &amp; nos conseils</a></span> &gt;
+            <span itemscope itemtype="https://schema.org/BreadcrumbList">
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="<?php echo home_url(); ?>" itemprop="item"><span itemprop="name">Accueil</span></a>
+                    <meta itemprop="position" content="1" />
+                </span> &gt;
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="<?php echo home_url('/'); ?>conseils-actualites" itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="<?php echo home_url('/'); ?>conseils-actualites"><span itemprop="name">Nos guides &amp; nos conseils</span></a>
+                    <meta itemprop="position" content="2" />
+                </span> &gt;
                 <?php if($parent!=0) : ?>
-                    <span><a href="<?php echo get_term_link($parent); ?>"><?php echo get_term($parent)->name; ?></a></span> &gt;
+                    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="<?php echo get_term_link($parent); ?>" itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="<?php echo get_term_link($parent); ?>"><span itemprop="name"><?php echo get_term($parent)->name; ?></span></a>
+                        <meta itemprop="position" content="3" />
+                    </span> &gt;
                 <?php endif; ?>
-                <span class="breadcrumb_last" aria-current="page"><?php echo get_queried_object()->name; ?></span>
+                <span class="breadcrumb_last" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name"><?php echo get_queried_object()->name; ?></span>
+                    <meta itemprop="position" content="<?php echo ($parent!=0) ? '4' : '3'; ?>" />
+                </span>
             </span>
         </div>
         <div class="guides__tet__texts">

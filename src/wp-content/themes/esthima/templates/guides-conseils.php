@@ -39,7 +39,16 @@ $queryRegular = new WP_Query($argsRegular);
     <div class="guides__tet">
         <div class="lightBG"></div>
         <div class="guides__tet__breadcrumbs">
-            <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
+            <span itemscope itemtype="https://schema.org/BreadcrumbList">
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="<?php echo home_url(); ?>" itemprop="item"><span itemprop="name">Accueil</span></a>
+                    <meta itemprop="position" content="1" />
+                </span> &gt;
+                <span class="breadcrumb_last" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name">Nos guides & conseils</span>
+                    <meta itemprop="position" content="2" />
+                </span>
+            </span>
         </div>
         <div class="guides__tet__texts">
             <h1><?php echo $pageTitle; ?></h1>
