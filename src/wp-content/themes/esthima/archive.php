@@ -62,17 +62,18 @@ $queryRegular = new WP_Query($argsRegular);
             'taxonomy' => 'category',
             'hide_empty' => true,
             'hierarchical' => true,
-            'parent' => 0
+            'parent' => 0,
+            'exclude' => array(1)
         ) );
     ?>
+    <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
     <div class="guides__cats">
         <a href="<?php echo home_url('/'); ?>actualites/" class="">Tous les articles</a>
-        <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
-            <?php foreach($cats as $c) : ?>
-                <a href="<?php echo get_term_link($c); ?>" class="<?php echo ($c->slug==$currentCat->slug) ? 'active' : '' ?>"><?php echo $c->name; ?></a>
-            <?php endforeach; ?>
-        <?php endif; ?>
+        <?php foreach($cats as $c) : ?>
+            <a href="<?php echo get_term_link($c); ?>" class="<?php echo ($c->slug==$currentCat->slug) ? 'active' : '' ?>"><?php echo $c->name; ?></a>
+        <?php endforeach; ?>
     </div>
+    <?php endif; ?>
 
     <select class="guides__cats-mob">
         <option value="<?php echo str_replace('"', '\"', home_url('/')); ?>actualites/">Tous les articles</option>
