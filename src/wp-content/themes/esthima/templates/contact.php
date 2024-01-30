@@ -10,7 +10,9 @@ get_header();
 
     <div class="contact__tet">
         <div class="contact__tet__texts">
-            <h2><?php echo get_field('tet_surtitle'); ?></h2>
+            <div class="contact__tet__texts__breadcrumbs">
+                <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
+            </div>
             <h1><?php echo get_field('tet_title'); ?></h1>
             <?php get_template_part('template-parts/phone-number'); ?>
             <h3><?php echo get_field('tet_subtitle'); ?></h3>

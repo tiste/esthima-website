@@ -34,13 +34,44 @@
             padding-top: 0;
             @media (min-width: 768px){
                 width: 45.78%;
-                padding-top: 30px;
+                padding-top: 0;
             }
             @media (min-width: 1440px){
-                padding-top: 36px;
+                padding-top: 0;
             }
             @media (min-width: 1680px){
-                padding-top: 45px;
+                padding-top: 0;
+            }
+            &__breadcrumbs{
+                margin: 0 0 10px;
+                @media (min-width: 768px){
+                    margin: 0 0 7px;
+                }
+                @media (min-width: 1440px){
+                    margin: 0 0 8px;
+                }
+                @media (min-width: 1680px){
+                    margin: 0 0 10px;
+                }
+                span, a{
+                    color: @text;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    @media (min-width: 768px){
+                        font-size: 12px;
+                    }
+                    @media (min-width: 1440px){
+                        font-size: 12px;
+                    }
+                    @media (min-width: 1680px){
+                        font-size: 14px;
+                    }
+                }
+                span.breadcrumb_last{
+                    font-weight: 600;
+                }
             }
             h2{
                 margin: 0 0 20px;
