@@ -6,12 +6,12 @@
 <div class="pricing-table">
     <?php foreach($cremations as $c) : ?>
         <div class="pricing-plan">
-            <div class="pricing-plan__head">
-                <div></div>
-                <div>La crémation</div>
-                <div><?php echo $c['name']; ?></div>
-                <div>En savoir plus</div>
-            </div>
+            <h2 class="pricing-plan__head">
+                <span class="pricing-plan__head__icon"></span>
+                <span class="pricing-plan__head__surtitle">La crémation</span>
+                <span class="pricing-plan__head__title"><?php echo $c['name']; ?></span>
+                <span class="pricing-plan__head__more">En savoir plus</span>
+            </h2>
             <div class="pricing-plan__prices">
                 <div class="pricing-plan__prices__card">
                     <div class="pricing-plan__prices__card__price">
