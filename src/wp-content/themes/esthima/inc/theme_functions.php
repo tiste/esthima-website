@@ -285,7 +285,14 @@ add_action('wp_head', function($output = ''){
 		}
 	}
 	if( is_single() ){ $output = get_permalink(); }
-	if( $output != '' ){ echo '<link rel="canonical" href="',$output,'">'; }
+	if(is_tax()){
+		$output = get_term_link(get_queried_object());
+		$paged = get_query_var('paged');
+		if ($paged) {
+			$output .= "/page/" . $paged;
+		}
+	}
+	if( $output != '' ){ echo '<link rel="canonical" href="'.$output.'">'; }
 });
 
 add_filter('wp_title', function($title) {
