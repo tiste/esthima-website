@@ -2,7 +2,7 @@
 	<div class="petsconfigurator__content petsconfigurator__content--home">
 		<div class="petsconfigurator__content__inner">
 			<h1 class="petsconfigurator__h1 petsconfigurator-h-center">
-				Personnaliser les obsèques de votre animal
+				Personnalisez les obsèques de votre animal
 			</h1>
 			<p class="petsconfigurator__p petsconfigurator-h-center">
 				Parce que votre histoire est unique, rendez hommage à votre animal selon vos souhaits.
