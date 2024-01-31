@@ -384,13 +384,24 @@ add_action('woocommerce_before_shop_loop_item', function(){
 	<link itemprop="image" href="' . $image[0] . '" />
 	<meta itemprop="brand" content="Esthima" />
 	<meta itemprop="sku" content="' . $product->get_sku() . '" />
-	<meta itemprop="description" content="' . htmlspecialchars($product->get_description()) . '" />
-	</div>';
+	<meta itemprop="description" content="' . htmlspecialchars($product->get_description()) . '" />';
 
-	echo '<div itemscope itemtype="https://schema.org/Offer">
+	echo '<div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
 	<link itemprop="availability" href="https://schema.org/InStock" />
 	<meta itemprop="url" content="' . get_the_permalink($product->id) . '" />
 	<meta itemprop="priceCurrency" content="EUR" />
 	<meta itemprop="price" content="' . $product->get_price() . '" />
-	</div>';
+	</div></div>';
 });
+
+
+add_filter( 'wpseo_schema_graph_pieces', 'remove_breadcrumbs_from_schema', 11, 2 );
+function remove_breadcrumbs_from_schema( $pieces, $context ) {
+	if(isset($context->indexable->object_sub_type)){
+		if($context->indexable->object_sub_type=='product'){
+			return \array_filter( $pieces, function( $piece ) {
+				return ! $piece instanceof \Yoast\WP\SEO\Generators\Schema\Breadcrumb;
+			} );
+		}
+	}
+}
