@@ -398,10 +398,14 @@ add_action('woocommerce_before_shop_loop_item', function(){
 add_filter( 'wpseo_schema_graph_pieces', 'remove_breadcrumbs_from_schema', 11, 2 );
 function remove_breadcrumbs_from_schema( $pieces, $context ) {
 	if(isset($context->indexable->object_sub_type)){
-		if($context->indexable->object_sub_type=='product'){
+		if($context->indexable->object_sub_type=='product' || $context->indexable->object_sub_type=='product_cat'){
 			return \array_filter( $pieces, function( $piece ) {
 				return ! $piece instanceof \Yoast\WP\SEO\Generators\Schema\Breadcrumb;
 			} );
+		}else{
+			return $pieces;
 		}
+	}else{
+		return $pieces;
 	}
 }
