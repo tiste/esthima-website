@@ -1,4 +1,14 @@
-<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
+<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+// $ceremoniePrice = 0;
+// if (isset($args['ceremonie_adieu'])) {
+//     if ((isset($args['espece'])) && ) {
+//         $ceremoniePrice = 
+//     }
+// }
+
+
+?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -73,7 +83,7 @@
     </tr>
     <tr>
         <td class="title">Urne</td>
-        <td><?php echo (isset($args['urne'])) ? $args['urne'] : ''; ?></td>
+        <td><?php echo (isset($args['urne'])) ? $args['urne'] . ' ' . $args['prix_urne'] . ' €' : ''; ?></td>
     </tr>
     <tr>
         <td class="title">Geste souvenir</td>

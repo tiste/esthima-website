@@ -15,10 +15,14 @@
 				<ul class="petsconfigurator__question__list">
 					<li>Espèce : <span>{{ store.state.petsConfigurator.typeAnimal}}</span></li>
 					<li>Nom : <span>{{ store.state.petsConfigurator.nameAnimal}}</span></li>
-					<li>Récupération des cendres : <span>{{ (store.state.petsConfigurator.cendre) ? 'Oui' : 'Non'}}</span></li>
-					<li>Cérémonie d'adieu : <span>{{ (store.state.petsConfigurator.ceremonieAdieu) ? 'Oui' : 'Non' }}</span></li>
-					<li>Urne : <span>{{ (store.state.petsConfigurator.urne) ? urneDetails : 'Non'}}</span></li>
-					<li>Geste souvenir : <span>{{ (store.state.petsConfigurator.souvenir) ? `Oui / ${souvenirDetails}` : 'Non'}}</span></li>
+					<li v-if="store.state.petsConfigurator.cendre">Récupération des cendres : <span>Oui <small v-html="yesCendre"></small></span></li>
+					<li v-else>Récupération des cendres : <span>Non</span></li>
+					<li v-if="store.state.petsConfigurator.ceremonieAdieu">Cérémonie d'adieu : <span>Oui <small v-html="yesCeremonie"></small></span></li>
+					<li v-else>Cérémonie d'adieu : <span>Non</span></li>
+					<li v-if="store.state.petsConfigurator.urne">Urne : <span>{{urneDetails}} <small v-html="detailYesUrnes"></small></span></li>
+					<li v-else>Urne : <span>Non</span></li>
+					<li v-if="store.state.petsConfigurator.souvenir">Geste souvenir : <span v-html="souvenirDetails"></span></li>
+					<li v-else>Geste souvenir : <span>Non</span></li>
 				</ul>
 
 				<span class="petsconfigurator__question__subtitle">
@@ -139,7 +143,30 @@ export default {
 	const imgLoaded = ref(0)
 	
 	const popUpKiamo = ref(false)
+		
+	const yesCendre = computed({
+		get () {
+			return `(+${store.state.petsConfigurator.cremations[cremationChoice.value].description.cendres[store.state.petsConfigurator.typeAnimal]}€)`
+		}
+	})
 
+	const yesCeremonie = computed({
+		get () {
+			return `(+${store.state.petsConfigurator.cremations[cremationChoice.value].description.ceremonie[store.state.petsConfigurator.typeAnimal]}€)`
+		}
+	})
+	
+	const detailYesUrnes = computed({
+		get () {
+			return `(+${getUrnePrice.value}€)`
+		}
+	})
+	
+	const yesSouvenir = computed({
+		get () {
+			return `(+${getSouvenirPrice.value}€)`
+		}
+	})
 		
 	const typeAnimal = computed({
 		get () {
@@ -154,7 +181,7 @@ export default {
 				if (store.state.petsConfigurator.urneProduct.type == 'variable') {
 					let variations = Object.values(store.state.petsConfigurator.urneProduct.variation_selected.attributes).join(' , ')
 					if (variations) {
-						n = `${n} / (${variations})`
+						n = `${n} (${variations})`
 					}
 				}
 				return n
@@ -167,18 +194,30 @@ export default {
 			return store.getters['petsConfigurator/cremationChoice']
 		}
 	})
+	
+	const getSouvenirPrice = computed({
+		get () {
+			return store.getters['petsConfigurator/getSouvenirPrice']
+		}
+	})
+	
+	const getUrnePrice = computed({
+		get () {
+			return store.getters['petsConfigurator/getUrnePrice']
+		}
+	})
 
 	const souvenirDetails = computed({
 	get() {
 			let p = []
 			if (store.state.petsConfigurator.gesteSouvenirEmpreinte) {
 				if (store.state.petsConfigurator.gesteSouvenirEmpreinte) {
-					p.push('Empreinte')
+					p.push(`Empreinte <small>(+${store.state.petsConfigurator.prixEmpreinte}€)</small>`)
 				}
 			}
 			if (store.state.petsConfigurator.gesteSouvenirTouffe) {
 				if (store.state.petsConfigurator.gesteSouvenirTouffe) {
-					p.push('Touffe de poils')
+					p.push(`Touffe de poils <small>(+${store.state.petsConfigurator.prixTouffe}€)</small>`)
 				} 
 			}
 			return p.join(' , ')
