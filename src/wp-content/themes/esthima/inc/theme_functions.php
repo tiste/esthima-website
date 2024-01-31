@@ -310,7 +310,7 @@ add_filter( 'wpseo_schema_graph', function($data, $context) {
 
 		$schema_data = [
 			"@context" => "https://schema.org",
-			"@type" => "NewsArticle",
+			"@type" => "Article",
 			"headline" => get_the_title(),
 			"image" => [
 				get_the_post_thumbnail_url('1x1'),
