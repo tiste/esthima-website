@@ -61,7 +61,11 @@ let percentBar = computed({
 
 const totalPrice = computed({
 	get () {
-		return store.getters['petsConfigurator/totalPrice']
+		if (store.getters['petsConfigurator/totalPrice'] == 0 && store.state.petsConfigurator.typeAnimal != '') {
+			return store.state.petsConfigurator.cremations.plurielle[store.state.petsConfigurator.typeAnimal]
+		} else {
+			return store.getters['petsConfigurator/totalPrice']
+		}
 	}
 })
 
@@ -82,6 +86,8 @@ const downloadOffre = () => {
         'prix_geste_souvenir_touffe': (store.state.petsConfigurator.gesteSouvenirTouffe) ? store.state.petsConfigurator.prixTouffe : '',
         'prix_geste_souvenir': souvenirPrice.value,
         'prix_cremation': store.getters['petsConfigurator/priceCremation'],
+        'prix_ceremonie': store.state.petsConfigurator.cremations[store.getters['petsConfigurator/cremationChoice']].description.ceremonie[store.state.petsConfigurator.typeAnimal],
+        'prix_cendres': store.state.petsConfigurator.cremations[store.getters['petsConfigurator/cremationChoice']].description.cendres[store.state.petsConfigurator.typeAnimal],
         'prix_total': store.getters['petsConfigurator/totalPrice'],
         'email': store.state.petsConfigurator.emailUser,
         'nom_personne': store.state.petsConfigurator.lastNameUser,
@@ -134,10 +140,10 @@ const urneSku = computed({
 const urnePrice = computed({
 	get() {
 		if (store.state.petsConfigurator.urne) {
-			if (store.state.petsConfigurator.urne.type == "variable") {
-				return store.state.petsConfigurator.urne.variation_selected.display_price
+			if (store.state.petsConfigurator.urneProduct.type == "variable") {
+				return store.state.petsConfigurator.urneProduct.variation_selected.display_price
 			} else {
-				return store.state.petsConfigurator.urne.price
+				return store.state.petsConfigurator.urneProduct.price
 			}
 		}
 	}

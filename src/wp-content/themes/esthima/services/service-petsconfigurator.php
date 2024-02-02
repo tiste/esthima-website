@@ -98,6 +98,8 @@ class ServicePetsconfigurator extends WP_REST_Controller
         $prix_geste_souvenir_empreinte = $request->get_param('prix_geste_souvenir_empreinte');
         $prix_geste_souvenir_touffe = $request->get_param('prix_geste_souvenir_touffe');
         $prix_cremation = $request->get_param('prix_cremation');
+        $prix_ceremonie = $request->get_param('prix_ceremonie');
+        $prix_cendres = $request->get_param('prix_cendres');
         $prix_total = $request->get_param('prix_total');
         $email = $request->get_param('email');
         $nom_personne = $request->get_param('nom_personne');
@@ -140,6 +142,8 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 update_field('prix_urne', $prix_urne, $post_id);
                 update_field('prix_geste_souvenir', $prix_geste_souvenir, $post_id);
                 update_field('prix_cremation', $prix_cremation, $post_id);
+                update_field('prix_ceremonie', $prix_ceremonie, $post_id);
+                update_field('prix_cendres', $prix_cendres, $post_id);
                 update_field('prix_total', $prix_total, $post_id);
                 if (!empty($compte)) {
                     update_field('compte', $compte, $post_id);
@@ -179,6 +183,8 @@ class ServicePetsconfigurator extends WP_REST_Controller
         $prix_geste_souvenir_empreinte = get_field('prix_geste_souvenir_empreinte', $post_id);
         $prix_geste_souvenir_touffe = get_field('prix_geste_souvenir_touffe', $post_id);
         $prix_cremation = get_field('prix_cremation', $post_id);
+        $prix_ceremonie = get_field('prix_ceremonie', $post_id);
+        $prix_cendres = get_field('prix_cendres', $post_id);
         $prix_total = get_field('prix_total', $post_id);
         $email = get_field('email', $post_id);
         $nom_personne = get_field('nom_personne', $post_id);
@@ -204,6 +210,8 @@ class ServicePetsconfigurator extends WP_REST_Controller
             'prix_geste_souvenir_empreinte' => $prix_geste_souvenir_empreinte,
             'prix_geste_souvenir_touffe' => $prix_geste_souvenir_touffe,
             'prix_cremation' => $prix_cremation,
+            'prix_ceremonie' => $prix_ceremonie,
+            'prix_cendres' => $prix_cendres,
             'prix_total' => $prix_total,
             'nom_personne' => $nom_personne,
             'prenom_personne' => $prenom_personne,
