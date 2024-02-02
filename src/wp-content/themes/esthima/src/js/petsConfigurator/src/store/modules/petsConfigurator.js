@@ -19,7 +19,6 @@ const getDefaultState = () => {
 		cremationChoice: '',
 		prixEmpreinte: 30,
 		prixTouffe: 5,
-
 		cremations: {
 			"plurielle": {
 				"nac": "69",
