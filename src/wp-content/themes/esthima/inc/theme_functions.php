@@ -242,7 +242,7 @@ add_filter('wpseo_breadcrumb_links', function($links) {
 		$links = $linkTmp;
     }
 
-	if(is_archive()) {
+	if(is_archive() && basename($template)=='guides-conseils.php') {
 
 		$taxonomy = get_queried_object()->taxonomy;
 
@@ -266,6 +266,7 @@ add_filter('wpseo_breadcrumb_links', function($links) {
 });
 
 add_action('wp_head', function($output = ''){
+	global $template;
 	if( is_home() ){
 		global $page_id;
 		$output = home_url( '/actualites' );
@@ -285,6 +286,13 @@ add_action('wp_head', function($output = ''){
 		}
 	}
 	if( is_single() ){ $output = get_permalink(); }
+	if(basename($template)=='archive-product.php'){
+		$output = home_url( '/produits' );
+		$paged = get_query_var('paged');
+		if ($paged) {
+			$output .= "/page/" . $paged;
+		}
+	}
 	if(is_tax()){
 		$output = get_term_link(get_queried_object());
 		$paged = get_query_var('paged');
