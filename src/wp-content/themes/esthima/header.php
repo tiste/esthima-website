@@ -21,7 +21,7 @@
 	<?php global $template; ?>
 	<?php if(basename($template)=='presse.php' || basename($template)=='guides-conseils.php' || basename($template)=='taxonomy-guide_cat.php' || basename($template)=='taxonomy-product-cat.php' || basename($template)=='archive-product.php') : ?>
 		<?php $paged = (get_query_var('paged')) ? get_query_var('paged') : 1; ?>
-		<title><?php echo str_replace(' | Esthima', '', wp_title('', false)); echo ($paged>1) ? ' Page '.$paged: ''; echo ' | Esthima'; ?></title>
+		<title><?php echo str_replace(array(' | Esthima', ' - Esthima'), '', wp_title('', false)); echo ($paged>1) ? ' Page '.$paged: ''; echo ' | Esthima'; ?></title>
 	<?php else : ?>
 		<title><?php wp_title(''); ?></title>
 	<?php endif; ?>

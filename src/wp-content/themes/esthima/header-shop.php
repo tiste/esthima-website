@@ -21,7 +21,22 @@
 	<?php global $template; ?>
 	<?php if(basename($template)=='presse.php' || basename($template)=='guides-conseils.php' || basename($template)=='taxonomy-guide_cat.php' || basename($template)=='taxonomy-product-cat.php' || basename($template)=='archive-product.php') : ?>
 		<?php $paged = (get_query_var('paged')) ? get_query_var('paged') : 1; ?>
-		<title><?php echo str_replace(' | Esthima', '', wp_title('', false)); echo ($paged>1) ? ' Page '.$paged: ''; echo ' | Esthima'; ?></title>
+		<title><?php echo str_replace(array(' | Esthima', ' - Esthima'), '', wp_title('', false)); echo ($paged>1) ? ' Page '.$paged : ''; echo ' | Esthima'; ?></title>
+	<?php elseif(basename($template)=='single-product.php') : ?>
+		<?php
+			$prodID = get_the_ID();
+			$term_list = wp_get_post_terms($prodID, 'product_cat');
+			$mainCatID = null;
+			foreach($term_list as $term) {
+				if( get_post_meta($prodID, '_yoast_wpseo_primary_product_cat',true) == $term->term_id ) {
+					$mainCatID = $term->term_id;
+				}
+			}
+			if($mainCatID == null && is_array($term_list) && !empty($term_list)){
+				$mainCatID = $term_list[0]->term_id;
+			}
+		?>
+		<title><?php echo str_replace(array(' | Esthima', ' - Esthima'), '', wp_title('', false)); echo ($mainCatID!=null) ?  ' ' . get_term($mainCatID)->name : ''; echo ' | Esthima'; ?></title>
 	<?php else : ?>
 		<title><?php wp_title(''); ?></title>
 	<?php endif; ?>
