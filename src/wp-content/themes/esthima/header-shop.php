@@ -46,7 +46,9 @@
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKDFVPD"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
-	
+
+	<?php $shopCats = get_field('header_shop_cats', 'option') ?>
+
 	<header class="header <?php if (is_front_page()) : ?>header-transparent header-transparent-active <?php endif;?>">
 		<div class="header__top header__top-shop containerCustom">
 			<a href="<?php echo home_url('/'); ?>" class="header__top__logo">
@@ -100,9 +102,15 @@
 			<div class="header__menu__search">
 				<?php get_search_form(); ?>
 			</div>
+			<?php if(!is_null($shopCats) && !empty($shopCats) && is_array($shopCats)) : ?>
 			<div class="header__menu__shop">
-				<?php wp_list_categories( array('taxonomy' => 'product_cat', 'title_li'  => '') ); ?>
+				<?php foreach($shopCats as $cat) : ?>
+					<li class="cat-item">
+						<a href="<?php echo get_term_link($cat['cat']); ?>"><?php echo get_term($cat['cat'])->name; ?></a>
+					</li>
+				<?php endforeach; ?>
 			</div>
+			<?php endif; ?>
 			<?php wp_nav_menu(['menu'=>'Header - main', 'container_class'=>'header__menu__main']); ?>
 			<?php wp_nav_menu(['menu'=>'Header - second', 'container_class'=>'header__menu__second']); ?>
 			<?php
@@ -121,7 +129,13 @@
 	<div class="heightHeader"></div>
 
 	<div class="main-content">
+		<?php if(!is_null($shopCats) && !empty($shopCats) && is_array($shopCats)) : ?>
 		<div class="shop__cats">
-			<?php wp_list_categories( array('taxonomy' => 'product_cat', 'title_li'  => '') ); ?>
+			<?php foreach($shopCats as $cat) : ?>
+			<li class="cat-item">
+				<a href="<?php echo get_term_link($cat['cat']); ?>"><?php echo get_term($cat['cat'])->name; ?></a>
+			</li>
+			<?php endforeach; ?>
 		</div>
+		<?php endif; ?>
 	</div>
