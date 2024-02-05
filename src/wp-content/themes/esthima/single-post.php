@@ -34,7 +34,7 @@
     </div>
 
     <div class="guide__body">
-        <a href="<?php echo home_url('/'); ?>conseils-actualites" class="guide__body__back">Voir les autres articles</a>
+        <a href="<?php echo home_url('/'); ?>actualites" class="guide__body__back">Voir les autres articles</a>
         <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
         <div class="guide__body__content">
             <?php the_content(); ?>

@@ -43,15 +43,14 @@ get_header( 'shop' ); ?>
 				<link itemprop="image" href="' . $image[0] . '" />
 				<meta itemprop="brand" content="Esthima" />
 				<meta itemprop="sku" content="' . $product->get_sku() . '" />
-				<meta itemprop="description" content="' . htmlspecialchars($product->get_description()) . '" />
-				</div>';
+				<meta itemprop="description" content="' . htmlspecialchars($product->get_description()) . '" />';
 			
-				echo '<div itemscope itemtype="https://schema.org/Offer">
+				echo '<div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
 				<link itemprop="availability" href="https://schema.org/InStock" />
 				<meta itemprop="url" content="' . get_the_permalink($product->id) . '" />
 				<meta itemprop="priceCurrency" content="EUR" />
 				<meta itemprop="price" content="' . $product->get_price() . '" />
-				</div>';
+				</div></div>';
 			?>
 			<?php wc_get_template_part( 'content', 'single-product' ); ?>
 

@@ -41,42 +41,45 @@
     margin-top: 1.3em;
 }
 
-.pricing-plan__head {
+.pricing-plan__head{
+    display: block;
     text-align: center;
     line-height: 1.2;
-}
-.pricing-plan__head > :nth-child(1) {
-    display: block;
-    width: 40px;
-    height: 44px;
-    background: url(images/picto-esthima.svg) no-repeat center;
-    margin: 0 auto;
-}
-.pricing-plan__head > :nth-child(2) {
-    font-size: 16px;
-    @media screen and (min-width: 1025px) {
-        font-size: calc(14px + (20 - 14) * ((100vw - 1024px) / (1920 - 1024)));
+    &__icon{
+        display: block;
+        width: 40px;
+        height: 44px;
+        background: url(images/picto-esthima.svg) no-repeat center;
+        margin: 0 auto;
+    }
+    &__surtitle{
+        display: block;
+        font-size: 16px;
+        @media screen and (min-width: 1025px) {
+            font-size: calc(14px + (20 - 14) * ((100vw - 1024px) / (1920 - 1024)));
+        }
+    }
+    &__title{
+        display: block;
+        font-size: 42px;
+        font-size: 38px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #D43B68;
+        transition: .2s;
+        @media screen and (min-width: 1025px) {
+            font-size: calc(20px + (42 - 20) * ((100vw - 1024px) / (1920 - 1024)));
+        }
+    }
+    &__more{
+        display: block;
+        font-size: 14px;
+        color: #D43B68;
     }
 }
-.pricing-plan__head > :nth-child(3) {
-    font-size: 42px;
-    font-size: 38px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #D43B68;
-    transition: .2s;
-    @media screen and (min-width: 1025px) {
-        font-size: calc(20px + (42 - 20) * ((100vw - 1024px) / (1920 - 1024)));
-    }
-}
-.pricing-plan:hover .pricing-plan__head > :nth-child(3) {
+
+.pricing-plan:hover .pricing-plan__head__title {
     transform: scale(1.05);
-}
-
-
-.pricing-plan__head > :nth-child(4) {
-    font-size: 14px;
-    color: #D43B68;
 }
 
 .pricing-plan__prices {

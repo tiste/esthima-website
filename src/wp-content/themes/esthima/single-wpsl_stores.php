@@ -5,9 +5,23 @@
 <main class="main" itemscope itemtype="http://schema.org/LocalBusiness">
 
     <div class="store__tet" style="--bg-img: url('<?php echo (!empty(get_the_post_thumbnail_url())) ? get_the_post_thumbnail_url() : get_template_directory_uri().'/images/default-store.jpg'; ?>');">
+        <div class="store__tet__background">
+            <img src="<?php echo (!empty(get_the_post_thumbnail_url())) ? str_replace('"', '\"', get_the_post_thumbnail_url()) : str_replace('"', '\"', get_template_directory_uri()).'/images/default-store.jpg'; ?>" alt="<?php echo str_replace('"', '\"', get_the_title()); ?>" itemprop="image">
+        </div>
         <div class="storeloc__tet__breadcrumbs">
-            <span>
-                <span><a href="<?php echo home_url(''); ?>">Accueil</a></span> &gt; <span><a href="<?php echo home_url('/'); ?>crematoriums">Nos agences et crématoriums</a></span> &gt; <span class="breadcrumb_last" aria-current="page"><?php echo get_the_title(); ?></span>
+            <span itemscope itemtype="https://schema.org/BreadcrumbList">
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="<?php echo home_url(); ?>" itemprop="item"><span itemprop="name">Accueil</span></a>
+                    <meta itemprop="position" content="1" />
+                </span> &gt;
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="<?php echo home_url('/'); ?>crematoriums" itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="<?php echo home_url('/'); ?>crematoriums"><span itemprop="name">Nos agences et crématoriums</span></a>
+                    <meta itemprop="position" content="2" />
+                </span> &gt;
+                <span class="breadcrumb_last" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name"><?php echo get_the_title(); ?></span>
+                    <meta itemprop="position" content="3" />
+                </span>
             </span>
         </div>
         <div class="main-content">
@@ -30,7 +44,7 @@
                         }
                     }
                 ?>
-                <h1><?php echo $typeStr; ?> de <span><?php echo get_the_title(); ?></span></h1>
+                <h1 itemprop="name"><?php echo $typeStr; ?> de <span><?php echo get_the_title(); ?></span></h1>
                 <div class="store__tet__btns">
                     <a href="<?php echo home_url('/'); ?>configurateur" class="btn btn--arrow">Personnaliser les obsèques</a>
                     <a href="<?php echo home_url('/'); ?>prendre-rdv" class="store__tet__btns__rdv">Prendre rendez-vous</a>

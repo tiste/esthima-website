@@ -1,4 +1,14 @@
-<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
+<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+// $ceremoniePrice = 0;
+// if (isset($args['ceremonie_adieu'])) {
+//     if ((isset($args['espece'])) && ) {
+//         $ceremoniePrice = 
+//     }
+// }
+
+
+?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -65,15 +75,15 @@
     </tr>
     <tr>
         <td class="title">Récupération des cendres</td>
-        <td><?php echo (isset($args['recuperation_cendres']) && $args['recuperation_cendres']) ? 'Oui' : 'Non'; ?></td>
+        <td><?php echo (isset($args['recuperation_cendres']) && $args['recuperation_cendres']) ? 'Oui' . ' (' . $args['prix_cendres'] . '€)'  : 'Non'; ?></td>
     </tr>
     <tr>
         <td class="title">Cérémonie d'adieu</td>
-        <td><?php echo (isset($args['ceremonie_adieu'])) ? $args['ceremonie_adieu'] : ''; ?></td>
+        <td><?php echo (isset($args['ceremonie_adieu'])) ? $args['ceremonie_adieu'] . ' (' . $args['prix_ceremonie'] . '€)' : ''; ?></td>
     </tr>
     <tr>
         <td class="title">Urne</td>
-        <td><?php echo (isset($args['urne'])) ? $args['urne'] : ''; ?></td>
+        <td><?php echo (isset($args['urne'])) ? str_replace(['(', ')'], '' ,$args['urne']) . ' (' . $args['prix_urne'] . '€)' : ''; ?></td>
     </tr>
     <tr>
         <td class="title">Geste souvenir</td>
@@ -81,11 +91,17 @@
             <?php if (isset($args['geste_souvenir'])): ?>
                 <?php if (isset($args['geste_souvenir_empreinte'])): ?>
                     <br>
-                    Empreinte: Oui / <?php echo $args['prix_geste_souvenir_empreinte']; ?> €
+                    Empreinte: Oui (<?php echo $args['prix_geste_souvenir_empreinte']; ?>€)
+                <?php else: ?>
+                    <br>
+                    Empreinte: Non
                 <?php endif; ?> 
                 <?php if (isset($args['geste_souvenir_empreinte'])): ?>
                     <br>
-                    Touffe de poils: Oui / <?php echo $args['prix_geste_souvenir_touffe']; ?> € 
+                    Touffe de poils: Oui (<?php echo $args['prix_geste_souvenir_touffe']; ?>€)
+                <?php else: ?>
+                    <br>
+                    Touffe de poils: Non
                 <?php endif; ?> 
             <?php endif; ?> 
         </td>

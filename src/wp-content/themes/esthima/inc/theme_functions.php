@@ -242,7 +242,7 @@ add_filter('wpseo_breadcrumb_links', function($links) {
 		$links = $linkTmp;
     }
 
-	if(is_archive()) {
+	if(is_archive() && basename($template)=='guides-conseils.php') {
 
 		$taxonomy = get_queried_object()->taxonomy;
 
@@ -266,6 +266,7 @@ add_filter('wpseo_breadcrumb_links', function($links) {
 });
 
 add_action('wp_head', function($output = ''){
+	global $template;
 	if( is_home() ){
 		global $page_id;
 		$output = home_url( '/actualites' );
@@ -285,7 +286,21 @@ add_action('wp_head', function($output = ''){
 		}
 	}
 	if( is_single() ){ $output = get_permalink(); }
-	if( $output != '' ){ echo '<link rel="canonical" href="',$output,'">'; }
+	if(basename($template)=='archive-product.php'){
+		$output = home_url( '/produits' );
+		$paged = get_query_var('paged');
+		if ($paged) {
+			$output .= "/page/" . $paged;
+		}
+	}
+	if(is_tax()){
+		$output = get_term_link(get_queried_object());
+		$paged = get_query_var('paged');
+		if ($paged) {
+			$output .= "/page/" . $paged;
+		}
+	}
+	if( $output != '' ){ echo '<link rel="canonical" href="'.$output.'">'; }
 });
 
 add_filter('wp_title', function($title) {
@@ -310,7 +325,7 @@ add_filter( 'wpseo_schema_graph', function($data, $context) {
 
 		$schema_data = [
 			"@context" => "https://schema.org",
-			"@type" => "NewsArticle",
+			"@type" => "Article",
 			"headline" => get_the_title(),
 			"image" => [
 				get_the_post_thumbnail_url('1x1'),
@@ -347,8 +362,9 @@ add_filter( 'wpseo_schema_graph', function($data, $context) {
 }, 10, 2 );
 
 add_filter( 'paginate_links', function($link){
-	$taxonomy = get_queried_object()->taxonomy;
-	if ($taxonomy == "product_cat") {
+	// $taxonomy = get_queried_object()->taxonomy;
+	// if ($taxonomy == "product_cat") {
+	if (is_paged()) {
 		$link = str_replace('/page/1', '', $link);
 	}
     return $link;
@@ -383,13 +399,28 @@ add_action('woocommerce_before_shop_loop_item', function(){
 	<link itemprop="image" href="' . $image[0] . '" />
 	<meta itemprop="brand" content="Esthima" />
 	<meta itemprop="sku" content="' . $product->get_sku() . '" />
-	<meta itemprop="description" content="' . htmlspecialchars($product->get_description()) . '" />
-	</div>';
+	<meta itemprop="description" content="' . htmlspecialchars($product->get_description()) . '" />';
 
-	echo '<div itemscope itemtype="https://schema.org/Offer">
+	echo '<div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
 	<link itemprop="availability" href="https://schema.org/InStock" />
 	<meta itemprop="url" content="' . get_the_permalink($product->id) . '" />
 	<meta itemprop="priceCurrency" content="EUR" />
 	<meta itemprop="price" content="' . $product->get_price() . '" />
-	</div>';
+	</div></div>';
 });
+
+
+add_filter( 'wpseo_schema_graph_pieces', 'remove_breadcrumbs_from_schema', 11, 2 );
+function remove_breadcrumbs_from_schema( $pieces, $context ) {
+	if(isset($context->indexable->object_sub_type)){
+		if($context->indexable->object_sub_type=='product' || $context->indexable->object_sub_type=='product_cat' || $context->indexable->object_sub_type=='wpsl_stores'){
+			return \array_filter( $pieces, function( $piece ) {
+				return ! $piece instanceof \Yoast\WP\SEO\Generators\Schema\Breadcrumb;
+			} );
+		}else{
+			return $pieces;
+		}
+	}else{
+		return $pieces;
+	}
+}

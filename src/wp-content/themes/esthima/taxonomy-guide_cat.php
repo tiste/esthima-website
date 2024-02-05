@@ -65,13 +65,25 @@ $queryRegular = new WP_Query($argsRegular);
     <div class="guides__tet">
         <div class="lightBG"></div>
         <div class="guides__tet__breadcrumbs">
-            <span>
-                <span><a href="<?php echo home_url(); ?>">Accueil</a></span> &gt;
-                <span><a href="<?php echo home_url('/'); ?>conseils-actualites">Nos guides &amp; nos conseils</a></span> &gt;
+            <span itemscope itemtype="https://schema.org/BreadcrumbList">
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="<?php echo home_url(); ?>" itemprop="item"><span itemprop="name">Accueil</span></a>
+                    <meta itemprop="position" content="1" />
+                </span> &gt;
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="<?php echo home_url('/'); ?>conseils-actualites" itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="<?php echo home_url('/'); ?>conseils-actualites"><span itemprop="name">Nos guides &amp; nos conseils</span></a>
+                    <meta itemprop="position" content="2" />
+                </span> &gt;
                 <?php if($parent!=0) : ?>
-                    <span><a href="<?php echo get_term_link($parent); ?>"><?php echo get_term($parent)->name; ?></a></span> &gt;
+                    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="<?php echo get_term_link($parent); ?>" itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="<?php echo get_term_link($parent); ?>"><span itemprop="name"><?php echo get_term($parent)->name; ?></span></a>
+                        <meta itemprop="position" content="3" />
+                    </span> &gt;
                 <?php endif; ?>
-                <span class="breadcrumb_last" aria-current="page"><?php echo get_queried_object()->name; ?></span>
+                <span class="breadcrumb_last" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name"><?php echo get_queried_object()->name; ?></span>
+                    <meta itemprop="position" content="<?php echo ($parent!=0) ? '4' : '3'; ?>" />
+                </span>
             </span>
         </div>
         <div class="guides__tet__texts">
@@ -125,7 +137,7 @@ $queryRegular = new WP_Query($argsRegular);
 		}
 	?>
     <div class="guides__cats guides__cats-parent">
-        <a href="<?php echo home_url('/'); ?>conseils-actualites/">Tous les articles</a>
+        <a href="<?php echo home_url('/'); ?>conseils-actualites">Tous les articles</a>
         <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
             <?php foreach($cats as $c) : ?>
                 <a href="<?php echo get_term_link($c); ?>" <?php echo ($c->term_id==get_queried_object()->term_id || $c->term_id==$parent) ? 'class="active"' : ''; ?>><?php echo $c->name; ?></a>
@@ -143,7 +155,7 @@ $queryRegular = new WP_Query($argsRegular);
     <?php $currentURL = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
 
     <select class="guides__cats-mob">
-        <option value="<?php echo str_replace('"', '\"', home_url('/')); ?>conseils-actualites/">Tous les articles</option>
+        <option value="<?php echo str_replace('"', '\"', home_url('/')); ?>conseils-actualites">Tous les articles</option>
         <?php if(!is_null($cats) && !empty($cats) && is_array($cats)) : ?>
             <?php foreach($cats as $c) : ?>
                 <option value="<?php echo str_replace('"', '\"', get_term_link($c)); ?>" <?php echo ($currentURL==get_term_link($c)) ? 'selected' : ''; ?>><?php echo $c->name; ?></option>
@@ -175,7 +187,7 @@ $queryRegular = new WP_Query($argsRegular);
                 </div>
                 <?php if( ($queryRegular->current_post + 1) == ($queryRegular->post_count) ) : ?>
                 <div class="guides__posts__newsletter guides__posts__newsletter-<?php echo $i; ?>">
-                    <h3>Restez informés en vous inscrivant à notre newsletter !</h3>
+                    <div class="guides__posts__newsletter__title">Restez informés en vous inscrivant à notre newsletter !</div>
                     <div class="guides__posts__newsletter__form">
 						<div>
                         <form action="<?php echo home_url("inscription-a-la-newsletter"); ?>" method="GET">

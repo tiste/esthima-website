@@ -23,17 +23,68 @@ const getDefaultState = () => {
 			"plurielle": {
 				"nac": "69",
 				"chien": "99",
-				"chat": "99"
+				"chat": "99",
+				"description": {
+					"cremation": {
+						"nac": "69",
+						"chien": "99",
+						"chat": "99",
+					},
+					"cendres": {
+						"nac": "80",
+						"chien": "130",
+						"chat": "130",
+					},
+					"ceremonie": {
+						"nac": "90",
+						"chien": "90",
+						"chat": "90",
+					}
+				}
 			},
 			"reference": {
 				"nac": "149",
 				"chien": "229",
-				"chat": "229"
+				"chat": "229",
+				"description": {
+					"cremation": {
+						"nac": "149",
+						"chien": "229",
+						"chat": "229",
+					},
+					"cendres": {
+						"nac": "80",
+						"chien": "130",
+						"chat": "130",
+					},
+					"ceremonie": {
+						"nac": "90",
+						"chien": "90",
+						"chat": "90",
+					}
+				}
 			},
 			"privee": {
 				"nac": "239",
 				"chien": "319",
-				"chat": "319"
+				"chat": "319",
+				"description": {
+					"cremation": {
+						"nac": "239",
+						"chien": "319",
+						"chat": "319",
+					},
+					"cendres": {
+						"nac": "80",
+						"chien": "130",
+						"chat": "130",
+					},
+					"ceremonie": {
+						"nac": "90",
+						"chien": "90",
+						"chat": "90",
+					}
+				}
 			}
 		}
 	}
@@ -71,6 +122,33 @@ const getters = {
 			price = parseFloat(price) + parseFloat(state.cremations[cremationChoice][state.typeAnimal])
 		}
 
+		return price
+	},
+	getSouvenirPrice(state) {
+		let price = 0
+		//geste souvenir
+		if (state.souvenir) {
+			if (state.gesteSouvenirEmpreinte) {
+				price = parseFloat(price) + state.prixEmpreinte
+			}
+			if (state.gesteSouvenirTouffe) {
+				price = parseFloat(price) + state.prixTouffe
+			}
+		}
+
+		return price
+	},
+	getUrnePrice(state) {
+		let price = 0
+
+		//urne 
+		if(state.urne && state.urneProduct) {
+			if (state.urneProduct['type'] == "variation" && state.urneProduct.variation_selected) {
+				price = parseFloat(price) + parseFloat(state.urneProduct.display_price.display_price)
+			} else {
+				price = parseFloat(price) + parseFloat(state.urneProduct.price)
+			}
+		}
 		return price
 	},
 	cremationChoice(state) {

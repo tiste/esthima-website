@@ -18,7 +18,13 @@
 	<?php /* SWIPER - CSS (here because autoptimize is loaded before the title tag) */ ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
-	<title><?php wp_title(''); ?></title>
+	<?php global $template; ?>
+	<?php if(basename($template)=='presse.php' || basename($template)=='guides-conseils.php' || basename($template)=='taxonomy-guide_cat.php' || basename($template)=='taxonomy-product-cat.php' || basename($template)=='archive-product.php') : ?>
+		<?php $paged = (get_query_var('paged')) ? get_query_var('paged') : 1; ?>
+		<title><?php echo str_replace(array(' | Esthima', ' - Esthima'), '', wp_title('', false)); echo ($paged>1) ? ' Page '.$paged: ''; echo ' | Esthima'; ?></title>
+	<?php else : ?>
+		<title><?php wp_title(''); ?></title>
+	<?php endif; ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 	<meta name="format-detection" content="telephone=no">
 	<meta name="msapplication-TileColor" content="#D34C3B">
