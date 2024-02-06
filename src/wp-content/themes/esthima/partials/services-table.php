@@ -6,9 +6,9 @@
     <?php foreach($cremations as $c) : ?>
         <div class="pricing-plan">
             <div class="pricing-plan__head">
-                <div></div>
-                <div>La crémation</div>
-                <div><?php echo $c['name']; ?></div>
+                <div class="pricing-plan__head__icon"></div>
+                <div class="pricing-plan__head__surtitle">La crémation </div>
+                <div class="pricing-plan__head__title"><?php echo $c['name']; ?></div>
             </div>
             <div class="pricing-plan__features">
                 <?php echo $c['desc']; ?>
