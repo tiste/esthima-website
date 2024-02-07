@@ -424,3 +424,12 @@ function remove_breadcrumbs_from_schema( $pieces, $context ) {
 		return $pieces;
 	}
 }
+
+add_action( 'template_redirect', 'removePageNumber' );
+function removePageNumber() {
+    if ( is_home() && wp_count_posts('post')<10 ){
+		add_filter( 'wpseo_next_rel_link', '__return_false' );
+		add_filter( 'wpseo_prev_rel_link', '__return_false' );
+	}
+	return false;
+}
