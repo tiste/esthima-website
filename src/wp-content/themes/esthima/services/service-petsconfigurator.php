@@ -22,7 +22,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
         ));
         register_rest_route($namespace, '/generate-pdf', array(
             'methods' => 'GET',
-            'callback' => array($this, 'generatePDF')
+            'callback' => array($this, 'generatePDF') 
         ));
         register_rest_route($namespace, '/call-kiamo', array(
             'methods' => 'POST',
@@ -220,7 +220,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
             'compte' => $compte,
             'postTitle' => $postTitle
         ]);
-    
+     
         $devis = ob_get_clean();
 
         $options = new Options();
@@ -229,6 +229,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
         $pdf->loadHtml($devis);
         $pdf->render();
         $pdf->stream('devis.pdf', ['Attachements' => 0]);
+        
     }
 
     public function callKiamo(WP_REST_Request $request) {
