@@ -33,3 +33,29 @@ function custom_post_states($states) {
     return $states;
 }
 add_filter('display_post_states', 'custom_post_states');
+
+
+// Add the custom columns to the devis post type:
+add_filter( 'manage_devis_posts_columns', 'set_custom_edit_devis_columns' );
+function set_custom_edit_devis_columns($columns) {
+    unset( $columns['telechargement'] );
+    $columns['devis_telechargement'] = __( 'Téléchargement des devis', 'esthima' ); 
+
+    return $columns;
+}
+
+// Add the data to the custom columns for the devis post type:
+add_action( 'manage_devis_posts_custom_column' , 'custom_devis_column', 10, 2 );
+function custom_devis_column( $column, $post_id ) {
+    switch ( $column ) {
+
+        case 'devis_telechargement' :
+            $terms = get_the_term_list( $post_id , 'devis_telechargement' , '' , ',' , '' );
+            if (   $post_id  )
+                echo '<a href="/wp-json/esthima/v1/generate-pdf/?id=' . $post_id .'" target="_blank"> Télécharger le devis  </a>';
+            else
+                _e( "Il n'y a pas de devis à telecharger", 'esthima' );
+            break; 
+
+    }
+}
