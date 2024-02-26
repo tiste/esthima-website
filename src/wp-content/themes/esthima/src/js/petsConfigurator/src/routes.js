@@ -147,12 +147,18 @@ router.afterEach((to, from) => {
         'eventAction' : 'Initialisation',
         'eventLabel': ''
       });
-  } else if (from.name == "Recap") {
+  } else if (to.name == "Recap") {
+      // window.dataLayer.push({
+      //   'event': 'confirmationConfigurateur',
+      //   'eventCategory': 'Configurateur',
+      //   'eventAction' : 'Page de confirmation',
+      //   'eventLabel': ''
+      // });
       window.dataLayer.push({
-        'event': 'confirmationConfigurateur',
+        'event': 'clickConfigurateur',
         'eventCategory': 'Configurateur',
-        'eventAction' : 'Page de confirmation',
-        'eventLabel': ''
+        'eventAction' : 'Final Step',
+        'eventLabel': 'Submit'
       });
   }
 })
