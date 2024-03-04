@@ -265,43 +265,43 @@ add_filter('wpseo_breadcrumb_links', function($links) {
 	return $links;
 });
 
-add_action('wp_head', function($output = ''){
-	global $template;
-	if( is_home() ){
-		global $page_id;
-		$output = home_url( '/actualites' );
-		$paged = get_query_var('paged');
-		if ($paged) {
-			$output .= "/page/" . $paged;
-		}
-	}
-	if( is_category() ){ global $cat; $output = get_category_link($cat); }
-	if( is_tag() ){ global $tag_id; $output = get_tag_link($tag_id); }
-	if( is_page() ){
-		global $page_id;
-		$output = get_page_link($page_id);
-		$paged = get_query_var('paged');
-		if ($paged) {
-			$output .= "/page/" . $paged;
-		}
-	}
-	if( is_single() ){ $output = get_permalink(); }
-	if(basename($template)=='archive-product.php'){
-		$output = home_url( '/produits' );
-		$paged = get_query_var('paged');
-		if ($paged) {
-			$output .= "/page/" . $paged;
-		}
-	}
-	if(is_tax()){
-		$output = get_term_link(get_queried_object());
-		$paged = get_query_var('paged');
-		if ($paged) {
-			$output .= "/page/" . $paged;
-		}
-	}
-	if( $output != '' ){ echo '<link rel="canonical" href="'.$output.'">'; }
-});
+// add_action('wp_head', function($output = ''){
+// 	global $template;
+// 	if( is_home() ){
+// 		global $page_id;
+// 		$output = home_url( '/actualites' );
+// 		$paged = get_query_var('paged');
+// 		if ($paged) {
+// 			$output .= "/page/" . $paged;
+// 		}
+// 	}
+// 	if( is_category() ){ global $cat; $output = get_category_link($cat); }
+// 	if( is_tag() ){ global $tag_id; $output = get_tag_link($tag_id); }
+// 	if( is_page() ){
+// 		global $page_id;
+// 		$output = get_page_link($page_id);
+// 		$paged = get_query_var('paged');
+// 		if ($paged) {
+// 			$output .= "/page/" . $paged;
+// 		}
+// 	}
+// 	if( is_single() ){ $output = get_permalink(); }
+// 	if(basename($template)=='archive-product.php'){
+// 		$output = home_url( '/produits' );
+// 		$paged = get_query_var('paged');
+// 		if ($paged) {
+// 			$output .= "/page/" . $paged;
+// 		}
+// 	}
+// 	if(is_tax()){
+// 		$output = get_term_link(get_queried_object());
+// 		$paged = get_query_var('paged');
+// 		if ($paged) {
+// 			$output .= "/page/" . $paged;
+// 		}
+// 	}
+// 	if( $output != '' ){ echo '<link rel="canonical" href="'.$output.'">'; }
+// });
 
 add_filter('wp_title', function($title) {
 	if( is_page() ){
