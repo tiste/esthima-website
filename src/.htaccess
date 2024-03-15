@@ -14,3 +14,10 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+
+
+RedirectMatch ^/category/(.*)$ http://local.esthima.com/$1
+
+
+#RedirectMatch ^/category/(.*)$ https://www.esthima.fr/$1
+

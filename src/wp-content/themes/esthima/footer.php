@@ -77,6 +77,14 @@
 				</div>
 			</div>
 		</div>
+		<!-- <div class="cookie-banner">
+			<p>
+			Vos données personnelles sont traitées pour les finalités suivantes:
+Données de géolocalisation précises et identification par analyse de l’appareil, Mesure d'audience, Publicités et contenu personnalisés, mesure de performance des publicités et du contenu, études d’audience et développement de services, Stocker et/ou accéder à des informations sur un appareil
+			</p>
+			<button id="ot-sdk-btn" class="ot-sdk-show-settings">Paramètres des cookies</button>
+		</div> -->
+		
 	</footer>
 
 	<?php /* SWIPER - JS */ ?>

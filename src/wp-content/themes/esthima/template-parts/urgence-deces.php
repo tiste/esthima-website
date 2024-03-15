@@ -1,10 +1,10 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
 
 <div class="urgence-deces">
-    <div class="urgence-deces__titles">
+    <a class="urgence-deces__titles" href="<?php echo home_url('/'); ?>urgence-deces-animal" >
         <h2>Urgence décès ?</h2>
         <span class="urgence-deces__titles__subtitle">Contactez-nous</span>
-    </div>
+    </a>
     <div class="urgence-deces__blocks">
         <div class="urgence-deces__blocks__item">
             <img src="<?php echo get_template_directory_uri(); ?>/images/phone.svg" alt="Téléphone" class="urgence-deces__blocks__item__picto">

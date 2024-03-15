@@ -75,7 +75,7 @@
 	</div>
 
 	<div class="hp__conf">
-		<div class="containerCustom2">
+		<a href="/parcours-de-confiance" class="containerCustom2">
 			<div class="hp__conf__top">
 				<h2><?php echo get_field('conf_title'); ?></h2>
 				<div class="hp__conf__top__text">
@@ -100,7 +100,7 @@
 				<?php endforeach; ?>
 			</div>
 			<?php endif; ?>
-		</div>
+		</a>
 	</div>
 
 	<div class="hp__urgence">
@@ -126,16 +126,16 @@
 				<?php endforeach; ?>
 			</div>
 			<?php endif; ?>
-			<span class="hp__imgblock__block__subtitle"><?php echo get_field('imgblock_subtitle'); ?></span>
+			<a href="/espace-presse" class="hp__imgblock__block__subtitle"><?php echo get_field('imgblock_subtitle'); ?></a>
 			<?php
 				$refs = get_field('imgblock_refs');
 				if(!is_null($refs) && !empty($refs) && is_array($refs)) :
 			?>
-			<div class="hp__imgblock__block__refs">
+			<a href="/espace-presse" class="hp__imgblock__block__refs">
 				<?php foreach($refs as $ref) : ?>
 					<img src="<?php echo $ref['logo']; ?>" alt="<?php echo $ref['name']; ?>">
 				<?php endforeach; ?>
-			</div>
+			</a>
 			<?php endif; ?>
 		</div>
 	</div>
