@@ -208,7 +208,7 @@ function esthima_add_endpoints() {
 
 add_action( 'woocommerce_account_mes-devis_endpoint', 'esthima_my_account_endpoint_mes_devis_content' );
 function esthima_my_account_endpoint_mes_devis_content() {
-	echo 'test';
+	echo 'Aucun devis';
 }
 add_action( 'woocommerce_account_mes-favoris_endpoint', 'esthima_my_account_endpoint_mes_favoris_content' );
 function esthima_my_account_endpoint_mes_favoris_content() {
