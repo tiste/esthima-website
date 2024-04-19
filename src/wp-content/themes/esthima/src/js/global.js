@@ -809,5 +809,37 @@ function getCookie(cName) {
 	}		
 
 	/* /store listing - ouvert/fermé */
+
+	const targetNode = document.querySelector(".ot-sdk-show-settings");
+	let config = { attributes: true, childList: true };
+	let woop = false;
+
+	let callback = function (mutationsList) {
+		for (var mutation of mutationsList) {
+			// console.log(mutation);
+			if (mutation.type == "childList") {
+			console.log("Un noeud enfant a été ajouté ou supprimé.");
+			woop = true;
+			} else if (mutation.type == "attributes") {
+			console.log("L'attribut '" + mutation.attributeName + "' a été modifié.");
+			}
+		}
+	};
+
+	let observer = new MutationObserver(callback);
+	observer.observe(targetNode, config);
+
+	changeTargetText()
+
+	function changeTargetText() {
+
+		if(!woop) {
+			window.setTimeout(changeTargetText, 100); /* this checks the flag every 100 milliseconds*/
+		} else {
+			targetNode.innerText = "Paramètres des cookies";
+			observer.disconnect();
+		}
+	}
+
 	
 })(window, jQuery);
