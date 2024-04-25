@@ -159,8 +159,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 update_field('tel_personne', $tel_personne, $post_id);
             }
         }
-
-
+        wp_mail($email, 'Votre devis pour votre prestation Esthima', 'Bonjour, vous trouverez ci-joint le devis pour votre prestation Esthima', ['https://'. $_SERVER['SERVER_NAME'] .'/wp-json/esthima/v1/generate-pdf/?id='. $post_id]);
         return $post_id;
     }
 

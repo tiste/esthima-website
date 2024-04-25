@@ -3,7 +3,7 @@
 		<div class="petsconfigurator__hero petsconfigurator__hero--pets">
 			<img v-if="typeAnimal == 'chien'" :src="`${themeDirectoryUri}/images/configurateur/geste-souvenir-chien.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
 			<img v-else-if="typeAnimal == 'chat'" :src="`${themeDirectoryUri}/images/configurateur/geste-souvenir-chat.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
-			<img v-else-if="typeAnimal == 'nac'" :src="`${themeDirectoryUri}/images/configurateur/geste-souvenir-chat.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
+			<img v-else-if="typeAnimal == 'nac'" :src="`${themeDirectoryUri}/images/configurateur/geste-souvenir-nac.png`" :class="{'petsconfigurator__hero__imgloaded': imgLoaded}" alt="">
 		</div>
 
 		<div class="petsconfigurator__question">
@@ -44,14 +44,14 @@
 								<label for="gesteSouvenirEmpreinte">
 									<img :src="`${themeDirectoryUri}/images/configurateur/patte.svg`" alt="Empreinte">
 								</label>
-								<span>Empreinte</span>
+								<span>Empreinte en argile</span>
 							</li>
 							<li>
 								<input type="checkbox" id="gesteSouvenirTouffe" :value="true" v-model="gesteSouvenirTouffe"/>
 								<label for="gesteSouvenirTouffe">
 									<img :src="`${themeDirectoryUri}/images/configurateur/touffe.svg`" alt="touffe de poil">
 								</label>
-								<span>Touffe de poil</span>
+								<span>Coupe de poil</span>
 							</li>
 						</ul>
 						<div class="input-errors" v-if="(v$.gesteSouvenirEmpreinte.$invalid || v$.gesteSouvenirTouffe.$invalid) && v$.$dirty">
