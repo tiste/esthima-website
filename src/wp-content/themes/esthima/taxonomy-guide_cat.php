@@ -95,7 +95,7 @@ $queryRegular = new WP_Query($argsRegular);
             </h1>
             <h2><?php echo get_field('tet_subtitle'); ?></h2>
             <?php  if (category_description(get_queried_object()->term_id)) : ?>
-                <h2><?php echo category_description(get_queried_object()->term_id); ?></h2> 
+                <h2  class="guides__tet__texts__subtext"><?php echo category_description(get_queried_object()->term_id); ?></h2> 
             <?php endif ?> 
         </div>
         <div class="guides__tet__sticky" style="--bg-img: url('<?php echo str_replace("'", "\'", get_the_post_thumbnail_url($querySticky[0]->ID)); ?>')">
