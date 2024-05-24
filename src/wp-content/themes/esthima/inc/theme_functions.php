@@ -318,6 +318,22 @@ add_filter('wpseo_breadcrumb_links', function($links) {
 // 	}
 // 	if( $output != '' ){ echo '<link rel="canonical" href="'.$output.'">'; }
 // });
+add_filter( 'wp_footer', 'remove_woocommerce_structured_data_from_shop_homepage',99 );
+//conseils-actualites page add pagination in canonical
+function remove_woocommerce_structured_data_from_shop_homepage() { 
+	if ( is_page_template( 'shop-hp.php' ) ) { 
+ 
+        // Remove structured data actions
+        remove_action( 'woocommerce_shop_loop', array( WC()->structured_data, 'generate_product_data' ), 10 );
+        remove_action( 'woocommerce_before_shop_loop', array( WC()->structured_data, 'generate_website_data' ), 10 );
+        remove_action( 'woocommerce_after_shop_loop', array( WC()->structured_data, 'generate_collection_page_data' ), 10 );
+        
+        // Optional: Add a debug message
+        // wp_die('Structured data removal actions have been executed on the shop homepage.');
+    }
+}
+ 
+ 
 
 add_filter('wp_title', function($title) {
 	if( is_page() ){

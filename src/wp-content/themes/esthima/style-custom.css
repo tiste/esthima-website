@@ -29,7 +29,7 @@
 }
 
 .single-product .site-main>.product.sale .product__tet .summary .cart .single_add_to_cart_button {
-    bottom: -70px;
+    /* bottom: -70px; */
     left: 0;
 }
 
