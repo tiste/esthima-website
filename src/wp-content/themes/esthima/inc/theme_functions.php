@@ -216,6 +216,22 @@ function esthima_my_account_endpoint_mes_favoris_content() {
 	echo '<div class="account-wishlist">' . do_shortcode('[yith_wcwl_wishlist pagination="no"]') . '</div>';
 }
 
+add_filter( 'wpseo_canonical', 'custom_pagination_canonical_url' );
+//conseils-actualites page add pagination in canonical
+function custom_pagination_canonical_url( $canonical ) {
+    if ( is_page_template( 'guides-conseils.php' ) && is_paged() ) {
+        global $wp_query;
+        $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+        $canonical = get_permalink( get_the_ID() );
+
+        if ( $paged > 1 ) {
+            $canonical = trailingslashit( $canonical ) . 'page/' . $paged . '/';
+        }
+    }
+
+    return $canonical;
+}
+
 add_filter('wpseo_breadcrumb_links', function($links) {
 	
 	if(is_singular('guide')) {
