@@ -423,6 +423,26 @@ function remove_breadcrumbs_from_schema( $pieces, $context ) {
 		return $pieces;
 	}
 }
+//remove pagination rel="next" if last page
+add_filter( 'wpseo_next_rel_link', 'remove_next_rel_link_on_last_page' );
+
+function remove_next_rel_link_on_last_page( $link ) {
+    if ( is_singular() ) {
+        return $link;
+    }
+
+    global $wp_query;
+    if ( ! $wp_query->max_num_pages || $wp_query->max_num_pages <= 1 ) {
+        return '';
+    }
+
+    $current_page = max( 1, get_query_var( 'paged' ) );
+    if ( $current_page >= $wp_query->max_num_pages ) {
+        return '';
+    }
+
+    return $link;
+}
 
 add_action( 'template_redirect', 'removePageNumber' );
 function removePageNumber() {
