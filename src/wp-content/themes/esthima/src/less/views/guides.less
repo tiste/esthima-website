@@ -89,9 +89,12 @@
                 font-weight: 600;
                 line-height: 1;
                 @media (min-width: 768px){
-                    max-width: 360px;
+                    max-width: 250px;
                     margin: 0 0 44px;
                     font-size: 45px;
+                }
+                @media (min-width: 1024px){
+                    max-width: 360px; 
                 }
                 @media (min-width: 1440px){
                     max-width: 432px;
@@ -106,6 +109,21 @@
                 span{
                     display: block;
                     color: @main;
+                }
+            }
+            &__subtext  {
+                margin: 10px 0;
+                @media (min-width: 768px){
+                    max-width: 250px; 
+                }
+                @media (min-width: 1024px){
+                    max-width: 360px; 
+                }
+                @media (min-width: 1440px){
+                    max-width: 432px; 
+                }
+                @media (min-width: 1680px){
+                    max-width: 540px; 
                 }
             }
             &__text{
