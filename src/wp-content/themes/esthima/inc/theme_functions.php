@@ -322,7 +322,6 @@ add_filter( 'wp_footer', 'remove_woocommerce_structured_data_from_shop_homepage'
 //conseils-actualites page add pagination in canonical
 function remove_woocommerce_structured_data_from_shop_homepage() { 
 	if ( is_page_template( 'shop-hp.php' ) ) { 
- 
         // Remove structured data actions
         remove_action( 'woocommerce_shop_loop', array( WC()->structured_data, 'generate_product_data' ), 10 );
         remove_action( 'woocommerce_before_shop_loop', array( WC()->structured_data, 'generate_website_data' ), 10 );
