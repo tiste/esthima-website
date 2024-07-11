@@ -463,7 +463,7 @@ function remove_next_rel_link_on_last_page( $link ) {
     }
 
     global $wp_query;
-    if ( ! $wp_query->max_num_pages || $wp_query->max_num_pages <= 1 ) {
+    if ( $wp_query->max_num_pages <= 1 ) {
         return '';
     }
 
