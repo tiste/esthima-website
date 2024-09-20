@@ -1,4 +1,4 @@
-<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly 
+<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 /*
 * Template Name: Contact
@@ -8,7 +8,7 @@ get_header();
 
 <main class="main main-content">
 
-    <div class="contact__tet">
+	<div class="contact__tet">
         <div class="contact__tet__texts">
             <div class="contact__tet__texts__breadcrumbs">
                 <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
@@ -24,7 +24,59 @@ get_header();
         <div class="contact__tet__form">
             <img src="<?php echo get_template_directory_uri(); ?>/images/close-pink.svg" alt="Fermer" class="contact__tet__form__close">
             <h2>Nous contacter</h2>
-            <?php echo do_shortcode('[gravityform id="2" title="false" description="false" ajax="true"]'); ?>            
+            <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+            <form action="https://cie-veterinaires--pprd.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DAa000006clk5" method="POST">
+                <input type=hidden name="orgid" value="00DAa000006clk5">
+                <input type=hidden name="retURL" value="https://www.esthima.fr/contact">
+                <input class="contact__text__input" id="00NAa00000FLWCP" maxlength="225" name="00NAa00000FLWCP" size="20" type="text" placeholder="Nom" />
+                <input class="contact__text__input" id="00NAa00000FLWCN" maxlength="225" name="00NAa00000FLWCN" size="20" type="text" placeholder="Prénom" />
+                <input class="contact__text__input" id="email" maxlength="80" name="email" size="20" type="text" placeholder="Email" />
+                <input class="contact__text__input" id="phone" maxlength="40" name="phone" size="20" type="text" placeholder="Téléphone" />
+                <select class="contact__text__input" id="type" name="type">
+                    <option value="">Type</option>
+                    <option value="Crématis">Crématis</option>
+                    <option value="Esthima">Esthima</option>
+                    <option value="Esthima Pro">Esthima Pro</option>
+                    <option value="Cyclavet">Cyclavet</option>
+                    <option value="Horsia">Horsia</option>
+                    <option value="SPAM">SPAM</option>
+                </select>
+                <select class="contact__text__input" id="00N2400000J0cws" name="00N2400000J0cws" title="Type de requête">
+                    <option value="">Type de requête</option>
+                    <!-- Add all options here -->
+                </select>
+                <select class="contact__text__input" id="00NAa00000FLWCX" name="00NAa00000FLWCX" title="Sous type">
+                    <option value="">Sous type</option>
+                    <!-- Add all options here -->
+                </select>
+                <input class="contact__text__input" id="subject" maxlength="80" name="subject" size="20" type="text" placeholder="Sujet" />
+                <textarea class="contact__text__input contact__text__textarea" name="description" placeholder="Description" rows="6"></textarea>
+                <input type="hidden"  id="external" name="external" value="1" />
+                <input class="contact__submit" type="submit" name="submit" value="Envoyer">
+            </form>
+        </div>
+    </div>
+    <div class="contact__tet__form-cta">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/email-contact.svg" alt="Contact">
+    </div>
+
+<!-- <div class="contact__tet">
+        <div class="contact__tet__texts">
+            <div class="contact__tet__texts__breadcrumbs">
+                <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
+            </div>
+            <h1><?php echo get_field('tet_title'); ?></h1>
+            <?php get_template_part('template-parts/phone-number'); ?>
+            <h3><?php echo get_field('tet_subtitle'); ?></h3>
+            <div class="contact__tet__texts__text">
+                <?php echo get_field('tet_text'); ?>
+            </div>
+            <img src="<?php echo str_replace('"', '\"', get_field('tet_img')); ?>" alt="<?php echo str_replace(array('"', '<span>', '</span>'), array('\"', '', ''), get_field('tet_title')); ?>" class="contact__tet__texts__img">
+        </div>
+        <div class="contact__tet__form">
+            <img src="<?php echo get_template_directory_uri(); ?>/images/close-pink.svg" alt="Fermer" class="contact__tet__form__close">
+            <h2>Nous contacter</h2>
+            <?php echo do_shortcode('[gravityform id="2" title="false" description="false" ajax="true"]'); ?>
         </div>
     </div>
     <div class="contact__tet__form-cta">
@@ -48,7 +100,7 @@ get_header();
         <div class="contact__bottom__text">
             <?php echo get_field('bottom_text'); ?>
         </div>
-    </div>
+    </div> -->
 
 </main>
 
