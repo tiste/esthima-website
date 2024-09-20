@@ -120,14 +120,17 @@ router.beforeEach((to, from) => {
   console.log(store.state.petsConfigurator.cendre == false   )
   if (["Ceremonie", "Urne"].indexOf(to.name) !== -1 ) {
     if (store.state.petsConfigurator.cendre == false) {
-      //plurielle so push souvenir
-      if (from.name == "Souvenir") {
-        return { name: 'Cendres' }
+      if (from.name == "Cendres") {
+        return { name: 'Info' }
       } else {
-        return { name: 'Souvenir' }
+        //plurielle so push souvenir
+        if (from.name == "Souvenir") {
+          return { name: 'Cendres' }
+        } else {
+          return { name: 'Souvenir' }
+        }
       }
     }
-
   }
   
 })
