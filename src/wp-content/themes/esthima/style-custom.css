@@ -48,3 +48,54 @@
     font-weight: 600;
     cursor: pointer;
 }
+
+.contact__bottom__text {
+    font-size: 14px;
+  }
+
+.contact__text__input {
+	width: 100%;
+	height: auto;
+	min-height: 45px;
+	padding: 0.5rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	border: 1px solid #d43b68;
+	border-radius: 9999px;
+	color: #000;
+	margin-bottom: 1rem;
+}
+.contact__form__select {
+	appearance: none;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAQCAYAAAAMJL+VAAAABGdBTUEAALGPC/xhBQAAAQtJREFUOBG1lEEOgjAQRalbGj2OG9caOACn4ALGtfEuHACiazceR1PWOH/CNA3aMiTaBDpt/7zPdBKy7M/DCL9pGkvxxVp7KsvyJftL5rZt1865M+Ucq6pyyF3hNcI7Cuu+728QYn/JQA5yKaempxuZmQngOwEaYx55nu+1lQh8GIatMGi+01NwBcEmhxBqK4nAPZJ78K0KKFAJmR3oPp8+Iwgob0Oa6+TLoeCvRx+mTUYf/FVBGTPRwDkfLxnaSrRwcH0FWhNOmrkWYbE2XEicqgSa1J0LQ+aPCuQgZiLnwewbGuz5MGoAhcIkCQcjaTBjMgtXGURMVHC1wcQEy0J+Zlj8bKAnY1/UzDe2dbAVqfXn6wAAAABJRU5ErkJggg==');
+	background-size: 0.7rem;
+	background-repeat: no-repeat;
+	background-position: right 0.7rem center;
+}
+.contact__text__area {
+	border-radius: 1rem;
+	padding: 0.5rem;
+	resize: none;
+	margin-bottom: 0;
+	font-family: sans-serif;
+}
+.contact__submit {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	width: fit-content;
+	height: auto;
+	min-height: 45px;
+	padding: 0.5rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	color: #fff;
+	background-color: #d43b68;
+	border: 1px solid #d43b68;
+	border-radius: 9999px;
+	transition: all 0.2s ease-in-out;
+}
+.contact__submit:hover {
+	gap: 2rem;
+}
