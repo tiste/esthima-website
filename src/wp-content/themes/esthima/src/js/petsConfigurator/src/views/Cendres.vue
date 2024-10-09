@@ -40,6 +40,7 @@
                             id="cendreTrue"
                             :value="true"
                             v-model="cendre"
+                            @change="handleCendreTrueSelect"
                         />
                         <label for="cendreTrue">Oui</label>
                     </li>
@@ -49,6 +50,7 @@
                             id="cendreFalse"
                             :value="false"
                             v-model="cendre"
+                            @change="handleCendreFalseSelect"
                         />
                         <label for="cendreFalse">Non</label>
                     </li>
@@ -123,6 +125,22 @@ const v$ = useVuelidate(rules, {
 const validate = async () => {
     const isFormCorrect = await v$.value.$validate();
     if (!isFormCorrect) return false;
+};
+
+// Fonction pour gérer le clic sur l'input radio "cendreTrue"
+const handleCendreTrueSelect = () => {
+    const totalPriceElement = document.querySelector(".petsconfigurator__navigation__price b");
+    if (totalPriceElement) {
+        totalPriceElement.textContent = "229€"; // Met à jour le prix à 229€
+    }
+};
+
+// Fonction pour gérer le clic sur l'input radio "cendreFalse"
+const handleCendreFalseSelect = () => {
+    const totalPriceElement = document.querySelector(".petsconfigurator__navigation__price b");
+    if (totalPriceElement) {
+        totalPriceElement.textContent = "99€"; // Met à jour le prix à 99€
+    }
 };
 
 onMounted(() => {

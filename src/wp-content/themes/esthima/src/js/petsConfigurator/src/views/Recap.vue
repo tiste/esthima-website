@@ -76,7 +76,7 @@
 						<li>
 							Prise en charge de l'animal décédé
 						</li>
-						<li>
+						<li v-if="store.state.petsConfigurator.ceremonieAdieu">
 							Recueillement auprès de votre animal dans le salon funéraire avant sa crémation
 						</li>
 						<li>
