@@ -131,7 +131,12 @@ const validate = async () => {
 const handleCendreTrueSelect = () => {
     const totalPriceElement = document.querySelector(".petsconfigurator__navigation__price b");
     if (totalPriceElement) {
-        totalPriceElement.textContent = "229€"; // Met à jour le prix à 229€
+        // Vérifie la valeur de typeAnimal pour ajuster le prix
+        if (typeAnimal.value === 'nac') {
+            totalPriceElement.textContent = "149€"; // Met à jour le prix à 149€ si l'animal est un NAC
+        } else {
+            totalPriceElement.textContent = "229€"; // Met à jour le prix à 229€ pour les autres animaux
+        }
     }
 };
 
@@ -139,7 +144,7 @@ const handleCendreTrueSelect = () => {
 const handleCendreFalseSelect = () => {
     const totalPriceElement = document.querySelector(".petsconfigurator__navigation__price b");
     if (totalPriceElement) {
-        totalPriceElement.textContent = "99€"; // Met à jour le prix à 99€
+        totalPriceElement.textContent = "99€"; // Met à jour le prix à 99€ si l'option cendreFalse est cochée
     }
 };
 
