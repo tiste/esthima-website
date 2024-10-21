@@ -30,7 +30,7 @@ const router = createRouter({
           nextPath: 'InfoAnimal',
           percent: 10,
           step: 0
-        } 
+        }
     },
     {
         path: '/informations-animal',
@@ -113,24 +113,45 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
+  console.log(`Navigating from ${from.name} to ${to.name}`);
+  console.log('Current cendre state:', store.state.petsConfigurator.cendre);
+
+  if (to.name === 'Recap') {
+    console.log('Entering Recap route');
+  }
+
+
+  console.log(to.name);
+  console.log(["Ceremonie", "Urne"].indexOf(to.name));
+  console.log(store.getters.cremationChoice);
+  console.log(store.state.petsConfigurator.cendre == false);
   
-  console.log(to.name)
-  console.log(["Ceremonie", "Urne"].indexOf(to.name))
-  console.log(store.getters.cremationChoice)
-  console.log(store.state.petsConfigurator.cendre == false   )
-  if (["Ceremonie", "Urne"].indexOf(to.name) !== -1 ) {
+  if (["Ceremonie", "Urne"].indexOf(to.name) !== -1) {
     if (store.state.petsConfigurator.cendre == false) {
-      //plurielle so push souvenir
-      if (from.name == "Souvenir") {
-        return { name: 'Cendres' }
+      if (from.name == "Cendres") {
+        return { name: 'Info' };
       } else {
-        return { name: 'Souvenir' }
+        if (from.name == "Souvenir") {
+          return { name: 'Cendres' };
+        } else {
+          return { name: 'Souvenir' };
+        }
       }
     }
-
   }
-  
-})
+
+  // Si l'options Cendre est sur false, sur la page info si on fait retour sa ramene au step cendres
+  if (to.name === "Souvenir" && from.name === "Info") {
+    if (store.state.petsConfigurator.cendre == false) {
+      if (from.name == "Info") {
+        return { name: 'Cendres' };
+      }
+    }
+  }
+
+});
+
+
 
 router.afterEach((to, from) => {
   if (from.name != "" && from.name !== undefined && from.name != "Home" && to.name != "Recap") {

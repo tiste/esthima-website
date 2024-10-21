@@ -24,7 +24,7 @@ get_header();
         <div class="contact__tet__form">
             <img src="<?php echo get_template_directory_uri(); ?>/images/close-pink.svg" alt="Fermer" class="contact__tet__form__close">
             <h2>Nous contacter</h2>
-            <?php echo do_shortcode('[gravityform id="2" title="false" description="false" ajax="true"]'); ?>            
+            <?php echo do_shortcode('[gravityform id="2" title="false" description="false" ajax="true"]'); ?>
         </div>
     </div>
     <div class="contact__tet__form-cta">

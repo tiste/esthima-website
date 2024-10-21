@@ -44,7 +44,7 @@
 						<li>
 							Prise en charge de l'animal décédé
 						</li>
-						<li>
+						<li v-if="store.state.petsConfigurator.ceremonieAdieu">
 							Recueillement auprès de votre animal dans le salon funéraire avant sa crémation
 						</li>
 						<li>
@@ -61,7 +61,7 @@
 						</li>
 					</ul>
 				</div>
-			
+
 				<div v-else-if="cremationChoice == 'reference'" class="petsconfigurator__question__cremation">
 					<div class="petsconfigurator__question__cremation__title">
 						<div class="petsconfigurator__question__cremation__title__image">
@@ -76,7 +76,7 @@
 						<li>
 							Prise en charge de l'animal décédé
 						</li>
-						<li>
+						<li v-if="store.state.petsConfigurator.ceremonieAdieu">
 							Recueillement auprès de votre animal dans le salon funéraire avant sa crémation
 						</li>
 						<li>
@@ -106,7 +106,7 @@
 						</li>
 					</ul>
 				</div>
-			</div> 
+			</div>
 
 		</div>
 		<div class="petsconfigurator__souvenir-popup" :class="{'petsconfigurator__souvenir-popup--open' : popUpKiamo}">
@@ -139,11 +139,11 @@ export default {
 	const store = useStore()
 
 	const themeDirectoryUri = window.wpvar.themeDirectoryUri || ''
-	
+
 	const imgLoaded = ref(0)
-	
+
 	const popUpKiamo = ref(false)
-		
+
 	const yesCendre = computed({
 		get () {
 			return `(+${store.state.petsConfigurator.cremations[cremationChoice.value].description.cendres[store.state.petsConfigurator.typeAnimal]}€)`
@@ -155,19 +155,19 @@ export default {
 			return `(+${store.state.petsConfigurator.cremations[cremationChoice.value].description.ceremonie[store.state.petsConfigurator.typeAnimal]}€)`
 		}
 	})
-	
+
 	const detailYesUrnes = computed({
 		get () {
 			return `(+${getUrnePrice.value}€)`
 		}
 	})
-	
+
 	const yesSouvenir = computed({
 		get () {
 			return `(+${getSouvenirPrice.value}€)`
 		}
 	})
-		
+
 	const typeAnimal = computed({
 		get () {
 			return store.state.petsConfigurator.typeAnimal
@@ -177,7 +177,7 @@ export default {
 	const urneDetails = computed({
 		get () {
 			if (store.state.petsConfigurator.urne) {
-				let n = store.state.petsConfigurator.urneProduct.name 
+				let n = store.state.petsConfigurator.urneProduct.name
 				if (store.state.petsConfigurator.urneProduct.type == 'variable') {
 					let variations = Object.values(store.state.petsConfigurator.urneProduct.variation_selected.attributes).join(' , ')
 					if (variations) {
@@ -185,7 +185,7 @@ export default {
 					}
 				}
 				return n
-			} 
+			}
 		}
 	})
 
@@ -194,13 +194,13 @@ export default {
 			return store.getters['petsConfigurator/cremationChoice']
 		}
 	})
-	
+
 	const getSouvenirPrice = computed({
 		get () {
 			return store.getters['petsConfigurator/getSouvenirPrice']
 		}
 	})
-	
+
 	const getUrnePrice = computed({
 		get () {
 			return store.getters['petsConfigurator/getUrnePrice']
@@ -218,7 +218,7 @@ export default {
 			if (store.state.petsConfigurator.gesteSouvenirTouffe) {
 				if (store.state.petsConfigurator.gesteSouvenirTouffe) {
 					p.push(`Touffe de poils <small>(+${store.state.petsConfigurator.prixTouffe}€)</small>`)
-				} 
+				}
 			}
 			return p.join(' , ')
 		}
@@ -233,7 +233,7 @@ export default {
 		store.commit('petsConfigurator/updatePopupOpen', true)
 	}
 
-	
+
 	onMounted(() => {
 		EventBus.on('confirmCallKiamo', showPopUpKiamo)
 		setTimeout(() => {
