@@ -1,4 +1,4 @@
-<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly 
+<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 /*
 * Template Name: Contact
@@ -24,33 +24,92 @@ get_header();
         <div class="contact__tet__form">
             <img src="<?php echo get_template_directory_uri(); ?>/images/close-pink.svg" alt="Fermer" class="contact__tet__form__close">
             <h2>Nous contacter</h2>
-            <?php echo do_shortcode('[gravityform id="2" title="false" description="false" ajax="true"]'); ?>
-        </div>
-    </div>
-    <div class="contact__tet__form-cta">
-        <img src="<?php echo get_template_directory_uri(); ?>/images/email-contact.svg" alt="Contact">
-    </div>
 
-    <div class="contact__map">
-        <div class="contact__map__texts">
-            <h2><?php echo get_field('map_title'); ?></h2>
-            <div class="contact__map__texts__text">
-                <?php echo get_field('map_text'); ?>
-            </div>
-        </div>
-        <div class="contact__map__map">
-            <?php echo do_shortcode('[wpsl]'); ?>
-        </div>
-    </div>
+            <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
 
-    <div class="contact__bottom">
-        <h2><?php echo get_field('bottom_title'); ?></h2>
-        <div class="contact__bottom__text">
-            <?php echo get_field('bottom_text'); ?>
+            <form action="https://cie-veterinaires--pprd.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DAa000006clk5" method="POST">
+
+                <input type="hidden" name="orgid" value="00DAa000006clk5">
+                <input type="hidden" name="retURL" value="https://www.esthima.fr/contact">
+
+                <!--  Debugging elements  -->
+                <!-- <input type="hidden" name="debug" value=1> -->
+                <!-- <input type="hidden" name="debugEmail" value="vo2.incineris@vo2-group.com"> -->
+
+                <label for="00NAa00000FLWCP" class="store__infos__contact__subtitle">Nom</label>
+                <input class="contact__text__input" id="00NAa00000FLWCP" maxlength="225" name="00NAa00000FLWCP" size="20" type="text" placeholder="Nom" />
+
+                <br>
+
+                <label for="00NAa00000FLWCN" class="store__infos__contact__subtitle">Prénom</label>
+                <input class="contact__text__input" id="00NAa00000FLWCN" maxlength="225" name="00NAa00000FLWCN" size="20" type="text" placeholder="Prénom" />
+
+                <br>
+
+                <label for="email" class="store__infos__contact__subtitle">Email</label>
+                <input class="contact__text__input" id="email" maxlength="80" name="email" size="20" type="text" placeholder="Email" />
+
+                <br>
+
+                <label for="phone" class="store__infos__contact__subtitle">Téléphone</label>
+                <input class="contact__text__input" id="phone" maxlength="40" name="phone" size="20" type="text" placeholder="Téléphone" />
+
+                <br>
+
+                <label for="00N2400000J0cws" class="store__infos__contact__subtitle">Type de demande</label>
+                <select class="contact__text__input contact__form__select" id="00N2400000J0cws" name="00N2400000J0cws" title="Type de demande">
+                    <option value="">Type de demande</option>
+                    <option value="Ajout de consommables">Ajout de consommables</option>
+                    <option value="Assistance technique">Assistance technique</option>
+                    <option value="Commande de produits">Commande de produits</option>
+                    <option value="Commande de service de crémation">Commande de service de crémation</option>
+                    <option value="Demande d&#39;informations">Demande d&#39;informations</option>
+                    <option value="Demande de rappel par mon délégué commercial">Demande de rappel par mon délégué commercial</option>
+                    <option value="Désabonnement du programme de fidélité">Désabonnement du programme de fidélité</option>
+                    <option value="Documents administratifs">Documents administratifs</option>
+                    <option value="Mise à jour administrative">Mise à jour administrative</option>
+                    <option value="Modification administrative">Modification administrative</option>
+                    <option value="Passage">Passage</option>
+
+                    <?php if (is_user_logged_in()) : ?>
+                        <option value="Prise de rendez-vous">Prise de rendez-vous</option>
+                    <?php endif; ?>
+
+                    <option value="Réclamation">Réclamation</option>
+                    <option value="Prise en charge">Prise en charge</option>
+                    <option value="Remerciements">Remerciements</option>
+                    <option value="Spam">Spam</option>
+                    <option value="Suggestions d&#39;améliorations">Suggestions d&#39;améliorations</option>
+                    <option value="Suivi rétrocession">Suivi rétrocession</option>
+                    <option value="Track déchet">Track déchet</option>
+                </select>
+
+                <br>
+
+                <label for="subject" class="store__infos__contact__subtitle">Sujet</label>
+                <input class="contact__text__input contact__text__textarea" id="subject" maxlength="80" name="subject" size="20" type="text" placeholder="Sujet" />
+
+                <br>
+
+                <label for="description" class="store__infos__contact__subtitle">Description</label>
+                <textarea class="contact__text__input contact__text__area" name="description" rows="6" placeholder="Description"></textarea>
+
+                <br>
+
+                <input type="hidden" id="external" name="external" value="1" />
+
+                <br>
+
+                <button class="contact__submit" type="submit" name="submit">
+                    Envoyer
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-right-white.svg" class="contact__submit__arrow" alt="arrow" />
+                </button>
+
+            </form>
+
         </div>
     </div>
 
 </main>
 
-
-<?php get_footer(); ?>
+get_footer(); ?>
