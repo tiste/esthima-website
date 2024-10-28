@@ -8,7 +8,7 @@ get_header();
 
 <main class="main main-content">
 
-    <div class="contact__tet">
+	<div class="contact__tet">
         <div class="contact__tet__texts">
             <div class="contact__tet__texts__breadcrumbs">
                 <?php if(function_exists('yoast_breadcrumb')){ yoast_breadcrumb(); } ?>
@@ -25,90 +25,172 @@ get_header();
             <img src="<?php echo get_template_directory_uri(); ?>/images/close-pink.svg" alt="Fermer" class="contact__tet__form__close">
             <h2>Nous contacter</h2>
 
-            <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+			<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
 
-            <form action="https://cie-veterinaires--pprd.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DAa000006clk5" method="POST">
+			<form action="https://cie-veterinaires--pprd.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DAa000006clk5" method="POST">
 
-                <input type="hidden" name="orgid" value="00DAa000006clk5">
-                <input type="hidden" name="retURL" value="https://www.esthima.fr/contact">
+				<input type="hidden" name="orgid" value="00DAa000006clk5">
+				<input type="hidden" name="retURL" value="https://www.esthima.fr/contact">
 
-                <!--  Debugging elements  -->
-                <!-- <input type="hidden" name="debug" value=1> -->
-                <!-- <input type="hidden" name="debugEmail" value="vo2.incineris@vo2-group.com"> -->
+				<!--  Debugging elements  -->
+				<!-- <input type="hidden" name="debug" value=1> -->
+				<!-- <input type="hidden" name="debugEmail" value="vo2.incineris@vo2-group.com"> -->
 
-                <label for="00NAa00000FLWCP" class="store__infos__contact__subtitle">Nom</label>
-                <input class="contact__text__input" id="00NAa00000FLWCP" maxlength="225" name="00NAa00000FLWCP" size="20" type="text" placeholder="Nom" />
+				<label for="00NAa00000FLWCP" class="store__infos__contact__subtitle">Nom</label>
+				<input class="contact__text__input" id="00NAa00000FLWCP" maxlength="225" name="00NAa00000FLWCP" size="20" type="text" placeholder="Nom" />
 
-                <br>
+				<br>
 
-                <label for="00NAa00000FLWCN" class="store__infos__contact__subtitle">Prénom</label>
-                <input class="contact__text__input" id="00NAa00000FLWCN" maxlength="225" name="00NAa00000FLWCN" size="20" type="text" placeholder="Prénom" />
+				<label for="00NAa00000FLWCN" class="store__infos__contact__subtitle">Prénom</label>
+				<input class="contact__text__input" id="00NAa00000FLWCN" maxlength="225" name="00NAa00000FLWCN" size="20" type="text" placeholder="Prénom" />
 
-                <br>
+				<br>
 
-                <label for="email" class="store__infos__contact__subtitle">Email</label>
-                <input class="contact__text__input" id="email" maxlength="80" name="email" size="20" type="text" placeholder="Email" />
+				<label for="email" class="store__infos__contact__subtitle">Email</label>
+				<input class="contact__text__input" id="email" maxlength="80" name="email" size="20" type="text" placeholder="Email" />
 
-                <br>
+				<br>
 
-                <label for="phone" class="store__infos__contact__subtitle">Téléphone</label>
-                <input class="contact__text__input" id="phone" maxlength="40" name="phone" size="20" type="text" placeholder="Téléphone" />
+				<label for="phone" class="store__infos__contact__subtitle">Téléphone</label>
+				<input class="contact__text__input" id="phone" maxlength="40" name="phone" size="20" type="text" placeholder="Téléphone" />
 
-                <br>
+				<br>
 
-                <label for="00N2400000J0cws" class="store__infos__contact__subtitle">Type de demande</label>
-                <select class="contact__text__input contact__form__select" id="00N2400000J0cws" name="00N2400000J0cws" title="Type de demande">
-                    <option value="">Type de demande</option>
-                    <option value="Ajout de consommables">Ajout de consommables</option>
-                    <option value="Assistance technique">Assistance technique</option>
-                    <option value="Commande de produits">Commande de produits</option>
-                    <option value="Commande de service de crémation">Commande de service de crémation</option>
-                    <option value="Demande d&#39;informations">Demande d&#39;informations</option>
-                    <option value="Demande de rappel par mon délégué commercial">Demande de rappel par mon délégué commercial</option>
-                    <option value="Désabonnement du programme de fidélité">Désabonnement du programme de fidélité</option>
-                    <option value="Documents administratifs">Documents administratifs</option>
-                    <option value="Mise à jour administrative">Mise à jour administrative</option>
-                    <option value="Modification administrative">Modification administrative</option>
-                    <option value="Passage">Passage</option>
+				<label style="display:none;" for="00N2400000J0cws" class="store__infos__contact__subtitle">Type</label>
+				<select style="display:none;" class="contact__text__input contact__form__select" id="type" name="type">
+					<option value="Esthima">Esthima</option>
+				</select>
 
-                    <?php if (is_user_logged_in()) : ?>
-                        <option value="Prise de rendez-vous">Prise de rendez-vous</option>
-                    <?php endif; ?>
 
-                    <option value="Réclamation">Réclamation</option>
-                    <option value="Prise en charge">Prise en charge</option>
-                    <option value="Remerciements">Remerciements</option>
-                    <option value="Spam">Spam</option>
-                    <option value="Suggestions d&#39;améliorations">Suggestions d&#39;améliorations</option>
-                    <option value="Suivi rétrocession">Suivi rétrocession</option>
-                    <option value="Track déchet">Track déchet</option>
-                </select>
+				<label for="00N2400000J0cws" class="store__infos__contact__subtitle">Type de demande</label>
+				<select class="contact__text__input contact__form__select" id="00N2400000J0cws" name="00N2400000J0cws" title="Type de demande">
+				<option value="">Type de demande</option>
+				<option value="Assistance technique">Assistance technique</option>
+				<option value="Commande de produits">Commande de produits</option>
+				<option value="Commande de service de crémation">Commande de service de crémation</option>
+				<option value="Demande d'informations">Demande d'informations</option>
+				<option value="Mise à jour administrative">Mise à jour administrative</option>
+				<option value="Prise de rendez-vous">Prise de rendez-vous</option>
+				<option value="Réclamation">Réclamation</option>
+				<option value="Prise en charge">Prise en charge</option>
+				<option value="Remerciements">Remerciements</option>
+				<option value="Spam">Spam</option>
+				</select>
 
-                <br>
 
-                <label for="subject" class="store__infos__contact__subtitle">Sujet</label>
-                <input class="contact__text__input contact__text__textarea" id="subject" maxlength="80" name="subject" size="20" type="text" placeholder="Sujet" />
+				<label for="00NAa00000FLWCX" class="store__infos__contact__subtitle" id="sousTypeLabel" style="display: none;">Sous type</label>
+				<select class="contact__text__input contact__form__select" id="00NAa00000FLWCX" name="00NAa00000FLWCX" title="Sous type" style="display: none;">
+				<option value="">Sous type</option>
+				</select>
 
-                <br>
+				<script>
+				const sousTypesOptions = {
+					"Assistance technique": [
+					"Accompagnement dans l'utilisation",
+					"Connexion",
+					"Problème technique"
+					],
+					"Commande de produits": [
+					"Annulation de la commande de produits",
+					"Modification de la commande de produits",
+					"Suivi de la commande de produits"
+					],
+					"Commande de service de crémation": [
+					"Annulation de la crémation",
+					"Modification de la commande de crémation",
+					"Suivi de la crémation"
+					],
+					"Demande d'informations": [
+					"Autres",
+					"Devis",
+					"Explications supplémentaires",
+					"Facturation",
+					"Paiement",
+					"Rendez-vous",
+					"RGPD",
+					"Services et produits additionnels",
+					"Tarification"
+					],
+					"Mise à jour administrative": [
+					"Changement de coordonnées"
+					],
+					"Prise de rendez-vous": [
+					"Prise de rendez-vous"
+					],
+					"Prise en charge": [
+					"Annulation de la prise en charge",
+					"Demande de prise en charge à domicile",
+					"Demande de prise en charge à la clinique",
+					"Demande de prise en charge au crématorium",
+					"Suivi de prise en charge"
+					],
+					"Réclamation": [
+					"Produit",
+					"Service",
+					"Facturation",
+					"Expérience client"
+					],
+					"Remerciements": [
+					"Remerciements"
+					],
+					"Spam": [
+					"Spam"
+					]
+				};
 
-                <label for="description" class="store__infos__contact__subtitle">Description</label>
-                <textarea class="contact__text__input contact__text__area" name="description" rows="6" placeholder="Description"></textarea>
+				const typeSelect = document.getElementById('00N2400000J0cws');
+				const sousTypeSelect = document.getElementById('00NAa00000FLWCX');
+				const sousTypeLabel = document.getElementById('sousTypeLabel');
 
-                <br>
+				typeSelect.addEventListener('change', function() {
+					const selectedType = typeSelect.value;
+					const sousTypes = sousTypesOptions[selectedType] || [];
 
-                <input type="hidden" id="external" name="external" value="1" />
+					if (selectedType) {
+					sousTypeLabel.style.display = 'block';
+					sousTypeSelect.style.display = 'block';
+					} else {
+					sousTypeLabel.style.display = 'none';
+					sousTypeSelect.style.display = 'none';
+					}
 
-                <br>
+					// Clear previous options
+					sousTypeSelect.innerHTML = '<option value="">Sous type</option>';
 
-                <button class="contact__submit" type="submit" name="submit">
-                    Envoyer
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-right-white.svg" class="contact__submit__arrow" alt="arrow" />
-                </button>
+					// Populate new options
+					sousTypes.forEach(function(sousType) {
+					const option = document.createElement('option');
+					option.value = sousType;
+					option.textContent = sousType;
+					sousTypeSelect.appendChild(option);
+					});
+				});
+				</script>
 
-            </form>
 
-        </div>
-    </div>
+				<label for="subject" class="store__infos__contact__subtitle">Sujet</label>
+				<input class="contact__text__input contact__text__textarea" id="subject" maxlength="80" name="subject" size="20" type="text" placeholder="Sujet" />
+
+				<br>
+
+				<label for="description" class="store__infos__contact__subtitle">Description</label>
+				<textarea class="contact__text__input contact__text__area" name="description" rows="6" placeholder="Description"></textarea>
+
+				<br>
+
+				<input type="hidden" id="external" name="external" value="1" />
+
+				<br>
+
+				<button class="contact__submit" type="submit" name="submit">
+					Envoyer
+					<img src="<?php echo get_template_directory_uri(); ?>/images/arrow-right-white.svg" class="contact__submit__arrow" alt="arrow" />
+				</button>
+
+			</form>
+
+		</div>
+	</div>
 
 </main>
 
