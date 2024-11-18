@@ -138,3 +138,122 @@
 .store__infos__contact .gform_wrapper .gform_footer input[type=submit]{
 	background-position: center right 56px;
 }
+
+#contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    flex-wrap: no-wrap;
+}
+#contactForm .contact__text__names {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#contactForm .contact__text__input {
+    display: inline;
+    width: calc(50% - 4px);
+    padding: 18px;
+    border: 1px solid #595454;
+    border-radius: 100px;
+    transition: all .2s ease-in-out;
+}
+#contactForm .contact__text__input:focus {
+    border: 1px solid #D43B68;
+}
+#contactForm .contact__text__input#email,
+#contactForm .contact__text__input#phone {
+    width: 100%;
+}
+#contactForm .contact__form__select {
+    width: 100%;
+    @apply appearance-none;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAQCAYAAAAMJL+VAAAABGdBTUEAALGPC/xhBQAAAQtJREFUOBG1lEEOgjAQRalbGj2OG9caOACn4ALGtfEuHACiazceR1PWOH/CNA3aMiTaBDpt/7zPdBKy7M/DCL9pGkvxxVp7KsvyJftL5rZt1865M+Ucq6pyyF3hNcI7Cuu+728QYn/JQA5yKaempxuZmQngOwEaYx55nu+1lQh8GIatMGi+01NwBcEmhxBqK4nAPZJ78K0KKFAJmR3oPp8+Iwgob0Oa6+TLoeCvRx+mTUYf/FVBGTPRwDkfLxnaSrRwcH0FWhNOmrkWYbE2XEicqgSa1J0LQ+aPCuQgZiLnwewbGuz5MGoAhcIkCQcjaTBjMgtXGURMVHC1wcQEy0J+Zlj8bKAnY1/UzDe2dbAVqfXn6wAAAABJRU5ErkJggg==');
+    background-size: 0.7rem;
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+/* #contactForm .contact__form__select::-ms-expand {
+    display: none;
+} */
+#contactForm .contact__text__input.contact__text__textarea {
+    width: 100%;
+}
+#contactForm .contact__text__input.contact__text__area {
+    width: 100%;
+    border-radius: 1.5rem !important;
+    resize: none;
+}
+#contactForm .contact__submit {
+    margin: 0 auto;
+    width: fit-content;
+    display: flex;
+    gap: 1rem;
+    justify-items: space-evenly;
+    align-items: center;
+    color: #fff;
+    padding: 18px;
+    border: 1px solid #D43B68;
+    border-radius: 100px;
+    background-color: #D43B68;
+    transition: all .2s ease-in-out;
+}
+#contactForm .contact__submit:hover {
+    gap: 3rem;
+}
+#contactForm .contact__submit:active {
+    box-shadow: 0 0 12px #D43B68;
+}
+@media screen and (max-width: 450px) {
+    #contactForm .contact__text__names {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    #contactForm .contact__text__input {
+        display: block;
+        width: 100%;
+    }
+}
+
+.petsconfigurator__footnotes{
+	position: absolute;
+	bottom: 3.5rem;
+	left: 1rem;
+	right: 1rem;
+	max-width: 95vw;
+	font-size: 1rem;
+	background-color: #FFF;
+	border-radius: 9px;
+	padding: 1rem 2rem;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+@media screen and (min-width: 628px) {
+	.petsconfigurator__footnotes {
+		max-width: 80vw;
+		left: 1rem; right: 1rem;
+	}
+}
+@media screen and (min-width: 768px) {
+	.petsconfigurator__footnotes {
+		max-width: 90vw;
+		left: 1rem; right: 1rem;
+	}
+}
+@media screen and (min-width: 1024px) {
+	.petsconfigurator__footnotes {
+		max-width: 50vw;
+	}
+}
+@media screen and (min-width: 1440px) {
+	.petsconfigurator__footnotes {
+		max-width: 33vw;
+	}
+}
+.petsconfigurator--recap .petsconfigurator__question__footnotes {
+	font-size: 14px;
+	margin: 10px;
+}

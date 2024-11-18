@@ -22,7 +22,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
         ));
         register_rest_route($namespace, '/generate-pdf', array(
             'methods' => 'GET',
-            'callback' => array($this, 'generatePDF') 
+            'callback' => array($this, 'generatePDF')
         ));
         register_rest_route($namespace, '/call-kiamo', array(
             'methods' => 'POST',
@@ -68,7 +68,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 $currentUrne['description'] = $u->description;
                 $currentUrne['image'] = $u->get_image();
                 $currentUrne['image_url'] = wp_get_attachment_image_url($u->get_image_id(), 'medium');
-              
+
             }
 
             $urnesR[] = $currentUrne;
@@ -77,7 +77,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
 
         return new WP_REST_Response($urnesR, 200);
     }
-    
+
 
     public function registerDevis(WP_REST_Request $request)
     {
@@ -219,7 +219,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
             'compte' => $compte,
             'postTitle' => $postTitle
         ]);
-     
+
         $devis = ob_get_clean();
 
         $options = new Options();
@@ -228,17 +228,17 @@ class ServicePetsconfigurator extends WP_REST_Controller
         $pdf->loadHtml($devis);
         $pdf->render();
         $pdf->stream('devis.pdf', ['Attachements' => 0]);
-        
+
     }
 
     public function callKiamo(WP_REST_Request $request) {
-        
+
         $nom_personne = $request->get_param('nom_personne');
         $prenom_personne = $request->get_param('prenom_personne');
         $tel = $request->get_param('tel');
-       
+
         $kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, KIAMO_CALLBACK_ID);
-        
+
         $isRewind = $kiamo->isRewind($tel);
         if(!$isRewind){
             $kiamo->postRewind([
@@ -247,11 +247,11 @@ class ServicePetsconfigurator extends WP_REST_Controller
                 'phone' => $tel
             ]);
         }
-        
+
         return new WP_REST_Response([], 200);
-        
+
     }
-    
+
 }
 add_action('rest_api_init', function () {
     (new ServicePetsconfigurator())->register_routes();
