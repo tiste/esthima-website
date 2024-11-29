@@ -19,7 +19,7 @@ manifest-*.json
 node_modules
 
 #this directory (top-level/root)
-/style.css
+# /style.css
 /style.min.css
 /style.css.map
 /editor-style.css

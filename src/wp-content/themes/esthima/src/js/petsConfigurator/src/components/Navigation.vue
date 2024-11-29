@@ -3,7 +3,7 @@
 		<div class="petsconfigurator__navigation__content">
 			<button @click.prevent="goPrev" class="btn btn--arrow btn--arrow-reverse btn--arrow-disable-hover petsconfigurator__navigation__button-desk">Retour</button>
 			<ProgressBar :value="percentBar" v-if="route.name != 'Recap'" />
-
+			
 			<div class="petsconfigurator__navigation__buttons">
 				<button @click.prevent="goPrev" class="btn btn--arrow btn--arrow-reverse btn--arrow-disable-hover" v-if="route.name != 'Recap'">Retour</button>
 				<button @click.prevent="goPrev" class="btn btn--arrow btn--arrow-reverse btn--arrow-disable-hover petsconfigurator__navigation__recap-btn-back" v-else>Retour</button>
@@ -160,7 +160,7 @@ const souvenirDetails = computed({
 		if (store.state.petsConfigurator.gesteSouvenirTouffe) {
 			if (store.state.petsConfigurator.gesteSouvenirTouffe) {
 				p.push('Touffe de poils')
-			}
+			} 
 		}
 		return p.join(' , ')
 	}
@@ -176,7 +176,7 @@ const souvenirPrice = computed({
 		if (store.state.petsConfigurator.gesteSouvenirTouffe) {
 			if (store.state.petsConfigurator.gesteSouvenirTouffe) {
 				p = parseFloat(p) + parseFloat(store.state.petsConfigurator.prixTouffe)
-			}
+			} 
 		}
 		return p
 	}
@@ -185,7 +185,7 @@ const souvenirPrice = computed({
 const urneDetails = computed({
 	get () {
 		if (store.state.petsConfigurator.urne) {
-			let n = store.state.petsConfigurator.urneProduct.name
+			let n = store.state.petsConfigurator.urneProduct.name 
 			if (store.state.petsConfigurator.urneProduct.type == 'variable') {
 				let variations = Object.values(store.state.petsConfigurator.urneProduct.variation_selected.attributes).join(' , ')
 				if (variations) {
@@ -193,7 +193,7 @@ const urneDetails = computed({
 				}
 			}
 			return n
-		}
+		} 
 	}
 })
 

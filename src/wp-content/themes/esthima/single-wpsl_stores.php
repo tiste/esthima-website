@@ -137,7 +137,7 @@
                     </div>
                     <?php
                         $contactEmail = get_post_meta(get_the_ID(), 'wpsl_email', true);
-                        echo do_shortcode('[gravityform id="6" title="false" description="false" ajax="true" field_values="sendemail='.$contactEmail.'"]');
+                        echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true" field_values="sendemail='.$contactEmail.'"]');
                     ?>
                 </div>
             </div>

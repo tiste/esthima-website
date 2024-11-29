@@ -312,9 +312,7 @@
                     }
                 }
             }
-            .variations_form,
-            .price,
-            .single_variation_wrap{
+            .variations_form{
                 padding: 20px 0 0;
                 @media (min-width: 768px){
                     padding: 20px 0 0;
@@ -330,6 +328,7 @@
                 // display: block !important;
                 display: block;
                 width: fit-content;
+                position: absolute;
                 left: 0; bottom: 75px;
                 color: @main;
                 font-family: @main-font;
@@ -464,6 +463,8 @@
                     display: none !important;
                 }
                 .woocommerce-variation-price{
+                    position: absolute;
+                    left: 0; bottom: 75px;
                     color: @main;
                     font-family: @main-font;
                     font-size: 38px;
