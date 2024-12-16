@@ -18,17 +18,17 @@ const getDefaultState = () => {
 		productsUrnes: [],
 		cremationChoice: '',
 		prixEmpreinte: 30,
-		prixTouffe: 5,
+		prixTouffe: 5.50,
 		cremations: {
 			"plurielle": {
-				"nac": "69",
-				"chien": "99",
-				"chat": "99",
+				"nac": "75",
+				"chien": "105",
+				"chat": "105",
 				"description": {
 					"cremation": {
-						"nac": "69",
-						"chien": "99",
-						"chat": "99",
+						"nac": "75",
+						"chien": "105",
+						"chat": "105",
 					},
 					"cendres": {
 						"nac": "80",
@@ -43,14 +43,14 @@ const getDefaultState = () => {
 				}
 			},
 			"reference": {
-				"nac": "149",
-				"chien": "229",
-				"chat": "229",
+				"nac": "160",
+				"chien": "245",
+				"chat": "245",
 				"description": {
 					"cremation": {
-						"nac": "149",
-						"chien": "229",
-						"chat": "229",
+						"nac": "160",
+						"chien": "245",
+						"chat": "245",
 					},
 					"cendres": {
 						"nac": "80",
@@ -65,14 +65,14 @@ const getDefaultState = () => {
 				}
 			},
 			"privee": {
-				"nac": "239",
-				"chien": "319",
-				"chat": "319",
+				"nac": "255",
+				"chien": "340",
+				"chat": "340",
 				"description": {
 					"cremation": {
-						"nac": "239",
-						"chien": "319",
-						"chat": "319",
+						"nac": "255",
+						"chien": "340",
+						"chat": "340",
 					},
 					"cendres": {
 						"nac": "80",
