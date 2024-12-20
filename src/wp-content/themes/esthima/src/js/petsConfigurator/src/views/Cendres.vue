@@ -40,6 +40,7 @@
                             id="cendreTrue"
                             :value="true"
                             v-model="cendre"
+                            @change="handleCendreTrueSelect"
                         />
                         <label for="cendreTrue">Oui</label>
                     </li>
@@ -49,6 +50,7 @@
                             id="cendreFalse"
                             :value="false"
                             v-model="cendre"
+                            @change="handleCendreFalseSelect"
                         />
                         <label for="cendreFalse">Non</label>
                     </li>
@@ -123,6 +125,32 @@ const v$ = useVuelidate(rules, {
 const validate = async () => {
     const isFormCorrect = await v$.value.$validate();
     if (!isFormCorrect) return false;
+};
+
+// Fonction pour gérer le clic sur l'input radio "cendreTrue"
+const handleCendreTrueSelect = () => {
+    const totalPriceElement = document.querySelector(".petsconfigurator__navigation__price b");
+    if (totalPriceElement) {
+        // Vérifie la valeur de typeAnimal pour ajuster le prix
+        if (typeAnimal.value === 'nac') {
+            totalPriceElement.textContent = "160€"; // Met à jour le prix à 160€ si l'animal est un NAC
+        } else {
+            totalPriceElement.textContent = "245€"; // Met à jour le prix à 245€ pour les autres animaux
+        }
+    }
+};
+
+// Fonction pour gérer le clic sur l'input radio "cendreFalse"
+const handleCendreFalseSelect = () => {
+    const totalPriceElement = document.querySelector(".petsconfigurator__navigation__price b");
+    if (totalPriceElement) {
+        // Vérifie la valeur de typeAnimal pour ajuster le prix
+        if (typeAnimal.value === 'nac') {
+            totalPriceElement.textContent = "75€"; // Met à jour le prix à 75€ si l'animal est un NAC
+        } else {
+            totalPriceElement.textContent = "105€"; // Met à jour le prix à 105€ pour les autres animaux
+        }
+    }
 };
 
 onMounted(() => {
