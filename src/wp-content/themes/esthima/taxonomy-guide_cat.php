@@ -1,6 +1,6 @@
-<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly 
+<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly
 ?>
-<?php get_header(); 
+<?php get_header();
 ?>
 
 <main class="main main-content">
@@ -93,10 +93,12 @@ $queryRegular = new WP_Query($argsRegular);
                 <?php endif; ?>
                 <?php echo get_queried_object()->name; ?>
             </h1>
-            <h2 class="guides__tet__texts__subtext"><?php echo get_field('tet_subtitle'); ?></h2>
+            <!-- <h2 class="guides__tet__texts__subtext"><?php echo get_field('tet_subtitle'); ?></h2> -->
+            <h2 class="guides__tet__texts__text"><?php echo get_field('tet_subtitle'); ?></h2>
             <?php  if (category_description(get_queried_object()->term_id)) : ?>
-                <h2  class="guides__tet__texts__subtext"><?php echo category_description(get_queried_object()->term_id); ?></h2> 
-            <?php endif ?> 
+                <h2  class="guides__tet__texts__text"><?php echo category_description(get_queried_object()->term_id); ?></h2>
+                <!-- <h2  class="guides__tet__texts__subtext"><?php echo category_description(get_queried_object()->term_id); ?></h2> -->
+            <?php endif ?>
         </div>
         <div class="guides__tet__sticky" style="--bg-img: url('<?php echo str_replace("'", "\'", get_the_post_thumbnail_url($querySticky[0]->ID)); ?>')">
             <div class="guides__tet__sticky__cat">
@@ -211,7 +213,7 @@ $queryRegular = new WP_Query($argsRegular);
             <div class="guides__posts__nothing">
                 Désolé, aucun article ne correspond à votre recherche.
             </div>
-        <?php endif; ?>    
+        <?php endif; ?>
     </div>
 
     <?php if ( $queryRegular->have_posts() ) : ?>

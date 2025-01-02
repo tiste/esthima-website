@@ -25,7 +25,8 @@ const mqpacker = require('@hail2u/css-mqpacker');
 function browserSync(done) {
     browsersync.init({
 		proxy: {
-			target: 'localhost'
+			// target: 'localhost'
+			target: 'http://esthima.local/'
 		},
 		ghostMode: {
 			clicks: false,

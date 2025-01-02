@@ -10,8 +10,8 @@
 	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 	})(window,document,'script','dataLayer','GTM-KKDFVPD');</script>
-	<!-- End Google Tag Manager -->
-
+	<!-- End Google Tag Manager -->								
+									
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -36,10 +36,10 @@
 	<!-- Google Tag Manager (noscript) -->
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKDFVPD"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<!-- End Google Tag Manager (noscript) -->
-
-
-
+	<!-- End Google Tag Manager (noscript) -->							
+									
+									
+									
 	<header class="header <?php if (is_front_page()) : ?>header-transparent header-transparent-active <?php endif;?>">
 		<div class="header__top containerCustom">
 			<a href="<?php echo home_url('/'); ?>" class="header__top__logo">

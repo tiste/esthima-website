@@ -131,12 +131,11 @@ const validate = async () => {
 const handleCendreTrueSelect = () => {
     const totalPriceElement = document.querySelector(".petsconfigurator__navigation__price b");
     if (totalPriceElement) {
-        console.log(typeAnimal.value)
         // Vérifie la valeur de typeAnimal pour ajuster le prix
         if (typeAnimal.value === 'nac') {
-            totalPriceElement.textContent = "149€"; // Met à jour le prix à 149€ si l'animal est un NAC
+            totalPriceElement.textContent = "160€"; // Met à jour le prix à 160€ si l'animal est un NAC
         } else {
-            totalPriceElement.textContent = "229€"; // Met à jour le prix à 229€ pour les autres animaux
+            totalPriceElement.textContent = "245€"; // Met à jour le prix à 245€ pour les autres animaux
         }
     }
 };
@@ -147,9 +146,9 @@ const handleCendreFalseSelect = () => {
     if (totalPriceElement) {
         // Vérifie la valeur de typeAnimal pour ajuster le prix
         if (typeAnimal.value === 'nac') {
-            totalPriceElement.textContent = "69€"; // Met à jour le prix à 69€ si l'animal est un NAC
+            totalPriceElement.textContent = "75€"; // Met à jour le prix à 75€ si l'animal est un NAC
         } else {
-            totalPriceElement.textContent = "99€"; // Met à jour le prix à 99€ pour les autres animaux
+            totalPriceElement.textContent = "105€"; // Met à jour le prix à 105€ pour les autres animaux
         }
     }
 };

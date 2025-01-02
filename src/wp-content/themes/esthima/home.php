@@ -1,4 +1,4 @@
-<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly 
+<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 get_header();
 ?>
@@ -84,6 +84,8 @@ $queryRegular = new WP_Query($argsRegular);
     <div class="guides__posts">
         <?php if ( $queryRegular->have_posts() ) : $i = 0; ?>
             <?php while ( $queryRegular->have_posts() ) : $queryRegular->the_post(); ?>
+			<pre>
+			</pre>
                 <div class="guides__posts__item <?php echo ($i==0 || $i==5 || $i==6) ? 'guides__posts__item-big guides__posts__item-'.$i : 'guides__posts__item-'.$i; ?>">
                     <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php echo get_the_title(); ?>" class="guides__posts__item__img">
                     <div class="guides__posts__item__texts">
@@ -126,7 +128,7 @@ $queryRegular = new WP_Query($argsRegular);
             <div class="guides__posts__nothing">
                 Désolé, aucun article ne correspond à votre recherche.
             </div>
-        <?php endif; ?>    
+        <?php endif; ?>
     </div>
 
     <?php if ( $queryRegular->have_posts() ) : ?>
@@ -144,7 +146,7 @@ $queryRegular = new WP_Query($argsRegular);
         </div>
     <?php endif; ?>
 
-    
+
 
 </main>
 

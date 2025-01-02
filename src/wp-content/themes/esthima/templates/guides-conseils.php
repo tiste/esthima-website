@@ -1,4 +1,4 @@
-<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly 
+<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 /*
 * Template Name: Guides & conseils
@@ -143,7 +143,7 @@ $queryRegular = new WP_Query($argsRegular);
             <div class="guides__posts__nothing">
                 Désolé, aucun article ne correspond à votre recherche.
             </div>
-        <?php endif; ?>    
+        <?php endif; ?>
     </div>
 
     <?php if ( $queryRegular->have_posts() ) : ?>
@@ -185,7 +185,7 @@ $queryRegular = new WP_Query($argsRegular);
             <?php echo get_field('seo_text'); ?>
         </div>
     </div>
-    
+
 </main>
 
 

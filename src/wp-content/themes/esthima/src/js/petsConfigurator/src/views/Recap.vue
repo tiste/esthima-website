@@ -106,6 +106,9 @@
 						</li>
 					</ul>
 				</div>
+				<div class="petsconfigurator__question__footnotes">
+					Cette simulation est fournie à titre indicatif. Elle ne prend pas en compte le lieu de prise en charge de l'animal, la disponibilité des accessoires souhaités et ne constitue donc pas un devis. Cette simulation n'a pas de valeur contractuelle. Si vous avez besoin d'un complément d'informations, nos conseillers sont là pour vous guider.
+				</div>
 			</div>
 
 		</div>

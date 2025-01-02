@@ -99,7 +99,7 @@ function getCookie(cName) {
 			}, 100)
 		}
 		/* /produit - ajout barre scroll gallerie */
-		
+
 		/* produit - affichage prix produit simple/variable */
 
 		$(document).on('change', '.variations select', function(){
@@ -109,7 +109,7 @@ function getCookie(cName) {
 				$('.single-product .site-main > .product .product__tet .summary > .price').attr('style', 'display: block !important');
 			}
 		})
-		
+
 		/* /produit - affichage prix produit simple/variable */
 
 		/* panier - notes de commande */
@@ -214,7 +214,7 @@ function getCookie(cName) {
 			}
 		}
 		/* /hp - sliders mobile */
-		
+
 		/* boutique - sliders mobile */
 		if($('.shop__blocks__item__texts__products').length && window.innerWidth<768){
 			$('.shop__blocks__item__texts__products').each(function(){
@@ -300,7 +300,7 @@ function getCookie(cName) {
 			} else {
 				$('.single-product .site-main .product .summary > .price').css('display', 'block');
 			}
-			
+
 		} else {
 			$('.single-product .site-main .product .summary > .price').css('display', 'block');
 		}
@@ -540,7 +540,7 @@ function getCookie(cName) {
 					let minuteFin = Number(fin.split(':')[1]);
 					if(
 						(
-							heureDebut<window.todayDate.getHours() || 
+							heureDebut<window.todayDate.getHours() ||
 							(heureDebut==window.todayDate.getHours() && minuteDebut<window.todayDate.getMinutes())
 						) &&
 						(
@@ -712,19 +712,19 @@ function getCookie(cName) {
 
 		var observeDOM = (function(){
 			var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-		  
+
 			return function( obj, callback ){
-			  if( !obj || obj.nodeType !== 1 ) return; 
-		  
+			  if( !obj || obj.nodeType !== 1 ) return;
+
 			  if( MutationObserver ){
 				// define a new observer
 				var mutationObserver = new MutationObserver(callback)
-		  
+
 				// have the observer observe for changes in children
 				mutationObserver.observe( obj, { childList:true, subtree:true })
 				return mutationObserver
 			  }
-			  
+
 			  // browser support fallback
 			  else if( window.addEventListener ){
 				obj.addEventListener('DOMNodeInserted', callback, false)
@@ -739,74 +739,71 @@ function getCookie(cName) {
 		let currentHours = dateToday.getHours();
 		let currentMinutes = dateToday.getMinutes();
 		let currentTime = currentHours+':'+currentMinutes;
-		// console.log('current time');
-		// console.log(currentTime);
 
 		if(currentDay == 0) {
 			currentDay = 7;
 		}
 
+		function parseTime(timeStr) {
+			const [hours, minutes] = timeStr.split(':').map(Number);
+			return hours * 60 + minutes;
+		}
 
 		// Observe wpslStoreList element:
-		observeDOM( wpslStoreList, function(m){ 
+		observeDOM( wpslStoreList, function(m){
 			var addedNodes = [], removedNodes = [];
-		
+
 			m.forEach(record => record.addedNodes.length & addedNodes.push(...record.addedNodes))
-			
 			m.forEach(record => record.removedNodes.length & removedNodes.push(...record.removedNodes))
-		
-		console.log('Added:', addedNodes, 'Removed:', removedNodes);
+
 			let bingo = false;
 			addedNodes.map(node => {
-				
+
 				if(bingo == false) {
 					if(node.nodeName == "LI" && node.classList.contains('storeloc__map__store')) {
 						bingo = true;
 					}
 				}
 			})
-			console.log(bingo);
+
 			if(bingo) {
 				const storeListing = document.querySelectorAll('.storeloc__map__store');
 				[...storeListing].map(store => {
-						let hourOpeningToday;
-						let hourClosingToday;
-						let selectedTimeArray;
+						let hourOpeningToday, hourClosingToday;
 						let ct = store.querySelector('.storeloc__map__store__infos__opening');
-						console.log(ct);
-						let selectedTime = store.querySelector('table.wpsl-opening-hours tbody tr:nth-child('+currentDay+') td:nth-child(2)').innerText;
-						// console.log(selectedTime);
-						if(selectedTime == 'Closed') {
-							console.log('fermé')
-							ct.classList.toggle('closed');
+
+						let currentDateTime = new Date();
+						let currentDay = currentDateTime.getDay() + 1;
+						let currentTime = currentDateTime.getHours() * 60 + currentDateTime.getMinutes();
+
+						let selectedTime = store.querySelector(`table.wpsl-opening-hours tbody tr:nth-child(${currentDay}) td:nth-child(2)`).innerText;
+
+						if (selectedTime === 'Closed') {
+							ct.classList.add('closed');
 							ct.innerText = 'Fermé';
 						} else {
-							selectedTimeArray = selectedTime.split(' - ');
-							hourOpeningToday = selectedTimeArray[0];
-							hourClosingToday = selectedTimeArray[selectedTimeArray.length - 1];
-							console.log(hourClosingToday);
-							if (currentTime > hourClosingToday || currentTime < hourOpeningToday) {
-								ct.classList.toggle('closed');
+							let [opening, closing] = selectedTime.split(' - ');
+							hourOpeningToday = parseTime(opening);
+							hourClosingToday = parseTime(closing);
+
+							if (currentTime < hourOpeningToday || currentTime > hourClosingToday) {
+								ct.classList.add('closed');
 								ct.innerText = 'Fermé';
 							} else {
-								ct.innerText = `Ouvert`;
+								ct.classList.remove('closed');
+								ct.innerText = 'Ouvert';
 							}
-							//console.log(currentTime > hourClosingToday)
-
-							
-							
 						}
 
 				})
-				// console.log(storeListing);
 			}
 		});
- 
 
-			
-			
-		
-	}		
+
+
+
+
+	}
 
 	/* /store listing - ouvert/fermé */
 
@@ -841,5 +838,5 @@ function getCookie(cName) {
 		}
 	}
 
-	
+
 })(window, jQuery);

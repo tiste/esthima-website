@@ -1,4 +1,4 @@
-<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly 
+<?php if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 /*
 * Template Name: Espace presse
@@ -50,7 +50,11 @@ get_header();
         $argsPresse = array(
             'post_type' => 'espace-presse',
             'posts_per_page' => 6,
-            'paged' => $pagedPresse
+            'paged' => $pagedPresse,
+			'meta_key' => 'date',
+			'orderby' => 'meta_value',
+			'order' => 'DESC',
+			'meta_type' => 'DATE'
         );
         $queryPresse = new WP_Query($argsPresse);
     ?>
@@ -89,7 +93,7 @@ get_header();
             ?>
         </div>
     </div>
-    
+
 
 
 </main>
