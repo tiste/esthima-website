@@ -139,6 +139,15 @@ router.beforeEach((to, from) => {
     }
   }
 
+  // Si l'options Cendre est sur false, sur la page info si on fait retour sa ramene au step cendres
+  if (to.name === "Souvenir" && from.name === "Info") {
+    if (store.state.petsConfigurator.cendre == false) {
+      if (from.name == "Info") {
+        return { name: 'Cendres' };
+      }
+    }
+  }
+
 })
 
 router.afterEach((to, from) => {
