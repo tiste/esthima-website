@@ -183,6 +183,20 @@ get_header();
 				<label for="description" class="store__infos__contact__subtitle">Description</label>
 				<textarea class="contact__text__input contact__text__area" name="description" rows="6" placeholder="Description"></textarea>
 
+				<!-- RGPD / opt-in -->
+				<div class="store__infos__contact__subtitle" style="margin: 1em 0;display: flex;align-items: flex-start;">
+					<input id="00NAa00000M7LYX"
+						name="00NAa00000M7LYX"
+						type="checkbox"
+						value="1"
+						required />
+					<label for="tech_rgpd" style="text-transform: none;">
+					En cochant cette case, j'accepte que les informations personnelles que je communique 
+					puissent être utilisées pour recevoir des communications à caractère général ou commercial 
+					de la part de Esthima et des autres marques de l'entreprise Incinéris SASU.*
+					</label>
+				</div>
+				
 				<input type="hidden" id="external" name="external" value="1" />
 
 				<button class="contact__submit" type="submit" name="submit">
