@@ -33,9 +33,11 @@ get_header();
     get_field("tet_title")
 ); ?>" class="contact__tet__texts__img">
         </div>
-        <div class="contact__tet__form">
+        <div class="contact__tet__form" style="max-width:500px">
             <h2>Nous contacter</h2>
 
+			<?php
+			/*
 			<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
 
 			<form action="https://cie-veterinaires--pprd.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DAa000006clk5" method="POST" id="contactForm">
@@ -205,6 +207,10 @@ get_header();
 				</button>
 
 			</form>
+			*/
+			?>
+
+			<?php echo do_shortcode('[gravityform id="2" title="false"]'); ?>
 
 		</div>
 	</div>
