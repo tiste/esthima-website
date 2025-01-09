@@ -210,7 +210,7 @@ get_header();
 			*/
 			?>
 
-			<?php echo do_shortcode('[gravityform id="2" title="false"]'); ?>
+			<?php echo do_shortcode('[gravityform id="1" title="false"]'); ?>
 
 		</div>
 	</div>
