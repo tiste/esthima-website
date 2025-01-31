@@ -137,3 +137,24 @@ require get_template_directory() . '/services/service-petsconfigurator.php';
 // Remove trailing slash from pagination links
 add_filter('paginate_links','untrailingslashit');
 add_filter( 'get_pagenum_link', 'untrailingslashit');
+
+/**
+ * Redirection automatique vers la page d'ID 833 si un produit est introuvable (404).
+ */
+function redirect_missing_product_to_specific_page() {
+    if ( is_404() ) {
+        global $wp;
+        
+        // Construit l'URL actuelle
+        $current_url = home_url( $wp->request );
+        
+        // Vérifie si l'URL correspond à un produit WooCommerce (slug par défaut : "product")
+        // Ajustez '/product/' si vous avez un slug personnalisé (ex: '/boutique/').
+        if ( strpos( $current_url, '/produit/' ) !== false ) {
+            // Redirection vers la page dont l'ID est 833
+            wp_redirect( get_permalink( 833 ) );
+            exit;
+        }
+    }
+}
+add_action( 'template_redirect', 'redirect_missing_product_to_specific_page' );
