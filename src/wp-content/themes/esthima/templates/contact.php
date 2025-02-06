@@ -8,7 +8,6 @@
 get_header();
 ?>
 
-
 <main class="main main-content">
 
 	<div class="contact__tet">
@@ -42,7 +41,7 @@ get_header();
 			<form action="https://cie-veterinaires--pprd.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DAa000006clk5" method="POST" id="contactForm">
 
 				<input type="hidden" name="orgid" value="00DAa000006clk5">
-				<input type="hidden" name="retURL" value="https://www.esthima.fr/contact">
+				<input type="hidden" name="retURL" value="<?php echo get_site_url(); ?>/contact?envoyer=1">
 
 				<!--  Debugging elements  -->
 				<!-- <input type="hidden" name="debug" value=1> -->
@@ -50,30 +49,30 @@ get_header();
 
 				<div class="contact__text__names">
 					<div class="contact__text__name">
-						<label for="00NAa00000FLWCP" class="store__infos__contact__subtitle">Nom</label>
-						<input class="contact__text__input" id="00NAa00000FLWCP" maxlength="225" name="00NAa00000FLWCP" size="20" type="text" placeholder="Nom" />
+						<label for="00NAa00000FLWCP" class="store__infos__contact__subtitle">Nom<span style="color:#D43B68;">*</span></label>
+						<input class="contact__text__input" id="00NAa00000FLWCP" maxlength="225" name="00NAa00000FLWCP" size="20" type="text" placeholder="Nom" required/>
 					</div>
 
 					<div class="contact__text__firstname">
-						<label for="00NAa00000FLWCN" class="store__infos__contact__subtitle">Prénom</label>
-						<input class="contact__text__input" id="00NAa00000FLWCN" maxlength="225" name="00NAa00000FLWCN" size="20" type="text" placeholder="Prénom" />
+						<label for="00NAa00000FLWCN" class="store__infos__contact__subtitle">Prénom<span style="color:#D43B68;">*</span></label>
+						<input class="contact__text__input" id="00NAa00000FLWCN" maxlength="225" name="00NAa00000FLWCN" size="20" type="text" placeholder="Prénom" required/>
 					</div>
 				</div>
 
-				<label for="email" class="store__infos__contact__subtitle">Email</label>
-				<input class="contact__text__input" id="email" maxlength="80" name="email" size="20" type="text" placeholder="Email" />
+				<label for="email" class="store__infos__contact__subtitle">Email<span style="color:#D43B68;">*</span></label>
+				<input class="contact__text__input" id="email" maxlength="80" name="email" size="20" type="text" placeholder="Email" required/>
 
-				<label for="phone" class="store__infos__contact__subtitle">Téléphone</label>
-				<input class="contact__text__input" id="phone" maxlength="40" name="phone" size="20" type="text" placeholder="Téléphone" />
+				<label for="phone" class="store__infos__contact__subtitle">Téléphone<span style="color:#D43B68;">*</span></label>
+				<input class="contact__text__input" id="phone" maxlength="40" name="phone" size="20" type="text" placeholder="Téléphone" required/>
 
-				<label style="display:none;" for="00N2400000J0cws" class="store__infos__contact__subtitle">Type</label>
-				<select style="display:none;" class="contact__text__input contact__form__select" id="type" name="type">
+				<label style="display:none;" for="00N2400000J0cws" class="store__infos__contact__subtitle">Type<span style="color:#D43B68;">*</span></label>
+				<select style="display:none;" class="contact__text__input contact__form__select" id="type" name="type" required>
 					<option value="Esthima">Esthima</option>
 				</select>
 
 
-				<label for="00N2400000J0cws" class="store__infos__contact__subtitle">Type de demande</label>
-				<select class="contact__text__input contact__form__select" id="00N2400000J0cws" name="00N2400000J0cws" title="Type de demande">
+				<label for="00N2400000J0cws" class="store__infos__contact__subtitle">Type de demande<span style="color:#D43B68;">*</span></label>
+				<select class="contact__text__input contact__form__select" id="00N2400000J0cws" name="00N2400000J0cws" title="Type de demande" required>
 				<option value="">Type de demande</option>
 				<option value="Assistance technique">Assistance technique</option>
 				<option value="Commande de produits">Commande de produits</option>
@@ -84,12 +83,11 @@ get_header();
 				<option value="Réclamation">Réclamation</option>
 				<option value="Prise en charge">Prise en charge</option>
 				<option value="Remerciements">Remerciements</option>
-				<option value="Spam">Spam</option>
 				</select>
 
 
-				<label for="00NAa00000FLWCX" class="store__infos__contact__subtitle" id="sousTypeLabel" style="display: none;">Sous type</label>
-				<select class="contact__text__input contact__form__select" id="00NAa00000FLWCX" name="00NAa00000FLWCX" title="Sous type" style="display: none;">
+				<label for="00NAa00000FLWCX" class="store__infos__contact__subtitle" id="sousTypeLabel" style="display: none;">Sous type<span style="color:#D43B68;">*</span></label>
+				<select class="contact__text__input contact__form__select" id="00NAa00000FLWCX" name="00NAa00000FLWCX" title="Sous type" style="display: none;"required>
 				<option value="">Sous type</option>
 				</select>
 
@@ -142,9 +140,6 @@ get_header();
 					],
 					"Remerciements": [
 					"Remerciements"
-					],
-					"Spam": [
-					"Spam"
 					]
 				};
 
@@ -178,11 +173,11 @@ get_header();
 				</script>
 
 
-				<label for="subject" class="store__infos__contact__subtitle">Sujet</label>
-				<input class="contact__text__input contact__text__textarea" id="subject" maxlength="80" name="subject" size="20" type="text" placeholder="Sujet" />
+				<label for="subject" class="store__infos__contact__subtitle">Sujet<span style="color:#D43B68;">*</span></label>
+				<input class="contact__text__input contact__text__textarea" id="subject" maxlength="80" name="subject" size="20" type="text" placeholder="Sujet" required/>
 
-				<label for="description" class="store__infos__contact__subtitle">Description</label>
-				<textarea class="contact__text__input contact__text__area" name="description" rows="6" placeholder="Description"></textarea>
+				<label for="description" class="store__infos__contact__subtitle">Description<span style="color:#D43B68;">*</span></label>
+				<textarea class="contact__text__input contact__text__area" name="description" rows="6" placeholder="Description" required></textarea>
 
 				<!-- RGPD / opt-in -->
 				<div class="store__infos__contact__subtitle" style="margin: 1em 0;display: flex;align-items: flex-start;">
@@ -194,11 +189,15 @@ get_header();
 					<label for="tech_rgpd" style="text-transform: none;">
 					En cochant cette case, j'accepte que les informations personnelles que je communique 
 					puissent être utilisées pour recevoir des communications à caractère général ou commercial 
-					de la part de Esthima et des autres marques de l'entreprise Incinéris SASU.*
+					de la part de Esthima et des autres marques de l'entreprise Incinéris SASU.<span style="color:#D43B68;">*</span>
 					</label>
 				</div>
-				
+
+				<div class="cf-turnstile" data-sitekey="0x4AAAAAAA5NewCJIpYHWGb5"></div>
+
 				<input type="hidden" id="external" name="external" value="1" />
+
+				<p style="text-align:right;"><span style="color:#D43B68;">*</span> Champs obligatoires</p>
 
 				<button class="contact__submit" type="submit" name="submit">
 					Envoyer
@@ -206,6 +205,33 @@ get_header();
 				</button>
 
 			</form>
+			
+			<!-- Conteneur pour le message de remerciement (initialement vide ou masqué) -->
+			<div id="thankYouMessage" style="display: none;">
+			Merci de nous avoir contactés ! Nous vous répondrons sous peu.
+			</div>
+
+			<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				// Récupération des paramètres de l’URL
+				const urlParams = new URLSearchParams(window.location.search);
+				
+				// Vérification de l’existence du paramètre "envoyer"
+				if (urlParams.has('envoyer')) {
+				// Masquer le formulaire
+				const form = document.getElementById('contactForm');
+				if (form) {
+					form.style.display = 'none';
+				}
+
+				// Afficher le message de remerciement
+				const message = document.getElementById('thankYouMessage');
+				if (message) {
+					message.style.display = 'block';
+				}
+				}
+			});
+			</script>
 
 		</div>
 	</div>
