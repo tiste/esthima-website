@@ -231,6 +231,26 @@ get_header();
 				}
 				}
 			});
+
+			document.addEventListener('DOMContentLoaded', function() {
+				const form = document.getElementById('contactForm');
+				const typeSelect = document.getElementById('00N2400000J0cws'); // Sélecteur du type de demande
+
+				if (form && typeSelect) {
+					form.addEventListener('submit', function() {
+						const selectedType = typeSelect.value || 'Non spécifié'; // Valeur sélectionnée ou fallback
+
+						window.dataLayer = window.dataLayer || [];
+						window.dataLayer.push({
+							'event': 'clickSendContact',
+							'eventCategory': 'Page contact',
+							'eventAction': 'Envoyer',
+							'eventLabel': selectedType
+						});
+					});
+				}
+			});
+
 			</script>
 
 		</div>
