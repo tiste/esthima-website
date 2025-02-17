@@ -26,7 +26,6 @@
         </div>
         <div class="main-content">
             <div class="store__tet__container">
-                <div class="store__tet__status"></div>
                 <?php
                     $types = get_the_terms( get_the_ID(), 'wpsl_store_category' );
                     $typeStr = '';
