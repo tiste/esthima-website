@@ -26,7 +26,6 @@
         </div>
         <div class="main-content">
             <div class="store__tet__container">
-                <div class="store__tet__status"></div>
                 <?php
                     $types = get_the_terms( get_the_ID(), 'wpsl_store_category' );
                     $typeStr = '';
@@ -176,14 +175,11 @@
                         <label for="00N2400000J0cws" class="store__infos__contact__subtitle">Type de demande<span style="color:#D43B68;">*</span></label>
                         <select class="contact__text__input contact__form__select" id="00N2400000J0cws" name="00N2400000J0cws" title="Type de demande" required>
                         <option value="">Type de demande</option>
-                        <option value="Assistance technique">Assistance technique</option>
                         <option value="Commande de produits">Commande de produits</option>
                         <option value="Commande de service de crémation">Commande de service de crémation</option>
                         <option value="Demande d'informations">Demande d'informations</option>
-                        <option value="Mise à jour administrative">Mise à jour administrative</option>
                         <option value="Prise de rendez-vous">Prise de rendez-vous</option>
                         <option value="Réclamation">Réclamation</option>
-                        <option value="Prise en charge">Prise en charge</option>
                         <option value="Remerciements">Remerciements</option>
                         </select>
 
@@ -195,11 +191,6 @@
 
                         <script>
                         const sousTypesOptions = {
-                            "Assistance technique": [
-                            "Accompagnement dans l'utilisation",
-                            "Connexion",
-                            "Problème technique"
-                            ],
                             "Commande de produits": [
                             "Annulation de la commande de produits",
                             "Modification de la commande de produits",
@@ -226,13 +217,6 @@
                             ],
                             "Prise de rendez-vous": [
                             "Prise de rendez-vous"
-                            ],
-                            "Prise en charge": [
-                            "Annulation de la prise en charge",
-                            "Demande de prise en charge à domicile",
-                            "Demande de prise en charge à la clinique",
-                            "Demande de prise en charge au crématorium",
-                            "Suivi de prise en charge"
                             ],
                             "Réclamation": [
                             "Produit",
@@ -274,9 +258,7 @@
                         });
                         </script>
 
-
-                        <label for="subject" class="store__infos__contact__subtitle">Sujet<span style="color:#D43B68;">*</span></label>
-                        <input class="contact__text__input contact__text__textarea" id="subject" maxlength="80" name="subject" size="20" type="text" placeholder="Sujet" required/>
+                        <input id="subject" name="subject" type="hidden" required />
 
                         <label for="description" class="store__infos__contact__subtitle">Description<span style="color:#D43B68;">*</span></label>
                         <textarea class="contact__text__input contact__text__area" name="description" rows="6" placeholder="Description" required></textarea>
@@ -314,6 +296,14 @@
                     </div>
 
                     <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const sousTypeSelect = document.getElementById('00NAa00000FLWCX');
+                        const subjectInput = document.getElementById('subject');
+
+                        sousTypeSelect.addEventListener('change', function() {
+                            subjectInput.value = sousTypeSelect.value;
+                        });
+                    });
                     document.addEventListener('DOMContentLoaded', function() {
                         // Récupération des paramètres de l’URL
                         const urlParams = new URLSearchParams(window.location.search);
