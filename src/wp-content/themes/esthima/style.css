@@ -2006,15 +2006,33 @@ blockquote + blockquote {
   display: none !important;
 }
 .inscription__login .gform_footer,
-.inscription__register .gform_footer {
+.inscription__register .gform_footer{
+  padding: 0px !important;
   display: flex;
-  width: -moz-fit-content;
-  width: fit-content;
-  align-items: center;
-  margin: 30px auto !important;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.inscription__login .gform_footer .gf-turnstile-container,
+.inscription__register .gform_footer .gf-turnstile-container{
+  height: 80px;
+}
+
+.inscription__login .gform_footer input[type="submit"],
+.inscription__register .gform_footer input[type="submit"] {
   border-radius: 100px;
   background-color: #D43B68;
-  padding: 0 18px 0 0 !important;
+  padding: 14px 0 14px 14px !important;
+  font-size: 13px;
+  width: 120px;
+  height: 44px;
+}
+
+.inscription__login .gform_footer:hover:after,
+.inscription__register .gform_footer:hover:after {
+  position: relative;
+  top: 15px;
+  right: 50px;
 }
 .inscription__login .gform_footer:hover::after,
 .inscription__register .gform_footer:hover::after {
