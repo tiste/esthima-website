@@ -10,6 +10,11 @@
 
     .inscription__login .gform_footer,
     .inscription__register .gform_footer{
+        background: none;
+    }
+
+    .inscription__login .gform_footer,
+    .inscription__register .gform_footer{
         padding: 0px !important;
         display: flex;
         justify-content: center;
@@ -31,13 +36,17 @@
         height: 44px;
     }
 
+    .inscription__login .gform_footer:after,
+    .inscription__register .gform_footer:after {
+        position: relative;
+        right: 50px;
+    }
     .inscription__login .gform_footer:hover:after,
     .inscription__register .gform_footer:hover:after {
         position: relative;
-        top: 15px;
         right: 50px;
     }
-    
+
     .footer__pink__container{
         background: @white;
     }
