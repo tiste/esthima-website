@@ -34,5 +34,6 @@ Disallow: */service_type/*
 Disallow: */faq_cat/*
 Disallow: */store_services/*
 Disallow: */avantage-produit/*
+Disallow: *?envoyer=*
 
 Sitemap: https://esthima.krealid.com/sitemap_index.xml
