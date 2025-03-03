@@ -136,9 +136,9 @@
                     </div>
                     <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
 
-                    <form action="<?php echo get_field('action_form', 'option') ? esc_url(get_field('action_form', 'option')) : 'https://cie-veterinaires--pprd.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DAa000006clk5'; ?>" method="POST" id="contactForm">
+                    <form action="<?php echo get_field('action_form', 'option');?>" method="POST" id="contactForm">
 
-                        <input type="hidden" name="orgid" value="00DAa000006clk5">
+                        <input type="hidden" name="orgid" value="<?php echo get_field('orgid', 'option') ?>">
 
                         <?php 
                         $permalink = get_permalink( get_the_ID() );?>
