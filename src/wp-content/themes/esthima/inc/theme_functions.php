@@ -166,7 +166,7 @@ function custom_listing_template() {
 	$listing_template .= "\t\t\t\t\t\t" . '<% } %>' . "\r\n";
 	$listing_template .= "\t\t\t\t\t\t" . '<%= store %>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '</h3></a>' . "\r\n";
-	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__opening" ></div>' . "\r\n";
+	//$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__opening" ></div>' . "\r\n";
 	$listing_template .= "\t\t\t" . '<p style="display:none"><%= hours %></p>' . "\r\n"; 
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address %></div>' . "\r\n";
 	$listing_template .= "\t\t\t\t" . '<div class="storeloc__map__store__infos__adresse"><%= address2 %></div>' . "\r\n";
