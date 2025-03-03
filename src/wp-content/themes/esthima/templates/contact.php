@@ -38,7 +38,7 @@ get_header();
 
 			<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
 
-			<form action="<?php echo get_field('action_form', 'option'); ?>" method="POST" id="contactForm">
+			<form action="<?php esc_url(get_field('action_form', 'option')); ?>" method="POST" id="contactForm">
 
 				<input type="hidden" name="orgid" value="<?php echo get_field('orgid', 'option') ?>">
 				<input type="hidden" name="retURL" value="<?php echo get_site_url(); ?>/contact?envoyer=1">
