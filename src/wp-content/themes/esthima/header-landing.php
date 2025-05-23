@@ -43,7 +43,7 @@
 	<header class="header header__landing">
 		<div class="header__top containerCustom">
 			<a href="<?php echo home_url('/'); ?>" class="header__top__logo">
-				<img src="<?php echo $attachment_image; ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" class="header__top__logo__img header__top__logo__img-normal">
+				<img src="https://media.cie-veterinaires.fr/images/logos/logo_esthima.png" alt="<?php echo get_bloginfo( 'name' ); ?>" class="header__top__logo__img header__top__logo__img-normal">
 			</a>
 		</div>
 	</header>
