@@ -14,10 +14,6 @@
 
 	</footer>
 
-	<!-- Début de la liste OneTrust de cookies -->
-	<div id="ot-sdk-cookie-policy"></div>
-	<!-- Fin de la liste OneTrust de cookies -->
-
 	<?php /* SWIPER - JS */ ?>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 	<?php wp_footer(); ?>
