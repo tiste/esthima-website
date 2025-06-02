@@ -30,6 +30,15 @@
 	<meta name="msapplication-TileColor" content="#D34C3B">
 	<meta name="theme-color" content="#D43B68">
 	<?php wp_head(); ?>
+
+	<!-- Début de la mention OneTrust de consentement aux cookies pour le domaine esthima.fr -->
+	<script type="text/javascript" src="https://cdn.cookielaw.org/consent/3241140d-a0c9-49d5-829f-2f2033c9e6e2/OtAutoBlock.js" ></script>
+	<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="3241140d-a0c9-49d5-829f-2f2033c9e6e2" ></script>
+	<script type="text/javascript">
+	function OptanonWrapper() { }
+	</script>
+	<!-- Fin de la mention OneTrust de consentement aux cookies pour le domaine esthima.fr -->
+	
 </head>
 
 <body <?php body_class("page-landing"); ?>>
@@ -43,7 +52,7 @@
 	<header class="header header__landing">
 		<div class="header__top containerCustom">
 			<a href="<?php echo home_url('/'); ?>" class="header__top__logo">
-				<img src="<?php echo $attachment_image; ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" class="header__top__logo__img header__top__logo__img-normal">
+				<img src="https://media.cie-veterinaires.fr/images/logos/logo_esthima.png" alt="<?php echo get_bloginfo( 'name' ); ?>" class="header__top__logo__img header__top__logo__img-normal">
 			</a>
 		</div>
 	</header>
