@@ -162,3 +162,30 @@ function redirect_missing_product_to_specific_page() {
     }
 }
 add_action( 'template_redirect', 'redirect_missing_product_to_specific_page' );
+
+/**
+ * Supprime le forfait de livraison si aucun livre est dans le panier.
+ */
+add_filter('woocommerce_package_rates', function($rates, $package) {
+    $has_book = false;
+
+    $book_shipping_class = 'livre';
+
+    foreach ($package['contents'] as $item) {
+        $product = $item['data'];
+        if ($product->get_shipping_class() === $book_shipping_class) {
+            $has_book = true;
+            break;
+        }
+    }
+
+    if (!$has_book) {
+        foreach ($rates as $rate_id => $rate) {
+            if (strpos($rate_id, 'flat_rate') !== false) {
+                unset($rates[$rate_id]);
+            }
+        }
+    }
+
+    return $rates;
+}, 10, 2);
