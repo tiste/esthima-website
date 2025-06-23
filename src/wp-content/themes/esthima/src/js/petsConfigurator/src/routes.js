@@ -19,6 +19,7 @@ import Recap from './views/Recap';
 // const Info = () => import('./views/Info')
 // const Recap = () => import('./views/Recap')
 
+// Création du router
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
