@@ -1,5 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-	get_header();
+	$isProd = $_SERVER['SERVER_NAME'] == 'esthima.fr' ? true : false;
+    get_header();
 ?>
 
 <main class="main" itemscope itemtype="http://schema.org/LocalBusiness">
@@ -140,7 +141,7 @@
 
                         <input type="hidden" name="orgid" value="<?php echo get_field('orgid', 'option') ?>">
 
-                        <?php 
+                        <?php
                         $permalink = get_permalink( get_the_ID() );?>
                         <input type="hidden" name="retURL" value="<?php echo esc_url( $permalink ); ?>?envoyer=1">
 
@@ -150,21 +151,21 @@
 
                         <div class="contact__text__names">
                             <div class="contact__text__name">
-                                <label for="00NAa00000FLWCP" class="store__infos__contact__subtitle">Nom<span style="color:#D43B68;">*</span></label>
-                                <input class="contact__text__input" id="00NAa00000FLWCP" maxlength="225" name="00NAa00000FLWCP" size="20" type="text" placeholder="Nom" required/>
+                                <label for="<?php echo $isProd ? '00NbK0000024EGV' : '00NAa00000FLWCP' ?>" class="store__infos__contact__subtitle">Nom<span style="color:#D43B68;">*</span></label>
+                                <input class="contact__text__input" id="<?php echo $isProd ? '00NbK0000024EGV' : '00NAa00000FLWCP' ?>" maxlength="225" name="<?php echo $isProd ? '00NbK0000024EGV' : '00NAa00000FLWCP' ?>" size="20" type="text" placeholder="Nom" required/>
                             </div>
 
                             <div class="contact__text__firstname">
-                                <label for="00NAa00000FLWCN" class="store__infos__contact__subtitle">Prénom<span style="color:#D43B68;">*</span></label>
-                                <input class="contact__text__input" id="00NAa00000FLWCN" maxlength="225" name="00NAa00000FLWCN" size="20" type="text" placeholder="Prénom" required/>
+                                <label for="<?php echo $isProd ? '00NbK0000024EGT' : '00NAa00000FLWCN' ?>" class="store__infos__contact__subtitle">Prénom<span style="color:#D43B68;">*</span></label>
+                                <input class="contact__text__input" id="<?php echo $isProd ? '00NbK0000024EGT' : '00NAa00000FLWCN' ?>" maxlength="225" name="<?php echo $isProd ? '00NbK0000024EGT' : '00NAa00000FLWCN' ?>" size="20" type="text" placeholder="Prénom" required/>
                             </div>
                         </div>
 
                         <label for="email" class="store__infos__contact__subtitle">Email<span style="color:#D43B68;">*</span></label>
                         <input class="contact__text__input" id="email" maxlength="80" name="email" size="20" type="text" placeholder="Email" required/>
 
-                        <label for="phone" class="store__infos__contact__subtitle">Téléphone<span style="color:#D43B68;">*</span></label>
-                        <input class="contact__text__input" id="phone" maxlength="40" name="phone" size="20" type="text" placeholder="Téléphone" required/>
+                        <label for="<?php echo $isProd ? '00NbK0000024EGX' : '00NAa00000FLWCQ' ?>" class="store__infos__contact__subtitle">Téléphone<span style="color:#D43B68;">*</span></label>
+                        <input class="contact__text__input" id="<?php echo $isProd ? '00NbK0000024EGX' : '00NAa00000FLWCQ' ?>" maxlength="40" name="<?php echo $isProd ? '00NbK0000024EGX' : '00NAa00000FLWCQ' ?>" size="20" type="text" placeholder="Téléphone" required/>
 
                         <label style="display:none;" for="00N2400000J0cws" class="store__infos__contact__subtitle">Type<span style="color:#D43B68;">*</span></label>
                         <select style="display:none;" class="contact__text__input contact__form__select" id="type" name="type" required>
@@ -184,8 +185,8 @@
                         </select>
 
 
-                        <label for="00NAa00000FLWCX" class="store__infos__contact__subtitle" id="sousTypeLabel" style="display: none;">Sous type<span style="color:#D43B68;">*</span></label>
-                        <select class="contact__text__input contact__form__select" id="00NAa00000FLWCX" name="00NAa00000FLWCX" title="Sous type" style="display: none;" required>
+                        <label for="<?php echo $isProd ? '00NbK0000024EHH' : '00NAa00000FLWCX' ?>" class="store__infos__contact__subtitle" id="sousTypeLabel" style="display: none;">Sous type<span style="color:#D43B68;">*</span></label>
+                        <select class="contact__text__input contact__form__select" id="<?php echo $isProd ? '00NbK0000024EHH' : '00NAa00000FLWCX' ?>" name="<?php echo $isProd ? '00NbK0000024EHH' : '00NAa00000FLWCX' ?>" title="Sous type" style="display: none;" required>
                         <option value="">Sous type</option>
                         </select>
 
@@ -230,7 +231,7 @@
                         };
 
                         const typeSelect = document.getElementById('00N2400000J0cws');
-                        const sousTypeSelect = document.getElementById('00NAa00000FLWCX');
+                        const sousTypeSelect = document.getElementById('<?php echo $isProd ? '00NbK0000024EHH' : '00NAa00000FLWCX' ?>');
                         const sousTypeLabel = document.getElementById('sousTypeLabel');
 
                         typeSelect.addEventListener('change', function() {
@@ -263,16 +264,18 @@
                         <label for="description" class="store__infos__contact__subtitle">Description<span style="color:#D43B68;">*</span></label>
                         <textarea class="contact__text__input contact__text__area" name="description" rows="6" placeholder="Description" required></textarea>
 
+                        <input type=hidden name="<?php echo $isProd ? '00NbK000002Kzar' : '00NAa00000LhU6n' ?>" value="Villeneuve d&#39;ascq">
+
                         <!-- RGPD / opt-in -->
                         <div class="store__infos__contact__subtitle" style="margin: 1em 0;display: flex;align-items: flex-start;">
-                            <input id="00NAa00000M7LYX"
-                                name="00NAa00000M7LYX"
+                            <input id="<?php echo $isProd ? '00NbK00000BgC85' : '00NAa00000M7LYX' ?>"
+                                name="<?php echo $isProd ? '00NbK00000BgC85' : '00NAa00000M7LYX' ?>"
                                 type="checkbox"
                                 value="1"
                                 required />
                             <label for="tech_rgpd" style="text-transform: none;">
-                            En cochant cette case, j'accepte que les informations personnelles que je communique 
-                            puissent être utilisées pour recevoir des communications à caractère général ou commercial 
+                            En cochant cette case, j'accepte que les informations personnelles que je communique
+                            puissent être utilisées pour recevoir des communications à caractère général ou commercial
                             de la part de Esthima et des autres marques de l'entreprise Incinéris SASU.<span style="color:#D43B68;">*</span>
                             </label>
                         </div>
@@ -297,7 +300,7 @@
 
                     <script>
                     document.addEventListener('DOMContentLoaded', function() {
-                        const sousTypeSelect = document.getElementById('00NAa00000FLWCX');
+                        const sousTypeSelect = document.getElementById('<?php echo $isProd ? '00NbK0000024EHH' : '00NAa00000FLWCX' ?>');
                         const subjectInput = document.getElementById('subject');
 
                         sousTypeSelect.addEventListener('change', function() {
@@ -307,7 +310,7 @@
                     document.addEventListener('DOMContentLoaded', function() {
                         // Récupération des paramètres de l’URL
                         const urlParams = new URLSearchParams(window.location.search);
-                        
+
                         // Vérification de l’existence du paramètre "envoyer"
                         if (urlParams.has('envoyer')) {
                         // Masquer le formulaire
@@ -329,7 +332,7 @@
             </div>
         </div>
     </div>
-    
+
     <?php $gallery = get_field('store_gallery'); ?>
     <?php if(!is_null($gallery) && !empty($gallery) && is_array($gallery)) : ?>
     <div class="main-content">
@@ -410,11 +413,11 @@
         </div>
 
     </div>
-    
+
 </main>
 
 <script>
-    <?php 
+    <?php
         date_default_timezone_set('Europe/Paris');
         $currentDateTime = date('Y-m-d H:i:s', time());
     ?>

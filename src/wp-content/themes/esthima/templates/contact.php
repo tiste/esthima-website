@@ -166,6 +166,8 @@ $isProd = $_SERVER['SERVER_NAME'] == 'esthima.fr' ? true : false;
 				<label for="description" class="store__infos__contact__subtitle">Description<span style="color:#D43B68;">*</span></label>
 				<textarea class="contact__text__input contact__text__area" name="description" rows="6" placeholder="Description" required></textarea>
 
+				<input type=hidden name="<?php echo $isProd ? '00NbK000002Kzar' : '00NAa00000LhU6n' ?>" value="Villeneuve d&#39;ascq">
+
 				<!-- RGPD / opt-in -->
 				<div class="store__infos__contact__subtitle" style="margin: 1em 0;display: flex;align-items: flex-start;">
 					<input id="<?php echo $isProd ? '00NbK00000BgC85' : '00NAa00000M7LYX' ?>"
