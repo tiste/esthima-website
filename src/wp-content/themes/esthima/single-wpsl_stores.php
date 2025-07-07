@@ -139,7 +139,7 @@
 
                     <form action="<?php echo esc_url(get_field('action_form', 'option'));?>" method="POST" id="contactForm">
 
-                        <input type="hidden" name="orgid" value="<?php echo get_field('orgid', 'option') ?>">
+                        <input type="hidden" name="orgid" value="<?php echo $isProd ? '00D24000000jNFO' : '00DAa000006clk5' ?>">
 
                         <?php
                         $permalink = get_permalink( get_the_ID() );?>
