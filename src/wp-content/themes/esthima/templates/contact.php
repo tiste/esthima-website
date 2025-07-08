@@ -9,8 +9,19 @@ get_header();
 ?>
 
 <?php
-$isProd = in_array($_SERVER['SERVER_NAME'], ['esthima.fr', 'www.esthima.fr']);
+// Détection plus précise de l'environnement
+$hostname = $_SERVER['SERVER_NAME'];
+$env = '';
 
+if (strpos($hostname, 'local') !== false) {
+    $env = 'development';
+} elseif (strpos($hostname, 'recette') !== false) {
+    $env = 'testing';
+} else {
+    $env = 'production';
+}
+
+$isProd = ($env === 'production');
 ?>
 
 <main class="main main-content">
