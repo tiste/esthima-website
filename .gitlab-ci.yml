@@ -1,98 +1,104 @@
-image: node:16
+variables:
+  NODE_ENV: "development"
 
-cache:
-  paths:
-    - node_modules/
-deploy-stage-krealid:
-  environment:
-    name: stage-krealid
-    url: esthima.krealid.com
-  only:
-    - stage-krealid
-  script:
-    - apt-get update
-    - apt-get -y --force-yes install zip unzip rsync php npm sshpass
-    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - mkdir -p ~/.ssh
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - echo $SSH_PRIVATE_KEY
-    - root=$(pwd)
-    - theme_path=${root}"/src/wp-content/themes/esthima/"
-    - plugin_path=${root}"/src/wp-content/plugins"
-    - upload_path=${root}"/src/wp-content/uploads"
-    - exclude_path=${root}"/src/wp-content/themes/esthima/_private/cmd/rsync_exclude.txt"
-    - include_path=${root}"/src/wp-content/themes/esthima/_private/cmd/rsync_include.txt"
-    - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
-    - rm -rf ./node_modules
-    - currentRelease=$(date +%s)
-    # Theme
-    - rsync -avutzP --info=progress2 -e 'ssh -p 2121' --include-from ${include_path} --exclude-from ${exclude_path} ${theme_path} preprod-c1572d@nc1183.nexylan.net:~/releases/tmp_release &> /dev/null
-    # Plugins
-    #- rsync -avutzcIP --info=progress2 -e 'ssh -p 2121' --include-from ${include_path} --exclude-from ${exclude_path} ${plugin_path} preprod-c1572d@nc1183.nexylan.net:~/htdocs/wp-content
-    # Uploads
-    #- rsync -avutzcIP --info=progress2 -e 'ssh -p 2121' --include-from ${include_path} --exclude-from ${exclude_path} ${upload_path} preprod-c1572d@nc1183.nexylan.net:~/htdocs/wp-content
-    # Creation lien symbolique
-    - ssh -tt preprod-c1572d@nc1183.nexylan.net -p 2121 "rm -d ~/htdocs/wp-content/themes/esthima && mv ~/releases/current_release ~/releases/${currentRelease} && mv ~/releases/tmp_release ~/releases/current_release && ln -snf ~/releases/current_release ~/htdocs/wp-content/themes/esthima && cd ~/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf"
-deploy-recette:
+stages:
+  - deploy
+
+default:
+  image: node:16
+  cache:
+    paths:
+      - node_modules/
   before_script:
     - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
     - ". ~/.nvm/nvm.sh"
     - nvm install v16.20.2
     - nvm use v16.20.2
     - node --version
+
+.deploy_template: &deploy_template
+  stage: deploy
+  script:
+    - root=$(pwd)
+    - theme_path="/var/www/html/wp-content/themes/esthima/"
+    - plugin_path="/var/www/html/wp-content/plugins"
+    - upload_path="/var/www/html/wp-content/uploads"
+    - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
+    - rm -rf ./node_modules
+    - cd $root
+    - currentRelease=$(date +%s)
+    - mkdir /var/www/releases/tmp_release
+    - cp -r ./src/wp-content/themes/esthima/* /var/www/releases/tmp_release
+    - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
+    - mv /var/www/releases/tmp_release /var/www/releases/current_release
+    - echo "✅ Déploiement terminé. Envoi de la notification à Google Chat..."
+    - |
+      if [ -z "$CHAT_WEBHOOK_URL" ]; then
+        echo "❌ CHAT_WEBHOOK_URL est vide. Aucune notification envoyée."
+        exit 1
+      fi
+
+      curl -X POST -H "Content-Type: application/json" \
+      --data "{
+        \"cards\": [
+          {
+            \"header\": {
+              \"title\": \"🚀 Déploiement réussi\",
+              \"subtitle\": \"${CI_PROJECT_NAME}\",
+              \"imageUrl\": \"https://cdn-icons-png.flaticon.com/512/190/190411.png\",
+              \"imageStyle\": \"AVATAR\"
+            },
+            \"sections\": [
+              {
+                \"widgets\": [
+                  {
+                    \"keyValue\": {
+                      \"topLabel\": \"Environnement\",
+                      \"content\": \"${DEPLOY_ENV}\",
+                      \"icon\": \"DESCRIPTION\"
+                    }
+                  },
+                  {
+                    \"keyValue\": {
+                      \"topLabel\": \"Pipeline\",
+                      \"content\": \"${CI_PIPELINE_URL}\",
+                      \"icon\": \"DESCRIPTION\"
+                    }
+                  },
+                  {
+                    \"keyValue\": {
+                      \"topLabel\": \"Auteur\",
+                      \"content\": \"${GITLAB_USER_NAME}\",
+                      \"icon\": \"PERSON\"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }" "$CHAT_WEBHOOK_URL"
+
+deploy_recette:
+  <<: *deploy_template
+  tags:
+    - esthima.fr-recette
+  variables:
+    DEPLOY_ENV: "recette"
   environment:
-    name: stage
+    name: recette
     url: recette.esthima.com
   only:
     - stage
+
+deploy_production:
+  <<: *deploy_template
   tags:
-    - esthima.fr-recette
-  script:
-    - root=$(pwd)
-    - theme_path="/var/www/html/wp-content/themes/esthima/"
-    - plugin_path="/var/www/html/wp-content/plugins"
-    - upload_path="/var/www/html/wp-content/uploads"
-    - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
-    - rm -rf ./node_modules
-    - echo "OK"
-    - currentRelease=$(date +%s)
-    - cd $root
-    - mkdir /var/www/releases/tmp_release
-    - cp -r ./src/wp-content/themes/esthima/* /var/www/releases/tmp_release
-    #- rm -d /var/www/html/wp-content/themes/esthima
-    - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
-    - mv /var/www/releases/tmp_release /var/www/releases/current_release
-    #- ln -snf /var/www/releases/current_release /var/www/html/wp-content/themes/esthima
-    # - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
-deploy-production:
-  before_script:
-    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
-    - ". ~/.nvm/nvm.sh"
-    - nvm install v16.20.2
-    - nvm use v16.20.2
-    - node --version
+    - esthima.fr-production
+  variables:
+    DEPLOY_ENV: "production"
   environment:
-    name: main
+    name: production
     url: esthima.com
   only:
     - main
-  tags:
-    - esthima.fr-production
-  script:
-    - root=$(pwd)
-    - theme_path="/var/www/html/wp-content/themes/esthima/"
-    - plugin_path="/var/www/html/wp-content/plugins"
-    - upload_path="/var/www/html/wp-content/uploads"
-    - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
-    - rm -rf ./node_modules
-    - currentRelease=$(date +%s)
-    - cd $root
-    - mkdir /var/www/releases/tmp_release
-    - cp -r ./src/wp-content/themes/esthima/* /var/www/releases/tmp_release
-    #- rm -d /var/www/html/wp-content/themes/esthima
-    - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
-    - mv /var/www/releases/tmp_release /var/www/releases/current_release
-    #- ln -snf /var/www/releases/current_release /var/www/html/wp-content/themes/esthima
-    # - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
