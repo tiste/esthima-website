@@ -85,7 +85,7 @@ define( 'WP_DEBUG_DISPLAY', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
-
+define('ENV', 'staging');
 
 /* That's all, stop editing! Happy publishing. */
 
