@@ -1,5 +1,5 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-	$isProd = $_SERVER['SERVER_NAME'] == 'esthima.fr' ? true : false;
+	$isProd = in_array($_SERVER['SERVER_NAME'], ['esthima.fr', 'www.esthima.fr']);
     get_header();
 ?>
 
