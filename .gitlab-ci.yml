@@ -1,40 +1,31 @@
-image: node:16
+variables:
+  NODE_ENV: "development"
 
-cache:
-  paths:
-    - node_modules/
+stages:
+  - deploy
 
-deploy-recette:
+default:
+  image: node:16
+  cache:
+    paths:
+      - node_modules/
   before_script:
-    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
-    - ". ~/.nvm/nvm.sh"
-    - nvm install v16.20.2
-    - nvm use v16.20.2
-    - node --version
-  environment:
-    name: stage
-    url: recette.esthima.com
-  only:
-    - stage
-  tags:
-    - esthima.fr-recette
+    - apk add --no-cache bash curl
+    - npm ci
+
+.deploy_template: &deploy_template
+  stage: deploy
   script:
     - root=$(pwd)
     - theme_path="/var/www/html/wp-content/themes/esthima/"
-    - plugin_path="/var/www/html/wp-content/plugins"
-    - upload_path="/var/www/html/wp-content/uploads"
     - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
     - rm -rf ./node_modules
-    - echo "OK"
-    - currentRelease=$(date +%s)
     - cd $root
+    - currentRelease=$(date +%s)
     - mkdir /var/www/releases/tmp_release
     - cp -r ./src/wp-content/themes/esthima/* /var/www/releases/tmp_release
-    #- rm -d /var/www/html/wp-content/themes/esthima
     - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
     - mv /var/www/releases/tmp_release /var/www/releases/current_release
-    #- ln -snf /var/www/releases/current_release /var/www/html/wp-content/themes/esthima
-    # - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
     - echo "✅ Déploiement terminé. Envoi de la notification à Google Chat..."
     - |
       if [ -z "$CHAT_WEBHOOK_URL" ]; then
@@ -82,33 +73,27 @@ deploy-recette:
           }
         ]
       }" "$CHAT_WEBHOOK_URL"
-deploy-production:
-  before_script:
-    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
-    - ". ~/.nvm/nvm.sh"
-    - nvm install v16.20.2
-    - nvm use v16.20.2
-    - node --version
+
+deploy_recette:
+  <<: *deploy_template
+  tags:
+    - esthima.fr-recette
+  variables:
+    DEPLOY_ENV: "recette"
   environment:
-    name: main
+    name: recette
+    url: recette.esthima.com
+  only:
+    - stage
+
+deploy_production:
+  <<: *deploy_template
+  tags:
+    - esthima.fr-production
+  variables:
+    DEPLOY_ENV: "production"
+  environment:
+    name: production
     url: esthima.com
   only:
     - main
-  tags:
-    - esthima.fr-production
-  script:
-    - root=$(pwd)
-    - theme_path="/var/www/html/wp-content/themes/esthima/"
-    - plugin_path="/var/www/html/wp-content/plugins"
-    - upload_path="/var/www/html/wp-content/uploads"
-    - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
-    - rm -rf ./node_modules
-    - currentRelease=$(date +%s)
-    - cd $root
-    - mkdir /var/www/releases/tmp_release
-    - cp -r ./src/wp-content/themes/esthima/* /var/www/releases/tmp_release
-    #- rm -d /var/www/html/wp-content/themes/esthima
-    - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
-    - mv /var/www/releases/tmp_release /var/www/releases/current_release
-    #- ln -snf /var/www/releases/current_release /var/www/html/wp-content/themes/esthima
-    # - cd /var/www/releases/ && ls -dt */ | tail -n +4 | xargs rm -rf
