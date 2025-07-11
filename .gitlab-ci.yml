@@ -43,7 +43,7 @@ default:
     - eval "SALESFORCE_ID_SUBTYPE_VALUE=\$SALESFORCE_ID_SUBTYPE_${ENV_UPPER}"
     - eval "SALESFORCE_ID_CITY_VALUE=\$SALESFORCE_ID_CITY_${ENV_UPPER}"
     - eval "SALESFORCE_ID_RGPD_VALUE=\$SALESFORCE_ID_RGPD_${ENV_UPPER}"
-    - echo "ENV=${DEPLOY_ENV}" > /var/www/releases/tmp_release/.env
+    - echo "ENV=${ENV_UPPER}" > /var/www/releases/tmp_release/.env
     - echo "ACTION_FORM_${ENV_UPPER}=${ACTION_FORM_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "ORGID_${ENV_UPPER}=${ORGID_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "SALESFORCE_ID_FIRSTNAME_${ENV_UPPER}=${SALESFORCE_ID_FIRSTNAME_VALUE}" >> /var/www/releases/tmp_release/.env
