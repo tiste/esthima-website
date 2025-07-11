@@ -47,7 +47,7 @@ default:
     - echo "ACTION_FORM_${ENV_UPPER}=${ACTION_FORM_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "ORGID_${ENV_UPPER}=${ORGID_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "SALESFORCE_ID_OWNER_FIRSTNAME_${ENV_UPPER}=${SALESFORCE_ID_OWNER_FIRSTNAME_VALUE}" >> /var/www/releases/tmp_release/.env
-    - echo "SALESFORCE_ID_OWNER_LASTNAME-${ENV_UPPER}=${SALESFORCE_ID_OWNER_LASTNAME_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_OWNER_LASTNAME_${ENV_UPPER}=${SALESFORCE_ID_OWNER_LASTNAME_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "SALESFORCE_ID_TEL_${ENV_UPPER}=${SALESFORCE_ID_TEL_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "SALESFORCE_ID_EMAIL_${ENV_UPPER}=${SALESFORCE_ID_EMAIL_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "SALESFORCE_ID_TYPE_${ENV_UPPER}=${SALESFORCE_ID_TYPE_VALUE}" >> /var/www/releases/tmp_release/.env

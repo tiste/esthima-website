@@ -205,11 +205,11 @@ get_header();
                                 <option value="Esthima">Esthima</option>
                             </select>
 
-                            <label for="<?php echo sf_var('salesforce_id_type'); ?>"
+                            <label for="<?php echo sf_var('SALESFORCE_ID_TYPE'); ?>"
                                    class="store__infos__contact__subtitle">Type de demande<span
                                         style="color:#D43B68;">*</span></label>
-                            <select class="contact__form__select js-sf-typedemande" id="00N2400000J0cws"
-                                    name="<?php echo sf_var('salesforce_id_type'); ?>" title="Type de demande" required>
+                            <select class="contact__text__input contact__form__select js-sf-typedemande" id="<?php echo sf_var('SALESFORCE_ID_TYPE'); ?>"
+                                    name="<?php echo sf_var('SALESFORCE_ID_TYPE'); ?>" title="Type de demande" required>
                                 <option value="">Type de demande</option>
                                 <option value="Commande de produits">Commande de produits</option>
                                 <option value="Commande de service de crémation">Commande de service de crémation
@@ -220,12 +220,12 @@ get_header();
                                 <option value="Remerciements">Remerciements</option>
                             </select>
 
-                            <label for="<?php echo sf_var('salesforce_id_subtype'); ?>"
+                            <label for="<?php echo sf_var('SALESFORCE_ID_SUBTYPE'); ?>"
                                    class="store__infos__contact__subtitle js-sf-subtype-label" id="subTypeLabel"
                                    style="display: none;">Sous type<span style="color:#D43B68;">*</span></label>
-                            <select class="contact__form__select js-sf-subtype"
-                                    id="<?php echo sf_var('salesforce_id_subtype'); ?>"
-                                    name="<?php echo sf_var('salesforce_id_subtype'); ?>" title="Sous type"
+                            <select class="contact__text__input contact__form__select js-sf-subtype"
+                                    id="<?php echo sf_var('SALESFORCE_ID_SUBTYPE'); ?>"
+                                    name="<?php echo sf_var('SALESFORCE_ID_SUBTYPE'); ?>" title="Sous type"
                                     style="display: none;" required>
                                 <option value="">Sous type</option>
                             </select>
@@ -278,11 +278,7 @@ get_header();
                                             }
 
                                             // Reset & fill options
-                                            subTypeSelect.innerHTML = '
-                                                < option
-                                            value = "" > Sous
-                                            type < /option>
-                                            ';
+                                            subTypeSelect.innerHTML = '<option value = "" > Sous type < /option>';
                                             subTypes.forEach(function (subType) {
                                                 const option = document.createElement('option');
                                                 option.value = subType;
@@ -371,37 +367,6 @@ get_header();
                         <div id="thankYouMessage" style="display: none;">
                             Merci de nous avoir contactés ! Nous vous répondrons sous peu.
                         </div>
-
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                const subTypeSelect = document.getElementById('<?php echo $isProd ? '00NbK0000024EHH' : '00NAa00000FLWCX' ?>');
-                                const subjectInput = document.getElementById('subject');
-
-                                subTypeSelect.addEventListener('change', function () {
-                                    subjectInput.value = subTypeSelect.value;
-                                });
-                            });
-                            document.addEventListener('DOMContentLoaded', function () {
-                                // Récupération des paramètres de l’URL
-                                const urlParams = new URLSearchParams(window.location.search);
-
-                                // Vérification de l’existence du paramètre "envoyer"
-                                if (urlParams.has('envoyer')) {
-                                    // Masquer le formulaire
-                                    const form = document.getElementById('contactForm');
-                                    if (form) {
-                                        form.style.display = 'none';
-                                    }
-
-                                    // Afficher le message de remerciement
-                                    const message = document.getElementById('thankYouMessage');
-                                    if (message) {
-                                        message.style.display = 'block';
-                                    }
-                                }
-                            });
-                        </script>
-
                     </div>
                 </div>
             </div>
