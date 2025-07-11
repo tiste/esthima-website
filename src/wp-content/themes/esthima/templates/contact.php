@@ -82,7 +82,7 @@ get_header();
                     <label for="<?php echo sf_var('salesforce_id_type'); ?>" class="store__infos__contact__subtitle">Type
                         de demande<span
                                 style="color:#D43B68;">*</span></label>
-                    <select class="contact__form__select js-sf-typedemande"
+                    <select class="contact__text__input contact__form__select js-sf-typedemande"
                             id="<?php echo sf_var('salesforce_id_type'); ?>"
                             name="<?php echo sf_var('salesforce_id_type'); ?>"
                             title="Type de demande" required>
@@ -99,7 +99,7 @@ get_header();
                     <label for="<?php echo sf_var('salesforce_id_subtype'); ?>"
                            class="store__infos__contact__subtitle js-sf-subtype-label" id="subTypeLabel"
                            style="display: none;">Sous type<span style="color:#D43B68;">*</span></label>
-                    <select class="contact__form__select js-sf-subtype"
+                    <select class="contact__text__input contact__form__select js-sf-subtype"
                             id="<?php echo sf_var('salesforce_id_subtype'); ?>"
                             name="<?php echo sf_var('salesforce_id_subtype'); ?>" title="Sous type"
                             style="display: none;" required>
