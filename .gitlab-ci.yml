@@ -29,6 +29,19 @@ default:
     - currentRelease=$(date +%s)
     - mkdir /var/www/releases/tmp_release
     - cp -r ./src/wp-content/themes/esthima/* /var/www/releases/tmp_release
+    # Génération du .env à la racine de la release courante
+    - |
+    - echo "ENV=${DEPLOY_ENV}" > /var/www/releases/tmp_release/.env
+    - echo "ACTION_FORM_${DEPLOY_ENV^^}=${ACTION_FORM_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "ORGID_${DEPLOY_ENV^^}=${ORGID_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_FIRSTNAME_${DEPLOY_ENV^^}=${SALESFORCE_ID_FIRSTNAME_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_LASTNAME_${DEPLOY_ENV^^}=${SALESFORCE_ID_LASTNAME_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_TEL_${DEPLOY_ENV^^}=${SALESFORCE_ID_TEL_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_EMAIL_${DEPLOY_ENV^^}=${SALESFORCE_ID_EMAIL_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_TYPE_${DEPLOY_ENV^^}=${SALESFORCE_ID_TYPE_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_SUBTYPE_${DEPLOY_ENV^^}=${SALESFORCE_ID_SUBTYPE_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_CITY_${DEPLOY_ENV^^}=${SALESFORCE_ID_CITY_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_RGPD_${DEPLOY_ENV^^}=${SALESFORCE_ID_RGPD_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
     - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
     - mv /var/www/releases/tmp_release /var/www/releases/current_release
     - echo "✅ Déploiement terminé. Envoi de la notification à Google Chat..."
