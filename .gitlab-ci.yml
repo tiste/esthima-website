@@ -54,6 +54,7 @@ default:
     - echo "SALESFORCE_ID_SUBTYPE_${ENV_UPPER}=${SALESFORCE_ID_SUBTYPE_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "SALESFORCE_ID_CITY_${ENV_UPPER}=${SALESFORCE_ID_CITY_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "SALESFORCE_ID_RGPD_${ENV_UPPER}=${SALESFORCE_ID_RGPD_VALUE}" >> /var/www/releases/tmp_release/.env
+    - cp /var/www/releases/tmp_release/.env /var/www/html/.env
     - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
     - mv /var/www/releases/tmp_release /var/www/releases/current_release
     - echo "✅ Déploiement terminé. Envoi de la notification à Google Chat..."

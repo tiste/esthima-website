@@ -39,38 +39,38 @@ get_header();
                     <!-- Debugging elements -->
                     <div class="contact__text__names">
                         <div class="contact__text__name">
-                            <label for="<?php echo sf_var('salesforce_id_owner_lastname'); ?>"
+                            <label for="<?php echo sf_var('SALESFORCE_ID_OWNER_LASTNAME'); ?>"
                                    class="store__infos__contact__subtitle">Nom<span
                                         style="color:#D43B68;">*</span></label>
                             <input class="contact__text__input js-sf-nom"
-                                   id="<?php echo sf_var('salesforce_id_owner_lastname'); ?>" maxlength="225"
-                                   name="<?php echo sf_var('salesforce_id_owner_lastname'); ?>" size="20" type="text"
+                                   id="<?php echo sf_var('SALESFORCE_ID_OWNER_LASTNAME'); ?>" maxlength="225"
+                                   name="<?php echo sf_var('SALESFORCE_ID_OWNER_LASTNAME'); ?>" size="20" type="text"
                                    placeholder="Nom" required/>
                         </div>
                         <div class="contact__text__firstname">
-                            <label for="<?php echo sf_var('salesforce_id_owner_firstname'); ?>"
+                            <label for="<?php echo sf_var('SALESFORCE_ID_OWNER_FIRSTNAME'); ?>"
                                    class="store__infos__contact__subtitle">Prénom<span
                                         style="color:#D43B68;">*</span></label>
                             <input class="contact__text__input js-sf-prenom"
-                                   id="<?php echo sf_var('salesforce_id_owner_firstname'); ?>" maxlength="225"
-                                   name="<?php echo sf_var('salesforce_id_owner_firstname'); ?>" size="20" type="text"
+                                   id="<?php echo sf_var('SALESFORCE_ID_OWNER_FIRSTNAME'); ?>" maxlength="225"
+                                   name="<?php echo sf_var('SALESFORCE_ID_OWNER_FIRSTNAME'); ?>" size="20" type="text"
                                    placeholder="Prénom" required/>
                         </div>
                     </div>
 
-                    <label for="<?php echo sf_var('salesforce_id_email'); ?>" class="store__infos__contact__subtitle">Email<span
+                    <label for="<?php echo sf_var('SALESFORCE_ID_EMAIL'); ?>" class="store__infos__contact__subtitle">Email<span
                                 style="color:#D43B68;">*</span></label>
-                    <input class="contact__text__input js-sf-email" id="<?php echo sf_var('salesforce_id_email'); ?>"
-                           maxlength="80" name="<?php echo sf_var('salesforce_id_email'); ?>" size="20"
+                    <input class="contact__text__input js-sf-email" id="<?php echo sf_var('SALESFORCE_ID_EMAIL'); ?>"
+                           maxlength="80" name="<?php echo sf_var('SALESFORCE_ID_EMAIL'); ?>" size="20"
                            type="text" placeholder="Email" required/>
 
-                    <label for="<?php echo sf_var('salesforce_id_tel'); ?>" class="store__infos__contact__subtitle">Téléphone<span
+                    <label for="<?php echo sf_var('SALESFORCE_ID_TEL'); ?>" class="store__infos__contact__subtitle">Téléphone<span
                                 style="color:#D43B68;">*</span></label>
-                    <input class="contact__text__input js-sf-tel" id="<?php echo sf_var('salesforce_id_tel'); ?>"
-                           maxlength="40" name="<?php echo sf_var('salesforce_id_tel'); ?>" size="20" type="text"
+                    <input class="contact__text__input js-sf-tel" id="<?php echo sf_var('SALESFORCE_ID_TEL'); ?>"
+                           maxlength="40" name="<?php echo sf_var('SALESFORCE_ID_TEL'); ?>" size="20" type="text"
                            placeholder="Téléphone" required/>
 
-                    <label style="display:none;" for="<?php echo sf_var('salesforce_id_type'); ?>"
+                    <label style="display:none;" for="<?php echo sf_var('SALESFORCE_ID_TYPE'); ?>"
                            class="store__infos__contact__subtitle">Type<span
                                 style="color:#D43B68;">*</span></label>
                     <select style="display:none;" class="contact__text__input contact__form__select" id="type"
@@ -79,12 +79,12 @@ get_header();
                     </select>
 
                     <!-- Type de demande (fixe, donc classe custom pour le JS) -->
-                    <label for="<?php echo sf_var('salesforce_id_type'); ?>" class="store__infos__contact__subtitle">Type
+                    <label for="<?php echo sf_var('SALESFORCE_ID_TYPE'); ?>" class="store__infos__contact__subtitle">Type
                         de demande<span
                                 style="color:#D43B68;">*</span></label>
                     <select class="contact__text__input contact__form__select js-sf-typedemande"
-                            id="<?php echo sf_var('salesforce_id_type'); ?>"
-                            name="<?php echo sf_var('salesforce_id_type'); ?>"
+                            id="<?php echo sf_var('SALESFORCE_ID_TYPE'); ?>"
+                            name="<?php echo sf_var('SALESFORCE_ID_TYPE'); ?>"
                             title="Type de demande" required>
                         <option value="">Type de demande</option>
                         <option value="Commande de produits">Commande de produits</option>
@@ -96,12 +96,12 @@ get_header();
                     </select>
 
                     <!-- Sous-type (dynamique : ID côté Salesforce, JS s'en fout) -->
-                    <label for="<?php echo sf_var('salesforce_id_subtype'); ?>"
+                    <label for="<?php echo sf_var('SALESFORCE_ID_SUBTYPE'); ?>"
                            class="store__infos__contact__subtitle js-sf-subtype-label" id="subTypeLabel"
                            style="display: none;">Sous type<span style="color:#D43B68;">*</span></label>
                     <select class="contact__text__input contact__form__select js-sf-subtype"
-                            id="<?php echo sf_var('salesforce_id_subtype'); ?>"
-                            name="<?php echo sf_var('salesforce_id_subtype'); ?>" title="Sous type"
+                            id="<?php echo sf_var('SALESFORCE_ID_SUBTYPE'); ?>"
+                            name="<?php echo sf_var('SALESFORCE_ID_SUBTYPE'); ?>" title="Sous type"
                             style="display: none;" required>
                         <option value="">Sous type</option>
                     </select>
@@ -113,14 +113,14 @@ get_header();
                     <textarea class="contact__text__input contact__text__area js-sf-description" name="description"
                               rows="6" placeholder="Description" required></textarea>
 
-                    <input type="hidden" name="<?php echo sf_var('salesforce_id_city'); ?>"
+                    <input type="hidden" name="<?php echo sf_var('SALESFORCE_ID_CITY'); ?>"
                            value="Villeneuve d&#39;ascq">
 
                     <!-- RGPD / opt-in -->
                     <div class="store__infos__contact__subtitle"
                          style="margin: 1em 0;display: flex;align-items: flex-start;">
-                        <input id="<?php echo sf_var('salesforce_id_rgpd'); ?>"
-                               name="<?php echo sf_var('salesforce_id_rgpd'); ?>"
+                        <input id="<?php echo sf_var('SALESFORCE_ID_RGPD'); ?>"
+                               name="<?php echo sf_var('SALESFORCE_ID_RGPD'); ?>"
                                class="js-sf-rgpd"
                                type="checkbox"
                                value="1"
