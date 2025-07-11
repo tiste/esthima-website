@@ -278,7 +278,7 @@ get_header();
                                             }
 
                                             // Reset & fill options
-                                            subTypeSelect.innerHTML = '<option value = "" > Sous type < /option>';
+                                            subTypeSelect.innerHTML = '<option value=""> Sous type</option>';
                                             subTypes.forEach(function (subType) {
                                                 const option = document.createElement('option');
                                                 option.value = subType;
