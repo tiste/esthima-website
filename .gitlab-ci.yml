@@ -31,17 +31,28 @@ default:
     - cp -r ./src/wp-content/themes/esthima/* /var/www/releases/tmp_release
     # Génération du .env à la racine de la release courante
     - |
+    - ENV_UPPER=$(echo "$DEPLOY_ENV" | tr '[:lower:]' '[:upper:]')
+    - eval "ACTION_FORM_VALUE=\$ACTION_FORM_${ENV_UPPER}"
+    - eval "ORGID_VALUE=\$ORGID_${ENV_UPPER}"
+    - eval "SALESFORCE_ID_FIRSTNAME_VALUE=\$SALESFORCE_ID_FIRSTNAME_${ENV_UPPER}"
+    - eval "SALESFORCE_ID_LASTNAME_VALUE=\$SALESFORCE_ID_LASTNAME_${ENV_UPPER}"
+    - eval "SALESFORCE_ID_TEL_VALUE=\$SALESFORCE_ID_TEL_${ENV_UPPER}"
+    - eval "SALESFORCE_ID_EMAIL_VALUE=\$SALESFORCE_ID_EMAIL_${ENV_UPPER}"
+    - eval "SALESFORCE_ID_TYPE_VALUE=\$SALESFORCE_ID_TYPE_${ENV_UPPER}"
+    - eval "SALESFORCE_ID_SUBTYPE_VALUE=\$SALESFORCE_ID_SUBTYPE_${ENV_UPPER}"
+    - eval "SALESFORCE_ID_CITY_VALUE=\$SALESFORCE_ID_CITY_${ENV_UPPER}"
+    - eval "SALESFORCE_ID_RGPD_VALUE=\$SALESFORCE_ID_RGPD_${ENV_UPPER}"
     - echo "ENV=${DEPLOY_ENV}" > /var/www/releases/tmp_release/.env
-    - echo "ACTION_FORM_${DEPLOY_ENV^^}=${ACTION_FORM_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
-    - echo "ORGID_${DEPLOY_ENV^^}=${ORGID_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
-    - echo "SALESFORCE_ID_FIRSTNAME_${DEPLOY_ENV^^}=${SALESFORCE_ID_FIRSTNAME_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
-    - echo "SALESFORCE_ID_LASTNAME_${DEPLOY_ENV^^}=${SALESFORCE_ID_LASTNAME_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
-    - echo "SALESFORCE_ID_TEL_${DEPLOY_ENV^^}=${SALESFORCE_ID_TEL_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
-    - echo "SALESFORCE_ID_EMAIL_${DEPLOY_ENV^^}=${SALESFORCE_ID_EMAIL_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
-    - echo "SALESFORCE_ID_TYPE_${DEPLOY_ENV^^}=${SALESFORCE_ID_TYPE_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
-    - echo "SALESFORCE_ID_SUBTYPE_${DEPLOY_ENV^^}=${SALESFORCE_ID_SUBTYPE_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
-    - echo "SALESFORCE_ID_CITY_${DEPLOY_ENV^^}=${SALESFORCE_ID_CITY_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
-    - echo "SALESFORCE_ID_RGPD_${DEPLOY_ENV^^}=${SALESFORCE_ID_RGPD_${DEPLOY_ENV^^}}" >> /var/www/releases/tmp_release/.env
+    - echo "ACTION_FORM_${ENV_UPPER}=${ACTION_FORM_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "ORGID_${ENV_UPPER}=${ORGID_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_FIRSTNAME_${ENV_UPPER}=${SALESFORCE_ID_FIRSTNAME_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_LASTNAME_${ENV_UPPER}=${SALESFORCE_ID_LASTNAME_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_TEL_${ENV_UPPER}=${SALESFORCE_ID_TEL_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_EMAIL_${ENV_UPPER}=${SALESFORCE_ID_EMAIL_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_TYPE_${ENV_UPPER}=${SALESFORCE_ID_TYPE_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_SUBTYPE_${ENV_UPPER}=${SALESFORCE_ID_SUBTYPE_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_CITY_${ENV_UPPER}=${SALESFORCE_ID_CITY_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "SALESFORCE_ID_RGPD_${ENV_UPPER}=${SALESFORCE_ID_RGPD_VALUE}" >> /var/www/releases/tmp_release/.env
     - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
     - mv /var/www/releases/tmp_release /var/www/releases/current_release
     - echo "✅ Déploiement terminé. Envoi de la notification à Google Chat..."
