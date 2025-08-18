@@ -43,6 +43,20 @@
         <td style="border: 1px solid #ddd; padding: 8px; text-transform: capitalize;"><?php echo (isset($args['nom'])) ? $args['nom'] : ''; ?></td>
     </tr>
     <tr>
+        <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Prix de la crémation</th>
+        <td style="border: 1px solid #ddd; padding: 8px;">
+            <?php
+            $prix_base_cremation = 0;
+            if (isset($args['espece'])) {
+                if ($args['espece'] == 'chien') $prix_base_cremation = 105;
+                else if ($args['espece'] == 'chat') $prix_base_cremation = 105;
+                else if ($args['espece'] == 'nac') $prix_base_cremation = 75;
+            }
+            echo $prix_base_cremation . '€ TTC';
+            ?>
+        </td>
+    </tr>
+    <tr>
         <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Récupération des cendres</th>
         <td style="border: 1px solid #ddd; padding: 8px;">
             <?php echo (isset($args['recuperation_cendres']) && $args['recuperation_cendres']) ? 'Oui (' . $args['prix_cendres'] . '€ TTC)'  : 'Non'; ?>
