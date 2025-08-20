@@ -210,4 +210,11 @@ function sf_var($key_base): bool|array|string
     return $value;
 }
 
+add_filter('wpseo_canonical', function ($canonical) {
+    if (is_paged()) {
+        global $wp;
+        return home_url(add_query_arg([], $wp->request));
+    }
 
+    return $canonical;
+});
