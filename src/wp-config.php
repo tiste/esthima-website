@@ -96,6 +96,9 @@ define('WP_DEBUG_DISPLAY', false);
 
 /* Add any custom values between this line and the "stop editing" line. */
 
+define('API_URL', 'https://conventions-int.esthima.fr/api/fr');
+define('PAYMENT_URL', 'https://rop.esthima.fr/');
+
 
 /* That's all, stop editing! Happy publishing. */
 
