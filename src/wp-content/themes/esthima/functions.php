@@ -93,6 +93,7 @@ function theme_enqueue_scripts()
     wp_enqueue_script('trackingDataLayer', get_stylesheet_directory_uri() . '/js/trackingDataLayer.js', array('jquery'), filemtime(get_template_directory() . '/js/trackingDataLayer.js'), true);
     wp_enqueue_script('trackingEvents', get_stylesheet_directory_uri() . '/js/trackingEvents.js', array('jquery'), filemtime(get_template_directory() . '/js/trackingEvents.js'), true);
     wp_enqueue_script('tracking', get_stylesheet_directory_uri() . '/js/tracking.js', array('jquery', 'trackingDataLayer'), filemtime(get_template_directory() . '/js/tracking.js'), true);
+     wp_enqueue_script( 'animal-tracking', get_stylesheet_directory_uri() . '/src/js/animal-tracking.js', array('jquery', 'trackingDataLayer'), filemtime(  get_template_directory() . '/src/js/animal-tracking.js' ), true );
 
     $user_id = get_current_user_id();
     if ($user_id > 0) {
@@ -218,3 +219,39 @@ add_filter('wpseo_canonical', function ($canonical) {
 
     return $canonical;
 });
+
+// Authentification avec Salesforce
+add_filter('init', function () {
+    $username = 'esthima.website';
+    $password = 'qB1TxD1xXdTS271e';
+
+    $jwt_token = $_COOKIE['token'];
+    if ($jwt_token) {
+        return;
+    }
+
+    // Appel à ton API externe avec les identifiants
+    $response = wp_remote_post(API_URL . '/login', [
+        'body' => json_encode([
+            'username' => $username,
+            'password' => $password
+        ]),
+
+        'headers' => [
+            'Content-Type' => 'application/json'
+        ]
+    ]);
+
+    if (is_wp_error($response)) {
+        return;
+    }
+
+    $body = wp_remote_retrieve_body($response);
+    $data = json_decode($body, true);
+
+    if (!empty($data['token'])) {
+        // On stocke le token en cookie
+        setcookie('token', $data['token'], time() + 3600, '/');
+    }
+
+}, 30, 3);
