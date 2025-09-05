@@ -57,68 +57,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$payment_info['status'] = $data['paymentStatus'];
 				}
 
-				// On trouve d'abord la dernière tâche avec une date remplie
-				$last_filled_task_index = -1;
-				foreach ($data['tasks'] as $index => $task) {
-					if (is_array($task) && !empty($task['at'])) {
-						$last_filled_task_index = $index;
-					}
-				}
-
-				// Définir les 4 étapes standard
-				$standard_steps = [
+				// Définir les 4 étapes principales à afficher
+				$main_steps = [
 					'creation' => [
-						'name' => 'Création',
-						'description_pending' => "Votre animal [nom_animal] sera pris en charge par nos équipes très prochainement.",
-						'description_active' => "Votre animal [nom_animal] est actuellement pris en charge par nos équipes.",
-						'description_completed' => "Votre animal [nom_animal] a été pris en charge par nos équipes.",
-						'status' => 'pending',
-						'date' => '',
+						'name' => 'Demande de prise en charge funéraire créée',
+						'description_pending' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] sera pris en charge très prochainement par nos agents afin d'être transporté jusqu'au crématorium.",
+						'description_active' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] sera pris en charge très prochainement par nos agents afin d'être transporté jusqu'au crématorium.",
+						'description_completed' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] sera pris en charge très prochainement par nos agents afin d'être transporté jusqu'au crématorium.",
 						'order' => 0
 					],
 					'arrived' => [
-						'name' => 'Arrivée',
-						'description_pending' => "Votre animal [nom_animal] arrivera prochainement dans notre établissement.",
-						'description_active' => "Votre animal [nom_animal] vient d'arriver dans notre établissement.",
-						'description_completed' => "Votre animal [nom_animal] est arrivé dans notre établissement.",
-						'status' => 'pending',
-						'date' => '',
+						'name' => 'Arrivée au crématorium',
+						'description_pending' => "Votre animal [nom_animal] arrive prochainement sur notre crématorium animalier.",
+						'description_active' => "Votre animal [nom_animal] est bien arrivé sur notre crématorium animalier.",
+						'description_completed' => "Votre animal [nom_animal] est bien arrivé sur notre crématorium animalier.",
 						'order' => 1
 					],
-					'processing' => [
-						'name' => 'Traitement',
-						'description_pending' => "Votre animal [nom_animal] sera bientôt traité par nos équipes.",
-						'description_active' => "Votre animal [nom_animal] est actuellement en cours de traitement.",
-						'description_completed' => "Votre animal [nom_animal] a été traité par nos équipes.",
-						'status' => 'pending',
-						'date' => '',
+					'cremation_end' => [
+						'name' => 'Crémation réalisée',
+						'description_pending' => "La crémation de [nom_animal] aura lieu prochainement.",
+						'description_active' => "La crémation de votre animal [nom_animal] a eu lieu. Nos équipes apportent le plus grand soin à la préparation de ses cendres.",
+						'description_completed' => "La crémation de votre animal [nom_animal] a eu lieu. Nos équipes apportent le plus grand soin à la préparation de ses cendres.",
 						'order' => 2
 					],
-					'cremation' => [
-						'name' => 'Crémation',
-						'description_pending' => "La crémation de [nom_animal] aura lieu très prochainement.",
-						'description_active' => "La crémation de [nom_animal] est actuellement en cours.",
-						'description_completed' => "La crémation de [nom_animal] a été effectuée avec soin.",
-						'status' => 'pending',
-						'date' => '',
+					'urn_preparation' => [
+						'name' => 'Préparation de l\'urne',
+						'description_pending' => "Les cendres de [nom_animal] seront délicatement placées dans une urne de dispersion ou décorative.",
+						'description_active' => "Les cendres de votre animal ont été délicatement placées dans une urne de dispersion ou décorative. Votre vétérinaire vous informera dès que l'urne funéraire sera prête à être remise.",
+						'description_completed' => "Les cendres de votre animal ont été délicatement placées dans une urne de dispersion ou décorative. Votre vétérinaire vous informera dès que l'urne funéraire sera prête à être remise.",
 						'order' => 3
 					]
 				];
 
-				// Remplir les étapes avec les données de l'API si elles existent
-				foreach ($data['tasks'] as $index => $task) {
-					if (!is_array($task) || empty($task['name']) || !isset($standard_steps[$task['name']])) continue;
+				// Initialiser toutes les étapes principales avec le statut 'pending'
+				$standard_steps = [];
+				foreach ($main_steps as $step_key => $step_data) {
+					$standard_steps[$step_key] = $step_data;
+					$standard_steps[$step_key]['status'] = 'pending';
+					$standard_steps[$step_key]['date'] = '';
+				}
 
-					$step_key = $task['name'];
+				// Collecter les dates des étapes qui existent dans les données API
+				$task_dates = [];
+				foreach ($data['tasks'] as $task) {
+					if (!is_array($task) || empty($task['name']) || is_numeric($task['name'])) continue;
 
-					if (!empty($task['at'])) {
-						$standard_steps[$step_key]['date'] = date('d/m/Y', strtotime($task['at']));
-						$standard_steps[$step_key]['status'] = ($index === $last_filled_task_index) ? 'active' : 'completed';
+					$step_name = $task['name'];
 
-						// Si c'est la dernière tâche remplie, on la définit comme active
-						if ($index === $last_filled_task_index) {
-							$active_step = $standard_steps[$step_key]['order'];
-						}
+					// Si cette étape fait partie de nos 4 étapes principales
+					if (isset($standard_steps[$step_name]) && !empty($task['at'])) {
+						$standard_steps[$step_name]['date'] = date('d/m/Y', strtotime($task['at']));
+						$task_dates[$step_name] = strtotime($task['at']);
+					}
+				}
+
+				// Déterminer le statut de chaque étape
+				$step_keys = array_keys($standard_steps);
+				$last_completed_index = -1;
+
+				// Trouver la dernière étape avec une date
+				for ($i = count($step_keys) - 1; $i >= 0; $i--) {
+					$step_key = $step_keys[$i];
+					if (!empty($standard_steps[$step_key]['date'])) {
+						$last_completed_index = $i;
+						break;
+					}
+				}
+
+				// Assigner les statuts
+				foreach ($step_keys as $index => $step_key) {
+					if ($index < $last_completed_index) {
+						$standard_steps[$step_key]['status'] = 'completed';
+					} elseif ($index === $last_completed_index) {
+						$standard_steps[$step_key]['status'] = 'active';
+					} else {
+						$standard_steps[$step_key]['status'] = 'pending';
 					}
 				}
 
@@ -151,7 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					yoast_breadcrumb();
 				} ?>
 			</div>
-			<h1 class="page-header__title">Parcours funéraire</h1>
+			<h1 class="page-header__title">Mon espace</h1>
+			<?php if (!$isLoggedIn) { ?>
+				<p>Pour être informé du parcours funéraire de votre animal, veuillez renseigner les champs ci-dessous.</p>
+			<?php } ?>
 			<div class="tracking-container">
 					<?php if (!$isLoggedIn) { ?>
 						<!-- Formulaire de recherche -->
@@ -159,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<div class="form-group">
 								<label for="tracking_number">
 									Numéro de suivi (INC)
-									<span class="help-icon" data-tooltip="Où trouver mon INC ? Vous pouvez trouver votre INC en haut à droite de la convention de crémation de votre animal">?</span>
+									<span class="help-icon" data-tooltip="Où trouver le n° de suivi INC ? Vous pouvez retrouver le numéro de suivi (INC+8 chiffres) en haut à droite de la convention">?</span>
 								</label>
 								<input type="text" id="tracking_number" name="tracking_number" value="<?php echo esc_attr($tracking_id); ?>">
 							</div>
@@ -186,23 +202,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						<!-- Résultat de suivi - s'affiche après soumission du formulaire -->
 						<div class="tracking-result">
 							<?php
-							$offerTypeLabel = '';
-							if (isset($data['offerType'])) {
-								switch ($data['offerType']) {
-									case 'plural':
-										$offerTypeLabel = 'crémation plurielle';
-										break;
-									case 'reference':
-										$offerTypeLabel = 'crémation référence';
-										break;
-									case 'private':
-										$offerTypeLabel = 'service funéraire avec crémation privée';
-										break;
-									default:
-										$offerTypeLabel = $data['offerType'];
-								}
-							}
-
 							// Vérifier si toutes les dates sont vides
 							$has_any_date = false;
 							foreach ($tracking_steps as $step) {
@@ -215,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 							<?php if ($has_any_date) : ?>
 
-								<h3 class="tracking-title">Parcours funéraire <?php echo $offerTypeLabel ? '(' . esc_html($offerTypeLabel) . ')' : ''; ?> <?php echo esc_html($animal_name); ?></h3>
+								<h3 class="tracking-title">Parcours funéraire de <?php echo esc_html($animal_name); ?></h3>
 
 								<!-- Timeline avec les étapes et tooltips intégrés -->
 								<div class="tracking-timeline">
@@ -250,14 +249,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						</div>
 
 						<!-- Affichage détaillé de l'étape active -->
-						<?php if (!empty($tracking_steps) && isset($tracking_steps[$active_step])) : ?>
+						<?php
+						// Trouver l'étape active
+						$active_step_data = null;
+						foreach ($tracking_steps as $step) {
+							if ($step['status'] === 'active') {
+								$active_step_data = $step;
+								break;
+							}
+						}
+						?>
+						<?php if (!empty($active_step_data)) : ?>
 							<div class="tracking-step dynamic-content">
 								<h4 class="step-title">
-									Étape : <?php echo esc_html($tracking_steps[$active_step]['name']); ?>
-									<span class="step-date"><?php echo esc_html($tracking_steps[$active_step]['date']); ?></span>
+									Étape : <?php echo esc_html($active_step_data['name']); ?>
+									<span class="step-date"><?php echo esc_html($active_step_data['date']); ?></span>
 								</h4>
 								<p class="step-description">
-									<?php echo esc_html($tracking_steps[$active_step]['description']); ?>
+									<?php echo esc_html($active_step_data['description']); ?>
 								</p>
 							</div>
 						<?php endif; ?>
@@ -276,11 +285,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					<?php } ?>
 			</div>
 
-			<div class="tracking-container">
-				<img src="<?php echo get_template_directory_uri(); ?>/images/phone.svg" alt="Téléphone" class="tracking__contact-picto">
+			<div class="tracking-container tracking-container--contact">
+				<img src="<?php echo get_template_directory_uri(); ?>/images/envelope.svg" alt="Téléphone" class="tracking__contact-picto">
 				<p class="tracking__contact-text">Si besoin, veuillez
-					contacter notre service client via le formulaire en cliquant sur le bouton
-					ci-dessous ou en appelant via le numéro suivant : <a href="tel:0805622222" class="tracking__contact-phone">0 805 622 222</a></p>
+					contacter notre service client via le formulaire en cliquant sur le bouton ci-dessous</p>
 				<a href="<?php echo home_url(); ?>/contact" target="_blank" class="btn btn--arrow tracking__contact-btn">
 					Nous contacter
 				</a>
