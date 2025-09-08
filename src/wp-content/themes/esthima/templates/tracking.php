@@ -62,13 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					'creation' => [
 						'name' => 'Demande de prise en charge funéraire créée',
 						'description_pending' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] sera pris en charge très prochainement par nos agents afin d'être transporté jusqu'au crématorium.",
-						'description_active' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] sera pris en charge très prochainement par nos agents afin d'être transporté jusqu'au crématorium.",
-						'description_completed' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] sera pris en charge très prochainement par nos agents afin d'être transporté jusqu'au crématorium.",
+						'description_active' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] est actuellement pris en charge par nos agents afin d'être transporté jusqu'au crématorium.",
+						'description_completed' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] a été pris en charge par nos agents afin d'être transporté jusqu'au crématorium.",
 						'order' => 0
 					],
 					'arrived' => [
 						'name' => 'Arrivée au crématorium',
-						'description_pending' => "Votre animal [nom_animal] arrive prochainement sur notre crématorium animalier.",
+						'description_pending' => "Votre animal [nom_animal] arrivera prochainement sur notre crématorium animalier.",
 						'description_active' => "Votre animal [nom_animal] est bien arrivé sur notre crématorium animalier.",
 						'description_completed' => "Votre animal [nom_animal] est bien arrivé sur notre crématorium animalier.",
 						'order' => 1
