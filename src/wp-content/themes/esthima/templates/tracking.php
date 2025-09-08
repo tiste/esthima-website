@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						<?php if (!empty($active_step_data)) : ?>
 							<div class="tracking-step dynamic-content">
 								<h4 class="step-title">
-									Étape : <?php echo esc_html($active_step_data['name']); ?>
+									Étape <?php echo esc_html($active_step_data['order'] + 1); ?> : <?php echo esc_html($active_step_data['name']); ?>
 									<span class="step-date"><?php echo esc_html($active_step_data['date']); ?></span>
 								</h4>
 								<p class="step-description">

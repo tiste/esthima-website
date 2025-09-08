@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const trackingStep = document.querySelector(".tracking-step.dynamic-content");
 
 	if (timelinePoints) {
-		timelinePoints.forEach((point) => {
+		timelinePoints.forEach((point, index) => {
 			const stepIndex = point.getAttribute("data-step-index");
 			const tooltip = document.getElementById(`tooltip-${stepIndex}`);
 
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 					trackingStep.querySelector(
 						".step-title"
-					).innerHTML = `Étape : ${stepTitle} <span class="step-date">${
+					).innerHTML = `Étape ${index + 1} : ${stepTitle} <span class="step-date">${
 						stepDate ?? "à venir"
 					}</span>`;
 					trackingStep.querySelector(".step-description").textContent =
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 					trackingStep.querySelector(
 						".step-title"
-					).innerHTML = `Étape : ${stepTitle} <span class="step-date">${
+					).innerHTML = `Étape ${index + 1} : ${stepTitle} <span class="step-date">${
 						stepDate ?? "à venir"
 					}</span>`;
 					trackingStep.querySelector(".step-description").textContent =
