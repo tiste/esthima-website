@@ -383,6 +383,11 @@
 	font-size: 14px;
 }
 
+.form-group input::placeholder {
+	font-family: "Urbanist", sans-serif;
+    opacity: 0.7;
+}
+
 .form-group select {
 	font-family: "Urbanist", sans-serif;
 }

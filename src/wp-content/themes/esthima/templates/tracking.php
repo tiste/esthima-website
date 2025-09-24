@@ -61,30 +61,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$main_steps = [
 					'creation' => [
 						'name' => 'Demande de prise en charge funéraire créée',
-						'description_pending' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] sera pris en charge très prochainement par nos agents afin d'être transporté jusqu'au crématorium.",
-						'description_active' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] est actuellement pris en charge par nos agents afin d'être transporté jusqu'au crématorium.",
-						'description_completed' => "Nous avons bien reçu votre demande de crémation. Votre animal [nom_animal] a été pris en charge par nos agents afin d'être transporté jusqu'au crématorium.",
+						'description' => "Nous avons bien reçu votre demande de crémation. Votre animal sera pris en charge très prochainement par nos agents afin d'être transporté jusqu'au crématorium.",
 						'order' => 0
 					],
 					'arrived' => [
 						'name' => 'Arrivée au crématorium',
-						'description_pending' => "Votre animal [nom_animal] arrivera prochainement sur notre crématorium animalier.",
-						'description_active' => "Votre animal [nom_animal] est bien arrivé sur notre crématorium animalier.",
-						'description_completed' => "Votre animal [nom_animal] est bien arrivé sur notre crématorium animalier.",
+						'description' => "Votre animal est bien arrivé sur notre crématorium animalier.",
 						'order' => 1
 					],
 					'cremation_end' => [
 						'name' => 'Crémation réalisée',
-						'description_pending' => "La crémation de [nom_animal] aura lieu prochainement.",
-						'description_active' => "La crémation de votre animal [nom_animal] a eu lieu. Nos équipes apportent le plus grand soin à la préparation de ses cendres.",
-						'description_completed' => "La crémation de votre animal [nom_animal] a eu lieu. Nos équipes apportent le plus grand soin à la préparation de ses cendres.",
+						'description' => "La crémation de votre animal a eu lieu. Nos équipes apportent le plus grand soin à la préparation de ses cendres.",
 						'order' => 2
 					],
 					'urn_preparation' => [
 						'name' => 'Préparation de l\'urne',
-						'description_pending' => "Les cendres de [nom_animal] seront délicatement placées dans une urne de dispersion ou décorative.",
-						'description_active' => "Les cendres de votre animal ont été délicatement placées dans une urne de dispersion ou décorative. Votre vétérinaire vous informera dès que l'urne funéraire sera prête à être remise.",
-						'description_completed' => "Les cendres de votre animal ont été délicatement placées dans une urne de dispersion ou décorative. Votre vétérinaire vous informera dès que l'urne funéraire sera prête à être remise.",
+						'description' => "Les cendres de votre animal ont été délicatement placées dans une urne de dispersion ou décorative. Votre vétérinaire vous informera dès que l'urne funéraire sera prête à être remise.",
 						'order' => 3
 					]
 				];
@@ -135,10 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					}
 				}
 
-				// Sélectionner la description appropriée en fonction du statut et injecter le nom de l'animal
+				// Utiliser la description unique pour chaque étape
 				foreach ($standard_steps as $key => $step) {
-					$description_key = 'description_' . $step['status'];
-					$standard_steps[$key]['description'] = str_replace('[nom_animal]', $animal_name, $step[$description_key]);
+					// La description est déjà définie dans $main_steps, pas besoin de la sélectionner en fonction du statut
 				}
 
 				// Convertir le tableau associatif en tableau indexé pour l'affichage
@@ -177,11 +168,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									Numéro de suivi (INC)
 									<span class="help-icon" data-tooltip="Où trouver le n° de suivi INC ? Vous pouvez retrouver le numéro de suivi (INC+8 chiffres) en haut à droite de la convention">?</span>
 								</label>
-								<input type="text" id="tracking_number" name="tracking_number" value="<?php echo esc_attr($tracking_id); ?>">
+								<input type="text" id="tracking_number" name="tracking_number" placeholder="INC67656545" value="<?php echo esc_attr($tracking_id); ?>">
 							</div>
 							<div class="form-group">
 								<label for="animal_name">Nom de l'animal</label>
-								<input type="text" id="animal_name" name="animal_name" value="<?php echo esc_attr($animal_name); ?>">
+								<input type="text" id="animal_name" name="animal_name" placeholder="Nom de l'animal" value="<?php echo esc_attr($animal_name); ?>">
 							</div>
 							<div class="form-group">
 								<label for="animal_species">Espèce de l'animal</label>
@@ -233,9 +224,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 												<?php if (!empty($step['date'])) : ?>
 													<span class="step-date"><?php echo esc_html($step['date']); ?></span>
 												<?php endif; ?>
-											</div>
-											<div class="timeline-tooltip-body">
-												<?php echo esc_html($step['description']); ?>
 											</div>
 										</div>
 									<?php endforeach; ?>
