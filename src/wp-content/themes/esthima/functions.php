@@ -115,6 +115,21 @@ function theme_enqueue_scripts()
 add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 
 
+function enqueue_contact_tracking_script() {
+    // Vérifier si on est sur la page contact
+    if (is_page('contact') || is_page_template('page-contact.php')) {
+        wp_enqueue_script(
+            'contact-tracking',
+            get_template_directory_uri() . '/src/js/contact-tracking.js',
+            array(),
+            '1.0.0',
+            true
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'enqueue_contact_tracking_script');
+
+
 /* CONSTANTES */
 require get_template_directory() . '/inc/map_url.php';
 

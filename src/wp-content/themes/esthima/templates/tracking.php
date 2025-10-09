@@ -61,22 +61,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$main_steps = [
 					'creation' => [
 						'name' => 'Demande de prise en charge funéraire créée',
-						'description' => "Nous avons bien reçu votre demande de crémation. Votre animal sera pris en charge très prochainement par nos agents afin d'être transporté jusqu'au crématorium.",
+						'description' => "Nous avons bien enregistré votre demande de crémation. Si le corps de votre animal se trouve actuellement en clinique, il sera pris en charge très prochainement par nos agents.",
 						'order' => 0
 					],
 					'arrived' => [
 						'name' => 'Arrivée au crématorium',
-						'description' => "Votre animal est bien arrivé sur notre crématorium animalier.",
+						'description' => "Votre animal est bien arrivé sur notre crématorium animalier",
 						'order' => 1
 					],
 					'cremation_end' => [
 						'name' => 'Crémation réalisée',
-						'description' => "La crémation de votre animal a eu lieu. Nos équipes apportent le plus grand soin à la préparation de ses cendres.",
+						'description' => "La crémation de votre animal a eu lieu. En cas de restitution des cendres, nos équipes apportent le plus grand soin à la préparation de l’urne funéraire.",
 						'order' => 2
 					],
 					'urn_preparation' => [
-						'name' => 'Préparation de l\'urne',
-						'description' => "Les cendres de votre animal ont été délicatement placées dans une urne de dispersion ou décorative. Votre vétérinaire vous informera dès que l'urne funéraire sera prête à être remise.",
+						'name' => "Préparation de l'urne",
+						'description' => "Les cendres de votre animal ont été délicatement placées dans une urne de dispersion ou décorative. Selon le mode de restitution choisi, le crématorium ou la clinique vétérinaire vous informera dès que l’urne funéraire sera disponible.",
 						'order' => 3
 					]
 				];
