@@ -62,7 +62,7 @@
     <tr>
         <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Cérémonie d'adieu</th>
         <td style="border: 1px solid #ddd; padding: 8px;">
-            <?php echo (isset($args['ceremonie_adieu'])) ? $args['ceremonie_adieu'] . ' (' . $args['prix_ceremonie'] . '€ TTC)' : ''; ?>
+            <?php echo (isset($args['ceremonie_adieu']) && $args['ceremonie_adieu'] === "Oui") ? $args['ceremonie_adieu'] . ' (' . $args['prix_ceremonie'] . '€ TTC)' : 'Non'; ?>
         </td>
     </tr>
     <tr>
