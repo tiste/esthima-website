@@ -43,7 +43,9 @@
         <td style="border: 1px solid #ddd; padding: 8px; text-transform: capitalize;"><?php echo (isset($args['nom'])) ? $args['nom'] : ''; ?></td>
     </tr>
     <tr>
-        <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Prix de la crémation</th>
+        <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">
+            <?php echo (isset($args['recuperation_cendres']) && $args['recuperation_cendres']) ? 'Prix de la crémation avec récupération des cendres' : 'Prix de la crémation sans récupération des cendres'; ?>
+        </th>
         <td style="border: 1px solid #ddd; padding: 8px;">
             <?php
             $prix_base_cremation = 0;
@@ -52,20 +54,15 @@
                 else if ($args['espece'] == 'chat') $prix_base_cremation = 105;
                 else if ($args['espece'] == 'nac') $prix_base_cremation = 75;
             }
-            echo $prix_base_cremation . '€ TTC';
+            $prix_total_cremation = isset($args['recuperation_cendres']) && $args['recuperation_cendres'] ? ($prix_base_cremation + $args['prix_cendres']) : $prix_base_cremation;
+            echo $prix_total_cremation . '€ TTC';
             ?>
-        </td>
-    </tr>
-    <tr>
-        <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Récupération des cendres</th>
-        <td style="border: 1px solid #ddd; padding: 8px;">
-            <?php echo (isset($args['recuperation_cendres']) && $args['recuperation_cendres']) ? 'Oui (' . $args['prix_cendres'] . '€ TTC)'  : 'Non'; ?>
         </td>
     </tr>
     <tr>
         <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Cérémonie d'adieu</th>
         <td style="border: 1px solid #ddd; padding: 8px;">
-            <?php echo (isset($args['ceremonie_adieu'])) ? $args['ceremonie_adieu'] . ' (' . $args['prix_ceremonie'] . '€ TTC)' : ''; ?>
+            <?php echo (isset($args['ceremonie_adieu']) && $args['ceremonie_adieu'] === "Oui") ? $args['ceremonie_adieu'] . ' (' . $args['prix_ceremonie'] . '€ TTC)' : 'Non'; ?>
         </td>
     </tr>
     <tr>
