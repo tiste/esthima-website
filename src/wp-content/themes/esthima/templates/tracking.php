@@ -258,18 +258,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 								</p>
 							</div>
 						<?php endif; ?>
-
-						<!-- Affichage du bouton de paiement -->
-						<?php if ($payment_info['method'] === 'credit_card' && $payment_info['status'] === 'in_progress') : ?>
-							<div class="payment-section">
-								<p class="payment-text">Si le
-									règlement n’a pas encore été réalisé, nous vous invitons à le faire
-									directement depuis cette page en cliquant sur le bouton ci-dessous</p>
-								<a href="<?php echo PAYMENT_URL . $tracking_id; ?>" target="_blank" class="btn btn--arrow">
-									Payer ici
-								</a>
-							</div>
-						<?php endif; ?>
 					<?php } ?>
 			</div>
 
