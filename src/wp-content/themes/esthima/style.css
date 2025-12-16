@@ -7162,6 +7162,7 @@ blockquote + blockquote {
 .woocommerce-account .woocommerce-MyAccount-navigation {
   background: #FFFFFF;
   border-radius: 0px 0px 10px 10px;
+  margin-bottom: 2%;
 }
 .woocommerce-account .woocommerce-MyAccount-navigation ul {
   margin: 0 !important;

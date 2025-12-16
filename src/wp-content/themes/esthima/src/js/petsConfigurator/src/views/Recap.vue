@@ -15,8 +15,8 @@
 				<ul class="petsconfigurator__question__list">
 					<li>Espèce : <span>{{ store.state.petsConfigurator.typeAnimal}}</span></li>
 					<li>Nom : <span>{{ store.state.petsConfigurator.nameAnimal}}</span></li>
-					<li v-if="store.state.petsConfigurator.cendre">Récupération des cendres : <span>Oui <small v-html="yesCendre"></small></span></li>
-					<li v-else>Récupération des cendres : <span>Non</span></li>
+					<li v-if="store.state.petsConfigurator.cendre">Prix de la crémation avec récupération des cendres : <span>{{ yesCendre }}</span></li>
+					<li v-else>Prix de la crémation sans récupération des cendres : <span>{{ noCendre }}</span></li>
 					<li v-if="store.state.petsConfigurator.ceremonieAdieu">Cérémonie d'adieu : <span>Oui <small v-html="yesCeremonie"></small></span></li>
 					<li v-else>Cérémonie d'adieu : <span>Non</span></li>
 					<li v-if="store.state.petsConfigurator.urne">Urne : <span>{{urneDetails}} <small v-html="detailYesUrnes"></small></span></li>
@@ -149,7 +149,13 @@ export default {
 
 	const yesCendre = computed({
 		get () {
-			return `(+${store.state.petsConfigurator.cremations[cremationChoice.value].description.cendres[store.state.petsConfigurator.typeAnimal]}€)`
+			return `${store.state.petsConfigurator.cremations.reference[store.state.petsConfigurator.typeAnimal]}€`
+		}
+	})
+
+	const noCendre = computed({
+		get () {
+			return `${store.state.petsConfigurator.cremations.plurielle[store.state.petsConfigurator.typeAnimal]}€`
 		}
 	})
 
