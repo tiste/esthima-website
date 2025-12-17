@@ -17,28 +17,28 @@ const getDefaultState = () => {
 		popupOpen: false,
 		productsUrnes: [],
 		cremationChoice: '',
-		prixEmpreinte: 32,
+		prixEmpreinte: 34,
 		prixTouffe: 5.50,
 		cremations: {
 			"plurielle": {
-				"nac": "75",
-				"chien": "105",
-				"chat": "105",
+				"nac": "80",
+				"chien": "110",
+				"chat": "110",
 				"description": {
 					"cremation": {
-						"nac": "75",
-						"chien": "105",
-						"chat": "105",
+						"nac": "80",
+						"chien": "110",
+						"chat": "110",
 					},
 					"cendres": {
-						"nac": "85",
-						"chien": "140",
-						"chat": "140",
+						"nac": "87",
+						"chien": "147",
+						"chat": "147",
 					},
 					"ceremonie": {
-						"nac": "95",
-						"chien": "95",
-						"chat": "95",
+						"nac": "100",
+						"chien": "100",
+						"chat": "100",
 					}
 				}
 			},
@@ -53,14 +53,14 @@ const getDefaultState = () => {
 						"chat": "245",
 					},
 					"cendres": {
-						"nac": "85",
-						"chien": "140",
-						"chat": "140",
+						"nac": "87",
+						"chien": "147",
+						"chat": "147",
 					},
 					"ceremonie": {
-						"nac": "95",
-						"chien": "95",
-						"chat": "95",
+						"nac": "100",
+						"chien": "100",
+						"chat": "100",
 					}
 				}
 			},
@@ -75,14 +75,14 @@ const getDefaultState = () => {
 						"chat": "340",
 					},
 					"cendres": {
-						"nac": "85",
-						"chien": "140",
-						"chat": "140",
+						"nac": "87",
+						"chien": "147",
+						"chat": "147",
 					},
 					"ceremonie": {
-						"nac": "95",
-						"chien": "95",
-						"chat": "95",
+						"nac": "100",
+						"chien": "100",
+						"chat": "100",
 					}
 				}
 			}
