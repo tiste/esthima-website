@@ -43,14 +43,14 @@ const getDefaultState = () => {
 				}
 			},
 			"reference": {
-				"nac": "160",
-				"chien": "245",
-				"chat": "245",
+				"nac": "167",
+				"chien": "257",
+				"chat": "257",
 				"description": {
 					"cremation": {
-						"nac": "160",
-						"chien": "245",
-						"chat": "245",
+						"nac": "167",
+						"chien": "257",
+						"chat": "257",
 					},
 					"cendres": {
 						"nac": "87",
@@ -65,14 +65,14 @@ const getDefaultState = () => {
 				}
 			},
 			"privee": {
-				"nac": "255",
-				"chien": "340",
-				"chat": "340",
+				"nac": "267",
+				"chien": "357",
+				"chat": "357",
 				"description": {
 					"cremation": {
-						"nac": "255",
-						"chien": "340",
-						"chat": "340",
+						"nac": "267",
+						"chien": "357",
+						"chat": "357",
 					},
 					"cendres": {
 						"nac": "87",
