@@ -50,9 +50,9 @@
             <?php
             $prix_base_cremation = 0;
             if (isset($args['espece'])) {
-                if ($args['espece'] == 'chien') $prix_base_cremation = 105;
-                else if ($args['espece'] == 'chat') $prix_base_cremation = 105;
-                else if ($args['espece'] == 'nac') $prix_base_cremation = 75;
+                if ($args['espece'] == 'chien') $prix_base_cremation = 110;
+                else if ($args['espece'] == 'chat') $prix_base_cremation = 110;
+                else if ($args['espece'] == 'nac') $prix_base_cremation = 80;
             }
             $prix_total_cremation = isset($args['recuperation_cendres']) && $args['recuperation_cendres'] ? ($prix_base_cremation + $args['prix_cendres']) : $prix_base_cremation;
             echo $prix_total_cremation . '€ TTC';

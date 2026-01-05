@@ -17,72 +17,72 @@ const getDefaultState = () => {
 		popupOpen: false,
 		productsUrnes: [],
 		cremationChoice: '',
-		prixEmpreinte: 32,
+		prixEmpreinte: 34,
 		prixTouffe: 5.50,
 		cremations: {
 			"plurielle": {
-				"nac": "75",
-				"chien": "105",
-				"chat": "105",
+				"nac": "80",
+				"chien": "110",
+				"chat": "110",
 				"description": {
 					"cremation": {
-						"nac": "75",
-						"chien": "105",
-						"chat": "105",
+						"nac": "80",
+						"chien": "110",
+						"chat": "110",
 					},
 					"cendres": {
-						"nac": "85",
-						"chien": "140",
-						"chat": "140",
+						"nac": "87",
+						"chien": "147",
+						"chat": "147",
 					},
 					"ceremonie": {
-						"nac": "95",
-						"chien": "95",
-						"chat": "95",
+						"nac": "100",
+						"chien": "100",
+						"chat": "100",
 					}
 				}
 			},
 			"reference": {
-				"nac": "160",
-				"chien": "245",
-				"chat": "245",
+				"nac": "167",
+				"chien": "257",
+				"chat": "257",
 				"description": {
 					"cremation": {
-						"nac": "160",
-						"chien": "245",
-						"chat": "245",
+						"nac": "167",
+						"chien": "257",
+						"chat": "257",
 					},
 					"cendres": {
-						"nac": "85",
-						"chien": "140",
-						"chat": "140",
+						"nac": "87",
+						"chien": "147",
+						"chat": "147",
 					},
 					"ceremonie": {
-						"nac": "95",
-						"chien": "95",
-						"chat": "95",
+						"nac": "100",
+						"chien": "100",
+						"chat": "100",
 					}
 				}
 			},
 			"privee": {
-				"nac": "255",
-				"chien": "340",
-				"chat": "340",
+				"nac": "267",
+				"chien": "357",
+				"chat": "357",
 				"description": {
 					"cremation": {
-						"nac": "255",
-						"chien": "340",
-						"chat": "340",
+						"nac": "267",
+						"chien": "357",
+						"chat": "357",
 					},
 					"cendres": {
-						"nac": "85",
-						"chien": "140",
-						"chat": "140",
+						"nac": "87",
+						"chien": "147",
+						"chat": "147",
 					},
 					"ceremonie": {
-						"nac": "95",
-						"chien": "95",
-						"chat": "95",
+						"nac": "100",
+						"chien": "100",
+						"chat": "100",
 					}
 				}
 			}
