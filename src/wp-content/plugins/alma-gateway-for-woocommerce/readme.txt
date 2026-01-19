@@ -3,9 +3,10 @@
 Contributors: almapayments, olance, francois-gomis, clairealma
 Tags: payments, BNPL, woocommerce, ecommerce, e-commerce, payment gateway, sell, woo commerce, alma, monthly payments, split payments
 Requires at least: 4.4
-Tested up to: 6.3
+Tested up to Wordpress: 6.8.2
+Tested up to Woocommerce: 10.2.1
 Requires PHP: 5.6
-Stable tag: 5.1.3
+Stable tag: 5.16.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -50,6 +51,273 @@ Once everything is properly set up, go ahead and switch to "Live" mode!
 You can find more documentation on our [website](https://docs.almapay.com/docs/woocommerce)
 
 == Changelog ==
+
+## v5.16.1 - 2026-01-13
+
+### 🐛 Bug Fixes
+
+Fixed broken access control when cancelling an order (wc_ajax API)
+
+## v5.16.0 - 2025-09-30
+
+### Changes
+
+### 🚀 New Features
+
+- feat: add payment_methods_list in cms_features (#422)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @Francois-Gomis, @joyet-simon and [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review)
+
+## v5.15.0 - 2025-09-15
+
+### Changes
+
+### 🚀 New Features
+
+- fix: remove overwrite widget css from our module (#417)
+
+### 🐛 Bug Fixes
+
+- fix: global css in our installement block element (#415)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @alma-renovate-bot[bot], @gdraynz, @hyahiaoui, @joyet-simon, @remi-zuffinetti, [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review) and [alma-renovate-bot[bot]](https://github.com/apps/alma-renovate-bot)
+
+## v5.14.2 - 2025-08-28
+
+### Changes
+
+### 🐛 Bug Fixes
+
+- fix: change the variation update event on product page (#406)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @Francois-Gomis, @alma-renovate-bot[bot], @joyet-simon, @remi-zuffinetti, @webaaz, [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review) and [alma-renovate-bot[bot]](https://github.com/apps/alma-renovate-bot)
+
+## v5.14.1 - 2025-07-31
+
+### Changes
+
+- Backport 5.14.0 (#397)
+
+### 🐛 Bug Fixes
+
+- Fix: Update translations (#398)
+
+#### Contributors
+
+@simon-previdente and @webaaz
+
+## v5.14.0 - 2025-07-30
+
+### Changes
+
+### 🚀 New Features
+
+- feat: option to remove order on close in page pop-up (#383)
+- feat: update for wc 9.9.x/10.0.x compatibility (#382)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @alma-renovate-bot[bot], @gdraynz, @remi-zuffinetti, @webaaz, [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review) and [alma-renovate-bot[bot]](https://github.com/apps/alma-renovate-bot)
+
+## v5.13.1 - 2025-04-24
+
+### Changes
+
+### 🐛 Bug Fixes
+
+- fix: in-page loading in certain event loading cases (#361)
+- fix: error on change order status (#350)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @webaaz and [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review)
+
+## v5.13.0 - 2025-04-16
+
+### Changes
+
+### 🚀 New Features
+
+- Merchant business event (#345)
+- Set in page settings to yes by default (#342)
+
+### 🐛 Bug Fixes
+
+- Global style css in dashboard (#343)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @joyet-simon, @webaaz and [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review)
+
+## v5.12.0 - 2025-03-14
+
+### Changes
+
+### 🐛 Bug Fixes
+
+- Fix: event listener blocks checkout (#337)
+- Fix: get_terms function to be compatible with Wordpress 4.4 (#333)
+- Fix: fix and improve linter on woocommerce (#331)
+- Fix: checkout blocks get cart total price (#329)
+- Fix: pre commit (#325)
+
+#### Contributors
+
+@joyet-simon, @webaaz and [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review)
+
+## v5.11.0 - 2025-02-18
+
+### Changes
+
+### 🚀 New Features
+
+- Add payment method position to the gather cms data (#326)
+
+### 🐛 Bug Fixes
+
+- Fix typeError for display in page in gather cms data (#326)
+
+#### Contributors
+
+@joyet-simon and [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review)
+
+## v5.10.0 - 2025-02-11
+
+### Changes
+
+### 🚀 New Features
+
+- Use cdn for alma widget and update to version 4.x.x (#322)
+
+#### Contributors
+
+@joyet-simon and [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review)
+
+## v5.9.0 - 2025-02-06
+
+### 🚀 New Features
+
+- Fix compatibility with Woocommerce Blocks (#310)
+- Add auto_update in specific_features for gather cms data (#312)
+- Fix error when no file to add or remove on release (#305)
+- Cancel order before delete (#308)
+- Change check nonce log lvl (#307)
+- Fix has pay now method (#306)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @Francois-Gomis, @carine-bonnafous, @joyet-simon, @webaaz and [alma-create-pr-with-team-review[bot]](https://github.com/apps/alma-create-pr-with-team-review)
+
+## v5.8.1 - 2024-12-16
+
+### 🐛 Bug Fixes
+
+Hotfix: compatibility for Woocommerce version under 6.1.0
+
+## v5.8.0 - 2024-12-12
+
+### Changes
+
+- Feature/ecom 2261 translations loaded to early in woocommerce plugin (#298)
+- Add editor config and sonarcloud config (#292)
+
+### 🚀 New Features
+
+- Implement add order status to order change (#299)
+- Add gather cms data (#297)
+- Feature/ecom 2212 sonarcloud configuration (#296)
+- Update widget version to 3.4.0 (#295)
+- Add getter for product variable config (#290)
+- fix: Change wording for In-Page configuration (#288)
+
+### 🐛 Bug Fixes
+
+- fix: in page unmount (#289)
+- fix: avoid blocking in-page if a notice is returned (#287)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @CamilleFljt, @Francois-Gomis, @alma-create-pr-with-team-review, @gdraynz, @joyet-simon, @webaaz and Martin Supiot
+
+## v5.7.0 - 2024-10-07
+
+### Changes
+
+### 🚀 New Features
+
+- Integrate credit on in page (#282)
+- Add hmac verification on ipn (#281)
+
+#### Contributors
+
+@Francois-Gomis, @alma-create-pr-with-team-review and @joyet-simon
+
+## v5.6.0 - 2024-09-16
+
+### Changes
+
+### 🚀 New Features
+
+- feat: compatibility woocommerce 9.2.3 wordpress 6.6.1 (#278)
+
+### 🐛 Bug Fixes
+
+- fix: force picture_url to string (#277)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @Francois-Gomis, @alma-create-pr-with-team-review and @joyet-simon
+
+## v5.5.0 - 2024-07-29
+
+### Changes
+
+### 🚀 New Features
+
+- feature: Compatibility woocommerce 9.0.2 wordpress 6.5.5 (#269)
+- feature: Gather cart data from pnx and deferred payments (#265)
+- feature: Compatibility woocommerce 8.9.2 (#260)
+- feature: Compatibility woocommerce 8.8.2 wordpress 6.5 (#248)
+
+#### Contributors
+
+@Benjamin-Freoua-Alma, @ClaireAlma, @FranceBe, @carine-bonnafous, @gdraynz, @joyet-simon and @remic-alma
+
+v5.4.0
+------
+* feature: Compatibility Woocommerce Blocks
+* feature: compatibility Woocommerce 8.7.0
+* feature: Compatibility WordPress 6.4.2
+
+v5.3.0
+------
+* feature: In page with Deferred payments is available
+* feature: compatibility Woocommerce 8.2.2
+* feature: Compatibility WordPress 6.4.1
+* feature: add psr4
+* fix: deactivate rendering of Alma payment methods on order pay checkout page
+* fix: delete abandoned orders created by In Page
+* fix: default plan selection
+* fix: add flag security for SOC
+
+= 5.2.1 =
+* fix: shortcode widget for XSS injection
+
+= 5.2.0 =
+* feat: Update translations
+* fix: widget XSS
+* feature : HPOS compatibility
+
+= 5.1.4 =
+* feat: Compatibility Woocommerce 8.2.1
+* feat: change fee wording in the BO
+* fix: In page installment plans
 
 = 5.1.3 =
 * fix: update issues from version 1.* and 2.*

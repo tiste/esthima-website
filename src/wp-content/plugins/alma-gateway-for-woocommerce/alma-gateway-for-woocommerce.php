@@ -3,7 +3,7 @@
  * Plugin Name: Alma - Pay in installments or later for WooCommerce
  * Plugin URI: https://docs.almapay.com/docs/woocommerce
  * Description: Install Alma and boost your sales! It's simple and guaranteed, your cash flow is secured. 0 commitment, 0 subscription, 0 risk.
- * Version: 5.1.3
+ * Version: 5.16.1
  * Author: Alma
  * Author URI: https://almapay.com
  * License: GNU General Public License v3.0
@@ -12,12 +12,12 @@
  * Domain Path: /languages
  * Requires at least: 4.4
  * Requires PHP: 5.6
- * Tested up to: 6.3.2
+ * Tested up to: 6.8.2
  *
  * @package Alma_Gateway_For_Woocommerce
  *
- * WC requires at least: 2.6
- * WC tested up to: 8.2.0
+ * WC requires at least: 3.0.0
+ * WC tested up to: 10.2.1
  *
  * Alma Payment Gateway for WooCommerce is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,13 +32,14 @@
  * You should have received a copy of the GNU General Public License
  * along with Alma Payment Gateway for WooCommerce. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
  */
+use Alma\Woocommerce\Blocks\AlmaWidgetBlock;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Not allowed' ); // Exit if accessed directly.
 }
 
 if ( ! defined( 'ALMA_VERSION' ) ) {
-	define( 'ALMA_VERSION', '5.1.3' );
+	define( 'ALMA_VERSION', '5.16.1' );
 }
 if ( ! defined( 'ALMA_PLUGIN_FILE' ) ) {
 	define( 'ALMA_PLUGIN_FILE', __FILE__ );
@@ -58,34 +59,74 @@ if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins',
 
 require_once ALMA_PLUGIN_PATH . 'vendor/autoload.php';
 
-// Load the autoloader from its own file.
-require_once plugin_dir_path( __FILE__ ) . 'autoload.php';
-
-
 /**
- * Return instance of Alma_Plugin.
+ * Return instance of AlmaPlugin.
  *
- * @return  Alma\Woocommerce\Alma_Plugin
+ * @return  Alma\Woocommerce\AlmaPlugin
  * @noinspection PhpIncludeInspection
  */
+
+
 function alma_plugin() {
+
+	load_plugin_textdomain(
+		'alma-gateway-for-woocommerce',
+		false,
+		plugin_basename( ALMA_PLUGIN_PATH ) . '/languages'
+	);
+
 	static $plugin;
 
 	if ( ! isset( $plugin ) ) {
-
-		$plugin = Alma\Woocommerce\Alma_Plugin::get_instance();
-
+		$plugin = Alma\Woocommerce\AlmaPlugin::get_instance();
 	}
 
 	return $plugin;
-
 }
 
-/**
- * Add the plugin.
- */
+/** Add the plugin. */
 add_action( 'plugins_loaded', 'alma_plugin' );
 
+/**
+ * Init custom_order_tables if available in Woocommerce version.
+ */
+add_action(
+	'before_woocommerce_init',
+	function () {
+		if ( class_exists( Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			/**
+			 * Skip WC class check.
+			 *
+			 * @psalm-suppress UndefinedClass
+			 */
+			/** @noinspection PhpFullyQualifiedNameUsageInspection */
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );// phpcs:ignore
+			/** @noinspection PhpFullyQualifiedNameUsageInspection */
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );// phpcs:ignore
+		}
+	}
+);
 
+add_action(
+	'init',
+	function () {
+		register_block_type_from_metadata( __DIR__ . '/build/alma-widget-block' );
+		$alma_business_event_service = new \Alma\Woocommerce\Services\AlmaBusinessEventService();
+		$alma_business_event_service->add_hooks();
+	}
+);
 
-
+/**
+ * Register the Alma widget block.
+ */
+add_action(
+	'woocommerce_blocks_loaded',
+	function () {
+		add_action(
+			'woocommerce_blocks_cart_block_registration',
+			function ( $integration_registry ) {
+				$integration_registry->register( new AlmaWidgetBlock() );
+			}
+		);
+	}
+);
