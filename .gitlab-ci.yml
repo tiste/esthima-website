@@ -23,8 +23,6 @@ default:
     - theme_path="/var/www/html/wp-content/themes/esthima/"
     - cd ./src/wp-content/themes/esthima/ && npm i && npm run prod
     - rm -rf ./node_modules
-    - rm -rf /var/www/html/wp-content/plugins/alma-gateway-for-woocommerce
-    - cp -r $root/src/wp-content/plugins/alma-gateway-for-woocommerce /var/www/html/wp-content/plugins/
     - cd $root
     - currentRelease=$(date +%s)
     - rm -rf /var/www/releases/tmp_release
