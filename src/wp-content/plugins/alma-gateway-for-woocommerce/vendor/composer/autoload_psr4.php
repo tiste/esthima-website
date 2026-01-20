@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'Alma\\Woocommerce\\' => array($baseDir . '/includes'),
     'Alma\\API\\' => array($vendorDir . '/alma/alma-php-client/src'),
 );

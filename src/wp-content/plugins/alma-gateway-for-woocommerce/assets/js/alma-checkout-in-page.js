@@ -9,7 +9,7 @@
  */
 
 (function ($) {
-	var regex  = /^general_([0-9]{1,2})_[0-9]{1,2}_[0-9]{1,2}/g;
+	var regex  = /^general_([0-9]{1,2})_([0-9]{1,2})_([0-9]{1,2})/g;
 	var inPage = undefined;
 
 	$( 'body' ).on(
@@ -27,7 +27,7 @@
 		function (event) {
 			if (isAlmaInPageChecked()) {
 				feePlanChecked = $( "input[type='radio'][name='alma_fee_plan_in_page']:checked" ).val();
-				render_installments( feePlanChecked );
+				render_installments( feePlanChecked , $( "input[type='radio'][name='alma_fee_plan_in_page']:checked" ) );
 			}
 		}
 	);
@@ -36,11 +36,11 @@
 		'click',
 		'.alma_fee_plan_in_page',
 		function (event) {
-			render_installments( $( this ).prop( 'value' ) );
+			render_installments( $( this ).prop( 'value' ) ,  $( this ) );
 		}
 	);
 
-	function render_installments(value)
+	function render_installments(value, checkbox)
 	{
 		payment_method = $( '.woocommerce-checkout input[name="payment_method"]:checked' );
 		payment_value  = payment_method.attr( 'value' );
@@ -50,24 +50,46 @@
 		installment = null;
 
 		for (const match of matches) {
-			installment = match[1];
+			installment    = match[1];
+			deferredDays   = match[2];
+			deferredMonths = match[3];
 		}
 
 		if (null !== installment) {
 			if (
 				inPage !== undefined
-				&& document.getElementById( 'alma-embedded-iframe' ) !== null
+				&& document.querySelector( '[id^=alma-embedded-iframe]' ) !== null
 			) {
 				inPage.unmount();
 			}
 
+			thousandSeparator = checkbox.data( 'settings-thousand-separator' )
+			decimalSeparator  = checkbox.data( 'settings-decimal-separator' );
+			nbDecimals        = checkbox.data( 'settings-nb-decimals' );
+
 			amount = document.getElementsByClassName( "order-total" )["0"].getElementsByClassName( "woocommerce-Price-amount amount" )["0"].innerText.replace( /[^0-9]/g, '' );
+
+			var amount = amount.replace( ' ', '' )
+				.replace( thousandSeparator, '' )
+				.replace( decimalSeparator, ',' )
+				.replace( /[^\d.]/g, '' )
+
+			switch (nbDecimals) {
+				case 0:
+					amount = amount * 100;
+					break;
+				case 1:
+					amount = amount * 10;
+					break;
+			}
 
 			inPage = Alma.InPage.initialize(
 				{
 					merchantId: alma_iframe_params.merchant_id,
 					amountInCents: amount,
 					installmentsCount: installment,
+					deferredDays: deferredDays,
+					deferredMonths: deferredMonths,
 					selector: "#alma-inpage-" + payment_value,
 					environment: alma_iframe_params.environment,
 					locale: alma_iframe_params.locale,
@@ -77,7 +99,10 @@
 	}
 
 	function isAlmaInPageChecked() {
-		return $( '#payment_method_alma_in_page' ).is( ':checked' ) || $( '#payment_method_alma_in_page_pay_now' ).is( ':checked' );
+		return $( '#payment_method_alma_in_page' ).is( ':checked' )
+			|| $( '#payment_method_alma_in_page_pay_now' ).is( ':checked' )
+			|| $( '#payment_method_alma_in_page_pay_later' ).is( ':checked' )
+			|| $( '#payment_method_alma_in_page_pnx_plus_4' ).is( ':checked' );
 	}
 
 	$( 'body' ).on(

@@ -8,12 +8,18 @@
          convertNoticesToExceptions  = "true"
          convertWarningsToExceptions = "true"
          processIsolation            = "false"
-         stopOnFailure               = "true">
+         stopOnFailure               = "true"
+         beStrictAboutTestsThatDoNotTestAnything="false"
+    >
 
     <testsuites>
-        <testsuite name="Alma PHP Client Unit Test Suite Legacy">
-            <directory>tests/Unit/Legacy</directory>
+        <testsuite name="Alma PHP Client Unit Test Suite">
+            <directory>tests/Unit</directory>
         </testsuite>
     </testsuites>
-
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src/*</directory>
+        </whitelist>
+    </filter>
 </phpunit>

@@ -5,6 +5,9 @@
 .phpunit.result.cache
 .idea
 dist/
-composer.lock
 phpunit.xml
 .phpunit.cache/
+composer.lock
+.DS_Store
+.env
+.coverage/

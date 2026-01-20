@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'alma/alma-php-client' => array(
-            'pretty_version' => '1.11.2',
-            'version' => '1.11.2.0',
+            'pretty_version' => '2.6.1',
+            'version' => '2.6.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../alma/alma-php-client',
             'aliases' => array(),
-            'reference' => 'eeed5d5b68fa0cae03e1ef1234f0ea9beb241095',
+            'reference' => 'f63c7fd448b6fc403da9c055d87296e4c723a413',
             'dev_requirement' => false,
         ),
         'psr/log' => array(
