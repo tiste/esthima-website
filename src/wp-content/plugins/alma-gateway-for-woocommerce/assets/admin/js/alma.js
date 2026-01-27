@@ -1,3 +1,10 @@
+/**
+ * Admin page.
+ *
+ *
+ * @param global alma_admin_params alma_admin_params params.
+ *
+ */
 jQuery(document).ready(function () {
 
     almaAdminInternationalization();
@@ -9,7 +16,6 @@ jQuery(document).ready(function () {
     almaAdminFeePlan.listenFeePlanCheckboxStatus();
     almaAdminFeePlan.checkInputsOnSubmitActionTriggered();
     almaAdminGeneralHelper.toggleTechnicalConfigFields();
-
 });
 
 /**
@@ -226,7 +232,7 @@ function AlmaAdminFeePlan(helper) {
 
 var collapsible = jQuery(".alma-legal-checkout-collapsible");
 
-if(collapsible.length) {
+if (collapsible.length) {
     var chevron = jQuery('#alma-legal-collapse-chevron');
 
     collapsible[0].addEventListener("click", function () {
@@ -246,12 +252,13 @@ add_button_show_pwd('woocommerce_alma_live_api_key');
 add_button_show_pwd('woocommerce_alma_test_api_key');
 
 function add_button_show_pwd(button_name) {
-    var button = jQuery('#' + button_name );
-    button.after('<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="Show password" onclick="toggle_pwd_field(\''+ button_name + '\')"><span class="dashicons dashicons-visibility" aria-hidden="true"></span></button>')
+    var button = jQuery('#' + button_name);
+    button.after('<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="Show password" onclick="toggle_pwd_field(\'' + button_name + '\')"><span class="dashicons dashicons-visibility" aria-hidden="true"></span></button>')
 
 }
+
 function toggle_pwd_field(field) {
-    var pass_id = jQuery('input[name="'+field+'"]').attr("id");
+    var pass_id = jQuery('input[name="' + field + '"]').attr("id");
     var x = document.getElementById(pass_id);
     if (x.type === "password") {
         x.type = "text";
