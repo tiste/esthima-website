@@ -3,7 +3,7 @@
 <?php
 use App\Services\Kiamo;
 
-if (!defined('KIAMO_ENDPOINT_ID')) define('KIAMO_ENDPOINT_ID', sf_var('KIAMO_ENDPOINT_ID'));
+if (!defined('KIAMO_ENDPOINT')) define('KIAMO_ENDPOINT', sf_var('KIAMO_ENDPOINT'));
 if (!defined('KIAMO_TOKEN')) define('KIAMO_TOKEN', sf_var('KIAMO_TOKEN'));
 if (!defined('KIAMO_CALLBACK_DEATH_ID')) define('KIAMO_CALLBACK_DEATH_ID', sf_var('KIAMO_CALLBACK_DEATH_ID'));
 $kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, KIAMO_CALLBACK_DEATH_ID);
