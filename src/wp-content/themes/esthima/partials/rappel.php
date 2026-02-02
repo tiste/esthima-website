@@ -2,9 +2,11 @@
 
 <?php
 use App\Services\Kiamo;
-if (!defined('KIAMO_ENDPOINT')) define('KIAMO_ENDPOINT', 'https://veternity-kiamo.komeo.fr/api/v2/');
-if (!defined('KIAMO_TOKEN')) define('KIAMO_TOKEN', '083e55bde788591bbfdc6316774b24c8c37d40ce');
-$kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, 165);
+
+if (!defined('KIAMO_ENDPOINT_ID')) define('KIAMO_ENDPOINT_ID', sf_var('KIAMO_ENDPOINT_ID'));
+if (!defined('KIAMO_TOKEN')) define('KIAMO_TOKEN', sf_var('KIAMO_TOKEN'));
+if (!defined('KIAMO_CALLBACK_DEATH_ID')) define('KIAMO_CALLBACK_DEATH_ID', sf_var('KIAMO_CALLBACK_DEATH_ID'));
+$kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, KIAMO_CALLBACK_DEATH_ID);
 
 $isCompleted = false;
 $emptyGender = false;
