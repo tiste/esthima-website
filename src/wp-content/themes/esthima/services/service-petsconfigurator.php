@@ -607,7 +607,7 @@ class ServicePetsconfigurator extends WP_REST_Controller
         $prenom_personne = $request->get_param('prenom_personne');
         $tel = $request->get_param('tel');
 
-        $kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, KIAMO_CALLBACK_DEATH_ID);
+        $kiamo = new Kiamo(KIAMO_ENDPOINT, KIAMO_TOKEN, KIAMO_CALLBACK_QUOTE_ID);
 
         $isRewind = $kiamo->isRewind($tel);
         if(!$isRewind){
