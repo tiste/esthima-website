@@ -41,6 +41,11 @@ default:
     - eval "SALESFORCE_ID_SUBTYPE_VALUE=\$SALESFORCE_ID_SUBTYPE_${ENV_UPPER}"
     - eval "SALESFORCE_ID_CITY_VALUE=\$SALESFORCE_ID_CITY_${ENV_UPPER}"
     - eval "SALESFORCE_ID_RGPD_VALUE=\$SALESFORCE_ID_RGPD_${ENV_UPPER}"
+    - eval "KIAMO_ENDPOINT_VALUE=\$KIAMO_ENDPOINT_${ENV_UPPER}"
+    - eval "KIAMO_TOKEN_VALUE=\$KIAMO_TOKEN_${ENV_UPPER}"
+    - eval "KIAMO_TOKEN_VALUE=\$KIAMO_TOKEN_${ENV_UPPER}"
+    - eval "KIAMO_CALLBACK_DEATH_ID_VALUE=\$KIAMO_CALLBACK_DEATH_ID_${ENV_UPPER}"
+    - eval "KIAMO_CALLBACK_QUOTE_ID_VALUE=\$KIAMO_CALLBACK_QUOTE_ID_${ENV_UPPER}"
     - echo "ENV=${ENV_UPPER}" > /var/www/releases/tmp_release/.env
     - echo "ACTION_FORM_${ENV_UPPER}=${ACTION_FORM_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "ORGID_${ENV_UPPER}=${ORGID_VALUE}" >> /var/www/releases/tmp_release/.env
@@ -52,6 +57,10 @@ default:
     - echo "SALESFORCE_ID_SUBTYPE_${ENV_UPPER}=${SALESFORCE_ID_SUBTYPE_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "SALESFORCE_ID_CITY_${ENV_UPPER}=${SALESFORCE_ID_CITY_VALUE}" >> /var/www/releases/tmp_release/.env
     - echo "SALESFORCE_ID_RGPD_${ENV_UPPER}=${SALESFORCE_ID_RGPD_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "KIAMO_ENDPOINT_${ENV_UPPER}=${KIAMO_ENDPOINT_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "KIAMO_TOKEN_${ENV_UPPER}=${KIAMO_TOKEN_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "KIAMO_CALLBACK_DEATH_ID_${ENV_UPPER}=${KIAMO_CALLBACK_DEATH_ID_VALUE}" >> /var/www/releases/tmp_release/.env
+    - echo "KIAMO_CALLBACK_QUOTE_ID_${ENV_UPPER}=${KIAMO_CALLBACK_QUOTE_ID_VALUE}" >> /var/www/releases/tmp_release/.env
     - cp /var/www/releases/tmp_release/.env /var/www/html/.env
     - mv /var/www/releases/current_release /var/www/releases/${currentRelease}
     - mv /var/www/releases/tmp_release /var/www/releases/current_release
