@@ -1,4 +1,27 @@
 <?php if (!defined('ABSPATH')) exit; // Exit if accessed directly
+// --------------------------------------------------
+// OneTrust : forcer consentement en local
+// --------------------------------------------------
+if (
+    isset($_SERVER['HTTP_HOST']) &&
+    $_SERVER['HTTP_HOST'] === 'localhost:8081'
+) {
+    add_action('wp_head', function () {
+        ?>
+        <script>
+        (function () {
+            // Cookie "bandeau fermé"
+            document.cookie = "OptanonAlertBoxClosed=true; path=/; SameSite=Lax";
+
+            // Cookie de consentement minimal (OneTrust)
+            document.cookie = "OptanonConsent=isIABGlobal=false&datestamp=" +
+                encodeURIComponent(new Date().toISOString()) +
+                "&version=6.32.0&hosts=&consentId=local&interactionCount=1&landingPath=NotLandingPage; path=/; SameSite=Lax";
+        })();
+        </script>
+        <?php
+    }, 0);
+}
 
 /* BASICS */
 define('API_SITE_DOMAINE', 'sc');
@@ -233,8 +256,8 @@ add_filter('init', function () {
     $username = 'esthima.website';
     $password = 'qB1TxD1xXdTS271e';
 
-    $jwt_token = $_COOKIE['token'];
-    if ($jwt_token) {
+    $jwt_token = $_COOKIE['token'] ?? '';
+    if ($jwt_token !== '') {
         return;
     }
 
