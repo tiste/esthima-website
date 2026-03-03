@@ -28,6 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$animal_species = sanitize_text_field($_POST['animal_species'] ?? '');
 	$tracking_id = sanitize_text_field($_POST['tracking_number'] ?? '');
 
+	// ✅ NORMALISATION INC : accepte inc/INC/inC + accepte 8 chiffres seuls
+	$tracking_id = strtoupper(trim($tracking_id));
+	$tracking_id = preg_replace('/[^A-Z0-9]/', '', $tracking_id);
+	if (preg_match('/^\d{8}$/', $tracking_id)) {
+		$tracking_id = 'INC' . $tracking_id;
+	}
+
 	$missing_fields = [];
 
 	if (empty($tracking_id)) $missing_fields[] = "le numéro de suivi";
@@ -168,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									Numéro de suivi (INC)
 									<span class="help-icon" data-tooltip="Où trouver le n° de suivi INC ? Vous pouvez retrouver le numéro de suivi (INC+8 chiffres) en haut à droite de la convention">?</span>
 								</label>
-								<input type="text" id="tracking_number" name="tracking_number" placeholder="INC67656545" value="<?php echo esc_attr($tracking_id); ?>">
+								<input type="text" id="tracking_number" name="tracking_number" placeholder="INC12345678 ou 12345678" value="<?php echo esc_attr($tracking_id); ?>">
 							</div>
 							<div class="form-group">
 								<label for="animal_name">Nom de l'animal</label>
