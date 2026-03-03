@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									Numéro de suivi (INC)
 									<span class="help-icon" data-tooltip="Où trouver le n° de suivi INC ? Vous pouvez retrouver le numéro de suivi (INC+8 chiffres) en haut à droite de la convention">?</span>
 								</label>
-								<input type="text" id="tracking_number" name="tracking_number" placeholder="INC12345678 ou 12345678" value="<?php echo esc_attr($tracking_id); ?>">
+								<input type="text" id="tracking_number" name="tracking_number" placeholder="INC12345678" value="<?php echo esc_attr($tracking_id); ?>">
 							</div>
 							<div class="form-group">
 								<label for="animal_name">Nom de l'animal</label>
