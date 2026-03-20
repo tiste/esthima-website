@@ -131,6 +131,57 @@ function theme_enqueue_scripts()
 add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 
 
+function esthima_enqueue_react_app(): void
+{
+    $static_dir = ABSPATH . 'static/';
+    $static_url = trailingslashit( get_site_url() ) . 'static/';
+
+    $css_files = glob( $static_dir . 'css/main.*.css' );
+    if ( ! empty( $css_files ) ) {
+        wp_enqueue_style(
+            'esthima-react-app',
+            $static_url . 'css/' . basename( $css_files[0] ),
+            [],
+            filemtime( $css_files[0] )
+        );
+    }
+
+    $chunk_files    = glob( $static_dir . 'js/*.chunk.js' );
+    $chunk_handles  = [];
+    foreach ( $chunk_files as $chunk_file ) {
+        $handle          = 'esthima-react-chunk-' . substr( md5( basename( $chunk_file ) ), 0, 8 );
+        $chunk_handles[] = $handle;
+        wp_enqueue_script(
+            $handle,
+            $static_url . 'js/' . basename( $chunk_file ),
+            [],
+            filemtime( $chunk_file ),
+            false   // <head>
+        );
+    }
+
+    $js_files = glob( $static_dir . 'js/main.*.js' );
+    $js_files = array_values( array_filter( $js_files, fn( $f ) => substr( $f, -3 ) === '.js' ) );
+    if ( ! empty( $js_files ) ) {
+        wp_enqueue_script(
+            'esthima-react-app',
+            $static_url . 'js/' . basename( $js_files[0] ),
+            $chunk_handles,
+            filemtime( $js_files[0] ),
+            false   // <head>
+        );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'esthima_enqueue_react_app' );
+
+add_filter( 'script_loader_tag', function ( string $tag, string $handle ): string {
+    if ( $handle === 'esthima-react-app' || str_starts_with( $handle, 'esthima-react-chunk-' ) ) {
+        return str_replace( '<script ', '<script defer ', $tag );
+    }
+    return $tag;
+}, 10, 2 );
+
+
 function enqueue_contact_tracking_script() {
     // Vérifier si on est sur la page contact
     if (is_page('contact') || is_page_template('page-contact.php')) {

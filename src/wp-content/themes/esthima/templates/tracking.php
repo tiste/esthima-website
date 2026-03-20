@@ -22,6 +22,22 @@ $payment_info = [
 
 require_once get_template_directory() . '/inc/api_helpers.php';
 
+$_wp_user    = wp_get_current_user();
+$_is_logged  = is_user_logged_in();
+
+$esthima_user = [
+    'isLoggedIn'   => $_is_logged,
+    'id'           => $_is_logged ? (int) $_wp_user->ID            : null,
+    'login'        => $_is_logged ? $_wp_user->user_login          : null,
+    'email'        => $_is_logged ? $_wp_user->user_email          : null,
+    'firstName'    => $_is_logged ? $_wp_user->first_name          : null,
+    'lastName'     => $_is_logged ? $_wp_user->last_name           : null,
+    'roles'        => $_is_logged ? array_values( $_wp_user->roles ) : [],
+    'functionalId' => $_is_logged ? (string) get_user_meta( $_wp_user->ID, '_sso_functional_id', true ) : null,
+    'isSsoManaged' => $_is_logged ? (bool)   get_user_meta( $_wp_user->ID, '_sso_jwt_managed',   true ) : false,
+    'jwt'          => $_COOKIE['jwt_token'] ?? null,
+];
+
 // Traiter le formulaire soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$animal_name = sanitize_text_field($_POST['animal_name'] ?? '');
@@ -154,6 +170,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+<script>
+    window.EsthimaUser = <?php echo wp_json_encode( $esthima_user ); ?>;
+</script>
+
 <main class="main main-content main-content--alt">
 	<div class="wrap wrap--lg">
 		<div class="tracking-box">
@@ -163,6 +183,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				} ?>
 			</div>
 			<h1 class="page-header__title">Mon espace</h1>
+
+            <div id="root"></div>
+
+            <?php $_sso_functional = $esthima_user['functionalId']; ?>
+            <div style="position:fixed;bottom:20px;right:20px;z-index:99999;background:#0f172a;color:#e2e8f0;font:13px/1.7 monospace;padding:14px 18px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.5);min-width:260px">
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:8px">SSO Debug</div>
+
+                <?php if ( $esthima_user['isLoggedIn'] ) : ?>
+                    <div style="color:#4ade80;font-weight:bold;margin-bottom:8px">✓ Connecté</div>
+                    <table style="border-collapse:collapse;width:100%;font-size:13px">
+                        <tr><td style="color:#64748b;padding-right:12px">ID</td><td><?php echo esc_html( $esthima_user['id'] ); ?></td></tr>
+                        <tr><td style="color:#64748b">Login</td><td><?php echo esc_html( $esthima_user['login'] ); ?></td></tr>
+                        <tr><td style="color:#64748b">Email</td><td><?php echo esc_html( $esthima_user['email'] ); ?></td></tr>
+                        <tr><td style="color:#64748b">Prénom</td><td><?php echo esc_html( $esthima_user['firstName'] ); ?></td></tr>
+                        <tr><td style="color:#64748b">Nom</td><td><?php echo esc_html( $esthima_user['lastName'] ); ?></td></tr>
+                        <tr><td style="color:#64748b">Rôle</td><td><?php echo esc_html( implode( ', ', $esthima_user['roles'] ) ); ?></td></tr>
+                        <tr><td style="color:#64748b">functionalId</td><td><?php echo $_sso_functional ? esc_html( $_sso_functional ) : '<span style="color:#94a3b8">—</span>'; ?></td></tr>
+                        <tr><td style="color:#64748b">Compte SSO</td><td><?php echo $esthima_user['isSsoManaged'] ? '<span style="color:#4ade80">oui</span>' : '<span style="color:#94a3b8">non (natif)</span>'; ?></td></tr>
+                    </table>
+                <?php else : ?>
+                    <div style="color:#f87171;font-weight:bold;margin-bottom:8px">✗ Non connecté</div>
+                <?php endif; ?>
+
+                <div style="margin-top:10px;padding-top:10px;border-top:1px solid #1e293b;color:#64748b;font-size:12px">
+                    Cookie <code style="color:#e2e8f0">jwt_token</code> :
+                    <?php echo $esthima_user['jwt'] ? '<span style="color:#4ade80">présent</span>' : '<span style="color:#f87171">absent</span>'; ?>
+                </div>
+            </div>
+
 			<?php if (!$isLoggedIn) { ?>
 				<p>Pour être informé du parcours funéraire de votre animal, veuillez renseigner les champs ci-dessous.</p>
 			<?php } ?>
