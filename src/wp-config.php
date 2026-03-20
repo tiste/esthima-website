@@ -32,16 +32,16 @@ define('WP_MEMORY_LIMIT', '256M');
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'esthima-com_local');
+define('DB_NAME', getenv('DB_NAME') ?: 'esthima-com_local');
 
 /** Database username */
-define('DB_USER', 'esthima-9c2673');
+define('DB_USER', getenv('DB_USER') ?: 'esthima-9c2673');
 
 /** Database password */
-define('DB_PASSWORD', 'cJAFAxsLZ7GdV4Le');
+define('DB_PASSWORD', getenv('DB_PASSWORD') ?: 'cJAFAxsLZ7GdV4Le');
 
 /** Database hostname */
-define('DB_HOST', '127.0.0.1');
+define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
 
 /** Database charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
@@ -98,6 +98,14 @@ define('WP_DEBUG_DISPLAY', false);
 
 define('API_URL', 'https://conventions-int.esthima.fr/api/fr');
 define('PAYMENT_URL', 'https://rop.esthima.fr/');
+
+/**
+ * SSO JWT — microservice externe d'authentification
+ *
+ * Secret HMAC-SHA256 partagé entre le microservice et WordPress.
+ * À définir dans le fichier .env :  SSO_JWT_SECRET=votre_secret_ici
+ */
+define('SSO_JWT_SECRET', getenv('SSO_JWT_SECRET') ?: '');
 
 
 /* That's all, stop editing! Happy publishing. */

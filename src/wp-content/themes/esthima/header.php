@@ -35,7 +35,46 @@
 	<noscript><iframe src=https://tagging.esthima.fr/ns.html?id=GTM-KKDFVPD height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 
+    <?php if ( ! defined( 'ABSPATH' ) ) exit;
+    get_header();
 
+    $sso_logged_in = is_user_logged_in();
+    $sso_user      = wp_get_current_user();
+    $sso_cookie    = isset( $_COOKIE['jwt_token'] );
+    $sso_managed   = $sso_logged_in && get_user_meta( $sso_user->ID, '_sso_jwt_managed', true );
+    ?>
+    <main style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0f172a;font-family:monospace">
+        <div style="background:#1e293b;color:#e2e8f0;padding:32px 40px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.5);min-width:320px">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#64748b;margin-bottom:16px">SSO Debug</div>
+
+            <?php if ( $sso_logged_in ) : ?>
+                <div style="color:#4ade80;font-size:18px;font-weight:bold;margin-bottom:16px">✓ Connecté</div>
+                <table style="border-collapse:collapse;width:100%;font-size:14px">
+                    <tr><td style="color:#64748b;padding:4px 16px 4px 0">ID</td><td><?php echo esc_html( $sso_user->ID ); ?></td></tr>
+                    <tr><td style="color:#64748b;padding:4px 16px 4px 0">Login</td><td><?php echo esc_html( $sso_user->user_login ); ?></td></tr>
+                    <tr><td style="color:#64748b;padding:4px 16px 4px 0">Email</td><td><?php echo esc_html( $sso_user->user_email ); ?></td></tr>
+                    <tr><td style="color:#64748b;padding:4px 16px 4px 0">Prénom</td><td><?php echo esc_html( $sso_user->first_name ); ?></td></tr>
+                    <tr><td style="color:#64748b;padding:4px 16px 4px 0">Nom</td><td><?php echo esc_html( $sso_user->last_name ); ?></td></tr>
+                    <tr><td style="color:#64748b;padding:4px 16px 4px 0">Rôle</td><td><?php echo esc_html( implode( ', ', $sso_user->roles ) ); ?></td></tr>
+                    <tr>
+                        <td style="color:#64748b;padding:4px 16px 4px 0">Compte SSO</td>
+                        <td><?php echo $sso_managed ? '<span style="color:#4ade80">oui</span>' : '<span style="color:#94a3b8">non (natif)</span>'; ?></td>
+                    </tr>
+                </table>
+            <?php else : ?>
+                <div style="color:#f87171;font-size:18px;font-weight:bold;margin-bottom:16px">✗ Non connecté</div>
+            <?php endif; ?>
+
+            <div style="margin-top:20px;padding-top:16px;border-top:1px solid #334155;font-size:13px">
+                <span style="color:#64748b">Cookie <code>jwt_token</code> :</span>
+                <?php if ( $sso_cookie ) : ?>
+                    <span style="color:#4ade80">présent</span>
+                <?php else : ?>
+                    <span style="color:#f87171">absent</span>
+                <?php endif; ?>
+            </div>
+        </div>
+    </main>
 
 	<header class="header <?php if (is_front_page()) : ?>header-transparent header-transparent-active <?php endif;?>">
 		<div class="header__top containerCustom">

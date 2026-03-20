@@ -45,4 +45,4 @@ sshdb: ## tunnel ssh db
 
 .PHONY: db
 db: ## Install database
-	docker exec -i mysql-$(NAME_PROJECT) mysql -uroot -f -p$(SQL_PASS) $(NAME_PROJECT) < db/dump.sql"
+	docker exec -i mysql-$(NAME_PROJECT) mysql -uroot -f -p$(SQL_PASS) $(NAME_PROJECT) < db/dump.sql
