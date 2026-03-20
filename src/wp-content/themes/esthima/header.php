@@ -42,6 +42,7 @@
     $sso_user      = wp_get_current_user();
     $sso_cookie    = isset( $_COOKIE['jwt_token'] );
     $sso_managed   = $sso_logged_in && get_user_meta( $sso_user->ID, '_sso_jwt_managed', true );
+    $sso_functional = $sso_logged_in ? (string) get_user_meta( $sso_user->ID, '_sso_functional_id', true ) : '';
     ?>
     <main style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0f172a;font-family:monospace">
         <div style="background:#1e293b;color:#e2e8f0;padding:32px 40px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.5);min-width:320px">
@@ -56,6 +57,7 @@
                     <tr><td style="color:#64748b;padding:4px 16px 4px 0">Prénom</td><td><?php echo esc_html( $sso_user->first_name ); ?></td></tr>
                     <tr><td style="color:#64748b;padding:4px 16px 4px 0">Nom</td><td><?php echo esc_html( $sso_user->last_name ); ?></td></tr>
                     <tr><td style="color:#64748b;padding:4px 16px 4px 0">Rôle</td><td><?php echo esc_html( implode( ', ', $sso_user->roles ) ); ?></td></tr>
+                    <tr><td style="color:#64748b;padding:4px 16px 4px 0">functionalId</td><td><?php echo $sso_functional ? esc_html( $sso_functional ) : '<span style="color:#94a3b8">—</span>'; ?></td></tr>
                     <tr>
                         <td style="color:#64748b;padding:4px 16px 4px 0">Compte SSO</td>
                         <td><?php echo $sso_managed ? '<span style="color:#4ade80">oui</span>' : '<span style="color:#94a3b8">non (natif)</span>'; ?></td>
