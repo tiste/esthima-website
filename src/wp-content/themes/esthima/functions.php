@@ -133,44 +133,75 @@ add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 
 function esthima_enqueue_react_app(): void
 {
-    $static_dir = ABSPATH . 'static/';
-    $static_url = trailingslashit( get_site_url() ) . 'static/';
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+        esthima_enqueue_react_app_dev();
+    } else {
+        esthima_enqueue_react_app_prod();
+    }
+}
 
-    $css_files = glob( $static_dir . 'css/main.*.css' );
-    if ( ! empty( $css_files ) ) {
-        wp_enqueue_style(
-            'esthima-react-app',
-            $static_url . 'css/' . basename( $css_files[0] ),
-            [],
-            filemtime( $css_files[0] )
-        );
+function esthima_enqueue_react_app_dev(): void
+{
+    // Apache proxifie /react-dev/* → http://host.docker.internal:3000/*
+    // → URL same-origin, invisible aux ad blockers et extensions navigateur.
+    wp_enqueue_script(
+        'esthima-react-app',
+        get_site_url() . '/react-dev/static/js/bundle.js',
+        [],
+        null,
+        false   // <head>
+    );
+}
+
+function esthima_enqueue_react_app_prod(): void
+{
+    if ( ! defined( 'REACT_APP_CDN_URL' ) ) {
+        return;
     }
 
-    $chunk_files    = glob( $static_dir . 'js/*.chunk.js' );
-    $chunk_handles  = [];
-    foreach ( $chunk_files as $chunk_file ) {
-        $handle          = 'esthima-react-chunk-' . substr( md5( basename( $chunk_file ) ), 0, 8 );
+    $manifest = esthima_get_react_manifest( ABSPATH . 'static/asset-manifest.json' );
+    if ( empty( $manifest['entrypoints'] ) ) {
+        return;
+    }
+
+    $cdn_url = untrailingslashit( REACT_APP_CDN_URL );
+
+    $js_entries  = array_values( array_filter( $manifest['entrypoints'], fn( $e ) => str_ends_with( $e, '.js' ) ) );
+    $css_entries = array_values( array_filter( $manifest['entrypoints'], fn( $e ) => str_ends_with( $e, '.css' ) ) );
+
+    foreach ( $css_entries as $entry ) {
+        wp_enqueue_style( 'esthima-react-app', $cdn_url . '/' . ltrim( $entry, '/' ), [], null );
+    }
+
+    // Tous les JS sauf le dernier sont des chunks ; le dernier est le bundle principal.
+    $chunk_handles = [];
+    $js_count      = count( $js_entries );
+    for ( $i = 0; $i < $js_count - 1; $i++ ) {
+        $handle          = 'esthima-react-chunk-' . $i;
         $chunk_handles[] = $handle;
-        wp_enqueue_script(
-            $handle,
-            $static_url . 'js/' . basename( $chunk_file ),
-            [],
-            filemtime( $chunk_file ),
-            false   // <head>
-        );
+        wp_enqueue_script( $handle, $cdn_url . '/' . ltrim( $js_entries[ $i ], '/' ), [], null, false );
     }
 
-    $js_files = glob( $static_dir . 'js/main.*.js' );
-    $js_files = array_values( array_filter( $js_files, fn( $f ) => substr( $f, -3 ) === '.js' ) );
-    if ( ! empty( $js_files ) ) {
+    if ( $js_count > 0 ) {
         wp_enqueue_script(
             'esthima-react-app',
-            $static_url . 'js/' . basename( $js_files[0] ),
+            $cdn_url . '/' . ltrim( $js_entries[ $js_count - 1 ], '/' ),
             $chunk_handles,
-            filemtime( $js_files[0] ),
+            null,
             false   // <head>
         );
     }
+}
+
+function esthima_get_react_manifest( string $path ): array
+{
+    if ( ! file_exists( $path ) ) {
+        return [];
+    }
+
+    $data = json_decode( file_get_contents( $path ), true );
+
+    return is_array( $data ) ? $data : [];
 }
 add_action( 'wp_enqueue_scripts', 'esthima_enqueue_react_app' );
 

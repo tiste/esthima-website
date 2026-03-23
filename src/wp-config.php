@@ -107,6 +107,16 @@ define('PAYMENT_URL', 'https://rop.esthima.fr/');
  */
 define('SSO_JWT_SECRET', getenv('SSO_JWT_SECRET') ?: '');
 
+/**
+ * URL de base du CDN hébergeant le build React (sans slash final).
+ * Utilisé en prod (WP_DEBUG = false) pour charger les assets depuis le CDN.
+ * Exemple : define('REACT_APP_CDN_URL', 'https://cdn.esthima.fr/react');
+ *
+ * La CI/CD doit également déployer asset-manifest.json dans src/static/
+ * pour que WordPress sache quels fichiers hachés charger.
+ */
+define('REACT_APP_CDN_URL', getenv('REACT_APP_CDN_URL') ?: '');
+
 
 /* That's all, stop editing! Happy publishing. */
 
