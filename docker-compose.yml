@@ -26,6 +26,7 @@ services:
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
             SSO_JWT_SECRET: ${SSO_JWT_SECRET}
+            WP_DEBUG: ${WP_DEBUG}
         depends_on:
             - mysql
 

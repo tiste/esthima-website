@@ -133,6 +133,10 @@ add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 
 function esthima_enqueue_react_app(): void
 {
+    if ( ! is_page_template( 'templates/tracking.php' ) ) {
+        return;
+    }
+
     if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
         esthima_enqueue_react_app_dev();
     } else {
