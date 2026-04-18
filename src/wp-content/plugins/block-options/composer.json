@@ -6,7 +6,7 @@
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"wp-coding-standards/wpcs": "^2.1",
 		"wp-phpunit/wp-phpunit": "^5.4",
-		"phpunit/phpunit": "^8.5"
+		"phpunit/phpunit": "^12.5"
 	},
 	"scripts": {
 		"post-install-cmd": "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
