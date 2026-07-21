@@ -6,4 +6,3 @@ cache/
 \wc-logs
 .idea
 /src/static
-!/src/static/asset-manifest.json

@@ -159,11 +159,11 @@ function esthima_enqueue_react_app_dev(): void
 
 function esthima_enqueue_react_app_prod(): void
 {
-    if ( ! defined( 'REACT_APP_CDN_URL' ) ) {
+    if ( ! defined( 'REACT_APP_CDN_URL' ) || empty( REACT_APP_CDN_URL ) ) {
         return;
     }
 
-    $manifest = esthima_get_react_manifest( ABSPATH . 'static/asset-manifest.json' );
+    $manifest = esthima_get_react_manifest_remote();
     if ( empty( $manifest['entrypoints'] ) ) {
         return;
     }
@@ -197,16 +197,29 @@ function esthima_enqueue_react_app_prod(): void
     }
 }
 
-function esthima_get_react_manifest( string $path ): array
+function esthima_get_react_manifest_remote(): array
 {
-    if ( ! file_exists( $path ) ) {
-        return [];
+    $cached = get_transient( 'esthima_react_manifest' );
+    if ( $cached !== false ) {
+        return $cached;
     }
 
-    $data = json_decode( file_get_contents( $path ), true );
+    $url = untrailingslashit( REACT_APP_CDN_URL ) . '/asset-manifest.json';
+    $res = wp_remote_get( $url, [ 'timeout' => 2 ] );
 
-    return is_array( $data ) ? $data : [];
+    if ( is_wp_error( $res ) || wp_remote_retrieve_response_code( $res ) !== 200 ) {
+        return get_option( 'esthima_react_manifest_last', [] ) ?: [];
+    }
+
+    $data = json_decode( wp_remote_retrieve_body( $res ), true );
+    $data = is_array( $data ) ? $data : [];
+
+    set_transient( 'esthima_react_manifest', $data, 60 );
+    update_option( 'esthima_react_manifest_last', $data );
+
+    return $data;
 }
+
 add_action( 'wp_enqueue_scripts', 'esthima_enqueue_react_app' );
 
 add_filter( 'script_loader_tag', function ( string $tag, string $handle ): string {
