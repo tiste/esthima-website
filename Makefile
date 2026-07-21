@@ -46,3 +46,7 @@ sshdb: ## tunnel ssh db
 .PHONY: db
 db: ## Install database
 	docker exec -i mysql-$(NAME_PROJECT) mysql -uroot -f -p$(SQL_PASS) $(NAME_PROJECT) < db/dump.sql
+
+.PHONY: dburl
+dburl: ## Set WordPress URL to local
+	docker exec -i mysql-$(NAME_PROJECT) mysql -uroot -f -p$(SQL_PASS) $(NAME_PROJECT) -e "UPDATE est_options SET option_value='http://local.$(NAME_PROJECT).com' WHERE option_name IN ('siteurl','home');"
