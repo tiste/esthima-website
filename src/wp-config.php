@@ -91,7 +91,7 @@ $table_prefix = 'est_';
  *
  * @link https://wordpress.org/documentation/article/debugging-in-wordpress/
  */
-define('WP_DEBUG', (bool) (getenv('WP_DEBUG') ?: false));
+define('WP_DEBUG', filter_var(getenv('WP_DEBUG'), FILTER_VALIDATE_BOOLEAN));
 define('WP_DEBUG_DISPLAY', false);
 
 /* Add any custom values between this line and the "stop editing" line. */
@@ -111,9 +111,6 @@ define('SSO_JWT_SECRET', getenv('SSO_JWT_SECRET') ?: '');
  * URL de base du CDN hébergeant le build React (sans slash final).
  * Utilisé en prod (WP_DEBUG = false) pour charger les assets depuis le CDN.
  * Exemple : define('REACT_APP_CDN_URL', 'https://cdn.esthima.fr/react');
- *
- * La CI/CD doit également déployer asset-manifest.json dans src/static/
- * pour que WordPress sache quels fichiers hachés charger.
  */
 define('REACT_APP_CDN_URL', getenv('REACT_APP_CDN_URL') ?: '');
 
