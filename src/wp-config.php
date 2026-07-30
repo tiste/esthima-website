@@ -114,6 +114,15 @@ define('SSO_JWT_SECRET', getenv('SSO_JWT_SECRET') ?: '');
  */
 define('REACT_APP_CDN_URL', getenv('REACT_APP_CDN_URL') ?: '');
 
+/**
+ * En dev (WP_DEBUG), le cœur de WP est versionné dans git et monté en bind mount
+ * Docker : on empêche WordPress de réécrire ses propres fichiers, sinon git se
+ * remplit de la mise à jour auto (cf. 6.5.2 -> 7.0.2). En prod on laisse faire.
+ */
+if (WP_DEBUG) {
+    define('AUTOMATIC_UPDATER_DISABLED', true); // coupe les mises à jour auto (cœur + plugins/thèmes)
+}
+
 
 /* That's all, stop editing! Happy publishing. */
 
