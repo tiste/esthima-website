@@ -89,9 +89,9 @@ function sso_decode_jwt(string $jwt, string $secret)
  *
  * Flux :
  *  1. Cookie jwt_token absent ou JWT invalide → rien.
- *  2. Utilisateur WP déjà connecté avec le bon email → sync meta + rien d'autre.
- *  3. Utilisateur WP connecté avec un autre email → nettoyer la session WP.
- *  4. Chercher l'utilisateur par email ; le créer s'il n'existe pas.
+ *  2. Utilisateur WP déjà connecté avec le bon user_login (claim "sub") → sync meta + rien d'autre.
+ *  3. Utilisateur WP connecté avec un autre user_login → nettoyer la session WP.
+ *  4. Chercher l'utilisateur par user_login ; le créer s'il n'existe pas.
  *  5. Ouvrir la session WordPress (set_current_user + auth_cookie).
  */
 add_action('init', 'sso_jwt_intercept', 1);
@@ -125,50 +125,50 @@ function sso_jwt_intercept(): void
         return;
     }
 
+    $user_login    = sanitize_user($payload['sub'] ?? '', true);
     $email         = sanitize_email($payload['email'] ?? '');
     $first_name    = sanitize_text_field($payload['firstName'] ?? '');
     $last_name     = sanitize_text_field($payload['lastName'] ?? '');
-    $functional_id = sanitize_text_field($payload['functionalId'] ?? '');
 
-    if (empty($email)) {
-        sso_log('info', 'JWT valide mais claim "email" absent ou invalide.');
+    if (empty($user_login)) {
+        sso_log('info', 'JWT valide mais claim "sub" (user_login) absent ou invalide.');
         return;
     }
 
-    sso_log('debug', "Claims extraits — email: {$email}, firstName: {$first_name}, lastName: {$last_name}, functionalId: {$functional_id}");
+    sso_log('debug', "Claims extraits — sub: {$user_login}, email: {$email}, firstName: {$first_name}, lastName: {$last_name}");
 
     // Cas 1 : déjà connecté avec le bon compte
     if (is_user_logged_in()) {
         $current = wp_get_current_user();
-        if (strtolower($current->user_email) === strtolower($email)) {
-            sso_log('debug', "Utilisateur #{$current->ID} ({$email}) déjà connecté, sync meta.");
-            sso_sync_user_meta($current->ID, $first_name, $last_name, $functional_id);
+        if (strtolower($current->user_login) === strtolower($user_login)) {
+            sso_log('debug', "Utilisateur #{$current->ID} ({$user_login}) déjà connecté, sync meta.");
+            sso_sync_user_meta($current->ID, $first_name, $last_name);
             return;
         }
         // Cas 2 : un autre compte WP est connecté → nettoyer la session WP
-        sso_log('info', "Conflit de session : WP connecté en tant que {$current->user_email}, JWT pour {$email}. Nettoyage session WP.");
+        sso_log('info', "Conflit de session : WP connecté en tant que {$current->user_login}, JWT pour {$user_login}. Nettoyage session WP.");
         wp_clear_auth_cookie();
         wp_set_current_user(0);
     }
 
-    $user = get_user_by('email', $email);
+    $user = get_user_by('login', $user_login);
     if (!$user) {
-        sso_log('info', "Aucun compte WP pour {$email}, création en cours...");
-        $user_id = sso_create_wp_user($email, $first_name, $last_name, $functional_id);
+        sso_log('info', "Aucun compte WP pour {$user_login}, création en cours...");
+        $user_id = sso_create_wp_user($user_login, $email, $first_name, $last_name);
         if (!$user_id || is_wp_error($user_id)) {
             $error = is_wp_error($user_id) ? $user_id->get_error_message() : 'user_id vide';
-            sso_log('info', "Échec création utilisateur {$email} : {$error}");
+            sso_log('info', "Échec création utilisateur {$user_login} : {$error}");
             return;
         }
         $user = get_user_by('id', $user_id);
-        sso_log('info', "Compte WP créé — ID: {$user_id}, login: {$user->user_login}, email: {$email}, functionalId: {$functional_id}");
+        sso_log('info', "Compte WP créé — ID: {$user_id}, login: {$user->user_login}, email: {$email}");
     } else {
         sso_log('debug', "Compte WP existant trouvé — ID: {$user->ID}, login: {$user->user_login}");
-        sso_sync_user_meta($user->ID, $first_name, $last_name, $functional_id);
+        sso_sync_user_meta($user->ID, $first_name, $last_name);
     }
 
     if (!$user) {
-        sso_log('info', "Impossible de récupérer l'objet WP_User après création pour {$email}.");
+        sso_log('info', "Impossible de récupérer l'objet WP_User après création pour {$user_login}.");
         return;
     }
 
@@ -179,13 +179,12 @@ function sso_jwt_intercept(): void
     sso_log('info', "Connexion SSO réussie — ID: {$user->ID}, login: {$user->user_login}, email: {$email}");
 }
 
-function sso_create_wp_user(string $email, string $first_name, string $last_name, string $functional_id = '')
+function sso_create_wp_user(string $user_login, string $email, string $first_name, string $last_name)
 {
-    $username     = sso_unique_username($email, $first_name, $last_name);
-    $display_name = trim("{$first_name} {$last_name}") ?: $username;
+    $display_name = trim("{$first_name} {$last_name}") ?: $user_login;
 
     $user_id = wp_insert_user([
-        'user_login'   => $username,
+        'user_login'   => $user_login,
         'user_email'   => $email,
         'user_pass'    => wp_generate_password(32, true, true),
         'first_name'   => $first_name,
@@ -195,16 +194,13 @@ function sso_create_wp_user(string $email, string $first_name, string $last_name
     ]);
 
     if (!is_wp_error($user_id)) {
-        update_user_meta($user_id, '_sso_jwt_managed',    true);
-        if (!empty($functional_id)) {
-            update_user_meta($user_id, '_sso_functional_id', $functional_id);
-        }
+        update_user_meta($user_id, '_sso_jwt_managed', true);
     }
 
     return $user_id;
 }
 
-function sso_sync_user_meta(int $user_id, string $first_name, string $last_name, string $functional_id = ''): void
+function sso_sync_user_meta(int $user_id, string $first_name, string $last_name): void
 {
     $user = get_userdata($user_id);
     if (!$user) {
@@ -226,37 +222,8 @@ function sso_sync_user_meta(int $user_id, string $first_name, string $last_name,
     if ($needs_update) {
         wp_update_user($data);
     }
-
-    if (!empty($functional_id)) {
-        $stored = get_user_meta($user_id, '_sso_functional_id', true);
-        if ($stored !== $functional_id) {
-            update_user_meta($user_id, '_sso_functional_id', $functional_id);
-            sso_log('debug', "functionalId mis à jour pour user #{$user_id} : {$functional_id}");
-        }
-    }
 }
 
-function sso_unique_username(string $email, string $first_name, string $last_name): string
-{
-    if (!empty($first_name) && !empty($last_name)) {
-        $base = strtolower(remove_accents($first_name) . '.' . remove_accents($last_name));
-    } else {
-        $base = strtolower(strstr($email, '@', true));
-    }
-
-    // Ne garder que les caractères autorisés par WordPress
-    $base = preg_replace('/[^a-z0-9._-]/', '', $base);
-    $base = $base ?: 'user';
-
-    $username = $base;
-    $i        = 1;
-    while (username_exists($username)) {
-        $username = "{$base}{$i}";
-        $i++;
-    }
-
-    return $username;
-}
 
 /**
  * Lors d'une déconnexion WordPress, on expire le cookie JWT sur le domaine

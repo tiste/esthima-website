@@ -33,7 +33,6 @@ $esthima_user = [
     'firstName'    => $_is_logged ? $_wp_user->first_name          : null,
     'lastName'     => $_is_logged ? $_wp_user->last_name           : null,
     'roles'        => $_is_logged ? array_values( $_wp_user->roles ) : [],
-    'functionalId' => $_is_logged ? (string) get_user_meta( $_wp_user->ID, '_sso_functional_id', true ) : null,
     'isSsoManaged' => $_is_logged ? (bool)   get_user_meta( $_wp_user->ID, '_sso_jwt_managed',   true ) : false,
     'jwt'          => $_COOKIE['jwt_token'] ?? null,
 ];
@@ -186,7 +185,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div id="root"></div>
 
-            <?php $_sso_functional = $esthima_user['functionalId']; ?>
             <div style="position:fixed;bottom:20px;right:20px;z-index:99999;background:#0f172a;color:#e2e8f0;font:13px/1.7 monospace;padding:14px 18px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.5);min-width:260px">
                 <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:8px">SSO Debug</div>
 
@@ -199,7 +197,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <tr><td style="color:#64748b">Prénom</td><td><?php echo esc_html( $esthima_user['firstName'] ); ?></td></tr>
                         <tr><td style="color:#64748b">Nom</td><td><?php echo esc_html( $esthima_user['lastName'] ); ?></td></tr>
                         <tr><td style="color:#64748b">Rôle</td><td><?php echo esc_html( implode( ', ', $esthima_user['roles'] ) ); ?></td></tr>
-                        <tr><td style="color:#64748b">functionalId</td><td><?php echo $_sso_functional ? esc_html( $_sso_functional ) : '<span style="color:#94a3b8">—</span>'; ?></td></tr>
                         <tr><td style="color:#64748b">Compte SSO</td><td><?php echo $esthima_user['isSsoManaged'] ? '<span style="color:#4ade80">oui</span>' : '<span style="color:#94a3b8">non (natif)</span>'; ?></td></tr>
                     </table>
                 <?php else : ?>
