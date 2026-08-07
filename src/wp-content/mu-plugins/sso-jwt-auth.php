@@ -22,6 +22,12 @@ if (!defined('SSO_JWT_COOKIE_DOMAIN')) define('SSO_JWT_COOKIE_DOMAIN', '.esthima
 if (!defined('SSO_JWT_DEFAULT_ROLE'))  define('SSO_JWT_DEFAULT_ROLE',  'customer');
 if (!defined('SSO_JWT_DEBUG'))         define('SSO_JWT_DEBUG',         false);
 
+// Les comptes SSO ont leur email synchronisé automatiquement depuis le JWT à
+// chaque login ; on désactive la notification native WP "Your Email Address
+// was changed" pour ne pas spammer les utilisateurs lors de ces synchros.
+add_filter('send_email_change_email', '__return_false');
+
+
 function sso_log(string $level, string $message): void
 {
     if (!SSO_JWT_DEBUG) {
@@ -142,7 +148,18 @@ function sso_jwt_intercept(): void
         $current = wp_get_current_user();
         if (strtolower($current->user_login) === strtolower($user_login)) {
             sso_log('debug', "Utilisateur #{$current->ID} ({$user_login}) déjà connecté, sync meta.");
-            sso_sync_user_meta($current->ID, $first_name, $last_name);
+            sso_sync_user_meta($current->ID, $email, $first_name, $last_name);
+            // wp_update_user() a déjà mis à jour la base, mais l'objet WP_User
+            // courant (chargé en mémoire dès l'appel is_user_logged_in() plus
+            // haut) garde en cache les anciennes valeurs des colonnes natives
+            // de wp_users (dont user_email) pour le reste de la requête.
+            // wp_set_current_user() ne suffit pas ici : WordPress court-circuite
+            // le rechargement si l'ID demandé est déjà celui du current_user.
+            // On force donc explicitement la reconstruction de l'objet global
+            // pour que le reste du rendu de la page (ex. tracking.php) voie
+            // les données fraîches dès ce même chargement de page.
+            global $current_user;
+            $current_user = new WP_User($current->ID);
             return;
         }
         // Cas 2 : un autre compte WP est connecté → nettoyer la session WP
@@ -164,7 +181,7 @@ function sso_jwt_intercept(): void
         sso_log('info', "Compte WP créé — ID: {$user_id}, login: {$user->user_login}, email: {$email}");
     } else {
         sso_log('debug', "Compte WP existant trouvé — ID: {$user->ID}, login: {$user->user_login}");
-        sso_sync_user_meta($user->ID, $first_name, $last_name);
+        sso_sync_user_meta($user->ID, $email, $first_name, $last_name);
     }
 
     if (!$user) {
@@ -200,7 +217,7 @@ function sso_create_wp_user(string $user_login, string $email, string $first_nam
     return $user_id;
 }
 
-function sso_sync_user_meta(int $user_id, string $first_name, string $last_name): void
+function sso_sync_user_meta(int $user_id, string $email, string $first_name, string $last_name): void
 {
     $user = get_userdata($user_id);
     if (!$user) {
@@ -209,6 +226,16 @@ function sso_sync_user_meta(int $user_id, string $first_name, string $last_name)
 
     $data         = ['ID' => $user_id];
     $needs_update = false;
+
+    if (!empty($email) && strtolower($user->user_email) !== strtolower($email)) {
+        $existing = email_exists($email);
+        if ($existing && (int) $existing !== $user_id) {
+            sso_log('info', "Conflit email : {$email} déjà utilisé par le compte #{$existing}, synchro email ignorée pour user #{$user_id} ({$user->user_login}).");
+        } else {
+            $data['user_email'] = $email;
+            $needs_update       = true;
+        }
+    }
 
     if (!empty($first_name) && $user->first_name !== $first_name) {
         $data['first_name'] = $first_name;
@@ -220,7 +247,10 @@ function sso_sync_user_meta(int $user_id, string $first_name, string $last_name)
     }
 
     if ($needs_update) {
-        wp_update_user($data);
+        $result = wp_update_user($data);
+        if (is_wp_error($result)) {
+            sso_log('info', "Échec synchro user #{$user_id} : " . $result->get_error_message());
+        }
     }
 }
 
