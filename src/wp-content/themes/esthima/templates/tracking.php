@@ -34,7 +34,6 @@ $esthima_user = [
     'lastName'     => $_is_logged ? $_wp_user->last_name           : null,
     'roles'        => $_is_logged ? array_values( $_wp_user->roles ) : [],
     'isSsoManaged' => $_is_logged ? (bool)   get_user_meta( $_wp_user->ID, '_sso_jwt_managed',   true ) : false,
-    'jwt'          => $_COOKIE['jwt_token'] ?? null,
 ];
 
 // Traiter le formulaire soumis
@@ -202,11 +201,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php else : ?>
                     <div style="color:#f87171;font-weight:bold;margin-bottom:8px">✗ Non connecté</div>
                 <?php endif; ?>
-
-                <div style="margin-top:10px;padding-top:10px;border-top:1px solid #1e293b;color:#64748b;font-size:12px">
-                    Cookie <code style="color:#e2e8f0">jwt_token</code> :
-                    <?php echo $esthima_user['jwt'] ? '<span style="color:#4ade80">présent</span>' : '<span style="color:#f87171">absent</span>'; ?>
-                </div>
             </div>
 
 			<?php if (!$isLoggedIn) { ?>
