@@ -8,15 +8,6 @@
 
 if (!defined('ABSPATH')) exit;
 
-// ---------------------------------------------------------------------------
-// Configuration
-// Surcharger dans wp-config.php si besoin :
-//   define('SSO_JWT_SECRET',        'votre_secret_hmac_partage');
-//   define('SSO_JWT_COOKIE_NAME',   'jwt_token');         // nom du cookie posé par le MS
-//   define('SSO_JWT_COOKIE_DOMAIN', '.esthima.fr');       // domaine wildcard
-//   define('SSO_JWT_DEFAULT_ROLE',  'customer');          // rôle WP à la création
-// ---------------------------------------------------------------------------
-
 if (!defined('SSO_JWT_COOKIE_NAME'))   define('SSO_JWT_COOKIE_NAME',   'jwt_token');
 if (!defined('SSO_JWT_COOKIE_DOMAIN')) define('SSO_JWT_COOKIE_DOMAIN', '.esthima.fr');
 if (!defined('SSO_JWT_DEFAULT_ROLE'))  define('SSO_JWT_DEFAULT_ROLE',  'customer');
@@ -149,15 +140,13 @@ function sso_jwt_intercept(): void
         if (strtolower($current->user_login) === strtolower($user_login)) {
             sso_log('debug', "Utilisateur #{$current->ID} ({$user_login}) déjà connecté, sync meta.");
             sso_sync_user_meta($current->ID, $email, $first_name, $last_name);
-            // wp_update_user() a déjà mis à jour la base, mais l'objet WP_User
-            // courant (chargé en mémoire dès l'appel is_user_logged_in() plus
-            // haut) garde en cache les anciennes valeurs des colonnes natives
-            // de wp_users (dont user_email) pour le reste de la requête.
-            // wp_set_current_user() ne suffit pas ici : WordPress court-circuite
-            // le rechargement si l'ID demandé est déjà celui du current_user.
-            // On force donc explicitement la reconstruction de l'objet global
-            // pour que le reste du rendu de la page (ex. tracking.php) voie
-            // les données fraîches dès ce même chargement de page.
+
+            // wp_update_user() a déjà mis à jour la base, mais l'objet WP_User courant (chargé en mémoire dès l'appel
+            // is_user_logged_in() plus haut) garde en cache les anciennes valeurs des colonnes natives de wp_users
+            // (dont user_email) pour le reste de la requête. wp_set_current_user() ne suffit pas ici : WordPress
+            // court-circuite le rechargement si l'ID demandé est déjà celui du current_user. On force donc
+            // explicitement la reconstruction de l'objet global pour que le reste du rendu de la page
+            // (ex. tracking.php) voie les données fraîches dès ce même chargement de page.
             global $current_user;
             $current_user = new WP_User($current->ID);
             return;
