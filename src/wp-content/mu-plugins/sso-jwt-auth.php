@@ -251,15 +251,8 @@ function sso_sync_user_meta(int $user_id, string $email, string $first_name, str
 add_action('wp_logout', 'sso_jwt_clear_cookie');
 function sso_jwt_clear_cookie(): void
 {
-    setcookie(
-        SSO_JWT_COOKIE_NAME,
-        '',
-        time() - YEAR_IN_SECONDS,
-        '/',
-        SSO_JWT_COOKIE_DOMAIN,
-        true,   // secure (HTTPS uniquement)
-        false   // httpOnly = false pour permettre au MS JS de le lire si besoin
-    );
-
+    if (!isset($_COOKIE[SSO_JWT_COOKIE_NAME])) {
+        return;
+    }
     unset($_COOKIE[SSO_JWT_COOKIE_NAME]);
 }
