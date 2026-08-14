@@ -68,7 +68,12 @@ function sso_decode_jwt(string $jwt, string $secret)
     }
 
     $now = time();
-    if (isset($payload['exp']) && (int) $payload['exp'] < $now) {
+    // "exp" est obligatoire : sans lui, un token volé resterait valable indéfiniment.
+    if (!isset($payload['exp'])) {
+        sso_log('info', 'JWT rejeté : claim "exp" absent (obligatoire).');
+        return false;
+    }
+    if ((int) $payload['exp'] < $now) {
         sso_log('info', 'JWT expiré (exp=' . $payload['exp'] . ', now=' . $now . ').');
         return false;
     }
@@ -85,11 +90,11 @@ function sso_decode_jwt(string $jwt, string $secret)
  * Hook init (priorité 1 = avant toute logique theme/plugin).
  *
  * Flux :
- *  1. Cookie jwt_token absent ou JWT invalide → rien.
+ *  1. Cookie jwt_token absent ou JWT invalide → fermeture de la session WP issue du SSO.
  *  2. Utilisateur WP déjà connecté avec le bon user_login (claim "sub") → sync meta + rien d'autre.
  *  3. Utilisateur WP connecté avec un autre user_login → nettoyer la session WP.
  *  4. Chercher l'utilisateur par user_login ; le créer s'il n'existe pas.
- *  5. Ouvrir la session WordPress (set_current_user + auth_cookie).
+ *  5. Ouvrir la session WordPress (set_current_user + auth_cookie borné sur l'exp du JWT).
  */
 add_action('init', 'sso_jwt_intercept', 1);
 function sso_jwt_intercept(): void
@@ -110,17 +115,21 @@ function sso_jwt_intercept(): void
     }
 
     $jwt = $_COOKIE[SSO_JWT_COOKIE_NAME] ?? '';
-    if (empty($jwt)) {
-        sso_log('debug', 'Aucun cookie "' . SSO_JWT_COOKIE_NAME . '" trouvé, skip.');
-        return;
-    }
 
-    sso_log('debug', 'Cookie "' . SSO_JWT_COOKIE_NAME . '" trouvé, vérification du JWT...');
+    // Le JWT est la seule source de vérité de la session : s'il est absent ou
+    // invalide (expiré, signature KO...), toute session WP issue du SSO doit
+    // être fermée. Sans ça, le cookie WP survivrait au token.
+    $payload = $jwt !== '' ? sso_decode_jwt($jwt, SSO_JWT_SECRET) : false;
 
-    $payload = sso_decode_jwt($jwt, SSO_JWT_SECRET);
     if ($payload === false) {
+        if ($jwt === '') {
+            sso_log('debug', 'Aucun cookie "' . SSO_JWT_COOKIE_NAME . '" trouvé.');
+        }
+        sso_jwt_logout_if_sso_session();
         return;
     }
+
+    sso_log('debug', 'Cookie "' . SSO_JWT_COOKIE_NAME . '" trouvé, JWT valide.');
 
     $user_login    = sanitize_user($payload['sub'] ?? '', true);
     $email         = sanitize_email($payload['email'] ?? '');
@@ -129,6 +138,7 @@ function sso_jwt_intercept(): void
 
     if (empty($user_login)) {
         sso_log('info', 'JWT valide mais claim "sub" (user_login) absent ou invalide.');
+        sso_jwt_logout_if_sso_session();
         return;
     }
 
@@ -179,10 +189,101 @@ function sso_jwt_intercept(): void
     }
 
     wp_set_current_user($user->ID, $user->user_login);
-    wp_set_auth_cookie($user->ID, true);
+    sso_jwt_set_auth_cookie($user->ID, (int) $payload['exp']);
     do_action('wp_login', $user->user_login, $user);
 
     sso_log('info', "Connexion SSO réussie — ID: {$user->ID}, login: {$user->user_login}, email: {$email}");
+}
+
+/**
+ * Ferme la session WordPress si (et seulement si) elle a été ouverte par le SSO.
+ *
+ * On se base sur la SESSION et non sur l'utilisateur : un même compte peut très
+ * bien avoir une session SSO (à fermer quand le JWT tombe) et une session native
+ * ouverte via wp-login.php (à conserver, elle ne dépend pas du JWT). Se baser sur
+ * une meta utilisateur déconnecterait à tort les connexions natives, et ne
+ * couvrirait pas les comptes préexistants rattachés après coup au SSO.
+ */
+function sso_jwt_logout_if_sso_session(): void
+{
+    if (!is_user_logged_in()) {
+        return;
+    }
+
+    $current = wp_get_current_user();
+
+    if (!sso_jwt_is_sso_session($current->ID)) {
+        sso_log('debug', "Pas de JWT valide, mais session non-SSO pour #{$current->ID} : session WP conservée.");
+        return;
+    }
+
+    sso_log('info', "JWT absent/invalide → déconnexion WP de la session SSO #{$current->ID} ({$current->user_login}).");
+
+    // wp_logout() (et non wp_clear_auth_cookie) : détruit aussi le session token
+    // en base et déclenche l'action wp_logout (session WooCommerce, etc.).
+    wp_logout();
+}
+
+/**
+ * La session WordPress courante a-t-elle été ouverte par le SSO ?
+ *
+ * Le marqueur est posé dans les métadonnées de session (voir
+ * sso_jwt_set_auth_cookie). Le repli sur "_sso_jwt_managed" ne sert qu'aux
+ * sessions ouvertes avant l'introduction de ce marqueur : il est volontairement
+ * restreint aux comptes sans capacité d'administration, pour ne jamais
+ * verrouiller un administrateur connecté via wp-login.php.
+ */
+function sso_jwt_is_sso_session(int $user_id): bool
+{
+    $token = wp_get_session_token();
+
+    if ($token !== '') {
+        $session = WP_Session_Tokens::get_instance($user_id)->get($token);
+        if (is_array($session) && array_key_exists('sso', $session)) {
+            return (bool) $session['sso'];
+        }
+    }
+
+    // Repli transitoire (sessions antérieures au marqueur).
+    return (bool) get_user_meta($user_id, '_sso_jwt_managed', true)
+        && !user_can($user_id, 'manage_options');
+}
+
+/**
+ * Ouvre la session WordPress en bornant la durée du cookie sur l'expiration du JWT.
+ *
+ * Le cookie WP reste nécessaire : les appels admin-ajax.php (panier WooCommerce)
+ * et l'API REST ne passent pas par cet intercepteur et n'ont donc que lui pour
+ * identifier l'utilisateur. En revanche il ne doit jamais survivre au JWT, sinon
+ * un utilisateur resterait connecté après expiration du token.
+ *
+ * La session est marquée "sso" pour pouvoir la fermer quand le JWT n'est plus
+ * valide, sans toucher aux éventuelles sessions natives du même compte.
+ */
+function sso_jwt_set_auth_cookie(int $user_id, int $jwt_exp): void
+{
+    $ttl = $jwt_exp - time();
+    if ($ttl < 1) {
+        return;
+    }
+
+    $limit_expiration = static function () use ($ttl) {
+        return $ttl;
+    };
+    $mark_sso_session = static function (array $info) {
+        $info['sso'] = true;
+        return $info;
+    };
+
+    add_filter('auth_cookie_expiration', $limit_expiration, PHP_INT_MAX);
+    add_filter('attach_session_information', $mark_sso_session, PHP_INT_MAX);
+
+    wp_set_auth_cookie($user_id, true);
+
+    remove_filter('attach_session_information', $mark_sso_session, PHP_INT_MAX);
+    remove_filter('auth_cookie_expiration', $limit_expiration, PHP_INT_MAX);
+
+    sso_log('debug', "Cookie WP posé pour user #{$user_id}, durée alignée sur le JWT ({$ttl}s).");
 }
 
 function sso_create_wp_user(string $user_login, string $email, string $first_name, string $last_name)
