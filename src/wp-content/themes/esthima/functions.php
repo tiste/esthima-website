@@ -131,6 +131,105 @@ function theme_enqueue_scripts()
 add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 
 
+function esthima_enqueue_react_app(): void
+{
+    if ( ! is_page_template( 'templates/tracking.php' ) ) {
+        return;
+    }
+
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+        esthima_enqueue_react_app_dev();
+    } else {
+        esthima_enqueue_react_app_prod();
+    }
+}
+
+function esthima_enqueue_react_app_dev(): void
+{
+    // Apache proxifie /react-dev/* → http://host.docker.internal:3000/*
+    // → URL same-origin, invisible aux ad blockers et extensions navigateur.
+    wp_enqueue_script(
+        'esthima-react-app',
+        get_site_url() . '/react-dev/static/js/bundle.js',
+        [],
+        null,
+        false   // <head>
+    );
+}
+
+function esthima_enqueue_react_app_prod(): void
+{
+    if ( ! defined( 'REACT_APP_CDN_URL' ) || empty( REACT_APP_CDN_URL ) ) {
+        return;
+    }
+
+    $manifest = esthima_get_react_manifest_remote();
+    if ( empty( $manifest['entrypoints'] ) ) {
+        return;
+    }
+
+    $cdn_url = untrailingslashit( REACT_APP_CDN_URL );
+
+    $js_entries  = array_values( array_filter( $manifest['entrypoints'], fn( $e ) => str_ends_with( $e, '.js' ) ) );
+    $css_entries = array_values( array_filter( $manifest['entrypoints'], fn( $e ) => str_ends_with( $e, '.css' ) ) );
+
+    foreach ( $css_entries as $entry ) {
+        wp_enqueue_style( 'esthima-react-app', $cdn_url . '/' . ltrim( $entry, '/' ), [], null );
+    }
+
+    // Tous les JS sauf le dernier sont des chunks ; le dernier est le bundle principal.
+    $chunk_handles = [];
+    $js_count      = count( $js_entries );
+    for ( $i = 0; $i < $js_count - 1; $i++ ) {
+        $handle          = 'esthima-react-chunk-' . $i;
+        $chunk_handles[] = $handle;
+        wp_enqueue_script( $handle, $cdn_url . '/' . ltrim( $js_entries[ $i ], '/' ), [], null, false );
+    }
+
+    if ( $js_count > 0 ) {
+        wp_enqueue_script(
+            'esthima-react-app',
+            $cdn_url . '/' . ltrim( $js_entries[ $js_count - 1 ], '/' ),
+            $chunk_handles,
+            null,
+            false   // <head>
+        );
+    }
+}
+
+function esthima_get_react_manifest_remote(): array
+{
+    $cached = get_transient( 'esthima_react_manifest' );
+    if ( $cached !== false ) {
+        return $cached;
+    }
+
+    $url = untrailingslashit( REACT_APP_CDN_URL ) . '/asset-manifest.json';
+    $res = wp_remote_get( $url, [ 'timeout' => 2 ] );
+
+    if ( is_wp_error( $res ) || wp_remote_retrieve_response_code( $res ) !== 200 ) {
+        return get_option( 'esthima_react_manifest_last', [] ) ?: [];
+    }
+
+    $data = json_decode( wp_remote_retrieve_body( $res ), true );
+    $data = is_array( $data ) ? $data : [];
+
+    set_transient( 'esthima_react_manifest', $data, 60 );
+    update_option( 'esthima_react_manifest_last', $data );
+
+    return $data;
+}
+
+add_action( 'wp_enqueue_scripts', 'esthima_enqueue_react_app' );
+
+add_filter( 'script_loader_tag', function ( string $tag, string $handle ): string {
+    if ( $handle === 'esthima-react-app' || str_starts_with( $handle, 'esthima-react-chunk-' ) ) {
+        return str_replace( '<script ', '<script defer ', $tag );
+    }
+    return $tag;
+}, 10, 2 );
+
+
 function enqueue_contact_tracking_script() {
     // Vérifier si on est sur la page contact
     if (is_page('contact') || is_page_template('page-contact.php')) {

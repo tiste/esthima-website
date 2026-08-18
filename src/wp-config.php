@@ -32,16 +32,16 @@ define('WP_MEMORY_LIMIT', '256M');
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'esthima-com_local');
+define('DB_NAME', getenv('DB_NAME') ?: 'esthima-com_local');
 
 /** Database username */
-define('DB_USER', 'esthima-9c2673');
+define('DB_USER', getenv('DB_USER') ?: 'esthima-9c2673');
 
 /** Database password */
-define('DB_PASSWORD', 'cJAFAxsLZ7GdV4Le');
+define('DB_PASSWORD', getenv('DB_PASSWORD') ?: 'cJAFAxsLZ7GdV4Le');
 
 /** Database hostname */
-define('DB_HOST', '127.0.0.1');
+define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
 
 /** Database charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
@@ -91,13 +91,37 @@ $table_prefix = 'est_';
  *
  * @link https://wordpress.org/documentation/article/debugging-in-wordpress/
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', filter_var(getenv('WP_DEBUG'), FILTER_VALIDATE_BOOLEAN));
 define('WP_DEBUG_DISPLAY', false);
 
 /* Add any custom values between this line and the "stop editing" line. */
 
 define('API_URL', 'https://conventions-int.esthima.fr/api/fr');
 define('PAYMENT_URL', 'https://rop.esthima.fr/');
+
+/**
+ * SSO JWT — microservice externe d'authentification
+ *
+ * Secret HMAC-SHA256 partagé entre le microservice et WordPress.
+ * À définir dans le fichier .env :  SSO_JWT_SECRET=votre_secret_ici
+ */
+define('SSO_JWT_SECRET', getenv('SSO_JWT_SECRET') ?: '');
+
+/**
+ * URL de base du CDN hébergeant le build React (sans slash final).
+ * Utilisé en prod (WP_DEBUG = false) pour charger les assets depuis le CDN.
+ * Exemple : define('REACT_APP_CDN_URL', 'https://cdn.esthima.fr/react');
+ */
+define('REACT_APP_CDN_URL', getenv('REACT_APP_CDN_URL') ?: '');
+
+/**
+ * En dev (WP_DEBUG), le cœur de WP est versionné dans git et monté en bind mount
+ * Docker : on empêche WordPress de réécrire ses propres fichiers, sinon git se
+ * remplit de la mise à jour auto (cf. 6.5.2 -> 7.0.2). En prod on laisse faire.
+ */
+if (WP_DEBUG) {
+    define('AUTOMATIC_UPDATER_DISABLED', true); // coupe les mises à jour auto (cœur + plugins/thèmes)
+}
 
 
 /* That's all, stop editing! Happy publishing. */

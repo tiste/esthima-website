@@ -1,4 +1,12 @@
 
+# React dev server proxy — proxifie /react-dev/* vers le CRA dev server (localhost:3000).
+# Nécessite mod_proxy + mod_proxy_http (activés en dev via docker-compose).
+# Sans ces modules (prod), le bloc est ignoré.
+<IfModule mod_proxy.c>
+    RewriteEngine On
+    RewriteRule ^react-dev/(.*)$ http://host.docker.internal:3000/$1 [P,L]
+</IfModule>
+
 # BEGIN WordPress
 # Les directives (lignes) entre « BEGIN WordPress » et « END WordPress » sont générées
 # dynamiquement, et doivent être modifiées uniquement via les filtres WordPress.
