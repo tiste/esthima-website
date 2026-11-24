@@ -102,10 +102,18 @@ define('PAYMENT_URL', 'https://rop.esthima.fr/');
 /**
  * SSO JWT — microservice externe d'authentification
  *
- * Secret HMAC-SHA256 partagé entre le microservice et WordPress.
- * À définir dans le fichier .env :  SSO_JWT_SECRET=votre_secret_ici
+ * Le SSO signe ses JWT en RS256 : WordPress les vérifie avec sa clé publique.
+ * Sans clé, émetteur ou audience, le SSO est désactivé. Valeurs propres à
+ * chaque environnement, à définir hors dépôt (variables d'environnement) :
+ *   SSO_JWT_PUBLIC_KEY  clé publique PEM, sur une ligne avec des "\n" littéraux
+ *   SSO_JWT_ISSUER      valeur attendue du claim "iss"
+ *   SSO_JWT_AUDIENCE    valeur attendue dans le claim "aud"
+ *   SSO_LOGOUT_URL      déconnexion du SSO après celle de WordPress (sinon l'accueil)
  */
-define('SSO_JWT_SECRET', getenv('SSO_JWT_SECRET') ?: '');
+define('SSO_JWT_PUBLIC_KEY', getenv('SSO_JWT_PUBLIC_KEY') ?: '');
+define('SSO_JWT_ISSUER', getenv('SSO_JWT_ISSUER') ?: '');
+define('SSO_JWT_AUDIENCE', getenv('SSO_JWT_AUDIENCE') ?: '');
+define('SSO_LOGOUT_URL', getenv('SSO_LOGOUT_URL') ?: '');
 
 /**
  * URL de base du CDN hébergeant le build React (sans slash final).

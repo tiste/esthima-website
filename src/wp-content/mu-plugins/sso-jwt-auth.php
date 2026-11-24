@@ -12,6 +12,10 @@ if (!defined('SSO_JWT_COOKIE_NAME'))   define('SSO_JWT_COOKIE_NAME',   'jwt_toke
 if (!defined('SSO_JWT_COOKIE_DOMAIN')) define('SSO_JWT_COOKIE_DOMAIN', '.esthima.fr');
 if (!defined('SSO_JWT_DEFAULT_ROLE'))  define('SSO_JWT_DEFAULT_ROLE',  'customer');
 if (!defined('SSO_JWT_DEBUG'))         define('SSO_JWT_DEBUG',         false);
+if (!defined('SSO_JWT_PUBLIC_KEY'))    define('SSO_JWT_PUBLIC_KEY',    '');
+if (!defined('SSO_JWT_ISSUER'))        define('SSO_JWT_ISSUER',        '');
+if (!defined('SSO_JWT_AUDIENCE'))      define('SSO_JWT_AUDIENCE',      '');
+if (!defined('SSO_LOGOUT_URL'))        define('SSO_LOGOUT_URL',        '');
 
 // Les comptes SSO ont leur email synchronisé automatiquement depuis le JWT à
 // chaque login ; on désactive la notification native WP "Your Email Address
@@ -38,7 +42,26 @@ function sso_base64url_decode(string $input): string
 }
 
 
-function sso_decode_jwt(string $jwt, string $secret)
+/**
+ * Clé publique RS256 du SSO. Dans .env, la clé PEM tient sur une ligne : ses
+ * retours à la ligne y sont écrits "\n" et sont rétablis ici.
+ *
+ * @return OpenSSLAsymmetricKey|false
+ */
+function sso_jwt_public_key()
+{
+    return openssl_pkey_get_public(str_replace('\n', "\n", SSO_JWT_PUBLIC_KEY));
+}
+
+/**
+ * Retourne le payload d'un JWT RS256 signé par le SSO et destiné à ce site,
+ * ou false. Seul OpenSSL vérifie la signature : ce code ne fait que découper le
+ * jeton et contrôler les claims.
+ *
+ * @param OpenSSLAsymmetricKey $public_key
+ * @return array|false
+ */
+function sso_decode_jwt(string $jwt, $public_key)
 {
     $parts = explode('.', $jwt);
     if (count($parts) !== 3) {
@@ -48,16 +71,16 @@ function sso_decode_jwt(string $jwt, string $secret)
 
     [$header_b64, $payload_b64, $sig_b64] = $parts;
 
+    // L'algorithme est imposé : un jeton "none" ou HS256 n'est jamais accepté.
     $header = json_decode(sso_base64url_decode($header_b64), true);
-    if (!is_array($header) || ($header['alg'] ?? '') !== 'HS256') {
-        sso_log('info', 'JWT invalide : algorithme non supporté (' . ($header['alg'] ?? 'inconnu') . ').');
+    if (!is_array($header) || ($header['alg'] ?? '') !== 'RS256') {
+        sso_log('info', 'JWT invalide : algorithme non supporté.');
         return false;
     }
 
-    $expected = hash_hmac('sha256', "{$header_b64}.{$payload_b64}", $secret, true);
-    $provided = sso_base64url_decode($sig_b64);
-    if (!hash_equals($expected, $provided)) {
-        sso_log('info', 'JWT invalide : signature incorrecte (secret HMAC ne correspond pas).');
+    $signature = sso_base64url_decode($sig_b64);
+    if (openssl_verify("{$header_b64}.{$payload_b64}", $signature, $public_key, OPENSSL_ALGO_SHA256) !== 1) {
+        sso_log('info', 'JWT invalide : signature incorrecte.');
         return false;
     }
 
@@ -67,23 +90,44 @@ function sso_decode_jwt(string $jwt, string $secret)
         return false;
     }
 
-    $now = time();
-    // "exp" est obligatoire : sans lui, un token volé resterait valable indéfiniment.
-    if (!isset($payload['exp'])) {
-        sso_log('info', 'JWT rejeté : claim "exp" absent (obligatoire).');
-        return false;
-    }
-    if ((int) $payload['exp'] < $now) {
-        sso_log('info', 'JWT expiré (exp=' . $payload['exp'] . ', now=' . $now . ').');
-        return false;
-    }
-    if (isset($payload['nbf']) && (int) $payload['nbf'] > $now) {
-        sso_log('info', 'JWT pas encore valide (nbf=' . $payload['nbf'] . ', now=' . $now . ').');
+    $rejection = sso_jwt_claims_rejection($payload, time());
+    if ($rejection !== null) {
+        sso_log('info', "JWT rejeté : {$rejection}.");
         return false;
     }
 
-    sso_log('debug', 'JWT valide. Payload : ' . json_encode($payload));
     return $payload;
+}
+
+/**
+ * Raison du refus des claims, ou null s'ils sont acceptés.
+ */
+function sso_jwt_claims_rejection(array $payload, int $now): ?string
+{
+    if (($payload['iss'] ?? null) !== SSO_JWT_ISSUER) {
+        return 'claim "iss" inattendu';
+    }
+
+    // "aud" peut être une chaîne ou un tableau d'audiences.
+    $audiences = (array) ($payload['aud'] ?? []);
+    if (!in_array(SSO_JWT_AUDIENCE, $audiences, true)) {
+        return 'claim "aud" inattendu';
+    }
+
+    if (!is_string($payload['sub'] ?? null) || $payload['sub'] === '') {
+        return 'claim "sub" absent';
+    }
+
+    // "exp" est obligatoire : sans lui, un token volé resterait valable indéfiniment.
+    if (!is_numeric($payload['exp'] ?? null) || (int) $payload['exp'] <= $now) {
+        return 'claim "exp" absent ou passé';
+    }
+
+    if (isset($payload['nbf']) && (!is_numeric($payload['nbf']) || (int) $payload['nbf'] > $now)) {
+        return 'claim "nbf" pas encore atteint';
+    }
+
+    return null;
 }
 
 /**
@@ -109,8 +153,14 @@ function sso_jwt_intercept(): void
         return;
     }
 
-    if (!defined('SSO_JWT_SECRET') || empty(SSO_JWT_SECRET)) {
-        sso_log('info', 'SSO désactivé : constante SSO_JWT_SECRET vide ou non définie.');
+    if (SSO_JWT_PUBLIC_KEY === '' || SSO_JWT_ISSUER === '' || SSO_JWT_AUDIENCE === '') {
+        sso_log('debug', 'SSO désactivé : SSO_JWT_PUBLIC_KEY, SSO_JWT_ISSUER ou SSO_JWT_AUDIENCE vide.');
+        return;
+    }
+
+    $public_key = sso_jwt_public_key();
+    if ($public_key === false) {
+        sso_log('debug', 'SSO désactivé : SSO_JWT_PUBLIC_KEY n\'est pas une clé publique PEM lisible.');
         return;
     }
 
@@ -119,7 +169,7 @@ function sso_jwt_intercept(): void
     // Le JWT est la seule source de vérité de la session : s'il est absent ou
     // invalide (expiré, signature KO...), toute session WP issue du SSO doit
     // être fermée. Sans ça, le cookie WP survivrait au token.
-    $payload = $jwt !== '' ? sso_decode_jwt($jwt, SSO_JWT_SECRET) : false;
+    $payload = $jwt !== '' ? sso_decode_jwt($jwt, $public_key) : false;
 
     if ($payload === false) {
         if ($jwt === '') {
@@ -142,13 +192,11 @@ function sso_jwt_intercept(): void
         return;
     }
 
-    sso_log('debug', "Claims extraits — sub: {$user_login}, email: {$email}, firstName: {$first_name}, lastName: {$last_name}");
-
     // Cas 1 : déjà connecté avec le bon compte
     if (is_user_logged_in()) {
         $current = wp_get_current_user();
         if (strtolower($current->user_login) === strtolower($user_login)) {
-            sso_log('debug', "Utilisateur #{$current->ID} ({$user_login}) déjà connecté, sync meta.");
+            sso_log('debug', "Utilisateur #{$current->ID} déjà connecté, sync meta.");
             sso_sync_user_meta($current->ID, $email, $first_name, $last_name);
 
             // wp_update_user() a déjà mis à jour la base, mais l'objet WP_User courant (chargé en mémoire dès l'appel
@@ -162,29 +210,29 @@ function sso_jwt_intercept(): void
             return;
         }
         // Cas 2 : un autre compte WP est connecté → nettoyer la session WP
-        sso_log('info', "Conflit de session : WP connecté en tant que {$current->user_login}, JWT pour {$user_login}. Nettoyage session WP.");
+        sso_log('info', "Conflit de session : WP connecté en tant que #{$current->ID}, JWT pour un autre compte. Nettoyage session WP.");
         wp_clear_auth_cookie();
         wp_set_current_user(0);
     }
 
     $user = get_user_by('login', $user_login);
     if (!$user) {
-        sso_log('info', "Aucun compte WP pour {$user_login}, création en cours...");
+        sso_log('info', "Aucun compte WP pour ce sub, création en cours...");
         $user_id = sso_create_wp_user($user_login, $email, $first_name, $last_name);
         if (!$user_id || is_wp_error($user_id)) {
             $error = is_wp_error($user_id) ? $user_id->get_error_message() : 'user_id vide';
-            sso_log('info', "Échec création utilisateur {$user_login} : {$error}");
+            sso_log('info', "Échec création utilisateur : {$error}");
             return;
         }
         $user = get_user_by('id', $user_id);
-        sso_log('info', "Compte WP créé — ID: {$user_id}, login: {$user->user_login}, email: {$email}");
+        sso_log('info', "Compte WP créé — ID: {$user_id}");
     } else {
-        sso_log('debug', "Compte WP existant trouvé — ID: {$user->ID}, login: {$user->user_login}");
+        sso_log('debug', "Compte WP existant trouvé — ID: {$user->ID}");
         sso_sync_user_meta($user->ID, $email, $first_name, $last_name);
     }
 
     if (!$user) {
-        sso_log('info', "Impossible de récupérer l'objet WP_User après création pour {$user_login}.");
+        sso_log('info', "Impossible de récupérer l'objet WP_User après création.");
         return;
     }
 
@@ -192,7 +240,7 @@ function sso_jwt_intercept(): void
     sso_jwt_set_auth_cookie($user->ID, (int) $payload['exp']);
     do_action('wp_login', $user->user_login, $user);
 
-    sso_log('info', "Connexion SSO réussie — ID: {$user->ID}, login: {$user->user_login}, email: {$email}");
+    sso_log('info', "Connexion SSO réussie — ID: {$user->ID}");
 }
 
 /**
@@ -217,7 +265,7 @@ function sso_jwt_logout_if_sso_session(): void
         return;
     }
 
-    sso_log('info', "JWT absent/invalide → déconnexion WP de la session SSO #{$current->ID} ({$current->user_login}).");
+    sso_log('info', "JWT absent/invalide → déconnexion WP de la session SSO #{$current->ID}.");
 
     // wp_logout() (et non wp_clear_auth_cookie) : détruit aussi le session token
     // en base et déclenche l'action wp_logout (session WooCommerce, etc.).
@@ -274,12 +322,20 @@ function sso_jwt_set_auth_cookie(int $user_id, int $jwt_exp): void
         $info['sso'] = true;
         return $info;
     };
+    // Les nonces de la page en cours, dont celui de l'URL de déconnexion, dépendent
+    // du jeton de session lu dans le cookie de la requête : sans cela, la première
+    // page après la connexion SSO porterait un nonce de déconnexion refusé.
+    $expose_cookie_to_request = static function (string $logged_in_cookie) {
+        $_COOKIE[LOGGED_IN_COOKIE] = $logged_in_cookie;
+    };
 
     add_filter('auth_cookie_expiration', $limit_expiration, PHP_INT_MAX);
     add_filter('attach_session_information', $mark_sso_session, PHP_INT_MAX);
+    add_action('set_logged_in_cookie', $expose_cookie_to_request);
 
     wp_set_auth_cookie($user_id, true);
 
+    remove_action('set_logged_in_cookie', $expose_cookie_to_request);
     remove_filter('attach_session_information', $mark_sso_session, PHP_INT_MAX);
     remove_filter('auth_cookie_expiration', $limit_expiration, PHP_INT_MAX);
 
@@ -320,7 +376,7 @@ function sso_sync_user_meta(int $user_id, string $email, string $first_name, str
     if (!empty($email) && strtolower($user->user_email) !== strtolower($email)) {
         $existing = email_exists($email);
         if ($existing && (int) $existing !== $user_id) {
-            sso_log('info', "Conflit email : {$email} déjà utilisé par le compte #{$existing}, synchro email ignorée pour user #{$user_id} ({$user->user_login}).");
+            sso_log('info', "Conflit email : déjà utilisé par le compte #{$existing}, synchro email ignorée pour user #{$user_id}.");
         } else {
             $data['user_email'] = $email;
             $needs_update       = true;
@@ -346,8 +402,9 @@ function sso_sync_user_meta(int $user_id, string $email, string $first_name, str
 
 
 /**
- * Lors d'une déconnexion WordPress, on expire le cookie JWT sur le domaine
- * wildcard du MS pour forcer une reconnexion via le microservice SSO.
+ * Lors d'une déconnexion WordPress, on expire le cookie JWT avec les mêmes
+ * Domain et Path que le SSO pour forcer une reconnexion via le microservice.
+ * Vider $_COOKIE ne suffit pas : seul un Set-Cookie expiré atteint le navigateur.
  */
 add_action('wp_logout', 'sso_jwt_clear_cookie');
 function sso_jwt_clear_cookie(): void
@@ -356,4 +413,34 @@ function sso_jwt_clear_cookie(): void
         return;
     }
     unset($_COOKIE[SSO_JWT_COOKIE_NAME]);
+    setcookie(SSO_JWT_COOKIE_NAME, '', [
+        'expires'  => 1,
+        'path'     => '/',
+        'domain'   => SSO_JWT_COOKIE_DOMAIN,
+        'secure'   => true,
+        'httponly' => true,
+    ]);
+
+    // Seule une déconnexion de session SSO est redirigée ; les autres gardent la leur.
+    add_filter('logout_redirect', 'sso_jwt_logout_redirect');
+}
+
+/**
+ * Après la déconnexion WordPress, la navigation continue vers la déconnexion
+ * du SSO si elle est configurée, sinon vers l'accueil.
+ */
+function sso_jwt_logout_redirect(): string
+{
+    return SSO_LOGOUT_URL !== '' ? SSO_LOGOUT_URL : home_url();
+}
+
+// wp-login.php redirige avec wp_safe_redirect, qui refuse un hôte externe non autorisé.
+add_filter('allowed_redirect_hosts', 'sso_jwt_allow_logout_host');
+function sso_jwt_allow_logout_host(array $hosts): array
+{
+    $logout_host = wp_parse_url(SSO_LOGOUT_URL, PHP_URL_HOST);
+    if (is_string($logout_host)) {
+        $hosts[] = $logout_host;
+    }
+    return $hosts;
 }

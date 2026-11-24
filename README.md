@@ -109,3 +109,11 @@ Pour accéder à debian via l'explorateur (à mettre dans la barre)
 ```bash
 \\wsl$
 ```
+
+## Vérifier la session SSO
+
+Avec le Docker lancé et la base importée, rejoue les scénarios SSO JWT (clé de test générée à l'exécution, service web redémarré avec une configuration SSO de test puis rendu à celle de `.env`) ; le script sort en erreur au moindre écart :
+```bash
+tests/sso/replay.sh
+```
+Variables facultatives : `BASE_URL` (`http://localhost`), `PAGE_PATH` (`/mon-espace`), `COMPOSE` (`docker compose`).
