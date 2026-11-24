@@ -1,10 +1,16 @@
 
-# React dev server proxy — proxifie /react-dev/* vers le CRA dev server (localhost:3000).
-# Nécessite mod_proxy + mod_proxy_http (activés en dev via docker-compose).
-# Sans ces modules (prod), le bloc est ignoré.
+# Serveur Vite de l'espace client (npm run dev:wordpress) : relaie /react-dev/*,
+# modules HTTP et WebSocket du HMR, vers ESTHIMA_SPA_DEV_UPSTREAM (hôte:port,
+# host.docker.internal:5173 par défaut dans docker-compose.yml).
+# Nécessite mod_proxy, mod_proxy_http et mod_proxy_wstunnel (activés en dev via
+# docker-compose). Sans ces modules ou sans amont (prod), le bloc est ignoré.
 <IfModule mod_proxy.c>
     RewriteEngine On
-    RewriteRule ^react-dev/(.*)$ http://host.docker.internal:3000/$1 [P,L]
+    RewriteCond %{HTTP:Upgrade} ^websocket$ [NC]
+    RewriteCond %{ENV:ESTHIMA_SPA_DEV_UPSTREAM} ^(.+)$
+    RewriteRule ^react-dev/(.*)$ ws://%1/react-dev/$1 [P,L]
+    RewriteCond %{ENV:ESTHIMA_SPA_DEV_UPSTREAM} ^(.+)$
+    RewriteRule ^react-dev/(.*)$ http://%1/react-dev/$1 [P,L]
 </IfModule>
 
 # BEGIN WordPress

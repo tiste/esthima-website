@@ -79,7 +79,10 @@ Pour la bdd il faut lancer (si jamais quand elle n'existe plus dans l'image mysq
 
 ```bash
 make db
+make dburl
 ```
+
+`make db` n'importe que la base `esthima` du dump, dont les URLs sont celles de la production : `make dburl` les remplace par `http://local.esthima.com`.
 
 ## BDD REMOTE
 
@@ -109,6 +112,23 @@ Pour accéder à debian via l'explorateur (à mettre dans la barre)
 ```bash
 \\wsl$
 ```
+
+## Espace client (page « Mon espace »)
+
+La page `http://local.esthima.com/mon-espace` (template `tracking.php`) monte la SPA du dépôt `esthima-espace-client`, seulement pour un utilisateur connecté (sinon un lien de connexion). Deux modes, choisis par `ESTHIMA_SPA_DEV` :
+
+- **Développement** : la page charge le serveur Vite de l'espace client, relayé par Apache sous `/react-dev/` (HTTP et WebSocket du rechargement à chaud). Dans `esthima-espace-client`, lancer `npm run mock` et `npm run dev:wordpress`, puis ici :
+  ```bash
+  ESTHIMA_SPA_DEV=1 docker compose up -d web
+  ```
+  L'amont du relais est `ESTHIMA_SPA_DEV_UPSTREAM` (`host.docker.internal:5173` par défaut). Un `docker compose up` ou `make run` sans la variable revient au mode build.
+- **Build** : sans `ESTHIMA_SPA_DEV`, WordPress lit `manifest.json` sous `REACT_APP_CDN_URL` (le contenu de `dist/` après `npm run build:wordpress`) et charge l'entrée `wordpress`. Si `REACT_APP_CDN_URL` est vide ou si le manifeste est invalide, la page affiche « L'espace client ne peut pas être affiché pour le moment. ».
+
+Pour rejouer les scénarios du chargeur (manifestes de test, visiteur connecté ou non, faux CDN, repli sur le dernier manifeste valide, message d'échec) ; le script sort en erreur au moindre écart, puis rend au service web la configuration de `.env` (relancer ensuite avec `ESTHIMA_SPA_DEV=1` si besoin) :
+```bash
+tests/spa/replay.sh
+```
+Variables facultatives : `BASE_URL` (`http://localhost`), `PAGE_PATH` (`/mon-espace`), `COMPOSE` (`docker compose`).
 
 ## Vérifier la session SSO
 

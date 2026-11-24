@@ -116,10 +116,15 @@ define('SSO_JWT_AUDIENCE', getenv('SSO_JWT_AUDIENCE') ?: '');
 define('SSO_LOGOUT_URL', getenv('SSO_LOGOUT_URL') ?: '');
 
 /**
- * URL de base du CDN hébergeant le build React (sans slash final).
- * Utilisé en prod (WP_DEBUG = false) pour charger les assets depuis le CDN.
- * Exemple : define('REACT_APP_CDN_URL', 'https://cdn.esthima.fr/react');
+ * Espace client (SPA Vite) de la page « Mon espace », hors dépôt (variables
+ * d'environnement) :
+ *   ESTHIMA_SPA_DEV    vrai (1, true) : modules du serveur Vite, relayés par
+ *                      /react-dev/ (développement local, voir .htaccess) ;
+ *                      sinon le build publié sur REACT_APP_CDN_URL
+ *   REACT_APP_CDN_URL  base publique du build, qui contient manifest.json et
+ *                      assets/. Exemple : https://cdn.esthima.fr/espace-client/
  */
+define('ESTHIMA_SPA_DEV', filter_var(getenv('ESTHIMA_SPA_DEV'), FILTER_VALIDATE_BOOLEAN));
 define('REACT_APP_CDN_URL', getenv('REACT_APP_CDN_URL') ?: '');
 
 /**
