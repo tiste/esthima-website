@@ -109,7 +109,6 @@ function theme_enqueue_scripts()
     wp_enqueue_script('trackingDataLayer', get_stylesheet_directory_uri() . '/js/trackingDataLayer.js', array('jquery'), filemtime(get_template_directory() . '/js/trackingDataLayer.js'), true);
     wp_enqueue_script('trackingEvents', get_stylesheet_directory_uri() . '/js/trackingEvents.js', array('jquery'), filemtime(get_template_directory() . '/js/trackingEvents.js'), true);
     wp_enqueue_script('tracking', get_stylesheet_directory_uri() . '/js/tracking.js', array('jquery', 'trackingDataLayer'), filemtime(get_template_directory() . '/js/tracking.js'), true);
-     wp_enqueue_script( 'animal-tracking', get_stylesheet_directory_uri() . '/src/js/animal-tracking.js', array('jquery', 'trackingDataLayer'), filemtime(  get_template_directory() . '/src/js/animal-tracking.js' ), true );
 
     $user_id = get_current_user_id();
     if ($user_id > 0) {
@@ -131,103 +130,156 @@ function theme_enqueue_scripts()
 add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 
 
-function esthima_enqueue_react_app(): void
+/*
+ * Espace client (SPA Vite) de la page « Mon espace » (templates/tracking.php),
+ * chargé seulement pour un utilisateur connecté. ESTHIMA_SPA_DEV choisit le
+ * serveur Vite relayé par /react-dev/ (.htaccess), sinon le build publié sur
+ * REACT_APP_CDN_URL, lu dans son manifeste. Le template n'affiche le point de
+ * montage que si l'entrée a été enqueuée (esthima_spa_is_enqueued).
+ */
+function esthima_spa_enqueue(): void
 {
-    if ( ! is_page_template( 'templates/tracking.php' ) ) {
+    if (!is_page_template('templates/tracking.php') || !is_user_logged_in()) {
         return;
     }
 
-    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-        esthima_enqueue_react_app_dev();
-    } else {
-        esthima_enqueue_react_app_prod();
-    }
+    $GLOBALS['esthima_spa_enqueued'] = ESTHIMA_SPA_DEV ? esthima_spa_enqueue_dev() : esthima_spa_enqueue_build();
 }
 
-function esthima_enqueue_react_app_dev(): void
+add_action('wp_enqueue_scripts', 'esthima_spa_enqueue');
+
+function esthima_spa_is_enqueued(): bool
 {
-    // Apache proxifie /react-dev/* → http://host.docker.internal:3000/*
-    // → URL same-origin, invisible aux ad blockers et extensions navigateur.
-    wp_enqueue_script(
-        'esthima-react-app',
-        get_site_url() . '/react-dev/static/js/bundle.js',
-        [],
-        null,
-        false   // <head>
-    );
+    return !empty($GLOBALS['esthima_spa_enqueued']);
 }
 
-function esthima_enqueue_react_app_prod(): void
+// Le préambule React Refresh est importé par l'entrée elle-même.
+function esthima_spa_enqueue_dev(): bool
 {
-    if ( ! defined( 'REACT_APP_CDN_URL' ) || empty( REACT_APP_CDN_URL ) ) {
-        return;
-    }
+    // Version null : un « ?ver= » ferait de l'entrée un second module pour Vite.
+    wp_enqueue_script_module('esthima-spa-vite-client', '/react-dev/@vite/client', [], null);
+    wp_enqueue_script_module('esthima-spa', '/react-dev/src/entries/wordpress.tsx', [], null);
 
-    $manifest = esthima_get_react_manifest_remote();
-    if ( empty( $manifest['entrypoints'] ) ) {
-        return;
-    }
-
-    $cdn_url = untrailingslashit( REACT_APP_CDN_URL );
-
-    $js_entries  = array_values( array_filter( $manifest['entrypoints'], fn( $e ) => str_ends_with( $e, '.js' ) ) );
-    $css_entries = array_values( array_filter( $manifest['entrypoints'], fn( $e ) => str_ends_with( $e, '.css' ) ) );
-
-    foreach ( $css_entries as $entry ) {
-        wp_enqueue_style( 'esthima-react-app', $cdn_url . '/' . ltrim( $entry, '/' ), [], null );
-    }
-
-    // Tous les JS sauf le dernier sont des chunks ; le dernier est le bundle principal.
-    $chunk_handles = [];
-    $js_count      = count( $js_entries );
-    for ( $i = 0; $i < $js_count - 1; $i++ ) {
-        $handle          = 'esthima-react-chunk-' . $i;
-        $chunk_handles[] = $handle;
-        wp_enqueue_script( $handle, $cdn_url . '/' . ltrim( $js_entries[ $i ], '/' ), [], null, false );
-    }
-
-    if ( $js_count > 0 ) {
-        wp_enqueue_script(
-            'esthima-react-app',
-            $cdn_url . '/' . ltrim( $js_entries[ $js_count - 1 ], '/' ),
-            $chunk_handles,
-            null,
-            false   // <head>
-        );
-    }
+    return true;
 }
 
-function esthima_get_react_manifest_remote(): array
+function esthima_spa_enqueue_build(): bool
 {
-    $cached = get_transient( 'esthima_react_manifest' );
-    if ( $cached !== false ) {
+    $assets = esthima_spa_build_assets();
+    if ($assets === null) {
+        return false;
+    }
+
+    foreach ($assets['css'] as $index => $url) {
+        wp_enqueue_style('esthima-spa-' . $index, $url, [], null);
+    }
+    wp_enqueue_script_module('esthima-spa', $assets['module'], [], null);
+
+    return true;
+}
+
+/*
+ * URLs de l'entrée « wordpress » du build et des CSS de l'entrée et de ses
+ * imports, gardées une minute. Si le manifeste est absent ou incohérent, le
+ * dernier manifeste valide sert ; sans lui, null.
+ */
+function esthima_spa_build_assets(): ?array
+{
+    $cached = get_transient('esthima_spa_assets');
+    if (is_array($cached)) {
         return $cached;
     }
 
-    $url = untrailingslashit( REACT_APP_CDN_URL ) . '/asset-manifest.json';
-    $res = wp_remote_get( $url, [ 'timeout' => 2 ] );
-
-    if ( is_wp_error( $res ) || wp_remote_retrieve_response_code( $res ) !== 200 ) {
-        return get_option( 'esthima_react_manifest_last', [] ) ?: [];
+    $assets = esthima_spa_assets_from_cdn();
+    if ($assets !== null) {
+        update_option('esthima_spa_assets_last', $assets, false);
+    } else {
+        $assets = get_option('esthima_spa_assets_last') ?: null;
+    }
+    if ($assets !== null) {
+        set_transient('esthima_spa_assets', $assets, MINUTE_IN_SECONDS);
     }
 
-    $data = json_decode( wp_remote_retrieve_body( $res ), true );
-    $data = is_array( $data ) ? $data : [];
-
-    set_transient( 'esthima_react_manifest', $data, 60 );
-    update_option( 'esthima_react_manifest_last', $data );
-
-    return $data;
+    return $assets;
 }
 
-add_action( 'wp_enqueue_scripts', 'esthima_enqueue_react_app' );
-
-add_filter( 'script_loader_tag', function ( string $tag, string $handle ): string {
-    if ( $handle === 'esthima-react-app' || str_starts_with( $handle, 'esthima-react-chunk-' ) ) {
-        return str_replace( '<script ', '<script defer ', $tag );
+function esthima_spa_assets_from_cdn(): ?array
+{
+    if (REACT_APP_CDN_URL === '') {
+        error_log('[esthima-spa] REACT_APP_CDN_URL est vide : aucun build à charger.');
+        return null;
     }
-    return $tag;
-}, 10, 2 );
+
+    $base         = trailingslashit(REACT_APP_CDN_URL);
+    $manifest_url = $base . 'manifest.json';
+    $response     = wp_remote_get($manifest_url, ['timeout' => 2]);
+    if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+        error_log("[esthima-spa] Manifeste indisponible : $manifest_url");
+        return null;
+    }
+
+    $manifest  = json_decode(wp_remote_retrieve_body($response), true);
+    $entry_key = is_array($manifest) ? esthima_spa_wordpress_entry_key($manifest) : null;
+    $css_files = $entry_key !== null ? esthima_spa_css_files($manifest, $entry_key) : null;
+    if ($css_files === null) {
+        error_log("[esthima-spa] Manifeste sans entrée « wordpress » cohérente : $manifest_url");
+        return null;
+    }
+
+    return [
+        'module' => $base . $manifest[$entry_key]['file'],
+        'css'    => array_map(fn(string $file): string => $base . $file, $css_files),
+    ];
+}
+
+// Seule l'entrée nommée « wordpress » est résolue, jamais l'entrée standalone.
+function esthima_spa_wordpress_entry_key(array $manifest): ?string
+{
+    $keys = array_keys(array_filter(
+        $manifest,
+        fn($chunk): bool => is_array($chunk) && ($chunk['isEntry'] ?? false) === true && ($chunk['name'] ?? null) === 'wordpress'
+    ));
+    if (count($keys) !== 1 || !esthima_spa_is_asset_path($manifest[$keys[0]]['file'] ?? null, 'js')) {
+        return null;
+    }
+
+    return $keys[0];
+}
+
+// CSS des imports statiques puis du chunk, dans l'ordre du build Vite ; null si incohérent.
+function esthima_spa_css_files(array $manifest, string $key, array &$visited = []): ?array
+{
+    if (isset($visited[$key])) {
+        return [];
+    }
+    $visited[$key] = true;
+    $chunk = $manifest[$key] ?? null;
+    if (!is_array($chunk)) {
+        return null;
+    }
+
+    $files = [];
+    foreach ((array) ($chunk['imports'] ?? []) as $import) {
+        $imported = is_string($import) ? esthima_spa_css_files($manifest, $import, $visited) : null;
+        if ($imported === null) {
+            return null;
+        }
+        $files = array_merge($files, $imported);
+    }
+    foreach ((array) ($chunk['css'] ?? []) as $file) {
+        if (!esthima_spa_is_asset_path($file, 'css')) {
+            return null;
+        }
+        $files[] = $file;
+    }
+
+    return $files;
+}
+
+function esthima_spa_is_asset_path($path, string $extension): bool
+{
+    return is_string($path) && preg_match('#^assets/[\w.-]+\.' . $extension . '$#', $path) === 1;
+}
 
 
 function enqueue_contact_tracking_script() {

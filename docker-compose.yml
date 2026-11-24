@@ -21,6 +21,7 @@ services:
             APACHE_EXTENSION_HEADERS: 1
             APACHE_EXTENSION_PROXY: 1
             APACHE_EXTENSION_PROXY_HTTP: 1
+            APACHE_EXTENSION_PROXY_WSTUNNEL: 1
             DB_HOST: mysql
             DB_NAME: ${DB_NAME}
             DB_USER: ${DB_USER}
@@ -30,7 +31,9 @@ services:
             SSO_JWT_AUDIENCE: ${SSO_JWT_AUDIENCE}
             SSO_LOGOUT_URL: ${SSO_LOGOUT_URL}
             WP_DEBUG: ${WP_DEBUG}
-            REACT_APP_CDN_URL: ${REACT_APP_CDN_URL}
+            REACT_APP_CDN_URL: ${REACT_APP_CDN_URL:-}
+            ESTHIMA_SPA_DEV: ${ESTHIMA_SPA_DEV:-}
+            ESTHIMA_SPA_DEV_UPSTREAM: ${ESTHIMA_SPA_DEV_UPSTREAM:-host.docker.internal:5173}
         depends_on:
             - mysql
 
