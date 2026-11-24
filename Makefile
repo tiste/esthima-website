@@ -43,9 +43,10 @@ npmprod: ## npm run prod
 sshdb: ## tunnel ssh db
 	docker exec -it  web-$(NAME_PROJECT) /bin/bash -c "sudo apt-get update && sudo apt-get install autossh && autossh -M 0 -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' -N -L 3306:127.0.0.1:3306 -p ${SSH_PORT} ${SSH_USER}@${SSH_HOST}"
 
+# --one-database: the dump also holds the mysql system database, whose accounts would replace those of the .env.
 .PHONY: db
 db: ## Install database
-	docker exec -i mysql-$(NAME_PROJECT) mysql -uroot -f -p$(SQL_PASS) $(NAME_PROJECT) < db/dump.sql
+	docker exec -i mysql-$(NAME_PROJECT) mysql -uroot -f -p$(SQL_PASS) --one-database $(NAME_PROJECT) < db/dump.sql
 
 .PHONY: dburl
 dburl: ## Set WordPress URL to local
